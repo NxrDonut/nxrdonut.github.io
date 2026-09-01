@@ -2,7 +2,6 @@ const intro = document.getElementById("intro");
 const enterButton = document.getElementById("enter");
 
 const video = document.getElementById("background-video");
-const music = document.getElementById("music");
 
 const musicToggle = document.getElementById("music-toggle");
 const volume = document.getElementById("volume");
@@ -10,10 +9,10 @@ const volume = document.getElementById("volume");
 let entered = false;
 
 /* =========================
-   DEFAULT MUSIC VOLUME
+   DEFAULT VOLUME
    ========================= */
 
-music.volume = 0.35;
+video.volume = 0.35;
 
 /* =========================
    ENTER WEBSITE
@@ -33,60 +32,53 @@ enterButton.addEventListener("click", async () => {
     /* Hide CLICK */
     intro.classList.add("hidden");
 
-    /* Start background video */
+    /*
+     * The video was muted so the browser
+     * could autoplay it.
+     *
+     * The user's click now allows us
+     * to turn the audio on.
+     */
+
     try {
 
-        video.muted = true;
+        video.muted = false;
+        video.volume = Number(volume.value);
 
         await video.play();
-
-    } catch (error) {
-
-        console.log(
-            "Background video could not start:",
-            error
-        );
-
-    }
-
-    /* Start music */
-    try {
-
-        await music.play();
 
         musicToggle.textContent = "❚❚";
 
     } catch (error) {
 
         console.log(
-            "Music could not start:",
+            "Video/audio could not start:",
             error
         );
 
         musicToggle.textContent = "▶";
-
     }
 
 });
 
 /* =========================
-   MUSIC PLAY / PAUSE
+   PLAY / PAUSE VIDEO AUDIO
    ========================= */
 
 musicToggle.addEventListener("click", async () => {
 
-    if (music.paused) {
+    if (video.paused) {
 
         try {
 
-            await music.play();
+            await video.play();
 
             musicToggle.textContent = "❚❚";
 
         } catch (error) {
 
             console.log(
-                "Music could not start:",
+                "Video could not start:",
                 error
             );
 
@@ -94,7 +86,7 @@ musicToggle.addEventListener("click", async () => {
 
     } else {
 
-        music.pause();
+        video.pause();
 
         musicToggle.textContent = "▶";
 
@@ -108,12 +100,12 @@ musicToggle.addEventListener("click", async () => {
 
 volume.addEventListener("input", () => {
 
-    music.volume = Number(volume.value);
+    video.volume = Number(volume.value);
 
 });
 
 /* =========================
-   SPACEBAR MUSIC CONTROL
+   SPACEBAR
    ========================= */
 
 document.addEventListener("keydown", (event) => {
