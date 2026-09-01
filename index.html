@@ -11,19 +11,18 @@
 
 <body>
 
-    <!-- BACKGROUND VIDEO -->
-    <video
-        id="background-video"
-        src="./video.mp4"
+    <!-- AUDIO -->
+    <audio
+        id="background-music"
+        src="./music.mp3"
         loop
-        playsinline
         preload="auto">
-    </video>
+    </audio>
 
-    <div class="video-overlay"></div>
 
     <!-- PARTICLES -->
     <div id="particles"></div>
+
 
     <!-- CURSOR -->
     <div id="cursor-glow"></div>
@@ -37,18 +36,24 @@
     <div class="cursor-trail trail-6"></div>
 
 
-    <!-- TOP BAR -->
+    <!-- TOP NAVIGATION -->
     <header class="topbar">
 
-        <div class="top-logo">
-            NxrDonut
-        </div>
-
         <button
-            id="experience-button"
-            class="nav-button">
-            Experience
+            class="top-logo"
+            id="home-button">
+            NxrDonut
         </button>
+
+        <nav class="navigation">
+
+            <button
+                class="nav-button"
+                id="experience-button">
+                Experience
+            </button>
+
+        </nav>
 
     </header>
 
@@ -71,441 +76,648 @@
     </div>
 
 
-    <!-- CLICK TO ENTER -->
+    <!-- INTRO -->
     <div id="intro">
 
         <div class="intro-content">
 
             <div class="intro-ring"></div>
 
-            <div class="intro-text">
+            <span class="intro-text">
                 CLICK ANYWHERE
-            </div>
+            </span>
 
-            <div class="intro-subtext">
+            <span class="intro-subtext">
                 ENTER EXPERIENCE
-            </div>
+            </span>
 
         </div>
 
     </div>
 
 
-    <!-- PROFILE -->
-    <main id="profile">
+    <!-- MAIN -->
+    <main>
 
+
+        <!-- HERO -->
         <section
-            id="profile-card"
-            class="profile-card">
+            id="home"
+            class="hero section">
 
-            <!-- PROFILE PICTURE -->
-            <div class="avatar-wrapper">
+            <div class="hero-aura"></div>
 
-                <div class="avatar-glow"></div>
-
-                <img
-                    src="./pfp.jpg"
-                    class="avatar"
-                    alt="NxrDonut">
-
-            </div>
+            <div
+                class="hero-content"
+                id="hero-content">
 
 
-            <!-- USERNAME -->
-            <h1 class="username">
-                NxrDonut
-                <span class="verified">✓</span>
-            </h1>
+                <!-- PROFILE PICTURE -->
+
+                <div class="avatar-wrapper">
+
+                    <div class="avatar-aura"></div>
+
+                    <img
+                        src="./pfp.jpg"
+                        class="avatar"
+                        alt="NxrDonut">
+
+                </div>
 
 
-            <!-- BADGES -->
-            <div class="badges">
+                <!-- USERNAME -->
 
-                <span class="badge">
-                    DEV
-                </span>
+                <h1 class="username">
+                    NxrDonut
 
-                <span class="badge">
-                    SCREENSHARER
-                </span>
-
-                <span class="badge">
-                    RLT2
-                </span>
-
-            </div>
+                    <span class="verified">
+                        ✓
+                    </span>
+                </h1>
 
 
-            <!-- BIO -->
-            <p class="bio">
-                Screensharer / Dev / RLT2
-            </p>
+                <!-- BADGES -->
 
+                <div class="badges">
 
-            <!-- STATS -->
-            <div class="stats">
-
-                <button
-                    id="views-button"
-                    class="stat">
-
-                    <span class="stat-symbol">
-                        ◉
+                    <span class="badge">
+                        DEVELOPER
                     </span>
 
-                    <span class="stat-info">
-                        <strong>1,284</strong>
-                        <small>views</small>
+                    <span class="badge">
+                        SCREENSHARER
                     </span>
 
-                </button>
-
-
-                <div class="stat">
-
-                    <span class="stat-symbol online">
-                        ●
+                    <span class="badge">
+                        COMPETITIVE MC PLAYER
                     </span>
 
-                    <span class="stat-info">
-                        <strong>Online</strong>
-                        <small>status</small>
+                </div>
+
+
+                <!-- BIO -->
+
+                <p class="bio">
+                    18 years old · 4x HT3 · 1x LT2 ·
+                    #21 MCPvP.com · #37 CatPvP.xyz
+                </p>
+
+
+                <!-- STATS -->
+
+                <div class="stats">
+
+                    <button
+                        id="views-button"
+                        class="stat">
+
+                        <span class="stat-symbol">
+                            ◉
+                        </span>
+
+                        <span class="stat-info">
+
+                            <strong>
+                                1,284
+                            </strong>
+
+                            <small>
+                                views
+                            </small>
+
+                        </span>
+
+                    </button>
+
+
+                    <div class="stat">
+
+                        <span class="stat-symbol online">
+                            ●
+                        </span>
+
+                        <span class="stat-info">
+
+                            <strong>
+                                Online
+                            </strong>
+
+                            <small>
+                                status
+                            </small>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VIEWS POPUP -->
+
+                <div
+                    id="views-popup"
+                    class="views-popup">
+
+                    <span>
+                        Profile views
                     </span>
+
+                    <strong>
+                        1,284
+                    </strong>
+
+                </div>
+
+
+                <!-- SOCIALS -->
+
+                <div class="social-links">
+
+
+                    <!-- DISCORD -->
+
+                    <a
+                        href="#"
+                        id="discord-link"
+                        class="social-link">
+
+                        <div class="social-left">
+
+                            <img
+                                src="./icons/discord.png"
+                                alt="Discord">
+
+                            <span id="discord-text">
+                                Discord
+                            </span>
+
+                        </div>
+
+                        <span class="social-arrow">
+                            ↗
+                        </span>
+
+                    </a>
+
+
+                    <!-- YOUTUBE -->
+
+                    <a
+                        href="https://www.youtube.com/@nxrdonut"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-link">
+
+                        <div class="social-left">
+
+                            <img
+                                src="./icons/youtube.png"
+                                alt="YouTube">
+
+                            <span>
+                                YouTube
+                            </span>
+
+                        </div>
+
+                        <span class="social-arrow">
+                            ↗
+                        </span>
+
+                    </a>
+
+
+                    <!-- GITHUB -->
+
+                    <a
+                        href="https://github.com/nxrdonut"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="social-link">
+
+                        <div class="social-left">
+
+                            <img
+                                src="./icons/github.png"
+                                alt="GitHub">
+
+                            <span>
+                                GitHub
+                            </span>
+
+                        </div>
+
+                        <span class="social-arrow">
+                            ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- MUSIC -->
+
+                <div class="music-player">
+
+                    <button
+                        id="music-toggle"
+                        class="play-button">
+                        ▶
+                    </button>
+
+                    <div class="music-info">
+
+                        <span>
+                            NOW PLAYING
+                        </span>
+
+                        <strong>
+                            Background Music
+                        </strong>
+
+                    </div>
+
+                    <div class="sound-wave">
+
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+                        <i></i>
+
+                    </div>
 
                 </div>
 
             </div>
 
 
-            <!-- VIEWS POPUP -->
-            <div
-                id="views-popup"
-                class="views-popup">
+            <!-- SCROLL -->
+
+            <div class="scroll-indicator">
 
                 <span>
-                    Profile views
+                    SCROLL
                 </span>
 
-                <strong>
-                    1,284
-                </strong>
-
-            </div>
-
-
-            <div class="divider"></div>
-
-
-            <!-- SOCIALS -->
-            <div class="social-links">
-
-                <!-- DISCORD -->
-                <a
-                    href="#"
-                    id="discord-link"
-                    class="social-link">
-
-                    <div class="social-left">
-
-                        <img
-                            src="./icons/discord.png"
-                            alt="Discord">
-
-                        <span id="discord-text">
-                            Discord
-                        </span>
-
-                    </div>
-
-                    <span class="social-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <!-- YOUTUBE -->
-                <a
-                    href="https://www.youtube.com/@nxrdonut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-link">
-
-                    <div class="social-left">
-
-                        <img
-                            src="./icons/youtube.png"
-                            alt="YouTube">
-
-                        <span>
-                            YouTube
-                        </span>
-
-                    </div>
-
-                    <span class="social-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <!-- GITHUB -->
-                <a
-                    href="https://github.com/nxrdonut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="social-link">
-
-                    <div class="social-left">
-
-                        <img
-                            src="./icons/github.png"
-                            alt="GitHub">
-
-                        <span>
-                            GitHub
-                        </span>
-
-                    </div>
-
-                    <span class="social-arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- VIDEO PLAYER -->
-            <div class="player">
-
-                <button
-                    id="music-toggle"
-                    class="play-button">
-                    ▶
-                </button>
-
-                <div class="track-info">
-
-                    <span class="track-label">
-                        NOW PLAYING
-                    </span>
-
-                    <span class="track-name">
-                        Background video
-                    </span>
-
-                </div>
-
-                <div class="sound-wave">
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                    <i></i>
-                </div>
+                <div class="scroll-line"></div>
 
             </div>
 
         </section>
 
 
-        <footer>
-            NxrDonut · 2026
-        </footer>
 
-    </main>
+        <!-- EXPERIENCE -->
 
-
-    <!-- EXPERIENCE -->
-    <section
-        id="experience-section"
-        class="experience-section">
-
-        <button
-            id="close-experience"
-            class="close-button">
-            ×
-        </button>
-
-        <div class="experience-box">
-
-            <span class="experience-label">
-                EXPERIENCE
-            </span>
-
-            <h2>
-                What I do
-            </h2>
-
-            <p class="experience-intro">
-                Developer, screensharer and competitive Minecraft player.
-            </p>
+        <section
+            id="experience"
+            class="experience-section section">
 
 
-            <div class="experience-grid">
+            <div class="section-heading">
+
+                <span class="section-label">
+                    EXPERIENCE
+                </span>
+
+                <h2>
+                    What I do
+                </h2>
+
+                <p>
+                    Developer, screensharer and competitive
+                    Minecraft player.
+                </p>
+
+            </div>
 
 
-                <div class="experience-card">
+            <!-- BIG INTRO -->
 
-                    <span class="experience-icon">
-                        ⚡
-                    </span>
+            <div class="experience-intro">
 
-                    <strong>
-                        ex-SSeR — CertifyFFA
-                    </strong>
+                <p>
+                    I develop cheat clients, websites,
+                    screenshare tools and more.
+                </p>
 
-                    <small>
-                        Former screensharing staff.
-                    </small>
+                <p>
+                    I code in Java, Python, C++, JavaScript
+                    and more.
+                </p>
 
-                </div>
-
-
-                <div class="experience-card">
-
-                    <span class="experience-icon">
-                        ◈
-                    </span>
-
-                    <strong>
-                        Owner — Trace.ac
-                    </strong>
-
-                    <small>
-                        Owner & developer.
-                    </small>
-
-                </div>
+            </div>
 
 
-                <div class="experience-card">
+            <!-- EXPERIENCE LIST -->
 
-                    <span class="experience-icon">
-                        ◈
-                    </span>
+            <div class="experience-list">
 
-                    <strong>
-                        Owner — Nox Client
-                    </strong>
 
-                    <small>
-                        Owner & developer.
-                    </small>
+                <!-- 01 -->
+
+                <div class="experience-item">
+
+                    <div class="experience-number">
+                        01
+                    </div>
+
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            DEVELOPMENT
+                        </span>
+
+                        <h3>
+                            Developer
+                        </h3>
+
+                        <p>
+                            I develop cheat clients, websites,
+                            screenshare tools and other software.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <div class="experience-card">
+                <!-- 02 -->
 
-                    <span class="experience-icon">
-                        ◈
-                    </span>
+                <div class="experience-item">
 
-                    <strong>
-                        Owner — MCBE Blackfish Client
-                    </strong>
+                    <div class="experience-number">
+                        02
+                    </div>
 
-                    <small>
-                        Owner & developer.
-                    </small>
+                    <div class="experience-content">
 
-                </div>
+                        <span class="experience-category">
+                            PROGRAMMING
+                        </span>
 
+                        <h3>
+                            Java · Python · C++ · JavaScript
+                        </h3>
 
-                <div class="experience-card">
+                        <p>
+                            I code in Java, Python, C++,
+                            JavaScript and other languages
+                            and technologies.
+                        </p>
 
-                    <span class="experience-icon">
-                        ⌁
-                    </span>
-
-                    <strong>
-                        Experienced Screensharer
-                    </strong>
-
-                    <small>
-                        2 years of experience.
-                    </small>
+                    </div>
 
                 </div>
 
 
-                <div class="experience-card">
+                <!-- 03 -->
 
-                    <span class="experience-icon">
-                        ✦
-                    </span>
+                <div class="experience-item">
 
-                    <strong>
-                        ex-SSeR — BJTL
-                    </strong>
+                    <div class="experience-number">
+                        03
+                    </div>
 
-                    <small>
-                        Former SSeR in a Discord community with 10k+ members.
-                    </small>
+                    <div class="experience-content">
 
-                </div>
+                        <span class="experience-category">
+                            SCREENSHARING
+                        </span>
 
+                        <h3>
+                            Experienced Screensharer
+                        </h3>
 
-                <div class="experience-card">
+                        <p>
+                            Two years of screensharing
+                            experience across Minecraft
+                            communities.
+                        </p>
 
-                    <span class="experience-icon">
-                        #21
-                    </span>
-
-                    <strong>
-                        MCPvP.com
-                    </strong>
-
-                    <small>
-                        Peak placement: #21.
-                    </small>
+                    </div>
 
                 </div>
 
 
-                <div class="experience-card">
+                <!-- 04 -->
 
-                    <span class="experience-icon">
-                        #37
-                    </span>
+                <div class="experience-item">
 
-                    <strong>
-                        CatPvP.xyz
-                    </strong>
+                    <div class="experience-number">
+                        04
+                    </div>
 
-                    <small>
-                        Peak placement: #37.
-                    </small>
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            STAFF
+                        </span>
+
+                        <h3>
+                            ex-SSeR — CertifyFFA
+                        </h3>
+
+                        <p>
+                            Former screensharing staff member
+                            at CertifyFFA.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <div class="experience-card">
+                <!-- 05 -->
 
-                    <span class="experience-icon">
-                        ⚔
-                    </span>
+                <div class="experience-item">
 
-                    <strong>
-                        Restricted LowTier 2
-                    </strong>
+                    <div class="experience-number">
+                        05
+                    </div>
 
-                    <small>
-                        Competitive Minecraft PvP.
-                    </small>
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            STAFF
+                        </span>
+
+                        <h3>
+                            ex-SSeR — BJTL
+                        </h3>
+
+                        <p>
+                            Former SSeR within a Minecraft
+                            community with 10k+ Discord members.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 06 -->
+
+                <div class="experience-item">
+
+                    <div class="experience-number">
+                        06
+                    </div>
+
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            STAFF
+                        </span>
+
+                        <h3>
+                            ex-SSeR — ArcFFA
+                        </h3>
+
+                        <p>
+                            Former screensharing staff member
+                            at ArcFFA.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 07 -->
+
+                <div class="experience-item">
+
+                    <div class="experience-number">
+                        07
+                    </div>
+
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            DEVELOPMENT
+                        </span>
+
+                        <h3>
+                            Owner — Trace.ac
+                        </h3>
+
+                        <p>
+                            Owner and developer of Trace.ac.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 08 -->
+
+                <div class="experience-item">
+
+                    <div class="experience-number">
+                        08
+                    </div>
+
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            DEVELOPMENT
+                        </span>
+
+                        <h3>
+                            Owner — Nox Client
+                        </h3>
+
+                        <p>
+                            Owner and developer of Nox Client.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 09 -->
+
+                <div class="experience-item">
+
+                    <div class="experience-number">
+                        09
+                    </div>
+
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            DEVELOPMENT
+                        </span>
+
+                        <h3>
+                            Owner — MCBE Blackfish Client
+                        </h3>
+
+                        <p>
+                            Owner and developer of MCBE
+                            Blackfish Client.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- 10 -->
+
+                <div class="experience-item">
+
+                    <div class="experience-number">
+                        10
+                    </div>
+
+                    <div class="experience-content">
+
+                        <span class="experience-category">
+                            COMPETITIVE
+                        </span>
+
+                        <h3>
+                            Competitive Minecraft
+                        </h3>
+
+                        <p>
+                            Competitive Minecraft player
+                            with 4x HT3 and 1x LT2 achievements.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
             </div>
 
-        </div>
 
-    </section>
+            <!-- FOOTER -->
+
+            <div class="experience-footer">
+
+                <span>
+                    NxrDonut
+                </span>
+
+                <span>
+                    DEVELOPER · SCREENSHARER · COMPETITIVE MC PLAYER
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
 
 
     <script src="./script.js"></script>
