@@ -7,8 +7,7 @@
 :root {
     --white: #ffffff;
     --muted: rgba(255,255,255,0.55);
-    --faint: rgba(255,255,255,0.12);
-    --glass: rgba(8,8,8,0.58);
+    --glass: rgba(7,7,7,0.65);
 }
 
 html,
@@ -17,8 +16,7 @@ body {
     min-height: 100%;
 
     background: #000;
-
-    color: var(--white);
+    color: #fff;
 
     font-family:
         Inter,
@@ -33,7 +31,7 @@ body {
 
 
 /* =========================================
-   VIDEO
+   BACKGROUND VIDEO
 ========================================= */
 
 #background-video {
@@ -71,10 +69,6 @@ body.entered #background-video {
 }
 
 
-/* =========================================
-   VIDEO OVERLAY
-========================================= */
-
 .video-overlay {
     position: fixed;
 
@@ -89,7 +83,7 @@ body.entered #background-video {
             circle at center,
             transparent 0%,
             rgba(0,0,0,0.35) 55%,
-            rgba(0,0,0,0.8) 100%
+            rgba(0,0,0,0.82) 100%
         );
 }
 
@@ -132,9 +126,7 @@ body.entered #background-video {
 @keyframes particleFloat {
 
     0% {
-        transform:
-            translate3d(0,40px,0);
-
+        transform: translate3d(0,40px,0);
         opacity: 0;
     }
 
@@ -147,16 +139,14 @@ body.entered #background-video {
     }
 
     100% {
-        transform:
-            translate3d(30px,-110vh,0);
-
+        transform: translate3d(30px,-110vh,0);
         opacity: 0;
     }
 }
 
 
 /* =========================================
-   CURSOR GLOW
+   CURSOR
 ========================================= */
 
 #cursor-glow {
@@ -180,23 +170,15 @@ body.entered #background-video {
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,0.13),
-            rgba(255,255,255,0.045) 35%,
+            rgba(255,255,255,0.14),
+            rgba(255,255,255,0.04) 35%,
             transparent 70%
         );
 
     filter: blur(12px);
 
     mix-blend-mode: screen;
-
-    transition:
-        opacity 0.3s ease;
 }
-
-
-/* =========================================
-   CURSOR DOT
-========================================= */
 
 .cursor-dot {
     position: fixed;
@@ -222,11 +204,6 @@ body.entered #background-video {
         0 0 8px #fff,
         0 0 20px rgba(255,255,255,0.8);
 }
-
-
-/* =========================================
-   MOTION BLUR TRAIL
-========================================= */
 
 .cursor-trail {
     position: fixed;
@@ -260,31 +237,26 @@ body.entered #background-video {
 
 .trail-2 {
     opacity: 0.55;
-
     filter: blur(5px);
 }
 
 .trail-3 {
     opacity: 0.4;
-
     filter: blur(7px);
 }
 
 .trail-4 {
     opacity: 0.28;
-
     filter: blur(9px);
 }
 
 .trail-5 {
     opacity: 0.18;
-
     filter: blur(11px);
 }
 
 .trail-6 {
     opacity: 0.1;
-
     filter: blur(14px);
 }
 
@@ -303,8 +275,7 @@ body.entered #background-video {
 
     height: 60px;
 
-    padding:
-        0 25px;
+    padding: 0 25px;
 
     display: flex;
 
@@ -315,7 +286,7 @@ body.entered #background-video {
     z-index: 100;
 
     background:
-        rgba(0,0,0,0.88);
+        rgba(0,0,0,0.9);
 
     border-bottom:
         1px solid
@@ -340,8 +311,7 @@ body.entered #background-video {
 
     border-radius: 9px;
 
-    padding:
-        8px 14px;
+    padding: 8px 14px;
 
     background:
         rgba(255,255,255,0.05);
@@ -354,8 +324,7 @@ body.entered #background-video {
 
     cursor: none;
 
-    transition:
-        0.25s ease;
+    transition: 0.25s ease;
 }
 
 .nav-button:hover {
@@ -443,7 +412,7 @@ body.entered #background-video {
 
 
 /* =========================================
-   FULL SCREEN INTRO
+   INTRO
 ========================================= */
 
 #intro {
@@ -467,12 +436,12 @@ body.entered #background-video {
         radial-gradient(
             circle at center,
             rgba(255,255,255,0.035),
-            rgba(0,0,0,0.55) 65%,
-            rgba(0,0,0,0.9)
+            rgba(0,0,0,0.6) 65%,
+            rgba(0,0,0,0.92)
         );
 
     backdrop-filter:
-        blur(3px);
+        blur(4px);
 
     transition:
         opacity 1s ease,
@@ -495,7 +464,6 @@ body.entered #background-video {
     flex-direction: column;
 
     align-items: center;
-
     justify-content: center;
 
     pointer-events: none;
@@ -515,14 +483,8 @@ body.entered #background-video {
         1px solid
         rgba(255,255,255,0.12);
 
-    box-shadow:
-        0 0 80px
-        rgba(255,255,255,0.04);
-
     animation:
-        introRing 3s
-        ease-in-out
-        infinite;
+        introRing 3s ease-in-out infinite;
 }
 
 @keyframes introRing {
@@ -530,13 +492,11 @@ body.entered #background-video {
     0%,
     100% {
         transform: scale(0.9);
-
         opacity: 0.25;
     }
 
     50% {
         transform: scale(1.08);
-
         opacity: 0.65;
     }
 }
@@ -557,9 +517,7 @@ body.entered #background-video {
         rgba(255,255,255,0.45);
 
     animation:
-        introPulse 2s
-        ease-in-out
-        infinite;
+        introPulse 2s ease-in-out infinite;
 }
 
 @keyframes introPulse {
@@ -604,8 +562,7 @@ body.entered #background-video {
     align-items: center;
     justify-content: center;
 
-    padding:
-        100px 20px 40px;
+    padding: 100px 20px 40px;
 
     opacity: 0;
 
@@ -617,17 +574,11 @@ body.entered #profile {
     opacity: 1;
 }
 
-
-/* =========================================
-   PROFILE CARD
-========================================= */
-
 .profile-card {
     width:
-        min(450px, 100%);
+        min(450px,100%);
 
-    padding:
-        32px;
+    padding: 32px;
 
     border:
         1px solid
@@ -646,9 +597,6 @@ body.entered #profile {
         rgba(0,0,0,0.75);
 
     text-align: center;
-
-    transform:
-        perspective(1000px);
 
     transition:
         transform 0.15s ease;
@@ -703,9 +651,7 @@ body.entered #profile {
     filter: blur(18px);
 
     animation:
-        avatarGlow 3s
-        ease-in-out
-        infinite;
+        avatarGlow 3s ease-in-out infinite;
 }
 
 @keyframes avatarGlow {
@@ -713,13 +659,11 @@ body.entered #profile {
     0%,
     100% {
         transform: scale(0.95);
-
         opacity: 0.3;
     }
 
     50% {
         transform: scale(1.08);
-
         opacity: 0.7;
     }
 }
@@ -781,8 +725,7 @@ body.entered #profile {
 }
 
 .badge {
-    padding:
-        5px 8px;
+    padding: 5px 8px;
 
     border:
         1px solid
@@ -799,8 +742,6 @@ body.entered #profile {
     font-size: 8px;
 
     font-weight: 800;
-
-    letter-spacing: 0.5px;
 }
 
 
@@ -839,8 +780,7 @@ body.entered #profile {
 
     gap: 9px;
 
-    padding:
-        9px 12px;
+    padding: 9px 12px;
 
     border:
         1px solid
@@ -947,8 +887,7 @@ body.entered #profile {
 
     width: 100%;
 
-    margin:
-        22px 0;
+    margin: 22px 0;
 
     background:
         rgba(255,255,255,0.08);
@@ -971,11 +910,9 @@ body.entered #profile {
     display: flex;
 
     align-items: center;
-
     justify-content: space-between;
 
-    padding:
-        12px 14px;
+    padding: 12px 14px;
 
     border:
         1px solid
@@ -1005,10 +942,6 @@ body.entered #profile {
 
     background:
         rgba(255,255,255,0.07);
-
-    box-shadow:
-        0 10px 30px
-        rgba(0,0,0,0.2);
 }
 
 .social-left {
@@ -1065,8 +998,7 @@ body.entered #profile {
 
     margin-top: 12px;
 
-    padding:
-        11px;
+    padding: 11px;
 
     border:
         1px solid
@@ -1126,11 +1058,6 @@ body.entered #profile {
         rgba(255,255,255,0.7);
 }
 
-
-/* =========================================
-   SOUND WAVE
-========================================= */
-
 .sound-wave {
     display: flex;
 
@@ -1148,26 +1075,27 @@ body.entered #profile {
 
     border-radius: 5px;
 
-    background: rgba(255,255,255,0.6);
+    background:
+        rgba(255,255,255,0.6);
 
     animation:
         wave 1s ease-in-out infinite;
 }
 
 .sound-wave i:nth-child(2) {
-    animation-delay: 0.1s;
+    animation-delay: .1s;
 }
 
 .sound-wave i:nth-child(3) {
-    animation-delay: 0.2s;
+    animation-delay: .2s;
 }
 
 .sound-wave i:nth-child(4) {
-    animation-delay: 0.3s;
+    animation-delay: .3s;
 }
 
 .sound-wave i:nth-child(5) {
-    animation-delay: 0.4s;
+    animation-delay: .4s;
 }
 
 @keyframes wave {
@@ -1198,7 +1126,7 @@ footer {
 
 
 /* =========================================
-   EXPERIENCE
+   LARGE EXPERIENCE
 ========================================= */
 
 .experience-section {
@@ -1213,10 +1141,10 @@ footer {
     align-items: center;
     justify-content: center;
 
-    padding: 25px;
+    padding: 30px;
 
     background:
-        rgba(0,0,0,0.82);
+        rgba(0,0,0,0.84);
 
     backdrop-filter:
         blur(30px);
@@ -1241,49 +1169,99 @@ footer {
 
 .experience-box {
     width:
-        min(700px, 100%);
+        min(950px,95vw);
 
-    padding: 35px;
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    padding: 55px;
 
     border:
         1px solid
-        rgba(255,255,255,0.1);
+        rgba(255,255,255,0.13);
 
-    border-radius: 22px;
+    border-radius: 28px;
 
     background:
-        rgba(7,7,7,0.85);
+        linear-gradient(
+            145deg,
+            rgba(12,12,12,0.96),
+            rgba(4,4,4,0.9)
+        );
 
     box-shadow:
-        0 30px 100px
-        rgba(0,0,0,0.8);
+        0 40px 120px
+        rgba(0,0,0,0.85);
+
+    backdrop-filter:
+        blur(35px);
+
+    animation:
+        experienceIn .45s
+        cubic-bezier(.16,1,.3,1);
+}
+
+@keyframes experienceIn {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px)
+            scale(.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
 }
 
 .experience-label {
-    color:
-        rgba(255,255,255,0.35);
+    display: block;
 
-    font-size: 9px;
+    margin-bottom: 8px;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
 
     font-weight: 900;
 
-    letter-spacing: 3px;
+    color:
+        rgba(255,255,255,0.35);
 }
 
 .experience-box h2 {
-    margin-top: 8px;
+    font-size:
+        clamp(38px,5vw,58px);
 
-    font-size: 32px;
+    line-height: 1;
+
+    letter-spacing: -2px;
+
+    margin-bottom: 14px;
 }
 
-.experience-box > p {
-    margin-top: 8px;
+.experience-intro {
+    max-width: 600px;
 
     color:
-        rgba(255,255,255,0.5);
+        rgba(255,255,255,0.48);
 
-    font-size: 13px;
+    font-size: 14px;
+
+    line-height: 1.6;
 }
+
+
+/* =========================================
+   EXPERIENCE GRID
+========================================= */
 
 .experience-grid {
     display: grid;
@@ -1291,46 +1269,105 @@ footer {
     grid-template-columns:
         repeat(3,1fr);
 
-    gap: 10px;
+    gap: 13px;
 
-    margin-top: 25px;
+    margin-top: 35px;
 }
 
 .experience-card {
+    min-height: 145px;
+
+    padding: 22px;
+
     display: flex;
 
     flex-direction: column;
 
-    gap: 8px;
+    justify-content: space-between;
 
-    padding: 18px;
+    text-align: left;
 
     border:
         1px solid
         rgba(255,255,255,0.08);
 
-    border-radius: 13px;
+    border-radius: 16px;
 
     background:
         rgba(255,255,255,0.025);
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+.experience-card:hover {
+    transform:
+        translateY(-5px);
+
+    background:
+        rgba(255,255,255,0.055);
+
+    border-color:
+        rgba(255,255,255,0.17);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,0.35);
 }
 
 .experience-icon {
-    font-size: 18px;
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.1);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    color: #fff;
+
+    font-size: 14px;
 
     font-weight: 900;
 }
 
 .experience-card strong {
-    font-size: 12px;
+    margin-top: 18px;
+
+    color: #fff;
+
+    font-size: 13px;
+
+    line-height: 1.35;
 }
 
 .experience-card small {
-    color:
-        rgba(255,255,255,0.4);
+    margin-top: 6px;
 
-    font-size: 9px;
+    color:
+        rgba(255,255,255,0.38);
+
+    font-size: 10px;
+
+    line-height: 1.5;
 }
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
 
 .close-button {
     position: absolute;
@@ -1338,8 +1375,8 @@ footer {
     top: 25px;
     right: 25px;
 
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
 
     border:
         1px solid
@@ -1348,13 +1385,44 @@ footer {
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,0.05);
+        rgba(255,255,255,0.055);
 
     color: #fff;
 
-    font-size: 22px;
+    font-size: 25px;
 
     cursor: none;
+
+    transition:
+        .2s ease;
+}
+
+.close-button:hover {
+    background:
+        rgba(255,255,255,0.12);
+
+    transform:
+        rotate(90deg);
+}
+
+
+/* =========================================
+   EXPERIENCE SCROLLBAR
+========================================= */
+
+.experience-box::-webkit-scrollbar {
+    width: 5px;
+}
+
+.experience-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.experience-box::-webkit-scrollbar-thumb {
+    background:
+        rgba(255,255,255,0.18);
+
+    border-radius: 10px;
 }
 
 
@@ -1362,7 +1430,20 @@ footer {
    MOBILE
 ========================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
+
+    .experience-box {
+        padding: 35px 22px;
+    }
+
+    .experience-grid {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media (max-width: 520px) {
 
     body {
         cursor: auto;
@@ -1374,22 +1455,20 @@ footer {
         display: none;
     }
 
-    .topbar {
-        padding:
-            0 16px;
-    }
+    .experience-box {
+        width: 96vw;
 
-    .profile-card {
-        padding:
-            27px 18px;
-    }
+        max-height: 90vh;
 
-    .username {
-        font-size: 28px;
+        padding: 30px 18px;
     }
 
     .experience-grid {
         grid-template-columns: 1fr;
+    }
+
+    .experience-box h2 {
+        font-size: 38px;
     }
 
     .intro-text {
