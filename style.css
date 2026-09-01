@@ -5,24 +5,29 @@
 html,
 body {
     margin: 0;
+    padding: 0;
+
     width: 100%;
     min-height: 100%;
+
+    background: #000;
+
+    color: #fff;
 
     font-family:
         Arial,
         Helvetica,
         sans-serif;
 
-    background: #000;
-    color: #fff;
-
     overflow-x: hidden;
+
+    cursor: default;
 }
 
 
-/* =========================
-   BACKGROUND VIDEO
-   ========================= */
+/* =========================================
+   VIDEO
+========================================= */
 
 #background-video {
     position: fixed;
@@ -40,12 +45,12 @@ body {
 
     transform: scale(1.08);
 
-    opacity: 0.7;
+    opacity: 0.65;
 
     transition:
-        filter 1.5s ease,
-        transform 1.5s ease,
-        opacity 1.5s ease;
+        filter 1.2s ease,
+        transform 1.2s ease,
+        opacity 1.2s ease;
 }
 
 body.entered #background-video {
@@ -57,201 +62,42 @@ body.entered #background-video {
 }
 
 
-/* =========================
-   BACKGROUND DARKNESS
-   ========================= */
+/* =========================================
+   VIDEO OVERLAY
+========================================= */
 
-.background-gradient {
+.video-overlay {
     position: fixed;
 
     inset: 0;
 
-    z-index: -9;
+    z-index: -5;
 
     pointer-events: none;
 
     background:
         radial-gradient(
             circle at center,
-            rgba(255,255,255,0.04),
-            transparent 45%
-        );
-}
-
-.darkness {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: -8;
-
-    pointer-events: none;
-
-    background:
-        radial-gradient(
-            ellipse at center,
             rgba(0,0,0,0.05),
-            rgba(0,0,0,0.5) 60%,
-            rgba(0,0,0,0.9)
+            rgba(0,0,0,0.65)
         );
 }
 
 
-/* =========================
-   NOISE
-   ========================= */
-
-.noise {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 30;
-
-    pointer-events: none;
-
-    opacity: 0.025;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-
-/* =========================
-   TOP BAR
-   ========================= */
-
-.topbar {
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-
-    height: 62px;
-
-    z-index: 55;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding:
-        0 28px;
-
-    background:
-        rgba(0,0,0,0.96);
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,0.07);
-
-    box-shadow:
-        0 8px 35px
-        rgba(0,0,0,0.5);
-}
-
-
-/* LOGO */
-
-.nav-logo {
-    font-size: 15px;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    color: #fff;
-
-    text-shadow:
-        0 0 18px
-        rgba(255,255,255,0.25);
-}
-
-
-/* NAVIGATION */
-
-.nav-links {
-    display: flex;
-
-    align-items: center;
-
-    gap: 4px;
-}
-
-.nav-button {
-    position: relative;
-
-    border: 0;
-
-    background: transparent;
-
-    color:
-        rgba(255,255,255,0.4);
-
-    padding:
-        10px 13px;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition:
-        color 0.25s ease;
-}
-
-.nav-button:hover,
-.nav-button.active {
-    color: #fff;
-}
-
-.nav-button::after {
-    content: "";
-
-    position: absolute;
-
-    left: 13px;
-    right: 13px;
-
-    bottom: 4px;
-
-    height: 1px;
-
-    background: #fff;
-
-    transform:
-        scaleX(0);
-
-    transition:
-        transform 0.25s ease;
-}
-
-.nav-button.active::after,
-.nav-button:hover::after {
-    transform:
-        scaleX(1);
-}
-
-
-/* =========================
+/* =========================================
    PARTICLES
-   ========================= */
+========================================= */
 
 #particles {
     position: fixed;
 
     inset: 0;
 
-    z-index: 1;
+    overflow: hidden;
 
     pointer-events: none;
 
-    overflow: hidden;
+    z-index: 2;
 }
 
 .particle {
@@ -262,28 +108,29 @@ body.entered #background-video {
 
     border-radius: 50%;
 
-    background:
-        rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.35);
 
-    filter: blur(0.5px);
+    box-shadow:
+        0 0 10px
+        rgba(255,255,255,0.3);
 
     animation:
-        particleFloat linear infinite;
+        floatParticle linear infinite;
 
     opacity: 0;
 }
 
-@keyframes particleFloat {
+@keyframes floatParticle {
 
     0% {
         transform:
-            translateY(30px);
+            translateY(20px);
 
         opacity: 0;
     }
 
     20% {
-        opacity: 0.35;
+        opacity: 0.5;
     }
 
     80% {
@@ -299,35 +146,43 @@ body.entered #background-video {
 }
 
 
-/* =========================
+/* =========================================
    CURSOR GLOW
-   ========================= */
+========================================= */
 
 .cursor-glow {
     position: fixed;
 
-    width: 280px;
-    height: 280px;
+    left: 0;
+    top: 0;
+
+    width: 250px;
+    height: 250px;
 
     border-radius: 50%;
-
-    pointer-events: none;
-
-    z-index: 25;
 
     transform:
         translate(-50%, -50%);
 
+    pointer-events: none;
+
+    z-index: 9998;
+
     background:
         radial-gradient(
             circle,
-            rgba(255,255,255,0.08),
-            transparent 70%
+            rgba(255,255,255,0.16) 0%,
+            rgba(255,255,255,0.07) 25%,
+            rgba(255,255,255,0.025) 45%,
+            transparent 72%
         );
 
-    filter: blur(12px);
+    filter: blur(9px);
 
     opacity: 0;
+
+    transition:
+        opacity 0.3s ease;
 }
 
 body.entered .cursor-glow {
@@ -335,26 +190,33 @@ body.entered .cursor-glow {
 }
 
 
-/* =========================
+/* =========================================
    CURSOR TRAIL
-   ========================= */
+========================================= */
 
 .cursor-trail {
     position: fixed;
 
-    width: 9px;
-    height: 9px;
+    left: 0;
+    top: 0;
+
+    transform:
+        translate(-50%, -50%);
 
     border-radius: 50%;
 
     pointer-events: none;
 
-    z-index: 26;
+    z-index: 9999;
 
-    background:
-        rgba(255,255,255,0.45);
+    background: #fff;
 
-    filter: blur(4px);
+    box-shadow:
+        0 0 8px rgba(255,255,255,0.9),
+        0 0 20px rgba(255,255,255,0.55),
+        0 0 40px rgba(255,255,255,0.2);
+
+    filter: blur(2px);
 
     opacity: 0;
 }
@@ -363,18 +225,151 @@ body.entered .cursor-trail {
     opacity: 1;
 }
 
+.trail-1 {
+    width: 10px;
+    height: 10px;
 
-/* =========================
+    filter: blur(1px);
+
+    opacity: 0.9;
+}
+
+.trail-2 {
+    width: 10px;
+    height: 10px;
+
+    filter: blur(2px);
+
+    opacity: 0.6;
+}
+
+.trail-3 {
+    width: 9px;
+    height: 9px;
+
+    filter: blur(3px);
+
+    opacity: 0.45;
+}
+
+.trail-4 {
+    width: 8px;
+    height: 8px;
+
+    filter: blur(4px);
+
+    opacity: 0.3;
+}
+
+.trail-5 {
+    width: 7px;
+    height: 7px;
+
+    filter: blur(5px);
+
+    opacity: 0.2;
+}
+
+.trail-6 {
+    width: 6px;
+    height: 6px;
+
+    filter: blur(7px);
+
+    opacity: 0.12;
+}
+
+
+/* =========================================
+   TOP BAR
+========================================= */
+
+.topbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+
+    height: 58px;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding:
+        0 24px;
+
+    background:
+        rgba(0,0,0,0.8);
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    backdrop-filter:
+        blur(20px);
+}
+
+.top-logo {
+    font-size: 15px;
+
+    font-weight: 900;
+
+    letter-spacing: -0.3px;
+}
+
+.experience-button {
+    padding:
+        8px 13px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color: #fff;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.experience-button:hover {
+    background:
+        rgba(255,255,255,0.1);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================
    VOLUME
-   ========================= */
+========================================= */
 
 .volume-control {
     position: fixed;
 
-    top: 78px;
+    top: 75px;
     left: 20px;
 
-    z-index: 60;
+    z-index: 200;
 
     width: 38px;
     height: 38px;
@@ -394,13 +389,13 @@ body.entered .cursor-trail {
     border-radius: 22px;
 
     background:
-        rgba(5,5,5,0.7);
+        rgba(0,0,0,0.7);
 
     backdrop-filter:
         blur(18px);
 
     transition:
-        width 0.35s ease;
+        width 0.3s ease;
 }
 
 .volume-control:hover {
@@ -418,23 +413,23 @@ body.entered .cursor-trail {
     align-items: center;
     justify-content: center;
 
+    font-size: 12px;
+
     border-radius: 50%;
 
     background:
         rgba(255,255,255,0.06);
-
-    font-size: 12px;
 }
 
 .volume-control input {
-    width: 88px;
+    width: 90px;
 
     margin-left: 8px;
 
     opacity: 0;
 
     transition:
-        opacity 0.25s ease;
+        opacity 0.2s ease;
 }
 
 .volume-control:hover input {
@@ -449,7 +444,7 @@ body.entered .cursor-trail {
     border-radius: 10px;
 
     background:
-        rgba(255,255,255,0.18);
+        rgba(255,255,255,0.2);
 
     outline: none;
 }
@@ -463,21 +458,22 @@ body.entered .cursor-trail {
     border-radius: 50%;
 
     background: #fff;
-
-    cursor: pointer;
 }
 
 
-/* =========================
-   CLICK SCREEN
-   ========================= */
+/* =========================================
+   INTRO
+========================================= */
 
 #intro {
     position: fixed;
 
     inset: 0;
 
-    z-index: 20;
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 1000;
 
     display: flex;
 
@@ -486,9 +482,13 @@ body.entered .cursor-trail {
 
     cursor: pointer;
 
+    background: transparent;
+
+    pointer-events: auto;
+
     transition:
-        opacity 0.9s ease,
-        visibility 0.9s ease;
+        opacity 0.8s ease,
+        visibility 0.8s ease;
 }
 
 #intro.hidden {
@@ -500,32 +500,46 @@ body.entered .cursor-trail {
 }
 
 #enter {
+    padding: 20px 30px;
+
+    user-select: none;
+
     font-size: 15px;
 
     font-weight: 900;
 
-    letter-spacing: 6px;
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 15px
+        rgba(255,255,255,0.5);
 
     animation:
-        clickPulse 2s infinite;
+        enterPulse 2s infinite;
 }
 
-@keyframes clickPulse {
+@keyframes enterPulse {
 
     0%,
     100% {
-        opacity: 0.4;
+        opacity: 0.45;
+
+        transform:
+            scale(1);
     }
 
     50% {
         opacity: 1;
+
+        transform:
+            scale(1.04);
     }
 }
 
 
-/* =========================
-   MAIN PROFILE
-   ========================= */
+/* =========================================
+   PROFILE
+========================================= */
 
 #profile {
     min-height: 100vh;
@@ -541,7 +555,7 @@ body.entered .cursor-trail {
     justify-content: center;
 
     padding:
-        100px 20px 40px;
+        90px 20px 40px;
 
     opacity: 0;
 
@@ -554,48 +568,9 @@ body.entered #profile {
 }
 
 
-/* =========================
-   SECTIONS
-   ========================= */
-
-.page-section {
-    display: none;
-
-    width: 100%;
-
-    justify-content: center;
-
-    animation:
-        sectionIn 0.5s ease;
-}
-
-.page-section.active-section {
-    display: flex;
-}
-
-@keyframes sectionIn {
-
-    from {
-        opacity: 0;
-
-        transform:
-            translateY(15px)
-            scale(0.98);
-    }
-
-    to {
-        opacity: 1;
-
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
-
-
-/* =========================
+/* =========================================
    PROFILE CARD
-   ========================= */
+========================================= */
 
 .card {
     width: min(450px, 100%);
@@ -613,8 +588,8 @@ body.entered #profile {
     background:
         linear-gradient(
             145deg,
-            rgba(255,255,255,0.06),
-            rgba(0,0,0,0.5)
+            rgba(255,255,255,0.065),
+            rgba(0,0,0,0.55)
         );
 
     backdrop-filter:
@@ -622,16 +597,16 @@ body.entered #profile {
 
     box-shadow:
         0 30px 100px
-        rgba(0,0,0,0.65);
+        rgba(0,0,0,0.75);
 
     transition:
         transform 0.12s ease;
 }
 
 
-/* =========================
-   PROFILE PICTURE
-   ========================= */
+/* =========================================
+   AVATAR
+========================================= */
 
 .avatar-container {
     position: relative;
@@ -646,6 +621,8 @@ body.entered #profile {
 .avatar {
     position: relative;
 
+    z-index: 2;
+
     width: 90px;
     height: 90px;
 
@@ -655,88 +632,92 @@ body.entered #profile {
 
     border:
         2px solid
-        rgba(255,255,255,0.22);
-
-    z-index: 2;
+        rgba(255,255,255,0.2);
 }
 
 .avatar-glow {
     position: absolute;
 
-    inset: -8px;
+    inset: -10px;
 
     border-radius: 50%;
 
     background:
         rgba(255,255,255,0.1);
 
-    filter: blur(15px);
+    filter: blur(16px);
 
     animation:
-        avatarPulse 3.5s infinite;
+        avatarPulse 3s infinite;
 }
 
 @keyframes avatarPulse {
 
     0%,
     100% {
-        opacity: 0.3;
-        transform: scale(0.92);
+        opacity: 0.25;
+
+        transform:
+            scale(0.95);
     }
 
     50% {
-        opacity: 0.7;
-        transform: scale(1.05);
+        opacity: 0.65;
+
+        transform:
+            scale(1.07);
     }
 }
 
 
-/* =========================
+/* =========================================
    USERNAME
-   ========================= */
+========================================= */
 
 .username {
-    display: flex;
-
-    justify-content: center;
-    align-items: center;
-
-    gap: 7px;
-
-    margin: 0;
+    margin:
+        0 0 13px;
 
     font-size: 32px;
 
     font-weight: 900;
 
+    letter-spacing: -1px;
+
+    text-shadow:
+        0 0 15px
+        rgba(255,255,255,0.25);
+
     animation:
-        usernameGlow 3s infinite;
+        nameGlow 3s infinite;
 }
 
-@keyframes usernameGlow {
+@keyframes nameGlow {
 
     0%,
     100% {
         text-shadow:
             0 0 10px
-            rgba(255,255,255,0.12);
+            rgba(255,255,255,0.15);
     }
 
     50% {
         text-shadow:
-            0 0 25px
-            rgba(255,255,255,0.45);
+            0 0 28px
+            rgba(255,255,255,0.5);
     }
 }
 
 .verified {
-    width: 18px;
-    height: 18px;
-
-    display: flex;
+    display: inline-flex;
 
     align-items: center;
     justify-content: center;
+
+    width: 18px;
+    height: 18px;
+
+    margin-left: 4px;
 
     border-radius: 50%;
 
@@ -745,33 +726,14 @@ body.entered #profile {
     color: #000;
 
     font-size: 11px;
-}
 
-.handle {
-    margin:
-        5px 0 12px;
-
-    color:
-        rgba(255,255,255,0.4);
-
-    font-size: 13px;
-}
-
-.bio {
-    margin: 0;
-
-    color:
-        rgba(255,255,255,0.78);
-
-    font-size: 13px;
-
-    line-height: 1.5;
+    vertical-align: middle;
 }
 
 
-/* =========================
+/* =========================================
    BADGES
-   ========================= */
+========================================= */
 
 .badges {
     display: flex;
@@ -782,24 +744,24 @@ body.entered #profile {
 
     gap: 6px;
 
-    margin-bottom: 15px;
+    margin-bottom: 13px;
 }
 
 .badge {
     padding:
         4px 8px;
 
-    border-radius: 6px;
-
     border:
         1px solid
         rgba(255,255,255,0.12);
 
+    border-radius: 6px;
+
     background:
-        rgba(255,255,255,0.045);
+        rgba(255,255,255,0.04);
 
     color:
-        rgba(255,255,255,0.62);
+        rgba(255,255,255,0.65);
 
     font-size: 9px;
 
@@ -807,9 +769,24 @@ body.entered #profile {
 }
 
 
-/* =========================
+/* =========================================
+   BIO
+========================================= */
+
+.bio {
+    margin:
+        0 0 18px;
+
+    color:
+        rgba(255,255,255,0.72);
+
+    font-size: 13px;
+}
+
+
+/* =========================================
    STATS
-   ========================= */
+========================================= */
 
 .stats {
     display: flex;
@@ -817,18 +794,16 @@ body.entered #profile {
     justify-content: center;
 
     gap: 9px;
-
-    margin-top: 20px;
 }
 
 .stat {
+    min-width: 115px;
+
     display: flex;
 
     align-items: center;
 
     gap: 9px;
-
-    min-width: 110px;
 
     padding:
         9px 12px;
@@ -843,10 +818,8 @@ body.entered #profile {
         rgba(255,255,255,0.03);
 
     color: #fff;
-}
 
-button.stat {
-    font: inherit;
+    font-family: inherit;
 
     cursor: pointer;
 }
@@ -856,7 +829,7 @@ button.stat {
         rgba(255,255,255,0.5);
 }
 
-.stat span:last-child {
+.stat-text {
     display: flex;
 
     flex-direction: column;
@@ -864,21 +837,21 @@ button.stat {
     text-align: left;
 }
 
-.stat strong {
+.stat-text strong {
     font-size: 11px;
 }
 
-.stat small {
+.stat-text small {
     color:
-        rgba(255,255,255,0.36);
+        rgba(255,255,255,0.35);
 
     font-size: 9px;
 }
 
 
-/* =========================
+/* =========================================
    VIEWS POPUP
-   ========================= */
+========================================= */
 
 .views-popup {
     max-height: 0;
@@ -887,42 +860,46 @@ button.stat {
 
     opacity: 0;
 
-    transition:
-        max-height 0.4s ease,
-        opacity 0.3s ease;
-}
-
-.views-popup.open {
-    max-height: 80px;
-
-    opacity: 1;
-}
-
-.views-popup-inner {
     display: flex;
 
     justify-content: center;
 
-    align-items: center;
+    gap: 8px;
 
-    gap: 10px;
+    margin-top: 0;
 
-    margin-top: 10px;
-
-    padding: 10px;
+    padding: 0;
 
     border-radius: 10px;
 
     background:
         rgba(255,255,255,0.04);
+
+    transition:
+        max-height 0.35s ease,
+        opacity 0.35s ease,
+        margin 0.35s ease,
+        padding 0.35s ease;
+}
+
+.views-popup.open {
+    max-height: 70px;
+
+    opacity: 1;
+
+    margin-top: 10px;
+
+    padding: 10px;
 }
 
 
-/* =========================
+/* =========================================
    DIVIDER
-   ========================= */
+========================================= */
 
 .divider {
+    width: 100%;
+
     height: 1px;
 
     margin:
@@ -933,9 +910,9 @@ button.stat {
 }
 
 
-/* =========================
-   SOCIAL LINKS
-   ========================= */
+/* =========================================
+   LINKS
+========================================= */
 
 .links {
     display: flex;
@@ -970,7 +947,8 @@ button.stat {
 
     transition:
         transform 0.2s ease,
-        background 0.2s ease;
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .links a:hover {
@@ -978,7 +956,10 @@ button.stat {
         translateY(-2px);
 
     background:
-        rgba(255,255,255,0.065);
+        rgba(255,255,255,0.07);
+
+    border-color:
+        rgba(255,255,255,0.16);
 }
 
 .link-left {
@@ -1006,13 +987,13 @@ button.stat {
 
 .arrow {
     color:
-        rgba(255,255,255,0.38);
+        rgba(255,255,255,0.4);
 }
 
 
-/* =========================
-   PLAYER
-   ========================= */
+/* =========================================
+   MUSIC
+========================================= */
 
 .player {
     display: flex;
@@ -1025,14 +1006,14 @@ button.stat {
 
     padding: 11px;
 
+    border:
+        1px solid
+        rgba(255,255,255,0.06);
+
     border-radius: 10px;
 
     background:
         rgba(0,0,0,0.2);
-
-    border:
-        1px solid
-        rgba(255,255,255,0.06);
 }
 
 #music-toggle {
@@ -1046,7 +1027,7 @@ button.stat {
     border-radius: 50%;
 
     background:
-        rgba(255,255,255,0.055);
+        rgba(255,255,255,0.05);
 
     color: #fff;
 
@@ -1066,146 +1047,18 @@ button.stat {
 }
 
 .track span {
+    margin-top: 2px;
+
     color:
-        rgba(255,255,255,0.38);
+        rgba(255,255,255,0.4);
 
     font-size: 9px;
 }
 
 
-/* =========================
-   EXPERIENCE
-   ========================= */
-
-.experience-container {
-    width: min(850px, 100%);
-}
-
-.experience-heading {
-    margin-bottom: 25px;
-}
-
-.eyebrow {
-    color:
-        rgba(255,255,255,0.4);
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    letter-spacing: 3px;
-}
-
-.experience-heading h2 {
-    margin:
-        6px 0 7px;
-
-    font-size: 42px;
-
-    letter-spacing: -1.5px;
-}
-
-.experience-heading p {
-    margin: 0;
-
-    color:
-        rgba(255,255,255,0.45);
-
-    font-size: 13px;
-}
-
-.experience-list {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-}
-
-.experience-card {
-    display: flex;
-
-    gap: 20px;
-
-    padding: 22px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.1);
-
-    border-radius: 16px;
-
-    background:
-        rgba(0,0,0,0.45);
-
-    backdrop-filter:
-        blur(20px);
-
-    transition:
-        transform 0.25s ease,
-        background 0.25s ease;
-}
-
-.experience-card:hover {
-    transform:
-        translateX(5px);
-
-    background:
-        rgba(255,255,255,0.055);
-}
-
-.experience-number {
-    color:
-        rgba(255,255,255,0.25);
-
-    font-size: 12px;
-
-    font-weight: 800;
-}
-
-.experience-content h3 {
-    margin:
-        0 0 6px;
-
-    font-size: 17px;
-}
-
-.experience-content p {
-    margin:
-        0 0 12px;
-
-    color:
-        rgba(255,255,255,0.45);
-
-    font-size: 12px;
-
-    line-height: 1.6;
-}
-
-.experience-tag {
-    display: inline-block;
-
-    padding:
-        4px 7px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.1);
-
-    border-radius: 5px;
-
-    color:
-        rgba(255,255,255,0.5);
-
-    font-size: 8px;
-
-    font-weight: 800;
-}
-
-
-/* =========================
+/* =========================================
    FOOTER
-   ========================= */
+========================================= */
 
 footer {
     margin-top: 20px;
@@ -1217,33 +1070,180 @@ footer {
 }
 
 
-/* =========================
+/* =========================================
+   EXPERIENCE
+========================================= */
+
+.experience-section {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
+
+    background:
+        rgba(0,0,0,0.78);
+
+    backdrop-filter:
+        blur(25px);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transform:
+        translateY(20px);
+
+    transition:
+        opacity 0.4s ease,
+        visibility 0.4s ease,
+        transform 0.4s ease;
+}
+
+.experience-section.open {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+
+    transform:
+        translateY(0);
+}
+
+.experience-content {
+    width: min(700px, 100%);
+
+    padding: 35px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.1);
+
+    border-radius: 20px;
+
+    background:
+        rgba(15,15,15,0.8);
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,0.7);
+}
+
+.section-label {
+    margin: 0 0 8px;
+
+    color:
+        rgba(255,255,255,0.4);
+
+    font-size: 10px;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+}
+
+.experience-content h2 {
+    margin:
+        0 0 10px;
+
+    font-size: 32px;
+}
+
+.experience-content > p:not(.section-label) {
+    color:
+        rgba(255,255,255,0.55);
+
+    font-size: 13px;
+}
+
+.experience-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.experience-card {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding: 18px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.08);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.03);
+}
+
+.experience-card strong {
+    font-size: 12px;
+}
+
+.experience-card span {
+    color:
+        rgba(255,255,255,0.4);
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+#close-experience {
+    position: absolute;
+
+    top: 25px;
+    right: 25px;
+
+    width: 38px;
+    height: 38px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.1);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color: #fff;
+
+    font-size: 22px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
    MOBILE
-   ========================= */
+========================================= */
 
 @media (max-width: 600px) {
 
     .topbar {
-        height: 56px;
-
         padding:
             0 16px;
-    }
-
-    .nav-logo {
-        font-size: 13px;
-    }
-
-    .nav-button {
-        padding:
-            9px 8px;
-
-        font-size: 10px;
-    }
-
-    .volume-control {
-        top: 70px;
-        left: 15px;
     }
 
     .card {
@@ -1255,12 +1255,12 @@ footer {
         font-size: 28px;
     }
 
-    .experience-heading h2 {
-        font-size: 34px;
+    .experience-grid {
+        grid-template-columns: 1fr;
     }
 
-    .experience-card {
-        padding: 18px;
+    .experience-content {
+        padding: 25px;
     }
 
 }
