@@ -8,23 +8,91 @@
 </head>
 
 <body>
-    <main>
-        <h1>nxrdonut</h1>
 
-        <p>hey, i'm nxrdonut 👋</p>
+    <!-- Background video -->
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <!-- Dark overlay -->
+    <div class="overlay"></div>
+
+    <!-- Click screen -->
+    <div id="start-screen">
+        <div class="click-text">CLICK</div>
+    </div>
+
+    <!-- Music -->
+    <audio id="music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Website -->
+    <main id="site">
+
+        <header>
+            <p class="small">welcome to</p>
+
+            <h1>nxrdonut<span>.</span></h1>
+
+            <p class="subtitle">
+                just some person on the internet.
+            </p>
+        </header>
 
         <section>
-            <h2>about me</h2>
+            <h2>about</h2>
+
             <p>
+                hey! i'm nxrdonut 👋<br>
                 welcome to my little corner of the internet.
             </p>
         </section>
 
         <section>
             <h2>links</h2>
-            <a href="#">github</a>
-            <a href="#">discord</a>
+
+            <div class="links">
+                <a href="#">GitHub ↗</a>
+                <a href="#">Discord ↗</a>
+            </div>
         </section>
+
+        <footer>
+            made by nxrdonut · 2026
+        </footer>
+
     </main>
+
+    <script>
+        const startScreen = document.getElementById("start-screen");
+        const video = document.getElementById("bg-video");
+        const music = document.getElementById("music");
+        const site = document.getElementById("site");
+
+        startScreen.addEventListener("click", async () => {
+
+            // Remove blur
+            document.body.classList.add("started");
+
+            // Start video
+            video.muted = false;
+            video.play();
+
+            // Start music
+            try {
+                await music.play();
+            } catch (error) {
+                console.log("Music could not start:", error);
+            }
+
+            // Hide click screen
+            startScreen.classList.add("hidden");
+
+            // Show website
+            site.classList.add("visible");
+        });
+    </script>
+
 </body>
 </html>
