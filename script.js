@@ -1,125 +1,299 @@
-const intro = document.getElementById("intro");
-const enterButton = document.getElementById("enter");
+```javascript
+/* =========================
+   GET ELEMENTS
+   ========================= */
 
-const video = document.getElementById("background-video");
+const intro =
+    document.getElementById("intro");
 
-const musicToggle = document.getElementById("music-toggle");
-const volume = document.getElementById("volume");
+const enterButton =
+    document.getElementById("enter");
+
+const video =
+    document.getElementById("background-video");
+
+const musicToggle =
+    document.getElementById("music-toggle");
+
+const volume =
+    document.getElementById("volume");
+
+
+/* =========================
+   SETTINGS
+   ========================= */
 
 let entered = false;
 
-/* =========================
-   DEFAULT VOLUME
-   ========================= */
+
+/*
+    Starting volume.
+
+    Change 0.35 to:
+    0.10 = quiet
+    0.50 = medium
+    1.00 = maximum
+*/
 
 video.volume = 0.35;
+
+
+/* =========================
+   KEEP VIDEO STILL
+   ========================= */
+
+/*
+    The video does not move
+    before CLICK.
+*/
+
+video.pause();
+
 
 /* =========================
    ENTER WEBSITE
    ========================= */
 
-enterButton.addEventListener("click", async () => {
+enterButton.addEventListener(
+    "click",
+    async () => {
 
-    if (entered) {
-        return;
-    }
+        /*
+            Prevent clicking twice.
+        */
 
-    entered = true;
+        if (entered) {
+            return;
+        }
 
-    /* Start visual transition */
-    document.body.classList.add("entered");
+        entered = true;
 
-    /* Hide CLICK */
-    intro.classList.add("hidden");
 
-    /*
-     * The video was muted so the browser
-     * could autoplay it.
-     *
-     * The user's click now allows us
-     * to turn the audio on.
-     */
+        /*
+            Start visual transition.
+        */
 
-    try {
-
-        video.muted = false;
-        video.volume = Number(volume.value);
-
-        await video.play();
-
-        musicToggle.textContent = "❚❚";
-
-    } catch (error) {
-
-        console.log(
-            "Video/audio could not start:",
-            error
+        document.body.classList.add(
+            "entered"
         );
 
-        musicToggle.textContent = "▶";
-    }
 
-});
+        /*
+            Hide CLICK.
+        */
 
-/* =========================
-   PLAY / PAUSE VIDEO AUDIO
-   ========================= */
+        intro.classList.add(
+            "hidden"
+        );
 
-musicToggle.addEventListener("click", async () => {
 
-    if (video.paused) {
+        /*
+            Turn audio on.
+
+            Because the visitor clicked,
+            the browser allows media audio.
+        */
+
+        video.muted = false;
+
+        video.volume =
+            Number(volume.value);
+
+
+        /*
+            Start video.
+        */
 
         try {
 
             await video.play();
 
-            musicToggle.textContent = "❚❚";
-
-        } catch (error) {
-
-            console.log(
-                "Video could not start:",
-                error
-            );
+            musicToggle.textContent =
+                "❚❚";
 
         }
 
-    } else {
+        catch (error) {
 
-        video.pause();
+            console.log(
+                "Video/audio could not start:",
+                error
+            );
 
-        musicToggle.textContent = "▶";
+            musicToggle.textContent =
+                "▶";
 
-    }
-
-});
-
-/* =========================
-   VOLUME
-   ========================= */
-
-volume.addEventListener("input", () => {
-
-    video.volume = Number(volume.value);
-
-});
-
-/* =========================
-   SPACEBAR
-   ========================= */
-
-document.addEventListener("keydown", (event) => {
-
-    if (
-        event.code === "Space" &&
-        entered &&
-        document.activeElement.tagName !== "INPUT"
-    ) {
-
-        event.preventDefault();
-
-        musicToggle.click();
+        }
 
     }
+);
 
-});
+
+/* =========================
+   PLAY / PAUSE
+   ========================= */
+
+musicToggle.addEventListener(
+    "click",
+    async () => {
+
+        /*
+            If video is stopped,
+            start it.
+        */
+
+        if (video.paused) {
+
+            try {
+
+                await video.play();
+
+                musicToggle.textContent =
+                    "❚❚";
+
+            }
+
+            catch (error) {
+
+                console.log(
+                    "Video could not start:",
+                    error
+                );
+
+            }
+
+        }
+
+        /*
+            Otherwise pause it.
+        */
+
+        else {
+
+            video.pause();
+
+            musicToggle.textContent =
+                "▶";
+
+        }
+
+    }
+);
+
+
+/* =========================
+   VOLUME CONTROL
+   ========================= */
+
+volume.addEventListener(
+    "input",
+    () => {
+
+        video.volume =
+            Number(volume.value);
+
+    }
+);
+
+
+/* =========================
+   DISCORD COPY
+   ========================= */
+
+function copyDiscord(event) {
+
+    /*
+        Stop the link from
+        opening a page.
+    */
+
+    event.preventDefault();
+
+
+    /*
+        Copy Discord username.
+    */
+
+    navigator.clipboard
+        .writeText("nxrdonut")
+
+        .then(() => {
+
+            const text =
+                document.getElementById(
+                    "discord-text"
+                );
+
+
+            const original =
+                text.textContent;
+
+
+            /*
+                Show confirmation.
+            */
+
+            text.textContent =
+                "Copied!";
+
+
+            /*
+                Change it back.
+            */
+
+            setTimeout(
+                () => {
+
+                    text.textContent =
+                        original;
+
+                },
+                1500
+            );
+
+        })
+
+        .catch(() => {
+
+            /*
+                Fallback if clipboard
+                permission is unavailable.
+            */
+
+            alert(
+                "Discord username: nxrdonut"
+            );
+
+        });
+
+}
+
+
+/* =========================
+   SPACEBAR CONTROL
+   ========================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+
+            event.code === "Space" &&
+
+            entered &&
+
+            document.activeElement.tagName !==
+                "INPUT"
+
+        ) {
+
+            event.preventDefault();
+
+            musicToggle.click();
+
+        }
+
+    }
+);
+```
