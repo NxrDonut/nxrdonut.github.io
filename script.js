@@ -13,223 +13,199 @@ document.addEventListener("DOMContentLoaded", () => {
     const volume = document.getElementById("volume");
     const volumeButton = document.getElementById("volume-button");
 
-    const waveform = document.getElementById("waveform");
-
     const cursorDot = document.getElementById("cursor-dot");
     const cursorGlow = document.getElementById("cursor-glow");
 
-    const trails = [
-        document.querySelector(".trail-1"),
-        document.querySelector(".trail-2"),
-        document.querySelector(".trail-3"),
-        document.querySelector(".trail-4"),
-        document.querySelector(".trail-5")
-    ];
-
-    const particles = document.getElementById("particles");
+    const trails = document.querySelectorAll(".cursor-trail");
 
     const viewsButton = document.getElementById("views-button");
     const viewsPopup = document.getElementById("views-popup");
 
+    const navButtons =
+        document.querySelectorAll(".nav-button");
+
+    const waveform =
+        document.getElementById("waveform");
+
 
     /* =========================
-       MUSIC
+       INITIAL AUDIO
     ========================== */
 
-    let musicStarted = false;
-
-    music.volume = Number(volume?.value || 0.35);
-
-    async function startMusic() {
-
-        if (!music) return;
-
-        try {
-            await music.play();
-
-            musicStarted = true;
-
-            if (musicToggle) {
-                musicToggle.textContent = "Ⅱ";
-            }
-
-        } catch (error) {
-
-            /*
-             * Browser autoplay protection may prevent
-             * playback until the user interacts.
-             * The click-anywhere screen counts as
-             * that interaction.
-             */
-
-            musicStarted = false;
-        }
-    }
+    music.volume = 0.35;
 
 
     /* =========================
-       CLICK ANYWHERE
+       ENTER EXPERIENCE
     ========================== */
 
     function enterExperience() {
 
-        if (!intro) return;
+        music.play()
+            .then(() => {
+                if (musicToggle) {
+                    musicToggle.textContent = "Ⅱ";
+                }
+            })
+            .catch(() => {
+                // Browser may block autoplay.
+                // The music button will still work.
+            });
 
         intro.classList.add("hidden");
-
-        startMusic();
-
-        document.body.classList.add("entered");
-
-        setTimeout(() => {
-            intro.style.display = "none";
-        }, 850);
     }
 
 
     /*
-     * Clicking absolutely anywhere on the intro
-     * enters the website.
+     * The entire intro is clickable.
      */
 
-    if (intro) {
-        intro.addEventListener("click", enterExperience);
-    }
+    intro.addEventListener("click", (event) => {
 
-    if (enterButton) {
-        enterButton.addEventListener("click", (event) => {
-            event.stopPropagation();
+        if (event.target.closest("a")) {
+            return;
+        }
 
-            enterExperience();
-        });
-    }
+        enterExperience();
+
+    });
+
+
+    /*
+     * Explicit button listener as a backup.
+     */
+
+    enterButton.addEventListener("click", (event) => {
+
+        event.stopPropagation();
+
+        enterExperience();
+
+    });
 
 
     /* =========================
-       MUSIC BUTTON
+       MUSIC TOGGLE
     ========================== */
 
-    if (musicToggle && music) {
+    musicToggle.addEventListener("click", (event) => {
 
-        musicToggle.addEventListener("click", async () => {
+        event.stopPropagation();
 
-            if (music.paused) {
+        if (music.paused) {
 
-                await startMusic();
+            music.play()
+                .then(() => {
+                    musicToggle.textContent = "Ⅱ";
+                })
+                .catch(() => {});
 
-            } else {
+        } else {
 
-                music.pause();
+            music.pause();
 
-                musicToggle.textContent = "▶";
-            }
+            musicToggle.textContent = "▶";
 
-        });
+        }
 
-    }
+    });
+
+
+    /* =========================
+       AUTO LOOP FALLBACK
+    ========================== */
+
+    music.addEventListener("ended", () => {
+
+        music.currentTime = 0;
+
+        music.play()
+            .then(() => {
+                musicToggle.textContent = "Ⅱ";
+            })
+            .catch(() => {});
+
+    });
 
 
     /* =========================
        VOLUME
     ========================== */
 
-    if (volume && music) {
+    volume.addEventListener("input", () => {
 
-        volume.addEventListener("input", () => {
+        music.volume = Number(volume.value);
 
-            music.volume = Number(volume.value);
-
-        });
-
-    }
+    });
 
 
-    if (volumeButton && music) {
+    volumeButton.addEventListener("click", () => {
 
-        volumeButton.addEventListener("click", () => {
+        if (music.muted) {
 
-            if (music.volume > 0) {
+            music.muted = false;
 
-                music.dataset.previousVolume =
-                    music.volume;
+            volumeButton.innerHTML = "<span>♪</span>";
 
-                music.volume = 0;
+        } else {
 
-                if (volume) {
-                    volume.value = 0;
-                }
+            music.muted = true;
 
-                volumeButton.querySelector("span").textContent = "×";
+            volumeButton.innerHTML = "<span>×</span>";
 
-            } else {
+        }
 
-                const previous =
-                    Number(
-                        music.dataset.previousVolume || 0.35
-                    );
-
-                music.volume = previous;
-
-                if (volume) {
-                    volume.value = previous;
-                }
-
-                volumeButton.querySelector("span").textContent = "♪";
-            }
-
-        });
-
-    }
+    });
 
 
     /* =========================
        NAVIGATION
     ========================== */
 
-    document
-        .querySelectorAll(".nav-button[data-scroll]")
-        .forEach(button => {
+    navButtons.forEach((button) => {
 
-            button.addEventListener("click", () => {
+        button.addEventListener("click", () => {
 
-                const targetId =
-                    button.dataset.scroll;
+            const targetId =
+                button.dataset.scroll;
 
-                const target =
-                    document.getElementById(targetId);
+            const target =
+                document.getElementById(targetId);
 
-                if (!target) return;
+            if (!target) {
+                return;
+            }
 
-                target.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
             });
 
         });
+
+    });
 
 
     /* =========================
        VIEWS POPUP
     ========================== */
 
-    if (viewsButton && viewsPopup) {
+    if (viewsButton) {
 
         viewsButton.addEventListener("click", () => {
 
             viewsPopup.classList.add("show");
 
             clearTimeout(
-                window.viewsPopupTimeout
+                window.viewsPopupTimer
             );
 
-            window.viewsPopupTimeout =
+            window.viewsPopupTimer =
                 setTimeout(() => {
 
                     viewsPopup.classList.remove("show");
 
-                }, 2200);
+                }, 2500);
 
         });
 
@@ -237,52 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =========================
-       PARTICLES
-    ========================== */
-
-    if (particles) {
-
-        const particleCount =
-            window.innerWidth < 700
-                ? 35
-                : 65;
-
-        for (let i = 0; i < particleCount; i++) {
-
-            const particle =
-                document.createElement("div");
-
-            particle.className = "particle";
-
-            particle.style.left =
-                `${Math.random() * 100}%`;
-
-            particle.style.top =
-                `${Math.random() * 100}%`;
-
-            const size =
-                Math.random() * 2 + 1;
-
-            particle.style.width =
-                `${size}px`;
-
-            particle.style.height =
-                `${size}px`;
-
-            particle.style.animationDuration =
-                `${8 + Math.random() * 15}s`;
-
-            particle.style.animationDelay =
-                `${Math.random() * -15}s`;
-
-            particles.appendChild(particle);
-        }
-
-    }
-
-
-    /* =========================
-       CUSTOM CURSOR
+       CURSOR
     ========================== */
 
     let mouseX = window.innerWidth / 2;
@@ -295,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let glowY = mouseY;
 
     const trailPositions =
-        trails.map(() => ({
+        Array.from(trails).map(() => ({
             x: mouseX,
             y: mouseY
         }));
@@ -311,69 +242,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function animateCursor() {
 
-        /*
-         * Small amount of smoothing gives
-         * the cursor a clean motion-blur feel.
-         */
+        dotX += (mouseX - dotX) * 0.38;
+        dotY += (mouseY - dotY) * 0.38;
 
-        dotX +=
-            (mouseX - dotX) * 0.42;
-
-        dotY +=
-            (mouseY - dotY) * 0.42;
-
-        glowX +=
-            (mouseX - glowX) * 0.12;
-
-        glowY +=
-            (mouseY - glowY) * 0.12;
+        glowX += (mouseX - glowX) * 0.16;
+        glowY += (mouseY - glowY) * 0.16;
 
 
-        if (cursorDot) {
+        cursorDot.style.left =
+            `${dotX}px`;
 
-            cursorDot.style.left =
-                `${dotX}px`;
-
-            cursorDot.style.top =
-                `${dotY}px`;
-
-        }
+        cursorDot.style.top =
+            `${dotY}px`;
 
 
-        if (cursorGlow) {
+        cursorGlow.style.left =
+            `${glowX}px`;
 
-            cursorGlow.style.left =
-                `${glowX}px`;
-
-            cursorGlow.style.top =
-                `${glowY}px`;
-
-        }
+        cursorGlow.style.top =
+            `${glowY}px`;
 
 
-        /*
-         * Motion trail.
-         */
+        let previousX = mouseX;
+        let previousY = mouseY;
+
 
         trails.forEach((trail, index) => {
-
-            if (!trail) return;
-
-            const previous =
-                index === 0
-                    ? { x: mouseX, y: mouseY }
-                    : trailPositions[index - 1];
 
             const position =
                 trailPositions[index];
 
+            const delay =
+                0.20 + index * 0.045;
+
             position.x +=
-                (previous.x - position.x)
-                * (0.22 - index * 0.018);
+                (previousX - position.x) * delay;
 
             position.y +=
-                (previous.y - position.y)
-                * (0.22 - index * 0.018);
+                (previousY - position.y) * delay;
+
 
             trail.style.left =
                 `${position.x}px`;
@@ -382,93 +289,100 @@ document.addEventListener("DOMContentLoaded", () => {
                 `${position.y}px`;
 
             trail.style.opacity =
-                `${0.22 - index * 0.035}`;
+                `${Math.max(
+                    0.025,
+                    0.13 - index * 0.018
+                )}`;
 
-            trail.style.transform =
-                `translate(-50%, -50%) scale(${1 - index * .08})`;
+
+            previousX = position.x;
+            previousY = position.y;
 
         });
 
 
-        requestAnimationFrame(animateCursor);
+        requestAnimationFrame(
+            animateCursor
+        );
+
     }
 
     animateCursor();
 
 
     /* =========================
-       CLICK EFFECT
+       PARTICLES
     ========================== */
 
-    document.addEventListener("mousedown", () => {
+    const particles =
+        document.getElementById("particles");
 
-        if (cursorDot) {
-
-            cursorDot.style.width = "11px";
-            cursorDot.style.height = "11px";
-
-        }
-
-    });
+    const particleCount =
+        window.innerWidth < 700 ? 45 : 75;
 
 
-    document.addEventListener("mouseup", () => {
+    for (let i = 0; i < particleCount; i++) {
 
-        if (cursorDot) {
+        const particle =
+            document.createElement("div");
 
-            cursorDot.style.width = "7px";
-            cursorDot.style.height = "7px";
+        particle.className =
+            "particle";
 
-        }
 
-    });
+        particle.style.left =
+            `${Math.random() * 100}%`;
+
+        particle.style.top =
+            `${Math.random() * 100}%`;
+
+
+        const size =
+            Math.random() * 2 + 1;
+
+        particle.style.width =
+            `${size}px`;
+
+        particle.style.height =
+            `${size}px`;
+
+
+        particle.style.animationDuration =
+            `${Math.random() * 12 + 8}s`;
+
+        particle.style.animationDelay =
+            `${Math.random() * -15}s`;
+
+
+        particles.appendChild(
+            particle
+        );
+
+    }
 
 
     /* =========================
-       SCROLL MOTION
-    ========================== */
-
-    let scrollTimeout;
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            document.body.classList.add("scrolling");
-
-            clearTimeout(scrollTimeout);
-
-            scrollTimeout =
-                setTimeout(() => {
-
-                    document.body.classList.remove("scrolling");
-
-                }, 90);
-
-        },
-        { passive: true }
-    );
-
-
-    /* =========================
-       MUSIC WAVEFORM
+       WAVEFORM
     ========================== */
 
     if (waveform) {
 
+        const canvas =
+            waveform;
+
         const ctx =
-            waveform.getContext("2d");
+            canvas.getContext("2d");
 
-        let animationFrame;
+        let phase = 0;
 
 
-        function drawWaveform() {
+        function drawWave() {
 
             const width =
-                waveform.width;
+                canvas.width;
 
             const height =
-                waveform.height;
+                canvas.height;
 
             ctx.clearRect(
                 0,
@@ -478,126 +392,75 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-            const center =
-                height / 2;
-
-            const bars = 42;
-
-            for (let i = 0; i < bars; i++) {
-
-                const x =
-                    (i / bars) * width;
-
-                let barHeight;
+            ctx.beginPath();
 
 
-                if (
-                    music &&
-                    !music.paused
-                ) {
+            for (let x = 0; x < width; x++) {
 
-                    const wave =
-                        Math.sin(
-                            (i * .65) +
-                            performance.now() / 180
-                        );
+                const center =
+                    height / 2;
 
-                    barHeight =
-                        5 +
-                        Math.abs(wave) *
-                        (10 + Math.random() * 12);
+                const wave =
+                    Math.sin(
+                        x * 0.08 +
+                        phase
+                    ) * 5;
 
+                const second =
+                    Math.sin(
+                        x * 0.19 +
+                        phase * 1.4
+                    ) * 3;
+
+
+                const y =
+                    center +
+                    wave +
+                    second;
+
+
+                if (x === 0) {
+                    ctx.moveTo(x, y);
                 } else {
-
-                    barHeight =
-                        4 +
-                        Math.sin(i * .8) * 2;
-
+                    ctx.lineTo(x, y);
                 }
 
-
-                ctx.beginPath();
-
-                ctx.roundRect(
-                    x,
-                    center - barHeight / 2,
-                    3,
-                    barHeight,
-                    2
-                );
-
-                ctx.fillStyle =
-                    "rgba(255,255,255,.48)";
-
-                ctx.fill();
             }
 
 
-            animationFrame =
-                requestAnimationFrame(
-                    drawWaveform
-                );
+            ctx.strokeStyle =
+                "rgba(255,255,255,.5)";
+
+            ctx.lineWidth = 1.5;
+
+            ctx.stroke();
+
+
+            phase +=
+                music.paused ? 0.01 : 0.055;
+
+
+            requestAnimationFrame(
+                drawWave
+            );
+
         }
 
 
-        drawWaveform();
+        drawWave();
 
     }
 
 
     /* =========================
-       RESIZE
+       PREVENT CONTEXT MENU
+       ON CUSTOM CURSOR AREA
     ========================== */
 
-    window.addEventListener(
-        "resize",
-        () => {
-
-            if (!particles) return;
-
-            particles.innerHTML = "";
-
-            const particleCount =
-                window.innerWidth < 700
-                    ? 35
-                    : 65;
-
-            for (let i = 0; i < particleCount; i++) {
-
-                const particle =
-                    document.createElement("div");
-
-                particle.className =
-                    "particle";
-
-                particle.style.left =
-                    `${Math.random() * 100}%`;
-
-                particle.style.top =
-                    `${Math.random() * 100}%`;
-
-                const size =
-                    Math.random() * 2 + 1;
-
-                particle.style.width =
-                    `${size}px`;
-
-                particle.style.height =
-                    `${size}px`;
-
-                particle.style.animationDuration =
-                    `${8 + Math.random() * 15}s`;
-
-                particle.style.animationDelay =
-                    `${Math.random() * -15}s`;
-
-                particles.appendChild(
-                    particle
-                );
-
-            }
-
-        }
+    document.addEventListener(
+        "contextmenu",
+        () => {},
+        false
     );
 
 });
