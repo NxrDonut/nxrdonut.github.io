@@ -1,31 +1,47 @@
 /* =========================================
-   NxrDonut - Main Script
+   NxrDonut
 ========================================= */
 
-const intro = document.getElementById("intro");
-const video = document.getElementById("background-video");
 
-const musicToggle = document.getElementById("music-toggle");
-const volume = document.getElementById("volume");
-const volumeIcon = document.getElementById("volume-icon");
+/* =========================================
+   ELEMENTS
+========================================= */
 
-const viewsButton = document.getElementById("views-button");
-const viewsPopup = document.getElementById("views-popup");
+const intro =
+    document.getElementById("intro");
 
-const discordLink = document.getElementById("discord-link");
-const discordText = document.getElementById("discord-text");
+const music =
+    document.getElementById("background-music");
+
+const volume =
+    document.getElementById("volume");
+
+const volumeIcon =
+    document.getElementById("volume-icon");
+
+const musicToggle =
+    document.getElementById("music-toggle");
+
+const viewsButton =
+    document.getElementById("views-button");
+
+const viewsPopup =
+    document.getElementById("views-popup");
+
+const discordLink =
+    document.getElementById("discord-link");
+
+const discordText =
+    document.getElementById("discord-text");
 
 const experienceButton =
     document.getElementById("experience-button");
 
-const experienceSection =
-    document.getElementById("experience-section");
+const homeButton =
+    document.getElementById("home-button");
 
-const closeExperience =
-    document.getElementById("close-experience");
-
-const profileCard =
-    document.getElementById("profile-card");
+const heroContent =
+    document.getElementById("hero-content");
 
 const cursorGlow =
     document.getElementById("cursor-glow");
@@ -44,33 +60,16 @@ const trails = [
 
 
 /* =========================================
-   SETTINGS
-========================================= */
-
-const DISCORD_USERNAME = "nxrdonut";
-
-const PROFILE_VIEWS = 1284;
-
-
-/* =========================================
    STATE
 ========================================= */
 
 let entered = false;
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+let mouseX =
+    window.innerWidth / 2;
 
-
-/* =========================================
-   VIDEO
-========================================= */
-
-if (video) {
-    video.muted = true;
-    video.volume = 0.35;
-    video.pause();
-}
+let mouseY =
+    window.innerHeight / 2;
 
 
 /* =========================================
@@ -85,75 +84,43 @@ async function enterWebsite() {
 
     entered = true;
 
-    console.log("Entering NxrDonut website...");
-
-    /*
-        Start the visual transition first.
-    */
-
-    document.body.classList.add("entered");
-
-    /*
-        Hide CLICK ANYWHERE.
-    */
 
     if (intro) {
         intro.classList.add("hidden");
     }
 
-    /*
-        Start video and audio.
-    */
 
-    if (video) {
+    document.body.classList.add("entered");
 
-        video.muted = false;
 
-        video.volume = volume
-            ? Number(volume.value)
-            : 0.35;
+    if (music) {
+
+        music.volume =
+            volume
+                ? Number(volume.value)
+                : 0.35;
+
 
         try {
 
-            await video.play();
+            await music.play();
 
             if (musicToggle) {
-                musicToggle.textContent = "❚❚";
+                musicToggle.textContent =
+                    "❚❚";
             }
-
-            console.log("Video started.");
 
         } catch (error) {
 
             console.log(
-                "Audio could not start. Starting video muted."
+                "Music playback blocked:",
+                error
             );
 
-            /*
-                Fallback for browsers that block
-                unmuted playback.
-            */
-
-            video.muted = true;
-
-            try {
-
-                await video.play();
-
-                if (musicToggle) {
-                    musicToggle.textContent = "❚❚";
-                }
-
-            } catch (videoError) {
-
-                console.log(
-                    "Video could not start:",
-                    videoError
-                );
-
-            }
         }
+
     }
+
 }
 
 
@@ -161,45 +128,12 @@ async function enterWebsite() {
    CLICK ANYWHERE
 ========================================= */
 
-/*
-    IMPORTANT:
-    The intro itself covers the whole screen.
-
-    Clicking anywhere on it enters the website.
-*/
-
-if (intro) {
-
-    intro.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            enterWebsite();
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   EXTRA CLICK FALLBACK
-========================================= */
-
 document.addEventListener(
     "click",
-    function(event) {
+    function () {
 
-        if (
-            !entered &&
-            intro &&
-            !intro.classList.contains("hidden")
-        ) {
-
+        if (!entered) {
             enterWebsite();
-
         }
 
     },
@@ -208,31 +142,143 @@ document.addEventListener(
 
 
 /* =========================================
+   TOUCH
+========================================= */
+
+document.addEventListener(
+    "touchstart",
+    function () {
+
+        if (!entered) {
+            enterWebsite();
+        }
+
+    },
+    {
+        passive: true
+    }
+);
+
+
+/* =========================================
+   EXPERIENCE NAVIGATION
+========================================= */
+
+if (experienceButton) {
+
+    experienceButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            if (!entered) {
+                enterWebsite();
+            }
+
+
+            const experience =
+                document.getElementById(
+                    "experience"
+                );
+
+
+            if (experience) {
+
+                setTimeout(
+                    function () {
+
+                        experience.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    },
+                    150
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   HOME NAVIGATION
+========================================= */
+
+if (homeButton) {
+
+    homeButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            const home =
+                document.getElementById(
+                    "home"
+                );
+
+
+            if (home) {
+
+                home.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
    VOLUME
 ========================================= */
 
 function updateVolumeIcon() {
 
-    if (!volumeIcon || !volume) {
+    if (
+        !volumeIcon ||
+        !volume
+    ) {
         return;
     }
+
 
     const value =
         Number(volume.value);
 
+
     if (value === 0) {
 
-        volumeIcon.textContent = "🔇";
+        volumeIcon.textContent =
+            "🔇";
 
     } else if (value < 0.5) {
 
-        volumeIcon.textContent = "🔉";
+        volumeIcon.textContent =
+            "🔉";
 
     } else {
 
-        volumeIcon.textContent = "🔊";
+        volumeIcon.textContent =
+            "🔊";
 
     }
+
 }
 
 
@@ -240,18 +286,16 @@ if (volume) {
 
     volume.addEventListener(
         "input",
-        function() {
+        function () {
 
-            if (!video) {
+            if (!music) {
                 return;
             }
 
-            const value =
-                Number(volume.value);
 
-            video.volume = value;
+            music.volume =
+                Number(this.value);
 
-            video.muted = value === 0;
 
             updateVolumeIcon();
 
@@ -260,34 +304,35 @@ if (volume) {
 
 }
 
+
 updateVolumeIcon();
 
 
 /* =========================================
-   PLAY / PAUSE
+   MUSIC BUTTON
 ========================================= */
 
 if (musicToggle) {
 
     musicToggle.addEventListener(
         "click",
-        async function(event) {
+        async function (event) {
 
             event.preventDefault();
 
             event.stopPropagation();
 
-            if (!video) {
+
+            if (!music) {
                 return;
             }
 
-            if (video.paused) {
 
-                video.muted = false;
+            if (music.paused) {
 
                 try {
 
-                    await video.play();
+                    await music.play();
 
                     musicToggle.textContent =
                         "❚❚";
@@ -300,7 +345,7 @@ if (musicToggle) {
 
             } else {
 
-                video.pause();
+                music.pause();
 
                 musicToggle.textContent =
                     "▶";
@@ -324,11 +369,12 @@ if (
 
     viewsButton.addEventListener(
         "click",
-        function(event) {
+        function (event) {
 
             event.preventDefault();
 
             event.stopPropagation();
+
 
             viewsPopup.classList.toggle(
                 "open"
@@ -341,32 +387,39 @@ if (
 
 
 /* =========================================
-   DISCORD COPY
+   DISCORD
 ========================================= */
 
 if (discordLink) {
 
     discordLink.addEventListener(
         "click",
-        async function(event) {
+        async function (event) {
 
             event.preventDefault();
 
             event.stopPropagation();
 
+
+            const username =
+                "nxrdonut";
+
+
             try {
 
                 await navigator.clipboard.writeText(
-                    DISCORD_USERNAME
+                    username
                 );
+
 
                 if (discordText) {
 
                     discordText.textContent =
                         "Copied!";
 
+
                     setTimeout(
-                        function() {
+                        function () {
 
                             discordText.textContent =
                                 "Discord";
@@ -380,8 +433,7 @@ if (discordLink) {
             } catch (error) {
 
                 alert(
-                    "Discord: " +
-                    DISCORD_USERNAME
+                    "Discord: nxrdonut"
                 );
 
             }
@@ -393,95 +445,19 @@ if (discordLink) {
 
 
 /* =========================================
-   EXPERIENCE
-========================================= */
-
-if (experienceButton) {
-
-    experienceButton.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-            if (experienceSection) {
-
-                experienceSection.classList.add(
-                    "open"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-if (closeExperience) {
-
-    closeExperience.addEventListener(
-        "click",
-        function(event) {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-            if (experienceSection) {
-
-                experienceSection.classList.remove(
-                    "open"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   ESCAPE CLOSES EXPERIENCE
-========================================= */
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key === "Escape" &&
-            experienceSection
-        ) {
-
-            experienceSection.classList.remove(
-                "open"
-            );
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   CURSOR POSITION
+   MOUSE
 ========================================= */
 
 document.addEventListener(
     "mousemove",
-    function(event) {
+    function (event) {
 
-        mouseX = event.clientX;
-        mouseY = event.clientY;
+        mouseX =
+            event.clientX;
 
+        mouseY =
+            event.clientY;
 
-        /*
-            Main glowing area.
-        */
 
         if (cursorGlow) {
 
@@ -494,10 +470,6 @@ document.addEventListener(
         }
 
 
-        /*
-            Small bright cursor point.
-        */
-
         if (cursorDot) {
 
             cursorDot.style.left =
@@ -509,13 +481,10 @@ document.addEventListener(
         }
 
 
-        /*
-            Profile parallax.
-        */
+        /* PROFILE PARALLAX */
 
         if (
-            entered &&
-            profileCard &&
+            heroContent &&
             window.innerWidth > 700
         ) {
 
@@ -524,16 +493,17 @@ document.addEventListener(
                 window.innerWidth -
                 0.5;
 
+
             const y =
                 mouseY /
                 window.innerHeight -
                 0.5;
 
 
-            profileCard.style.transform = `
-                perspective(1000px)
-                rotateX(${y * -4}deg)
-                rotateY(${x * 4}deg)
+            heroContent.style.transform = `
+                perspective(1200px)
+                rotateX(${y * -3}deg)
+                rotateY(${x * 3}deg)
             `;
 
         }
@@ -543,24 +513,26 @@ document.addEventListener(
 
 
 /* =========================================
-   SMOOTH MOTION-BLUR TRAIL
+   CURSOR TRAIL
 ========================================= */
 
 const trailPositions =
-    trails.map(function() {
+    trails.map(
+        function () {
 
-        return {
-            x: mouseX,
-            y: mouseY
-        };
+            return {
+                x: mouseX,
+                y: mouseY
+            };
 
-    });
+        }
+    );
 
 
 function animateCursor() {
 
     trails.forEach(
-        function(trail, index) {
+        function (trail, index) {
 
             if (!trail) {
                 return;
@@ -577,11 +549,6 @@ function animateCursor() {
                         index - 1
                     ];
 
-
-            /*
-                Each trail point follows
-                the one before it.
-            */
 
             const speed =
                 0.28 -
@@ -621,6 +588,7 @@ function animateCursor() {
 
 }
 
+
 animateCursor();
 
 
@@ -628,16 +596,18 @@ animateCursor();
    PARTICLES
 ========================================= */
 
-const particles =
-    document.getElementById("particles");
+const particleContainer =
+    document.getElementById(
+        "particles"
+    );
 
 
-if (particles) {
+if (particleContainer) {
 
     const amount =
         window.innerWidth < 600
             ? 25
-            : 45;
+            : 55;
 
 
     for (
@@ -647,7 +617,9 @@ if (particles) {
     ) {
 
         const particle =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
 
         particle.className =
@@ -676,11 +648,20 @@ if (particles) {
 
 
         particle.style.animationDelay =
-            Math.random() * 15 +
+            (
+                Math.random() * 18
+            ) +
             "s";
 
 
-        particles.appendChild(
+        particle.style.transform =
+            `scale(${
+                .5 +
+                Math.random() * 1.5
+            })`;
+
+
+        particleContainer.appendChild(
             particle
         );
 
@@ -700,11 +681,12 @@ const titleFrames = [
     "NxrDonut..."
 ];
 
+
 let titleIndex = 0;
 
 
 setInterval(
-    function() {
+    function () {
 
         titleIndex =
             (
@@ -717,30 +699,49 @@ setInterval(
             titleFrames[titleIndex];
 
     },
-    700
+    800
 );
 
 
 /* =========================================
-   SPACEBAR
+   SPACEBAR MUSIC
 ========================================= */
 
 document.addEventListener(
     "keydown",
-    function(event) {
+    function (event) {
 
         if (
             event.code === "Space" &&
             entered &&
-            document.activeElement.tagName !==
-                "INPUT"
+            document.activeElement.tagName !== "INPUT"
         ) {
 
             event.preventDefault();
 
+
             if (musicToggle) {
                 musicToggle.click();
             }
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   RESET PARALLAX
+========================================= */
+
+document.addEventListener(
+    "mouseleave",
+    function () {
+
+        if (heroContent) {
+
+            heroContent.style.transform =
+                "perspective(1200px) rotateX(0deg) rotateY(0deg)";
 
         }
 
