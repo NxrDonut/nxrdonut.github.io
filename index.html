@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title id="page-title">nxrdonut</title>
+    <title>nxrdonut</title>
 
     <meta
         name="description"
@@ -17,10 +17,7 @@
 
 <body>
 
-    <!-- =========================
-         BACKGROUND VIDEO
-         ========================= -->
-
+    <!-- FULL SCREEN BACKGROUND VIDEO -->
     <video
         id="background-video"
         muted
@@ -32,48 +29,62 @@
     </video>
 
 
-    <!-- =========================
-         BACKGROUND EFFECTS
-         ========================= -->
-
+    <!-- BACKGROUND EFFECTS -->
     <div class="background-gradient"></div>
-
     <div class="darkness"></div>
-
     <div class="noise"></div>
 
+
+    <!-- PARTICLES -->
+    <div id="particles"></div>
+
+
+    <!-- MOUSE EFFECTS -->
     <div class="cursor-glow"></div>
 
+    <div class="cursor-trail trail-1"></div>
+    <div class="cursor-trail trail-2"></div>
+    <div class="cursor-trail trail-3"></div>
+    <div class="cursor-trail trail-4"></div>
+    <div class="cursor-trail trail-5"></div>
 
-    <!-- =========================
-         CLICK SCREEN
-         ========================= -->
 
-    <div id="intro">
+    <!-- TOP LEFT VOLUME -->
+    <div class="volume-control">
 
-        <button id="enter">
-            CLICK
-        </button>
+        <span class="volume-icon" id="volume-icon">
+            🔊
+        </span>
+
+        <input
+            id="volume"
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="0.35"
+            aria-label="Volume"
+        >
 
     </div>
 
 
-    <!-- =========================
-         MAIN PROFILE
-         ========================= -->
+    <!-- CLICK SCREEN -->
+    <div id="intro">
 
+        <div id="enter">
+            CLICK ANYWHERE
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE -->
     <main id="profile">
 
-        <div
-            class="card"
-            id="profile-card"
-        >
+        <div class="card" id="profile-card">
 
-
-            <!-- =========================
-                 PROFILE PICTURE
-                 ========================= -->
-
+            <!-- PROFILE PICTURE -->
             <div class="avatar-container">
 
                 <img
@@ -87,10 +98,7 @@
             </div>
 
 
-            <!-- =========================
-                 USERNAME
-                 ========================= -->
-
+            <!-- USERNAME -->
             <h1 class="username">
 
                 <span>nxrdonut</span>
@@ -107,61 +115,41 @@
             </p>
 
 
-            <!-- =========================
-                 BADGES
-                 ========================= -->
-
+            <!-- BADGES -->
             <div class="badges">
 
-                <span
-                    class="badge"
-                    title="Developer"
-                >
+                <span class="badge">
                     DEV
                 </span>
 
-                <span
-                    class="badge"
-                    title="Screensharer"
-                >
+                <span class="badge">
                     SCREENSHARER
                 </span>
 
-                <span
-                    class="badge"
-                    title="McPvP"
-                >
+                <span class="badge">
                     #21
                 </span>
 
-                <span
-                    class="badge"
-                    title="RLT2"
-                >
+                <span class="badge">
                     RLT2
                 </span>
 
             </div>
 
 
-            <!-- =========================
-                 BIO
-                 ========================= -->
-
+            <!-- BIO -->
             <p class="bio">
                 Screensharer / Dev / #21 McPvP.com / RLT2
             </p>
 
 
-            <!-- =========================
-                 STATS
-                 ========================= -->
-
+            <!-- STATS -->
             <div class="stats">
 
                 <button
                     id="views-button"
                     class="stat"
+                    type="button"
                 >
 
                     <span class="stat-icon">
@@ -169,15 +157,13 @@
                     </span>
 
                     <span>
-
                         <strong id="views">
-                            0
+                            1,284
                         </strong>
 
                         <small>
                             views
                         </small>
-
                     </span>
 
                 </button>
@@ -190,7 +176,6 @@
                     </span>
 
                     <span>
-
                         <strong>
                             online
                         </strong>
@@ -198,7 +183,6 @@
                         <small>
                             status
                         </small>
-
                     </span>
 
                 </div>
@@ -206,10 +190,7 @@
             </div>
 
 
-            <!-- =========================
-                 VIEWS POPUP
-                 ========================= -->
-
+            <!-- VIEWS POPUP -->
             <div
                 id="views-popup"
                 class="views-popup"
@@ -226,7 +207,7 @@
                     </strong>
 
                     <span id="popup-views">
-                        0
+                        1,284
                     </span>
 
                 </div>
@@ -234,21 +215,17 @@
             </div>
 
 
+            <!-- DIVIDER -->
             <div class="divider"></div>
 
 
-            <!-- =========================
-                 SOCIAL LINKS
-                 ========================= -->
-
+            <!-- SOCIAL LINKS -->
             <div class="links">
 
-
                 <!-- DISCORD -->
-
                 <a
                     href="#"
-                    onclick="copyDiscord(event)"
+                    id="discord-link"
                 >
 
                     <div class="link-left">
@@ -272,7 +249,6 @@
 
 
                 <!-- YOUTUBE -->
-
                 <a
                     href="https://www.youtube.com/@nxrdonut"
                     target="_blank"
@@ -300,7 +276,6 @@
 
 
                 <!-- GITHUB -->
-
                 <a
                     href="https://github.com/nxrdonut"
                     target="_blank"
@@ -329,14 +304,8 @@
             </div>
 
 
-            <!-- =========================
-                 WIDGETS
-                 ========================= -->
-
+            <!-- PROFILE WIDGETS -->
             <div class="widgets">
-
-
-                <!-- STATUS -->
 
                 <div class="widget">
 
@@ -361,8 +330,6 @@
                 </div>
 
 
-                <!-- LOCATION -->
-
                 <div class="widget">
 
                     <div class="widget-icon">
@@ -386,15 +353,12 @@
             </div>
 
 
-            <!-- =========================
-                 PLAYER
-                 ========================= -->
-
+            <!-- PLAYER -->
             <div class="player">
-
 
                 <button
                     id="music-toggle"
+                    type="button"
                     aria-label="Pause video"
                 >
                     ❚❚
@@ -413,45 +377,13 @@
 
                 </div>
 
-
-                <div class="volume">
-
-                    <span>
-                        🔊
-                    </span>
-
-                    <input
-                        id="volume"
-                        type="range"
-                        min="0"
-                        max="1"
-                        step="0.01"
-                        value="0.35"
-                    >
-
-                </div>
-
             </div>
 
         </div>
 
 
-        <!-- FOOTER -->
-
         <footer>
-
-            <span>
-                nxrdonut
-            </span>
-
-            <span>
-                ·
-            </span>
-
-            <span>
-                2026
-            </span>
-
+            nxrdonut · 2026
         </footer>
 
     </main>
@@ -462,4 +394,3 @@
 </body>
 
 </html>
-```
