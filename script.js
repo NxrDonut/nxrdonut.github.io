@@ -1,21 +1,53 @@
 /* =========================================
-   NxrDonut - Profile Script
+   NxrDonut Website
 ========================================= */
 
-const intro = document.getElementById("intro");
-const video = document.getElementById("background-video");
-const musicToggle = document.getElementById("music-toggle");
-const volume = document.getElementById("volume");
-const volumeIcon = document.getElementById("volume-icon");
-const profileCard = document.getElementById("profile-card");
-
-let entered = false;
 
 /* =========================================
-   CURSOR
+   ELEMENTS
 ========================================= */
 
-const cursorGlow = document.querySelector(".cursor-glow");
+const intro =
+    document.getElementById("intro");
+
+const video =
+    document.getElementById("background-video");
+
+const musicToggle =
+    document.getElementById("music-toggle");
+
+const volume =
+    document.getElementById("volume");
+
+const volumeIcon =
+    document.getElementById("volume-icon");
+
+const viewsButton =
+    document.getElementById("views-button");
+
+const viewsPopup =
+    document.getElementById("views-popup");
+
+const discordLink =
+    document.getElementById("discord-link");
+
+const discordText =
+    document.getElementById("discord-text");
+
+const experienceButton =
+    document.getElementById("experience-button");
+
+const experienceSection =
+    document.getElementById("experience-section");
+
+const closeExperience =
+    document.getElementById("close-experience");
+
+const profileCard =
+    document.getElementById("profile-card");
+
+const cursorGlow =
+    document.querySelector(".cursor-glow");
 
 const trails = [
     document.querySelector(".trail-1"),
@@ -26,163 +58,156 @@ const trails = [
     document.querySelector(".trail-6")
 ];
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
 
-const trailPositions = trails.map(() => ({
-    x: mouseX,
-    y: mouseY
-}));
+/* =========================================
+   SETTINGS
+========================================= */
+
+const DISCORD_USERNAME =
+    "nxrdonut";
+
+const DISCORD_ID =
+    "873534867210637333";
+
+const VIEWS =
+    1284;
 
 
 /* =========================================
-   MOUSE MOVEMENT
+   STATE
 ========================================= */
 
-document.addEventListener("mousemove", (event) => {
+let entered = false;
 
-    mouseX = event.clientX;
-    mouseY = event.clientY;
+let mouseX =
+    window.innerWidth / 2;
 
-    if (cursorGlow) {
-        cursorGlow.style.left = `${mouseX}px`;
-        cursorGlow.style.top = `${mouseY}px`;
-    }
-
-    /* Profile parallax */
-
-    if (
-        entered &&
-        profileCard &&
-        window.innerWidth > 700
-    ) {
-
-        const x =
-            mouseX / window.innerWidth - 0.5;
-
-        const y =
-            mouseY / window.innerHeight - 0.5;
-
-        profileCard.style.transform = `
-            perspective(1000px)
-            rotateX(${y * -4}deg)
-            rotateY(${x * 4}deg)
-        `;
-    }
-
-});
+let mouseY =
+    window.innerHeight / 2;
 
 
 /* =========================================
-   SMOOTH MOTION-BLUR TRAIL
+   VIDEO SETUP
 ========================================= */
 
-function animateCursor() {
+if (video) {
 
-    trails.forEach((trail, index) => {
+    /*
+     * The video is deliberately muted
+     * before the user clicks.
+     */
 
-        if (!trail) return;
+    video.muted = true;
 
-        const target =
-            index === 0
-                ? { x: mouseX, y: mouseY }
-                : trailPositions[index - 1];
+    video.volume = 0.35;
 
-        const speed =
-            0.28 - index * 0.035;
+    video.pause();
 
-        trailPositions[index].x +=
-            (target.x - trailPositions[index].x)
-            * speed;
-
-        trailPositions[index].y +=
-            (target.y - trailPositions[index].y)
-            * speed;
-
-        trail.style.left =
-            `${trailPositions[index].x}px`;
-
-        trail.style.top =
-            `${trailPositions[index].y}px`;
-
-    });
-
-    requestAnimationFrame(animateCursor);
 }
-
-animateCursor();
 
 
 /* =========================================
    ENTER WEBSITE
 ========================================= */
 
-async function enterWebsite(event) {
+async function enterSite() {
 
-    if (entered) return;
+    if (entered) {
+        return;
+    }
 
     entered = true;
 
-    document.body.classList.add("entered");
+    document.body.classList.add(
+        "entered"
+    );
+
+
+    /* Hide intro */
 
     if (intro) {
-        intro.classList.add("hidden");
+
+        intro.classList.add(
+            "hidden"
+        );
+
     }
 
-    /* Start background video */
+
+    /* Start video + sound */
 
     if (video) {
 
         video.muted = false;
 
         if (volume) {
+
             video.volume =
                 Number(volume.value);
+
         }
+
 
         try {
 
             await video.play();
 
             if (musicToggle) {
-                musicToggle.textContent = "❚❚";
+
+                musicToggle.textContent =
+                    "❚❚";
+
             }
 
-        } catch (error) {
+        }
+
+        catch (error) {
+
+            console.log(
+                "Audio autoplay failed."
+            );
 
             /*
-             * If the browser blocks audio,
-             * start the video muted.
+             * The click still starts
+             * the video if audio is blocked.
              */
 
             video.muted = true;
 
             try {
+
                 await video.play();
-            } catch (e) {
+
+            }
+
+            catch (videoError) {
+
                 console.log(
-                    "Video could not start:",
-                    e
+                    "Video failed:",
+                    videoError
                 );
+
             }
 
         }
+
     }
 
 }
 
 
-/* =========================================
-   CLICK ANYWHERE
-========================================= */
-
 /*
-   Use document instead of only #intro.
+ * Expose function globally so the
+ * HTML onclick can always find it.
+ */
 
-   This means clicking anywhere on the
-   screen will start the website while
-   the intro is visible.
-*/
+window.enterSite =
+    enterSite;
+
+
+/* =========================================
+   CLICK ANYWHERE FALLBACK
+========================================= */
 
 document.addEventListener(
     "click",
@@ -190,15 +215,12 @@ document.addEventListener(
 
         if (!entered) {
 
-            enterWebsite(event);
+            enterSite();
 
         }
 
     },
-    {
-        once: false,
-        capture: true
-    }
+    true
 );
 
 
@@ -206,21 +228,63 @@ document.addEventListener(
    VOLUME
 ========================================= */
 
+function updateVolumeIcon() {
+
+    if (!volume ||
+        !volumeIcon) {
+        return;
+    }
+
+
+    const value =
+        Number(volume.value);
+
+
+    if (value === 0) {
+
+        volumeIcon.textContent =
+            "🔇";
+
+    }
+
+    else if (value < 0.5) {
+
+        volumeIcon.textContent =
+            "🔉";
+
+    }
+
+    else {
+
+        volumeIcon.textContent =
+            "🔊";
+
+    }
+
+}
+
+
 if (volume) {
 
     volume.addEventListener(
         "input",
         () => {
 
-            if (!video) return;
+            if (!video) {
+                return;
+            }
+
 
             const value =
                 Number(volume.value);
 
-            video.volume = value;
+
+            video.volume =
+                value;
 
             video.muted =
                 value === 0;
+
 
             updateVolumeIcon();
 
@@ -229,31 +293,6 @@ if (volume) {
 
 }
 
-
-function updateVolumeIcon() {
-
-    if (!volumeIcon || !volume) {
-        return;
-    }
-
-    const value =
-        Number(volume.value);
-
-    if (value === 0) {
-
-        volumeIcon.textContent = "🔇";
-
-    } else if (value < 0.5) {
-
-        volumeIcon.textContent = "🔉";
-
-    } else {
-
-        volumeIcon.textContent = "🔊";
-
-    }
-
-}
 
 updateVolumeIcon();
 
@@ -268,34 +307,36 @@ if (musicToggle) {
         "click",
         async (event) => {
 
-            /*
-             * Don't let the global click
-             * handler interfere with the
-             * music button.
-             */
-
             event.stopPropagation();
 
-            if (!video) return;
+
+            if (!video) {
+                return;
+            }
+
 
             if (video.paused) {
 
-                try {
+                video.muted = false;
 
-                    video.muted = false;
+                try {
 
                     await video.play();
 
                     musicToggle.textContent =
                         "❚❚";
 
-                } catch (error) {
+                }
+
+                catch (error) {
 
                     console.log(error);
 
                 }
 
-            } else {
+            }
+
+            else {
 
                 video.pause();
 
@@ -311,10 +352,289 @@ if (musicToggle) {
 
 
 /* =========================================
-   TITLE ANIMATION
+   CURSOR
 ========================================= */
 
-const titleFrames = [
+document.addEventListener(
+    "mousemove",
+    (event) => {
+
+        mouseX =
+            event.clientX;
+
+        mouseY =
+            event.clientY;
+
+
+        if (cursorGlow) {
+
+            cursorGlow.style.left =
+                mouseX + "px";
+
+            cursorGlow.style.top =
+                mouseY + "px";
+
+        }
+
+
+        /* Profile parallax */
+
+        if (
+            entered &&
+            profileCard &&
+            window.innerWidth > 700
+        ) {
+
+            const x =
+                mouseX /
+                window.innerWidth -
+                0.5;
+
+            const y =
+                mouseY /
+                window.innerHeight -
+                0.5;
+
+
+            profileCard.style.transform =
+                `
+                perspective(1000px)
+                rotateX(${y * -4}deg)
+                rotateY(${x * 4}deg)
+                `;
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   CURSOR MOTION BLUR
+========================================= */
+
+const positions =
+    trails.map(() => ({
+        x: mouseX,
+        y: mouseY
+    }));
+
+
+function animateCursor() {
+
+    trails.forEach(
+        (trail, index) => {
+
+            if (!trail) {
+                return;
+            }
+
+
+            const target =
+                index === 0
+                    ? {
+                        x: mouseX,
+                        y: mouseY
+                    }
+                    : positions[
+                        index - 1
+                    ];
+
+
+            const speed =
+                0.3 -
+                index * 0.035;
+
+
+            positions[index].x +=
+                (
+                    target.x -
+                    positions[index].x
+                ) * speed;
+
+
+            positions[index].y +=
+                (
+                    target.y -
+                    positions[index].y
+                ) * speed;
+
+
+            trail.style.left =
+                positions[index].x + "px";
+
+            trail.style.top =
+                positions[index].y + "px";
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        animateCursor
+    );
+
+}
+
+
+animateCursor();
+
+
+/* =========================================
+   VIEWS
+========================================= */
+
+if (viewsButton &&
+    viewsPopup) {
+
+    viewsButton.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+            viewsPopup.classList.toggle(
+                "open"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   DISCORD
+========================================= */
+
+if (discordLink) {
+
+    discordLink.addEventListener(
+        "click",
+        async (event) => {
+
+            event.preventDefault();
+
+            event.stopPropagation();
+
+
+            try {
+
+                await navigator.clipboard
+                    .writeText(
+                        DISCORD_USERNAME
+                    );
+
+
+                if (discordText) {
+
+                    discordText.textContent =
+                        "Copied!";
+
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        if (discordText) {
+
+                            discordText.textContent =
+                                "Discord";
+
+                        }
+
+                    },
+                    1500
+                );
+
+            }
+
+            catch (error) {
+
+                alert(
+                    "Discord: " +
+                    DISCORD_USERNAME
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   EXPERIENCE
+========================================= */
+
+if (experienceButton &&
+    experienceSection) {
+
+    experienceButton.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+            experienceSection.classList.add(
+                "open"
+            );
+
+        }
+    );
+
+}
+
+
+if (closeExperience &&
+    experienceSection) {
+
+    closeExperience.addEventListener(
+        "click",
+        (event) => {
+
+            event.stopPropagation();
+
+            experienceSection.classList.remove(
+                "open"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   CLOSE EXPERIENCE WITH ESCAPE
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Escape" &&
+            experienceSection
+        ) {
+
+            experienceSection.classList.remove(
+                "open"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   ANIMATED TITLE
+========================================= */
+
+const titles = [
     "NxrDonut",
     "NxrDonut.",
     "NxrDonut..",
@@ -323,16 +643,90 @@ const titleFrames = [
 
 let titleIndex = 0;
 
-setInterval(() => {
 
-    titleIndex =
-        (titleIndex + 1) %
-        titleFrames.length;
+setInterval(
+    () => {
 
-    document.title =
-        titleFrames[titleIndex];
+        titleIndex =
+            (
+                titleIndex + 1
+            ) %
+            titles.length;
 
-}, 700);
+
+        document.title =
+            titles[titleIndex];
+
+    },
+    700
+);
+
+
+/* =========================================
+   PARTICLES
+========================================= */
+
+const particles =
+    document.getElementById(
+        "particles"
+    );
+
+
+if (particles) {
+
+    const amount =
+        window.innerWidth < 600
+            ? 25
+            : 45;
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        const particle =
+            document.createElement(
+                "div"
+            );
+
+
+        particle.className =
+            "particle";
+
+
+        particle.style.left =
+            Math.random() * 100 +
+            "%";
+
+
+        particle.style.top =
+            (
+                100 +
+                Math.random() * 30
+            ) + "%";
+
+
+        particle.style.animationDuration =
+            (
+                10 +
+                Math.random() * 20
+            ) + "s";
+
+
+        particle.style.animationDelay =
+            Math.random() * 15 +
+            "s";
+
+
+        particles.appendChild(
+            particle
+        );
+
+    }
+
+}
 
 
 /* =========================================
@@ -346,17 +740,34 @@ document.addEventListener(
         if (
             event.code === "Space" &&
             entered &&
-            document.activeElement.tagName !== "INPUT"
+            document.activeElement.tagName !==
+                "INPUT"
         ) {
 
             event.preventDefault();
 
             if (musicToggle) {
+
                 musicToggle.click();
+
             }
 
         }
 
     }
+);
+
+
+/* =========================================
+   DEBUG
+========================================= */
+
+console.log(
+    "NxrDonut profile loaded."
+);
+
+console.log(
+    "Discord ID:",
+    DISCORD_ID
 );
 ```
