@@ -1,6 +1,6 @@
 ```javascript
 /* =========================
-   GET ELEMENTS
+   ELEMENTS
    ========================= */
 
 const intro =
@@ -18,6 +18,24 @@ const musicToggle =
 const volume =
     document.getElementById("volume");
 
+const profileCard =
+    document.getElementById("profile-card");
+
+const cursorGlow =
+    document.querySelector(".cursor-glow");
+
+const viewsButton =
+    document.getElementById("views-button");
+
+const viewsDisplay =
+    document.getElementById("views");
+
+const popupViews =
+    document.getElementById("popup-views");
+
+const viewsPopup =
+    document.getElementById("views-popup");
+
 
 /* =========================
    SETTINGS
@@ -25,27 +43,45 @@ const volume =
 
 let entered = false;
 
-
-/*
-    Starting volume.
-
-    Change 0.35 to:
-    0.10 = quiet
-    0.50 = medium
-    1.00 = maximum
-*/
-
 video.volume = 0.35;
 
 
 /* =========================
-   KEEP VIDEO STILL
+   VIEW COUNTER
    ========================= */
 
 /*
-    The video does not move
-    before CLICK.
+    Fixed profile view count.
 */
+
+const views = 1284;
+
+viewsDisplay.textContent =
+    views.toLocaleString();
+
+popupViews.textContent =
+    views.toLocaleString();
+
+
+/* =========================
+   VIEW POPUP
+   ========================= */
+
+viewsButton.addEventListener(
+    "click",
+    () => {
+
+        viewsPopup.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+/* =========================
+   VIDEO STARTS STILL
+   ========================= */
 
 video.pause();
 
@@ -58,10 +94,6 @@ enterButton.addEventListener(
     "click",
     async () => {
 
-        /*
-            Prevent clicking twice.
-        */
-
         if (entered) {
             return;
         }
@@ -70,7 +102,7 @@ enterButton.addEventListener(
 
 
         /*
-            Start visual transition.
+            Enable the website.
         */
 
         document.body.classList.add(
@@ -79,7 +111,7 @@ enterButton.addEventListener(
 
 
         /*
-            Hide CLICK.
+            Hide CLICK screen.
         */
 
         intro.classList.add(
@@ -88,20 +120,22 @@ enterButton.addEventListener(
 
 
         /*
-            Turn audio on.
-
-            Because the visitor clicked,
-            the browser allows media audio.
+            Set volume.
         */
-
-        video.muted = false;
 
         video.volume =
             Number(volume.value);
 
 
         /*
-            Start video.
+            Enable video audio.
+        */
+
+        video.muted = false;
+
+
+        /*
+            Start background video.
         */
 
         try {
@@ -116,7 +150,7 @@ enterButton.addEventListener(
         catch (error) {
 
             console.log(
-                "Video/audio could not start:",
+                "Video could not start:",
                 error
             );
 
@@ -137,14 +171,11 @@ musicToggle.addEventListener(
     "click",
     async () => {
 
-        /*
-            If video is stopped,
-            start it.
-        */
-
         if (video.paused) {
 
             try {
+
+                video.muted = false;
 
                 await video.play();
 
@@ -163,10 +194,6 @@ musicToggle.addEventListener(
             }
 
         }
-
-        /*
-            Otherwise pause it.
-        */
 
         else {
 
@@ -197,22 +224,102 @@ volume.addEventListener(
 
 
 /* =========================
+   CURSOR GLOW
+   ========================= */
+
+document.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (!cursorGlow) {
+            return;
+        }
+
+        cursorGlow.style.left =
+            `${event.clientX}px`;
+
+        cursorGlow.style.top =
+            `${event.clientY}px`;
+
+    }
+);
+
+
+/* =========================
+   PARALLAX PROFILE
+   ========================= */
+
+document.addEventListener(
+    "mousemove",
+    (event) => {
+
+        if (!entered || !profileCard) {
+            return;
+        }
+
+
+        const x =
+            (event.clientX /
+                window.innerWidth) -
+            0.5;
+
+        const y =
+            (event.clientY /
+                window.innerHeight) -
+            0.5;
+
+
+        const rotateX =
+            y * -7;
+
+        const rotateY =
+            x * 7;
+
+
+        profileCard.style.transform =
+            `
+            perspective(1000px)
+            rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            translateY(-2px)
+            `;
+
+    }
+);
+
+
+/* =========================
+   RESET PARALLAX
+   ========================= */
+
+document.addEventListener(
+    "mouseleave",
+    () => {
+
+        if (!profileCard) {
+            return;
+        }
+
+        profileCard.style.transform =
+            `
+            perspective(1000px)
+            rotateX(0deg)
+            rotateY(0deg)
+            translateY(0)
+            `;
+
+    }
+);
+
+
+/* =========================
    DISCORD COPY
    ========================= */
 
 function copyDiscord(event) {
 
-    /*
-        Stop the link from
-        opening a page.
-    */
-
     event.preventDefault();
 
-
-    /*
-        Copy Discord username.
-    */
 
     navigator.clipboard
         .writeText("nxrdonut")
@@ -225,21 +332,18 @@ function copyDiscord(event) {
                 );
 
 
+            if (!text) {
+                return;
+            }
+
+
             const original =
                 text.textContent;
 
 
-            /*
-                Show confirmation.
-            */
-
             text.textContent =
                 "Copied!";
 
-
-            /*
-                Change it back.
-            */
 
             setTimeout(
                 () => {
@@ -255,11 +359,6 @@ function copyDiscord(event) {
 
         .catch(() => {
 
-            /*
-                Fallback if clipboard
-                permission is unavailable.
-            */
-
             alert(
                 "Discord username: nxrdonut"
             );
@@ -270,7 +369,35 @@ function copyDiscord(event) {
 
 
 /* =========================
-   SPACEBAR CONTROL
+   ANIMATED PAGE TITLE
+   ========================= */
+
+const titleFrames = [
+    "nxrdonut",
+    "nxrdonut.",
+    "nxrdonut..",
+    "nxrdonut..."
+];
+
+let titleIndex = 0;
+
+setInterval(
+    () => {
+
+        titleIndex =
+            (titleIndex + 1) %
+            titleFrames.length;
+
+        document.title =
+            titleFrames[titleIndex];
+
+    },
+    700
+);
+
+
+/* =========================
+   SPACEBAR PLAY / PAUSE
    ========================= */
 
 document.addEventListener(
