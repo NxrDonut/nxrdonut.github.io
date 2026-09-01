@@ -14,23 +14,22 @@
     <!-- BACKGROUND VIDEO -->
     <video
         id="background-video"
-        autoplay
-        muted
+        src="./video.mp4"
         loop
         playsinline
-        preload="auto"
-    >
-        <source src="video.mp4" type="video/mp4">
+        preload="auto">
     </video>
 
-    <!-- DARK OVERLAY -->
+    <!-- DARK CINEMATIC OVERLAY -->
     <div class="video-overlay"></div>
 
     <!-- PARTICLES -->
     <div id="particles"></div>
 
-    <!-- CURSOR EFFECT -->
-    <div class="cursor-glow"></div>
+    <!-- CURSOR -->
+    <div id="cursor-glow"></div>
+
+    <div class="cursor-dot"></div>
 
     <div class="cursor-trail trail-1"></div>
     <div class="cursor-trail trail-2"></div>
@@ -40,7 +39,7 @@
     <div class="cursor-trail trail-6"></div>
 
 
-    <!-- TOP BAR -->
+    <!-- TOP NAV -->
     <header class="topbar">
 
         <div class="top-logo">
@@ -48,10 +47,8 @@
         </div>
 
         <button
-            class="experience-button"
             id="experience-button"
-            type="button"
-        >
+            class="nav-button">
             Experience
         </button>
 
@@ -61,10 +58,7 @@
     <!-- VOLUME -->
     <div class="volume-control">
 
-        <div
-            class="volume-icon"
-            id="volume-icon"
-        >
+        <div id="volume-icon">
             🔊
         </div>
 
@@ -74,60 +68,69 @@
             min="0"
             max="1"
             step="0.01"
-            value="0.35"
-        >
+            value="0.35">
 
     </div>
 
 
-    <!-- INTRO -->
-    <div
-        id="intro"
-        onclick="enterSite()"
-    >
+    <!-- ==========================================
+         FULL SCREEN INTRO
+    =========================================== -->
 
-        <div id="enter">
-            CLICK ANYWHERE
+    <div id="intro">
+
+        <div class="intro-content">
+
+            <div class="intro-ring"></div>
+
+            <div class="intro-text">
+                CLICK ANYWHERE
+            </div>
+
+            <div class="intro-subtext">
+                ENTER EXPERIENCE
+            </div>
+
         </div>
 
     </div>
 
 
-    <!-- MAIN PROFILE -->
+    <!-- ==========================================
+         PROFILE
+    =========================================== -->
+
     <main id="profile">
 
-        <section
-            class="card"
-            id="profile-card"
-        >
+        <section id="profile-card" class="profile-card">
 
             <!-- PROFILE PICTURE -->
-            <div class="avatar-container">
+
+            <div class="avatar-wrapper">
 
                 <div class="avatar-glow"></div>
 
                 <img
+                    src="./pfp.jpg"
                     class="avatar"
-                    src="pfp.jpg"
-                    alt="NxrDonut"
-                >
+                    alt="NxrDonut">
 
             </div>
 
 
             <!-- USERNAME -->
-            <h1 class="username">
 
+            <h1 class="username">
                 NxrDonut
 
                 <span class="verified">
                     ✓
                 </span>
-
             </h1>
 
 
             <!-- BADGES -->
+
             <div class="badges">
 
                 <span class="badge">
@@ -146,25 +149,25 @@
 
 
             <!-- BIO -->
+
             <p class="bio">
                 Screensharer / Dev / RLT2
             </p>
 
 
             <!-- STATS -->
+
             <div class="stats">
 
                 <button
-                    class="stat"
                     id="views-button"
-                    type="button"
-                >
+                    class="stat">
 
-                    <span class="stat-icon">
+                    <span class="stat-symbol">
                         ◉
                     </span>
 
-                    <span class="stat-text">
+                    <span class="stat-info">
 
                         <strong>
                             1,284
@@ -181,11 +184,11 @@
 
                 <div class="stat">
 
-                    <span class="stat-icon">
+                    <span class="stat-symbol online">
                         ●
                     </span>
 
-                    <span class="stat-text">
+                    <span class="stat-info">
 
                         <strong>
                             Online
@@ -202,11 +205,11 @@
             </div>
 
 
-            <!-- VIEWS POPUP -->
+            <!-- VIEW COUNTER -->
+
             <div
-                class="views-popup"
                 id="views-popup"
-            >
+                class="views-popup">
 
                 <span>
                     Profile views
@@ -222,21 +225,23 @@
             <div class="divider"></div>
 
 
-            <!-- SOCIAL LINKS -->
-            <div class="links">
+            <!-- SOCIALS -->
+
+            <div class="social-links">
+
 
                 <!-- DISCORD -->
+
                 <a
                     href="#"
                     id="discord-link"
-                >
+                    class="social-link">
 
-                    <div class="link-left">
+                    <div class="social-left">
 
                         <img
-                            src="icons/discord.png"
-                            alt="Discord"
-                        >
+                            src="./icons/discord.png"
+                            alt="Discord">
 
                         <span id="discord-text">
                             Discord
@@ -244,7 +249,7 @@
 
                     </div>
 
-                    <span class="arrow">
+                    <span class="social-arrow">
                         ↗
                     </span>
 
@@ -252,18 +257,18 @@
 
 
                 <!-- YOUTUBE -->
+
                 <a
                     href="https://www.youtube.com/@nxrdonut"
                     target="_blank"
                     rel="noopener noreferrer"
-                >
+                    class="social-link">
 
-                    <div class="link-left">
+                    <div class="social-left">
 
                         <img
-                            src="icons/youtube.png"
-                            alt="YouTube"
-                        >
+                            src="./icons/youtube.png"
+                            alt="YouTube">
 
                         <span>
                             YouTube
@@ -271,7 +276,7 @@
 
                     </div>
 
-                    <span class="arrow">
+                    <span class="social-arrow">
                         ↗
                     </span>
 
@@ -279,18 +284,18 @@
 
 
                 <!-- GITHUB -->
+
                 <a
                     href="https://github.com/nxrdonut"
                     target="_blank"
                     rel="noopener noreferrer"
-                >
+                    class="social-link">
 
-                    <div class="link-left">
+                    <div class="social-left">
 
                         <img
-                            src="icons/github.png"
-                            alt="GitHub"
-                        >
+                            src="./icons/github.png"
+                            alt="GitHub">
 
                         <span>
                             GitHub
@@ -298,7 +303,7 @@
 
                     </div>
 
-                    <span class="arrow">
+                    <span class="social-arrow">
                         ↗
                     </span>
 
@@ -307,25 +312,35 @@
             </div>
 
 
-            <!-- MUSIC -->
+            <!-- PLAYER -->
+
             <div class="player">
 
                 <button
                     id="music-toggle"
-                    type="button"
-                >
+                    class="play-button">
                     ▶
                 </button>
 
-                <div class="track">
+                <div class="track-info">
 
-                    <strong>
+                    <span class="track-label">
                         NOW PLAYING
-                    </strong>
+                    </span>
 
-                    <span>
+                    <span class="track-name">
                         Background video
                     </span>
+
+                </div>
+
+                <div class="sound-wave">
+
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
 
                 </div>
 
@@ -341,24 +356,25 @@
     </main>
 
 
-    <!-- EXPERIENCE SECTION -->
+    <!-- ==========================================
+         EXPERIENCE
+    =========================================== -->
+
     <section
         id="experience-section"
-        class="experience-section"
-    >
+        class="experience-section">
 
         <button
             id="close-experience"
-            type="button"
-        >
+            class="close-button">
             ×
         </button>
 
-        <div class="experience-content">
+        <div class="experience-box">
 
-            <p class="section-label">
+            <span class="experience-label">
                 EXPERIENCE
-            </p>
+            </span>
 
             <h2>
                 What I do
@@ -368,36 +384,57 @@
                 Developer, screensharer and RLT2 player.
             </p>
 
+
             <div class="experience-grid">
 
                 <div class="experience-card">
+
+                    <span class="experience-icon">
+                        &lt;/&gt;
+                    </span>
+
                     <strong>
                         Development
                     </strong>
 
-                    <span>
+                    <small>
                         Web & software projects
-                    </span>
+                    </small>
+
                 </div>
 
+
                 <div class="experience-card">
+
+                    <span class="experience-icon">
+                        ◉
+                    </span>
+
                     <strong>
                         Screensharing
                     </strong>
 
-                    <span>
+                    <small>
                         Content & community
-                    </span>
+                    </small>
+
                 </div>
 
+
                 <div class="experience-card">
+
+                    <span class="experience-icon">
+                        ★
+                    </span>
+
                     <strong>
                         RLT2
                     </strong>
 
-                    <span>
-                        Rocket League sideswipe
-                    </span>
+                    <small>
+                        Rocket League Sideswipe
+                    </small>
+
                 </div>
 
             </div>
@@ -407,9 +444,7 @@
     </section>
 
 
-    <!-- SCRIPT -->
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
 
 </body>
 </html>
-```
