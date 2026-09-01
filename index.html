@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>nxrdonut</title>
+    <title>NxrDonut</title>
 
     <meta
         name="description"
-        content="Screensharer / Dev / #21 McPvP.com / RLT2"
+        content="NxrDonut - Screensharer / Dev / RLT2"
     >
 
     <link rel="stylesheet" href="style.css">
@@ -17,7 +18,7 @@
 
 <body>
 
-    <!-- FULL SCREEN BACKGROUND VIDEO -->
+    <!-- BACKGROUND VIDEO -->
     <video
         id="background-video"
         muted
@@ -28,20 +29,17 @@
         <source src="video.mp4" type="video/mp4">
     </video>
 
-
-    <!-- BACKGROUND EFFECTS -->
     <div class="background-gradient"></div>
     <div class="darkness"></div>
     <div class="noise"></div>
 
-
     <!-- PARTICLES -->
     <div id="particles"></div>
 
-
-    <!-- MOUSE EFFECTS -->
+    <!-- MOUSE GLOW -->
     <div class="cursor-glow"></div>
 
+    <!-- MOUSE TRAIL -->
     <div class="cursor-trail trail-1"></div>
     <div class="cursor-trail trail-2"></div>
     <div class="cursor-trail trail-3"></div>
@@ -49,10 +47,47 @@
     <div class="cursor-trail trail-5"></div>
 
 
-    <!-- TOP LEFT VOLUME -->
+    <!-- =========================
+         TOP BAR
+         ========================= -->
+
+    <header class="topbar">
+
+        <div class="nav-logo">
+            NxrDonut
+        </div>
+
+        <nav class="nav-links">
+
+            <button
+                class="nav-button active"
+                id="bio-button"
+            >
+                Bio
+            </button>
+
+            <button
+                class="nav-button"
+                id="experience-button"
+            >
+                Experience
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         VOLUME CONTROL
+         ========================= -->
+
     <div class="volume-control">
 
-        <span class="volume-icon" id="volume-icon">
+        <span
+            class="volume-icon"
+            id="volume-icon"
+        >
             🔊
         </span>
 
@@ -69,7 +104,10 @@
     </div>
 
 
-    <!-- CLICK SCREEN -->
+    <!-- =========================
+         CLICK SCREEN
+         ========================= -->
+
     <div id="intro">
 
         <div id="enter">
@@ -79,311 +117,410 @@
     </div>
 
 
-    <!-- PROFILE -->
+    <!-- =========================
+         MAIN CONTENT
+         ========================= -->
+
     <main id="profile">
 
-        <div class="card" id="profile-card">
 
-            <!-- PROFILE PICTURE -->
-            <div class="avatar-container">
+        <!-- =====================
+             BIO
+             ===================== -->
 
-                <img
-                    class="avatar"
-                    src="pfp.jpg"
-                    alt="nxrdonut"
-                >
+        <section
+            id="bio-section"
+            class="page-section active-section"
+        >
 
-                <div class="avatar-glow"></div>
-
-            </div>
-
-
-            <!-- USERNAME -->
-            <h1 class="username">
-
-                <span>nxrdonut</span>
-
-                <span class="verified">
-                    ✓
-                </span>
-
-            </h1>
-
-
-            <p class="handle">
-                @nxrdonut
-            </p>
-
-
-            <!-- BADGES -->
-            <div class="badges">
-
-                <span class="badge">
-                    DEV
-                </span>
-
-                <span class="badge">
-                    SCREENSHARER
-                </span>
-
-                <span class="badge">
-                    #21
-                </span>
-
-                <span class="badge">
-                    RLT2
-                </span>
-
-            </div>
-
-
-            <!-- BIO -->
-            <p class="bio">
-                Screensharer / Dev / #21 McPvP.com / RLT2
-            </p>
-
-
-            <!-- STATS -->
-            <div class="stats">
-
-                <button
-                    id="views-button"
-                    class="stat"
-                    type="button"
-                >
-
-                    <span class="stat-icon">
-                        ◉
-                    </span>
-
-                    <span>
-                        <strong id="views">
-                            1,284
-                        </strong>
-
-                        <small>
-                            views
-                        </small>
-                    </span>
-
-                </button>
-
-
-                <div class="stat">
-
-                    <span class="stat-icon">
-                        ●
-                    </span>
-
-                    <span>
-                        <strong>
-                            online
-                        </strong>
-
-                        <small>
-                            status
-                        </small>
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- VIEWS POPUP -->
             <div
-                id="views-popup"
-                class="views-popup"
+                class="card"
+                id="profile-card"
             >
 
-                <div class="views-popup-inner">
+                <!-- PROFILE PICTURE -->
 
-                    <span class="popup-icon">
-                        ◉
-                    </span>
+                <div class="avatar-container">
 
-                    <strong>
-                        Profile views
-                    </strong>
+                    <img
+                        class="avatar"
+                        src="pfp.jpg"
+                        alt="NxrDonut profile picture"
+                    >
 
-                    <span id="popup-views">
-                        1,284
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <!-- DIVIDER -->
-            <div class="divider"></div>
-
-
-            <!-- SOCIAL LINKS -->
-            <div class="links">
-
-                <!-- DISCORD -->
-                <a
-                    href="#"
-                    id="discord-link"
-                >
-
-                    <div class="link-left">
-
-                        <img
-                            src="icons/discord.png"
-                            alt="Discord"
-                        >
-
-                        <span id="discord-text">
-                            Discord
-                        </span>
-
-                    </div>
-
-                    <span class="arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <!-- YOUTUBE -->
-                <a
-                    href="https://www.youtube.com/@nxrdonut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="link-left">
-
-                        <img
-                            src="icons/youtube.png"
-                            alt="YouTube"
-                        >
-
-                        <span>
-                            YouTube
-                        </span>
-
-                    </div>
-
-                    <span class="arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-
-                <!-- GITHUB -->
-                <a
-                    href="https://github.com/nxrdonut"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-
-                    <div class="link-left">
-
-                        <img
-                            src="icons/github.png"
-                            alt="GitHub"
-                        >
-
-                        <span>
-                            GitHub
-                        </span>
-
-                    </div>
-
-                    <span class="arrow">
-                        ↗
-                    </span>
-
-                </a>
-
-            </div>
-
-
-            <!-- PROFILE WIDGETS -->
-            <div class="widgets">
-
-                <div class="widget">
-
-                    <div class="widget-icon">
-                        ●
-                    </div>
-
-                    <div class="widget-text">
-
-                        <strong>
-                            currently
-                        </strong>
-
-                        <span>
-                            doing stuff
-                        </span>
-
-                    </div>
-
-                    <div class="online-dot"></div>
+                    <div class="avatar-glow"></div>
 
                 </div>
 
 
-                <div class="widget">
+                <!-- NAME -->
 
-                    <div class="widget-icon">
-                        #
-                    </div>
-
-                    <div class="widget-text">
-
-                        <strong>
-                            McPvP.com
-                        </strong>
-
-                        <span>
-                            #21
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- PLAYER -->
-            <div class="player">
-
-                <button
-                    id="music-toggle"
-                    type="button"
-                    aria-label="Pause video"
-                >
-                    ❚❚
-                </button>
-
-
-                <div class="track">
-
-                    <strong>
-                        now playing
-                    </strong>
+                <h1 class="username">
 
                     <span>
-                        background video
+                        NxrDonut
                     </span>
+
+                    <span class="verified">
+                        ✓
+                    </span>
+
+                </h1>
+
+
+                <p class="handle">
+                    @nxrdonut
+                </p>
+
+
+                <!-- BADGES -->
+
+                <div class="badges">
+
+                    <span class="badge">
+                        DEV
+                    </span>
+
+                    <span class="badge">
+                        SCREENSHARER
+                    </span>
+
+                    <span class="badge">
+                        RLT2
+                    </span>
+
+                </div>
+
+
+                <!-- BIO -->
+
+                <p class="bio">
+                    Screensharer / Dev / RLT2
+                </p>
+
+
+                <!-- STATS -->
+
+                <div class="stats">
+
+                    <button
+                        id="views-button"
+                        class="stat"
+                        type="button"
+                    >
+
+                        <span class="stat-icon">
+                            ◉
+                        </span>
+
+                        <span>
+
+                            <strong id="views">
+                                1,284
+                            </strong>
+
+                            <small>
+                                views
+                            </small>
+
+                        </span>
+
+                    </button>
+
+
+                    <div class="stat">
+
+                        <span class="stat-icon">
+                            ●
+                        </span>
+
+                        <span>
+
+                            <strong>
+                                online
+                            </strong>
+
+                            <small>
+                                status
+                            </small>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- VIEWS POPUP -->
+
+                <div
+                    id="views-popup"
+                    class="views-popup"
+                >
+
+                    <div class="views-popup-inner">
+
+                        <span class="popup-icon">
+                            ◉
+                        </span>
+
+                        <strong>
+                            Profile views
+                        </strong>
+
+                        <span id="popup-views">
+                            1,284
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="divider"></div>
+
+
+                <!-- SOCIAL LINKS -->
+
+                <div class="links">
+
+
+                    <!-- DISCORD -->
+
+                    <a
+                        href="#"
+                        id="discord-link"
+                    >
+
+                        <div class="link-left">
+
+                            <img
+                                src="icons/discord.png"
+                                alt="Discord"
+                            >
+
+                            <span id="discord-text">
+                                Discord
+                            </span>
+
+                        </div>
+
+                        <span class="arrow">
+                            ↗
+                        </span>
+
+                    </a>
+
+
+                    <!-- YOUTUBE -->
+
+                    <a
+                        href="https://www.youtube.com/@nxrdonut"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <div class="link-left">
+
+                            <img
+                                src="icons/youtube.png"
+                                alt="YouTube"
+                            >
+
+                            <span>
+                                YouTube
+                            </span>
+
+                        </div>
+
+                        <span class="arrow">
+                            ↗
+                        </span>
+
+                    </a>
+
+
+                    <!-- GITHUB -->
+
+                    <a
+                        href="https://github.com/nxrdonut"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+
+                        <div class="link-left">
+
+                            <img
+                                src="icons/github.png"
+                                alt="GitHub"
+                            >
+
+                            <span>
+                                GitHub
+                            </span>
+
+                        </div>
+
+                        <span class="arrow">
+                            ↗
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- VIDEO PLAYER -->
+
+                <div class="player">
+
+                    <button
+                        id="music-toggle"
+                        type="button"
+                    >
+                        ❚❚
+                    </button>
+
+                    <div class="track">
+
+                        <strong>
+                            NOW PLAYING
+                        </strong>
+
+                        <span>
+                            Background video
+                        </span>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
+
+
+        <!-- =====================
+             EXPERIENCE
+             ===================== -->
+
+        <section
+            id="experience-section"
+            class="page-section"
+        >
+
+            <div class="experience-container">
+
+
+                <div class="experience-heading">
+
+                    <span class="eyebrow">
+                        NxrDonut
+                    </span>
+
+                    <h2>
+                        Experience
+                    </h2>
+
+                    <p>
+                        Things I've worked on and
+                        experience I've gained.
+                    </p>
+
+                </div>
+
+
+                <div class="experience-list">
+
+
+                    <article class="experience-card">
+
+                        <div class="experience-number">
+                            01
+                        </div>
+
+                        <div class="experience-content">
+
+                            <h3>
+                                Development
+                            </h3>
+
+                            <p>
+                                Building websites, projects
+                                and experimenting with
+                                different technologies.
+                            </p>
+
+                            <span class="experience-tag">
+                                DEV
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="experience-card">
+
+                        <div class="experience-number">
+                            02
+                        </div>
+
+                        <div class="experience-content">
+
+                            <h3>
+                                Screensharing
+                            </h3>
+
+                            <p>
+                                Helping with technical issues,
+                                troubleshooting and
+                                screensharing.
+                            </p>
+
+                            <span class="experience-tag">
+                                TECH
+                            </span>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="experience-card">
+
+                        <div class="experience-number">
+                            03
+                        </div>
+
+                        <div class="experience-content">
+
+                            <h3>
+                                RLT2
+                            </h3>
+
+                            <p>
+                                Part of the RLT2 community
+                                and projects surrounding it.
+                            </p>
+
+                            <span class="experience-tag">
+                                RLT2
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
 
 
         <footer>
-            nxrdonut · 2026
+            NxrDonut · 2026
         </footer>
 
     </main>
@@ -394,3 +531,4 @@
 </body>
 
 </html>
+```
