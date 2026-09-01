@@ -11,83 +11,52 @@
 
 <body>
 
-    <!-- AUDIO -->
-    <audio
-        id="background-music"
-        src="./music.mp3"
-        loop
-        preload="auto">
-    </audio>
+    <!-- =========================
+         AUDIO
+    ========================== -->
+
+    <audio id="background-music" src="./video.mp3" loop preload="auto"></audio>
 
 
-    <!-- PARTICLES -->
+    <!-- =========================
+         BACKGROUND
+    ========================== -->
+
+    <div class="background"></div>
+    <div class="background-blur"></div>
+
     <div id="particles"></div>
 
 
-    <!-- CURSOR -->
+    <!-- =========================
+         CURSOR
+    ========================== -->
+
     <div id="cursor-glow"></div>
-    <div class="cursor-dot"></div>
+    <div id="cursor-dot"></div>
 
     <div class="cursor-trail trail-1"></div>
     <div class="cursor-trail trail-2"></div>
     <div class="cursor-trail trail-3"></div>
     <div class="cursor-trail trail-4"></div>
     <div class="cursor-trail trail-5"></div>
-    <div class="cursor-trail trail-6"></div>
 
 
-    <!-- TOP NAVIGATION -->
-    <header class="topbar">
+    <!-- =========================
+         INTRO
+    ========================== -->
 
-        <button
-            class="top-logo"
-            id="home-button">
-            NxrDonut
-        </button>
-
-        <nav class="navigation">
-
-            <button
-                class="nav-button"
-                id="experience-button">
-                Experience
-            </button>
-
-        </nav>
-
-    </header>
-
-
-    <!-- VOLUME -->
-    <div class="volume-control">
-
-        <div id="volume-icon">
-            🔊
-        </div>
-
-        <input
-            id="volume"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value="0.35">
-
-    </div>
-
-
-    <!-- INTRO -->
     <div id="intro">
 
-        <div class="intro-content">
+        <div class="intro-center">
 
             <div class="intro-ring"></div>
 
-            <span class="intro-text">
+            <button id="enter-button">
                 CLICK ANYWHERE
-            </span>
+            </button>
 
-            <span class="intro-subtext">
+            <span class="intro-line">
                 ENTER EXPERIENCE
             </span>
 
@@ -96,23 +65,74 @@
     </div>
 
 
-    <!-- MAIN -->
+    <!-- =========================
+         TOP NAVIGATION
+    ========================== -->
+
+    <header class="topbar">
+
+        <div class="top-logo">
+            NxrDonut
+        </div>
+
+        <nav>
+
+            <button
+                class="nav-button"
+                data-scroll="bio-section">
+                Bio
+            </button>
+
+            <button
+                class="nav-button"
+                data-scroll="experience-section">
+                Experience
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         VOLUME
+    ========================== -->
+
+    <div class="volume-control">
+
+        <button id="volume-button" aria-label="Volume">
+            <span>♪</span>
+        </button>
+
+        <div class="volume-slider-wrapper">
+
+            <input
+                id="volume"
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.35">
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
     <main>
 
 
-        <!-- HERO -->
-        <section
-            id="home"
-            class="hero section">
+        <!-- =========================
+             PROFILE
+        ========================== -->
 
-            <div class="hero-aura"></div>
+        <section id="bio-section" class="profile-section">
 
-            <div
-                class="hero-content"
-                id="hero-content">
-
-
-                <!-- PROFILE PICTURE -->
+            <div class="profile-content">
 
                 <div class="avatar-wrapper">
 
@@ -120,47 +140,43 @@
 
                     <img
                         src="./pfp.jpg"
-                        class="avatar"
-                        alt="NxrDonut">
+                        alt="NxrDonut"
+                        class="avatar">
 
                 </div>
 
 
-                <!-- USERNAME -->
+                <div class="username-row">
 
-                <h1 class="username">
-                    NxrDonut
+                    <h1>
+                        NxrDonut
+                    </h1>
 
                     <span class="verified">
                         ✓
                     </span>
-                </h1>
-
-
-                <!-- BADGES -->
-
-                <div class="badges">
-
-                    <span class="badge">
-                        DEVELOPER
-                    </span>
-
-                    <span class="badge">
-                        SCREENSHARER
-                    </span>
-
-                    <span class="badge">
-                        COMPETITIVE MC PLAYER
-                    </span>
 
                 </div>
 
 
-                <!-- BIO -->
+                <div class="badges">
 
-                <p class="bio">
-                    18 years old · 4x HT3 · 1x LT2 ·
-                    #21 MCPvP.com · #37 CatPvP.xyz
+                    <span>DEV</span>
+                    <span>SSER</span>
+                    <span>RLT2</span>
+
+                </div>
+
+
+                <p class="headline">
+                    Developer · Screensharer · Competitive Minecraft Player
+                </p>
+
+
+                <p class="bio-text">
+                    4x HT3 · 1x LT2
+                    <br>
+                    #21 MCPVP.com · #37 CatPvP
                 </p>
 
 
@@ -172,66 +188,23 @@
                         id="views-button"
                         class="stat">
 
-                        <span class="stat-symbol">
-                            ◉
-                        </span>
-
-                        <span class="stat-info">
-
-                            <strong>
-                                1,284
-                            </strong>
-
-                            <small>
-                                views
-                            </small>
-
-                        </span>
+                        <strong>1,284</strong>
+                        <span>views</span>
 
                     </button>
 
 
                     <div class="stat">
 
-                        <span class="stat-symbol online">
-                            ●
-                        </span>
-
-                        <span class="stat-info">
-
-                            <strong>
-                                Online
-                            </strong>
-
-                            <small>
-                                status
-                            </small>
-
-                        </span>
+                        <strong>2+</strong>
+                        <span>years SS</span>
 
                     </div>
 
                 </div>
 
 
-                <!-- VIEWS POPUP -->
-
-                <div
-                    id="views-popup"
-                    class="views-popup">
-
-                    <span>
-                        Profile views
-                    </span>
-
-                    <strong>
-                        1,284
-                    </strong>
-
-                </div>
-
-
-                <!-- SOCIALS -->
+                <!-- SOCIAL LINKS -->
 
                 <div class="social-links">
 
@@ -239,9 +212,10 @@
                     <!-- DISCORD -->
 
                     <a
-                        href="#"
-                        id="discord-link"
-                        class="social-link">
+                        class="social-link"
+                        href="https://discord.com/users/873534867210637333"
+                        target="_blank"
+                        rel="noopener noreferrer">
 
                         <div class="social-left">
 
@@ -249,15 +223,14 @@
                                 src="./icons/discord.png"
                                 alt="Discord">
 
-                            <span id="discord-text">
-                                Discord
-                            </span>
+                            <div>
+                                <strong>Discord</strong>
+                                <small>nxrdonut</small>
+                            </div>
 
                         </div>
 
-                        <span class="social-arrow">
-                            ↗
-                        </span>
+                        <span class="arrow">↗</span>
 
                     </a>
 
@@ -265,10 +238,10 @@
                     <!-- YOUTUBE -->
 
                     <a
+                        class="social-link"
                         href="https://www.youtube.com/@nxrdonut"
                         target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link">
+                        rel="noopener noreferrer">
 
                         <div class="social-left">
 
@@ -276,15 +249,40 @@
                                 src="./icons/youtube.png"
                                 alt="YouTube">
 
-                            <span>
-                                YouTube
-                            </span>
+                            <div>
+                                <strong>YouTube</strong>
+                                <small>@nxrdonut</small>
+                            </div>
 
                         </div>
 
-                        <span class="social-arrow">
-                            ↗
-                        </span>
+                        <span class="arrow">↗</span>
+
+                    </a>
+
+
+                    <!-- TIKTOK -->
+
+                    <a
+                        class="social-link"
+                        href="https://www.tiktok.com/@rcvol_"
+                        target="_blank"
+                        rel="noopener noreferrer">
+
+                        <div class="social-left">
+
+                            <img
+                                src="./icons/tiktok.png"
+                                alt="TikTok">
+
+                            <div>
+                                <strong>TikTok</strong>
+                                <small>@rcvol_</small>
+                            </div>
+
+                        </div>
+
+                        <span class="arrow">↗</span>
 
                     </a>
 
@@ -292,10 +290,10 @@
                     <!-- GITHUB -->
 
                     <a
+                        class="social-link"
                         href="https://github.com/nxrdonut"
                         target="_blank"
-                        rel="noopener noreferrer"
-                        class="social-link">
+                        rel="noopener noreferrer">
 
                         <div class="social-left">
 
@@ -303,421 +301,241 @@
                                 src="./icons/github.png"
                                 alt="GitHub">
 
-                            <span>
-                                GitHub
-                            </span>
+                            <div>
+                                <strong>GitHub</strong>
+                                <small>@nxrdonut</small>
+                            </div>
 
                         </div>
 
-                        <span class="social-arrow">
-                            ↗
-                        </span>
+                        <span class="arrow">↗</span>
 
                     </a>
 
                 </div>
 
 
-                <!-- MUSIC -->
+                <!-- MUSIC PLAYER -->
 
                 <div class="music-player">
 
                     <button
                         id="music-toggle"
-                        class="play-button">
+                        class="music-button">
                         ▶
                     </button>
 
-                    <div class="music-info">
 
-                        <span>
+                    <div class="music-information">
+
+                        <span class="music-label">
                             NOW PLAYING
                         </span>
 
-                        <strong>
-                            Background Music
-                        </strong>
+                        <span class="music-title">
+                            NxrDonut · Background
+                        </span>
 
                     </div>
 
-                    <div class="sound-wave">
 
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-
-                    </div>
+                    <canvas
+                        id="waveform"
+                        width="260"
+                        height="55">
+                    </canvas>
 
                 </div>
-
-            </div>
-
-
-            <!-- SCROLL -->
-
-            <div class="scroll-indicator">
-
-                <span>
-                    SCROLL
-                </span>
-
-                <div class="scroll-line"></div>
 
             </div>
 
         </section>
 
 
-
-        <!-- EXPERIENCE -->
+        <!-- =========================
+             EXPERIENCE
+        ========================== -->
 
         <section
-            id="experience"
-            class="experience-section section">
+            id="experience-section"
+            class="experience-section">
 
+            <div class="experience-container">
 
-            <div class="section-heading">
+                <div class="section-heading">
 
-                <span class="section-label">
-                    EXPERIENCE
-                </span>
+                    <span>
+                        EXPERIENCE
+                    </span>
 
-                <h2>
-                    What I do
-                </h2>
+                    <h2>
+                        What I Do
+                    </h2>
 
-                <p>
-                    Developer, screensharer and competitive
-                    Minecraft player.
-                </p>
-
-            </div>
-
-
-            <!-- BIG INTRO -->
-
-            <div class="experience-intro">
-
-                <p>
-                    I develop cheat clients, websites,
-                    screenshare tools and more.
-                </p>
-
-                <p>
-                    I code in Java, Python, C++, JavaScript
-                    and more.
-                </p>
-
-            </div>
-
-
-            <!-- EXPERIENCE LIST -->
-
-            <div class="experience-list">
-
-
-                <!-- 01 -->
-
-                <div class="experience-item">
-
-                    <div class="experience-number">
-                        01
-                    </div>
-
-                    <div class="experience-content">
-
-                        <span class="experience-category">
-                            DEVELOPMENT
-                        </span>
-
-                        <h3>
-                            Developer
-                        </h3>
-
-                        <p>
-                            I develop cheat clients, websites,
-                            screenshare tools and other software.
-                        </p>
-
-                    </div>
+                    <p>
+                        Developer, screensharer and competitive Minecraft player.
+                    </p>
 
                 </div>
 
 
-                <!-- 02 -->
-
-                <div class="experience-item">
-
-                    <div class="experience-number">
-                        02
-                    </div>
-
-                    <div class="experience-content">
-
-                        <span class="experience-category">
-                            PROGRAMMING
-                        </span>
-
-                        <h3>
-                            Java · Python · C++ · JavaScript
-                        </h3>
-
-                        <p>
-                            I code in Java, Python, C++,
-                            JavaScript and other languages
-                            and technologies.
-                        </p>
-
-                    </div>
-
-                </div>
+                <div class="experience-grid">
 
 
-                <!-- 03 -->
+                    <!-- DEVELOPMENT -->
 
-                <div class="experience-item">
+                    <article class="experience-card">
 
-                    <div class="experience-number">
-                        03
-                    </div>
+                        <div class="experience-icon">
+                            &lt;/&gt;
+                        </div>
 
-                    <div class="experience-content">
+                        <div>
 
-                        <span class="experience-category">
-                            SCREENSHARING
-                        </span>
+                            <h3>
+                                Development
+                            </h3>
 
-                        <h3>
-                            Experienced Screensharer
-                        </h3>
+                            <p>
+                                I develop cheat clients, websites,
+                                screenshare tools and more.
+                            </p>
 
-                        <p>
-                            Two years of screensharing
-                            experience across Minecraft
-                            communities.
-                        </p>
+                            <div class="languages">
+                                Java · Python · C++ · JavaScript · More
+                            </div>
 
-                    </div>
+                        </div>
 
-                </div>
-
-
-                <!-- 04 -->
-
-                <div class="experience-item">
-
-                    <div class="experience-number">
-                        04
-                    </div>
-
-                    <div class="experience-content">
-
-                        <span class="experience-category">
-                            STAFF
-                        </span>
-
-                        <h3>
-                            ex-SSeR — CertifyFFA
-                        </h3>
-
-                        <p>
-                            Former screensharing staff member
-                            at CertifyFFA.
-                        </p>
-
-                    </div>
-
-                </div>
+                    </article>
 
 
-                <!-- 05 -->
+                    <!-- SCREENSHARING -->
 
-                <div class="experience-item">
+                    <article class="experience-card">
 
-                    <div class="experience-number">
-                        05
-                    </div>
+                        <div class="experience-icon">
+                            ◉
+                        </div>
 
-                    <div class="experience-content">
+                        <div>
 
-                        <span class="experience-category">
-                            STAFF
-                        </span>
+                            <h3>
+                                Screensharing
+                            </h3>
 
-                        <h3>
-                            ex-SSeR — BJTL
-                        </h3>
+                            <p>
+                                Experienced screensharer with
+                                2+ years of experience.
+                            </p>
 
-                        <p>
-                            Former SSeR within a Minecraft
-                            community with 10k+ Discord members.
-                        </p>
+                            <div class="experience-list">
+                                Former SSER · ArcFFA
+                                <br>
+                                Former SSER · BJTL
+                            </div>
 
-                    </div>
+                        </div>
 
-                </div>
+                    </article>
 
 
-                <!-- 06 -->
+                    <!-- MINECRAFT -->
 
-                <div class="experience-item">
+                    <article class="experience-card">
 
-                    <div class="experience-number">
-                        06
-                    </div>
+                        <div class="experience-icon">
+                            ◆
+                        </div>
 
-                    <div class="experience-content">
+                        <div>
 
-                        <span class="experience-category">
-                            STAFF
-                        </span>
+                            <h3>
+                                Competitive Minecraft
+                            </h3>
 
-                        <h3>
-                            ex-SSeR — ArcFFA
-                        </h3>
+                            <p>
+                                Competitive Minecraft player with
+                                experience across different communities.
+                            </p>
 
-                        <p>
-                            Former screensharing staff member
-                            at ArcFFA.
-                        </p>
+                            <div class="experience-list">
+                                4x HT3 · 1x LT2
+                                <br>
+                                #21 MCPVP.com · #37 CatPvP
+                            </div>
 
-                    </div>
+                        </div>
+
+                    </article>
+
+
+                    <!-- COMMUNITY -->
+
+                    <article class="experience-card">
+
+                        <div class="experience-icon">
+                            +
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Communities
+                            </h3>
+
+                            <p>
+                                Owner of online communities and
+                                projects including trace.ac.
+                            </p>
+
+                            <a
+                                class="community-link"
+                                href="https://discord.gg/Tet3kUDjW7"
+                                target="_blank"
+                                rel="noopener noreferrer">
+
+                                Join trace.ac ↗
+
+                            </a>
+
+                        </div>
+
+                    </article>
 
                 </div>
-
-
-                <!-- 07 -->
-
-                <div class="experience-item">
-
-                    <div class="experience-number">
-                        07
-                    </div>
-
-                    <div class="experience-content">
-
-                        <span class="experience-category">
-                            DEVELOPMENT
-                        </span>
-
-                        <h3>
-                            Owner — Trace.ac
-                        </h3>
-
-                        <p>
-                            Owner and developer of Trace.ac.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 08 -->
-
-                <div class="experience-item">
-
-                    <div class="experience-number">
-                        08
-                    </div>
-
-                    <div class="experience-content">
-
-                        <span class="experience-category">
-                            DEVELOPMENT
-                        </span>
-
-                        <h3>
-                            Owner — Nox Client
-                        </h3>
-
-                        <p>
-                            Owner and developer of Nox Client.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 09 -->
-
-                <div class="experience-item">
-
-                    <div class="experience-number">
-                        09
-                    </div>
-
-                    <div class="experience-content">
-
-                        <span class="experience-category">
-                            DEVELOPMENT
-                        </span>
-
-                        <h3>
-                            Owner — MCBE Blackfish Client
-                        </h3>
-
-                        <p>
-                            Owner and developer of MCBE
-                            Blackfish Client.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- 10 -->
-
-                <div class="experience-item">
-
-                    <div class="experience-number">
-                        10
-                    </div>
-
-                    <div class="experience-content">
-
-                        <span class="experience-category">
-                            COMPETITIVE
-                        </span>
-
-                        <h3>
-                            Competitive Minecraft
-                        </h3>
-
-                        <p>
-                            Competitive Minecraft player
-                            with 4x HT3 and 1x LT2 achievements.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-            <!-- FOOTER -->
-
-            <div class="experience-footer">
-
-                <span>
-                    NxrDonut
-                </span>
-
-                <span>
-                    DEVELOPER · SCREENSHARER · COMPETITIVE MC PLAYER
-                </span>
 
             </div>
 
         </section>
 
+
+        <!-- =========================
+             FOOTER
+        ========================== -->
+
+        <footer>
+            NxrDonut · 2026
+        </footer>
+
     </main>
+
+
+    <!-- =========================
+         VIEWS POPUP
+    ========================== -->
+
+    <div id="views-popup">
+
+        <span>
+            PROFILE VIEWS
+        </span>
+
+        <strong>
+            1,284
+        </strong>
+
+    </div>
 
 
     <script src="./script.js"></script>
