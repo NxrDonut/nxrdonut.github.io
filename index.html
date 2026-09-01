@@ -12,15 +12,19 @@
 
 <body>
 
-    <!-- Background video -->
-    <video id="background-video" muted loop playsinline preload="auto">
+    <!-- Background video + music -->
+    <video
+        id="background-video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+    >
         <source src="video.mp4" type="video/mp4">
     </video>
 
-    <!-- Dark overlay -->
     <div class="darkness"></div>
-
-    <!-- Subtle screen effect -->
     <div class="noise"></div>
 
     <!-- CLICK INTRO -->
@@ -30,34 +34,25 @@
         </button>
     </div>
 
-    <!-- Background music -->
-    <audio id="music" loop preload="auto">
-        <source src="music.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- MAIN PROFILE -->
+    <!-- PROFILE -->
     <main id="profile">
 
         <div class="card">
 
-            <!-- Avatar -->
             <div class="avatar">
                 n
             </div>
 
-            <!-- Name -->
             <h1>nxrdonut</h1>
 
             <p class="handle">@nxrdonut</p>
 
-            <!-- Bio -->
             <p class="bio">
                 just some person on the internet.
             </p>
 
             <div class="divider"></div>
 
-            <!-- Links -->
             <div class="links">
 
                 <a
@@ -89,16 +84,16 @@
 
             </div>
 
-            <!-- MUSIC PLAYER -->
+            <!-- VIDEO CONTROLS -->
             <div class="player">
 
-                <button id="music-toggle" aria-label="Pause music">
+                <button id="music-toggle" aria-label="Pause video audio">
                     ❚❚
                 </button>
 
                 <div class="track">
                     <strong>now playing</strong>
-                    <span>your music</span>
+                    <span>background video</span>
                 </div>
 
                 <div class="volume">
