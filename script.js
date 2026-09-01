@@ -5,7 +5,7 @@
 const intro =
     document.getElementById("intro");
 
-const enterButton =
+const enter =
     document.getElementById("enter");
 
 const video =
@@ -17,14 +17,28 @@ const musicToggle =
 const volume =
     document.getElementById("volume");
 
+const volumeIcon =
+    document.getElementById("volume-icon");
+
 const profileCard =
     document.getElementById("profile-card");
 
 const cursorGlow =
     document.querySelector(".cursor-glow");
 
+const trails = [
+    document.querySelector(".trail-1"),
+    document.querySelector(".trail-2"),
+    document.querySelector(".trail-3"),
+    document.querySelector(".trail-4"),
+    document.querySelector(".trail-5")
+];
+
 const viewsButton =
     document.getElementById("views-button");
+
+const viewsPopup =
+    document.getElementById("views-popup");
 
 const viewsDisplay =
     document.getElementById("views");
@@ -32,8 +46,14 @@ const viewsDisplay =
 const popupViews =
     document.getElementById("popup-views");
 
-const viewsPopup =
-    document.getElementById("views-popup");
+const discordLink =
+    document.getElementById("discord-link");
+
+const discordText =
+    document.getElementById("discord-text");
+
+const particlesContainer =
+    document.getElementById("particles");
 
 
 /* =========================
@@ -42,16 +62,17 @@ const viewsPopup =
 
 let entered = false;
 
+let mouseX = 0;
+let mouseY = 0;
+
 video.volume = 0.35;
+
+video.pause();
 
 
 /* =========================
-   VIEW COUNTER
+   FIXED VIEW COUNT
    ========================= */
-
-/*
-    Fixed profile view count.
-*/
 
 const views = 1284;
 
@@ -63,81 +84,174 @@ popupViews.textContent =
 
 
 /* =========================
-   VIEW POPUP
+   CREATE PARTICLES
    ========================= */
 
-viewsButton.addEventListener(
-    "click",
-    () => {
+function createParticles() {
 
-        viewsPopup.classList.toggle(
-            "open"
+    if (!particlesContainer) {
+        return;
+    }
+
+    const amount =
+        window.innerWidth < 600
+            ? 20
+            : 35;
+
+
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
+        const particle =
+            document.createElement("div");
+
+
+        particle.className =
+            "particle";
+
+
+        particle.style.left =
+            `${Math.random() * 100}%`;
+
+
+        particle.style.top =
+            `${100 + Math.random() * 20}%`;
+
+
+        particle.style.animationDuration =
+            `${12 + Math.random() * 18}s`;
+
+
+        particle.style.animationDelay =
+            `${Math.random() * 15}s`;
+
+
+        const size =
+            1 + Math.random() * 2;
+
+
+        particle.style.width =
+            `${size}px`;
+
+        particle.style.height =
+            `${size}px`;
+
+
+        particlesContainer.appendChild(
+            particle
         );
 
     }
-);
+
+}
+
+createParticles();
 
 
 /* =========================
-   VIDEO STARTS STILL
+   INITIAL VOLUME
    ========================= */
 
-video.pause();
+function updateVolumeIcon() {
+
+    const currentVolume =
+        Number(volume.value);
+
+
+    if (currentVolume === 0) {
+
+        volumeIcon.textContent =
+            "🔇";
+
+    }
+
+    else if (
+        currentVolume < 0.5
+    ) {
+
+        volumeIcon.textContent =
+            "🔉";
+
+    }
+
+    else {
+
+        volumeIcon.textContent =
+            "🔊";
+
+    }
+
+}
+
+updateVolumeIcon();
 
 
 /* =========================
    ENTER WEBSITE
    ========================= */
 
-enterButton.addEventListener(
-    "click",
-    async () => {
+async function enterWebsite() {
 
-        if (entered) {
-            return;
-        }
+    if (entered) {
+        return;
+    }
 
-        entered = true;
+    entered = true;
 
 
-        /*
-            Enable the website.
-        */
+    document.body.classList.add(
+        "entered"
+    );
 
-        document.body.classList.add(
-            "entered"
+
+    intro.classList.add(
+        "hidden"
+    );
+
+
+    /*
+        The click on the intro gives
+        the browser permission to start
+        video + audio.
+    */
+
+    video.muted = false;
+
+    video.volume =
+        Number(volume.value);
+
+
+    try {
+
+        await video.play();
+
+        musicToggle.textContent =
+            "❚❚";
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Normal playback failed:",
+            error
         );
 
 
         /*
-            Hide CLICK screen.
-        */
+            Some browsers may reject
+            unmuted playback.
 
-        intro.classList.add(
-            "hidden"
-        );
-
-
-        /*
-            Set volume.
-        */
-
-        video.volume =
-            Number(volume.value);
-
-
-        /*
-            Enable video audio.
-        */
-
-        video.muted = false;
-
-
-        /*
-            Start background video.
+            Start the video muted as
+            a fallback.
         */
 
         try {
+
+            video.muted = true;
 
             await video.play();
 
@@ -146,15 +260,47 @@ enterButton.addEventListener(
 
         }
 
-        catch (error) {
+        catch (secondError) {
 
             console.log(
-                "Video could not start:",
-                error
+                "Video could not play:",
+                secondError
             );
 
-            musicToggle.textContent =
-                "▶";
+        }
+
+    }
+
+}
+
+
+/* =========================
+   CLICK ANYWHERE
+   ========================= */
+
+intro.addEventListener(
+    "click",
+    enterWebsite
+);
+
+
+/* =========================
+   KEYBOARD ENTER
+   ========================= */
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            !entered &&
+            (
+                event.code === "Enter" ||
+                event.code === "Space"
+            )
+        ) {
+
+            enterWebsite();
 
         }
 
@@ -163,7 +309,7 @@ enterButton.addEventListener(
 
 
 /* =========================
-   PLAY / PAUSE
+   MUSIC PLAY / PAUSE
    ========================= */
 
 musicToggle.addEventListener(
@@ -186,7 +332,7 @@ musicToggle.addEventListener(
             catch (error) {
 
                 console.log(
-                    "Video could not start:",
+                    "Playback error:",
                     error
                 );
 
@@ -208,7 +354,7 @@ musicToggle.addEventListener(
 
 
 /* =========================
-   VOLUME CONTROL
+   VOLUME
    ========================= */
 
 volume.addEventListener(
@@ -218,73 +364,178 @@ volume.addEventListener(
         video.volume =
             Number(volume.value);
 
-    }
-);
-
-
-/* =========================
-   CURSOR GLOW
-   ========================= */
-
-document.addEventListener(
-    "mousemove",
-    (event) => {
-
-        if (!cursorGlow) {
-            return;
-        }
-
-        cursorGlow.style.left =
-            `${event.clientX}px`;
-
-        cursorGlow.style.top =
-            `${event.clientY}px`;
+        updateVolumeIcon();
 
     }
 );
 
 
 /* =========================
-   PARALLAX PROFILE
+   MOUSE POSITION
    ========================= */
 
 document.addEventListener(
     "mousemove",
     (event) => {
 
-        if (!entered || !profileCard) {
-            return;
+        mouseX =
+            event.clientX;
+
+        mouseY =
+            event.clientY;
+
+
+        /*
+            Mouse glow
+        */
+
+        if (cursorGlow) {
+
+            cursorGlow.style.left =
+                `${mouseX}px`;
+
+            cursorGlow.style.top =
+                `${mouseY}px`;
+
         }
 
 
-        const x =
-            (event.clientX /
-                window.innerWidth) -
-            0.5;
+        /*
+            Profile parallax
+        */
 
-        const y =
-            (event.clientY /
-                window.innerHeight) -
-            0.5;
+        if (
+            entered &&
+            profileCard
+        ) {
 
-
-        const rotateX =
-            y * -7;
-
-        const rotateY =
-            x * 7;
+            const x =
+                (
+                    mouseX /
+                    window.innerWidth
+                ) - 0.5;
 
 
-        profileCard.style.transform =
-            `
-            perspective(1000px)
-            rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
-            translateY(-2px)
-            `;
+            const y =
+                (
+                    mouseY /
+                    window.innerHeight
+                ) - 0.5;
+
+
+            const rotateX =
+                y * -6;
+
+
+            const rotateY =
+                x * 6;
+
+
+            profileCard.style.transform =
+                `
+                perspective(1000px)
+                rotateX(${rotateX}deg)
+                rotateY(${rotateY}deg)
+                translateY(-2px)
+                `;
+
+        }
 
     }
 );
+
+
+/* =========================
+   SMOOTH MOUSE TRAIL
+   ========================= */
+
+const trailPositions =
+    trails.map(
+        () => ({
+            x: 0,
+            y: 0
+        })
+    );
+
+
+function animateTrail() {
+
+    trails.forEach(
+        (trail, index) => {
+
+            if (!trail) {
+                return;
+            }
+
+
+            const target =
+                index === 0
+                    ? {
+                        x: mouseX,
+                        y: mouseY
+                    }
+                    : trailPositions[
+                        index - 1
+                    ];
+
+
+            trailPositions[index].x +=
+                (
+                    target.x -
+                    trailPositions[index].x
+                ) * 0.20;
+
+
+            trailPositions[index].y +=
+                (
+                    target.y -
+                    trailPositions[index].y
+                ) * 0.20;
+
+
+            trail.style.left =
+                `${trailPositions[index].x}px`;
+
+
+            trail.style.top =
+                `${trailPositions[index].y}px`;
+
+
+            const distance =
+                Math.hypot(
+                    target.x -
+                    trailPositions[index].x,
+
+                    target.y -
+                    trailPositions[index].y
+                );
+
+
+            const scale =
+                Math.min(
+                    1.4,
+                    0.5 +
+                    distance * 0.018
+                );
+
+
+            trail.style.transform =
+                `
+                translate(-50%, -50%)
+                scale(${scale})
+                `;
+
+        }
+    );
+
+
+    requestAnimationFrame(
+        animateTrail
+    );
+
+}
+
+animateTrail();
 
 
 /* =========================
@@ -298,6 +549,7 @@ document.addEventListener(
         if (!profileCard) {
             return;
         }
+
 
         profileCard.style.transform =
             `
@@ -315,56 +567,49 @@ document.addEventListener(
    DISCORD COPY
    ========================= */
 
-function copyDiscord(event) {
+discordLink.addEventListener(
+    "click",
+    async (event) => {
 
-    event.preventDefault();
-
-
-    navigator.clipboard
-        .writeText("nxrdonut")
-
-        .then(() => {
-
-            const text =
-                document.getElementById(
-                    "discord-text"
-                );
+        event.preventDefault();
 
 
-            if (!text) {
-                return;
-            }
+        try {
+
+            await navigator.clipboard
+                .writeText("nxrdonut");
 
 
             const original =
-                text.textContent;
+                discordText.textContent;
 
 
-            text.textContent =
+            discordText.textContent =
                 "Copied!";
 
 
             setTimeout(
                 () => {
 
-                    text.textContent =
+                    discordText.textContent =
                         original;
 
                 },
                 1500
             );
 
-        })
+        }
 
-        .catch(() => {
+        catch (error) {
 
             alert(
                 "Discord username: nxrdonut"
             );
 
-        });
+        }
 
-}
+    }
+);
 
 
 /* =========================
@@ -380,12 +625,16 @@ const titleFrames = [
 
 let titleIndex = 0;
 
+
 setInterval(
     () => {
 
         titleIndex =
-            (titleIndex + 1) %
+            (
+                titleIndex + 1
+            ) %
             titleFrames.length;
+
 
         document.title =
             titleFrames[titleIndex];
@@ -396,7 +645,7 @@ setInterval(
 
 
 /* =========================
-   SPACEBAR PLAY / PAUSE
+   SPACEBAR MUSIC CONTROL
    ========================= */
 
 document.addEventListener(
@@ -404,14 +653,10 @@ document.addEventListener(
     (event) => {
 
         if (
-
             event.code === "Space" &&
-
             entered &&
-
             document.activeElement.tagName !==
                 "INPUT"
-
         ) {
 
             event.preventDefault();
@@ -422,4 +667,24 @@ document.addEventListener(
 
     }
 );
-```
+
+
+/* =========================
+   RESIZE PARTICLES
+   ========================= */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        if (
+            particlesContainer &&
+            particlesContainer.children.length === 0
+        ) {
+
+            createParticles();
+
+        }
+
+    }
+);
