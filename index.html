@@ -1,21 +1,28 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>nxrdonut</title>
-    <meta name="description" content="nxrdonut's personal website">
+    <meta
+        name="description"
+        content="nxrdonut - Screensharer / Dev / #21 McPvP.com / RLT2"
+    >
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- Background video + music -->
+    <!-- =========================
+         BACKGROUND VIDEO
+         ========================= -->
+
     <video
         id="background-video"
-        autoplay
         muted
         loop
         playsinline
@@ -24,79 +31,172 @@
         <source src="video.mp4" type="video/mp4">
     </video>
 
+
+    <!-- DARK OVERLAY -->
+
     <div class="darkness"></div>
+
+
+    <!-- SCREEN NOISE -->
+
     <div class="noise"></div>
 
-    <!-- CLICK INTRO -->
+
+    <!-- =========================
+         CLICK SCREEN
+         ========================= -->
+
     <div id="intro">
-        <button id="enter" aria-label="Enter website">
+
+        <button
+            id="enter"
+            aria-label="Enter website"
+        >
             CLICK
         </button>
+
     </div>
 
-    <!-- PROFILE -->
+
+    <!-- =========================
+         PROFILE
+         ========================= -->
+
     <main id="profile">
 
         <div class="card">
 
-            <div class="avatar">
-                n
-            </div>
 
-            <h1>nxrdonut</h1>
+            <!-- PROFILE PICTURE -->
 
-            <p class="handle">@nxrdonut</p>
+            <img
+                class="avatar"
+                src="pfp.jpg"
+                alt="nxrdonut"
+            >
+
+
+            <!-- NAME -->
+
+            <h1>
+                nxrdonut
+            </h1>
+
+
+            <!-- USERNAME -->
+
+            <p class="handle">
+                @nxrdonut
+            </p>
+
+
+            <!-- BIO -->
 
             <p class="bio">
-                just some person on the internet.
+                Screensharer / Dev / #21 McPvP.com / RLT2
             </p>
+
+
+            <!-- DIVIDER -->
 
             <div class="divider"></div>
 
+
+            <!-- =========================
+                 LINKS
+                 ========================= -->
+
             <div class="links">
+
+
+                <!-- GITHUB -->
 
                 <a
                     href="https://github.com/nxrdonut"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <span>GitHub</span>
-                    <span>↗</span>
+                    <span>
+                        GitHub
+                    </span>
+
+                    <span>
+                        ↗
+                    </span>
                 </a>
+
+
+                <!-- DISCORD -->
 
                 <a
                     href="#"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onclick="copyDiscord(event)"
                 >
-                    <span>Discord</span>
-                    <span>↗</span>
+                    <span id="discord-text">
+                        Discord
+                    </span>
+
+                    <span>
+                        ↗
+                    </span>
                 </a>
 
+
+                <!-- YOUTUBE -->
+
                 <a
-                    href="#"
+                    href="https://www.youtube.com/@nxrdonut"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <span>Something else</span>
-                    <span>↗</span>
+                    <span>
+                        YouTube
+                    </span>
+
+                    <span>
+                        ↗
+                    </span>
                 </a>
 
             </div>
 
-            <!-- VIDEO CONTROLS -->
+
+            <!-- =========================
+                 VIDEO PLAYER
+                 ========================= -->
+
             <div class="player">
 
-                <button id="music-toggle" aria-label="Pause video audio">
+
+                <!-- PLAY / PAUSE -->
+
+                <button
+                    id="music-toggle"
+                    aria-label="Pause video"
+                >
                     ❚❚
                 </button>
 
+
+                <!-- TRACK -->
+
                 <div class="track">
-                    <strong>now playing</strong>
-                    <span>background video</span>
+
+                    <strong>
+                        now playing
+                    </strong>
+
+                    <span>
+                        background video
+                    </span>
+
                 </div>
 
+
+                <!-- VOLUME -->
+
                 <div class="volume">
+
                     <input
                         id="volume"
                         type="range"
@@ -106,11 +206,15 @@
                         value="0.35"
                         aria-label="Volume"
                     >
+
                 </div>
 
             </div>
 
         </div>
+
+
+        <!-- FOOTER -->
 
         <footer>
             nxrdonut · 2026
@@ -118,7 +222,12 @@
 
     </main>
 
+
+    <!-- JAVASCRIPT -->
+
     <script src="script.js"></script>
 
 </body>
+
 </html>
+```
