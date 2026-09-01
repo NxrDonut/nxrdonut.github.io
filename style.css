@@ -1,3 +1,8 @@
+```css
+/* =========================
+   RESET
+   ========================= */
+
 * {
     box-sizing: border-box;
 }
@@ -9,38 +14,51 @@ body {
     min-height: 100%;
 }
 
+
+/* =========================
+   BODY
+   ========================= */
+
 body {
     background: #050505;
+
     color: white;
 
     font-family:
         Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
+        Arial,
+        Helvetica,
         sans-serif;
 
     overflow: hidden;
 }
 
+
 /* =========================
-   BACKGROUND VIDEO
+   FULL SCREEN VIDEO
    ========================= */
 
 #background-video {
     position: fixed;
-    inset: 0;
 
-    width: 100%;
-    height: 100%;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
 
     object-fit: cover;
 
     z-index: -3;
 
+    /*
+        Video starts blurred.
+        It stays completely still
+        until CLICK is pressed.
+    */
+
     filter: blur(18px);
+
     transform: scale(1.08);
 
     transition:
@@ -48,20 +66,33 @@ body {
         transform 1.5s ease;
 }
 
+
+/* =========================
+   REMOVE BLUR AFTER CLICK
+   ========================= */
+
 body.entered #background-video {
+
     filter: blur(0);
+
     transform: scale(1);
+
 }
+
 
 /* =========================
    DARK OVERLAY
    ========================= */
 
 .darkness {
+
     position: fixed;
+
     inset: 0;
 
     z-index: -2;
+
+    pointer-events: none;
 
     background:
         radial-gradient(
@@ -70,15 +101,17 @@ body.entered #background-video {
             rgba(0, 0, 0, 0.72)
         );
 
-    pointer-events: none;
 }
 
+
 /* =========================
-   NOISE
+   NOISE EFFECT
    ========================= */
 
 .noise {
+
     position: fixed;
+
     inset: 0;
 
     z-index: 20;
@@ -89,18 +122,24 @@ body.entered #background-video {
 
     background-image:
         url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
 }
+
 
 /* =========================
    CLICK SCREEN
    ========================= */
 
 #intro {
+
     position: fixed;
+
     inset: 0;
 
     display: flex;
+
     align-items: center;
+
     justify-content: center;
 
     z-index: 10;
@@ -108,18 +147,31 @@ body.entered #background-video {
     transition:
         opacity 0.9s ease,
         visibility 0.9s ease;
+
 }
+
+
+/* HIDE CLICK SCREEN */
 
 #intro.hidden {
+
     opacity: 0;
+
     visibility: hidden;
+
     pointer-events: none;
+
 }
 
+
+/* CLICK BUTTON */
+
 #enter {
+
     appearance: none;
 
-    border: 0;
+    border: none;
+
     background: transparent;
 
     color: white;
@@ -127,7 +179,9 @@ body.entered #background-video {
     cursor: pointer;
 
     font-family: inherit;
+
     font-size: 16px;
+
     font-weight: 900;
 
     letter-spacing: 8px;
@@ -135,47 +189,74 @@ body.entered #background-video {
     padding: 25px;
 
     text-shadow:
-        0 0 25px rgba(255, 255, 255, 0.45);
+        0 0 25px
+        rgba(255, 255, 255, 0.5);
 
-    animation: breathe 2s ease-in-out infinite;
+    animation:
+        breathe 2s ease-in-out infinite;
 
     transition:
-        transform 0.25s ease,
-        opacity 0.25s ease;
+        transform 0.25s ease;
+
 }
+
+
+/* CLICK HOVER */
 
 #enter:hover {
-    transform: scale(1.1);
+
+    transform:
+        scale(1.1);
+
 }
+
+
+/* CLICK PRESS */
 
 #enter:active {
-    transform: scale(0.95);
+
+    transform:
+        scale(0.95);
+
 }
 
+
+/* CLICK ANIMATION */
+
 @keyframes breathe {
+
     0%,
     100% {
+
         opacity: 0.5;
+
     }
 
     50% {
+
         opacity: 1;
+
     }
+
 }
+
 
 /* =========================
    PROFILE
    ========================= */
 
 #profile {
+
     position: relative;
 
     min-height: 100vh;
 
     display: flex;
+
     flex-direction: column;
 
     align-items: center;
+
     justify-content: center;
 
     padding: 30px;
@@ -189,21 +270,29 @@ body.entered #background-video {
     transition:
         opacity 1s ease 0.25s,
         transform 1s ease 0.25s;
+
 }
 
+
+/* SHOW PROFILE */
+
 body.entered #profile {
+
     opacity: 1;
 
     transform:
         translateY(0)
         scale(1);
+
 }
+
 
 /* =========================
    PROFILE CARD
    ========================= */
 
 .card {
+
     width: min(430px, 100%);
 
     padding: 34px;
@@ -219,59 +308,68 @@ body.entered #profile {
     background:
         rgba(10, 10, 10, 0.42);
 
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
 
     box-shadow:
-        0 25px 80px rgba(0, 0, 0, 0.45),
-        inset 0 1px rgba(255, 255, 255, 0.08);
+
+        0 25px 80px
+        rgba(0, 0, 0, 0.45),
+
+        inset 0 1px
+        rgba(255, 255, 255, 0.08);
+
 }
 
+
 /* =========================
-   AVATAR
+   PROFILE PICTURE
    ========================= */
 
 .avatar {
-    width: 78px;
-    height: 78px;
+
+    width: 86px;
+
+    height: 86px;
 
     margin:
         0 auto
         18px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: block;
+
+    object-fit: cover;
 
     border-radius: 50%;
 
-    background:
-        linear-gradient(
-            135deg,
-            #333,
-            #111
-        );
-
     border:
-        1px solid
+        2px solid
         rgba(255, 255, 255, 0.2);
 
-    font-size: 34px;
-    font-weight: 900;
-
     box-shadow:
+
         0 10px 35px
-        rgba(0, 0, 0, 0.4);
+        rgba(0, 0, 0, 0.5),
+
+        0 0 25px
+        rgba(255, 255, 255, 0.08);
+
 }
 
+
 /* =========================
-   TEXT
+   NAME
    ========================= */
 
 h1 {
+
     margin: 0;
 
     font-size: 32px;
+
     font-weight: 800;
 
     letter-spacing: -1px;
@@ -279,9 +377,16 @@ h1 {
     text-shadow:
         0 0 25px
         rgba(255, 255, 255, 0.15);
+
 }
 
+
+/* =========================
+   HANDLE
+   ========================= */
+
 .handle {
+
     margin:
         5px 0
         16px;
@@ -290,45 +395,64 @@ h1 {
         rgba(255, 255, 255, 0.45);
 
     font-size: 13px;
+
 }
 
+
+/* =========================
+   BIO
+   ========================= */
+
 .bio {
+
     margin: 0;
 
     color:
-        rgba(255, 255, 255, 0.78);
+        rgba(255, 255, 255, 0.82);
 
     font-size: 14px;
+
 }
+
 
 /* =========================
    DIVIDER
    ========================= */
 
 .divider {
+
     height: 1px;
 
-    margin: 25px 0;
+    margin:
+        25px 0;
 
     background:
         rgba(255, 255, 255, 0.1);
+
 }
+
 
 /* =========================
    LINKS
    ========================= */
 
 .links {
+
     display: flex;
+
     flex-direction: column;
 
     gap: 10px;
+
 }
 
+
 .links a {
+
     display: flex;
 
     align-items: center;
+
     justify-content: space-between;
 
     padding:
@@ -349,26 +473,38 @@ h1 {
         rgba(255, 255, 255, 0.045);
 
     transition:
+
         transform 0.2s ease,
+
         background 0.2s ease,
+
         border-color 0.2s ease;
+
 }
 
+
+/* LINK HOVER */
+
 .links a:hover {
-    transform: translateY(-2px);
+
+    transform:
+        translateY(-2px);
 
     background:
         rgba(255, 255, 255, 0.1);
 
     border-color:
         rgba(255, 255, 255, 0.2);
+
 }
 
+
 /* =========================
-   VIDEO AUDIO PLAYER
+   PLAYER
    ========================= */
 
 .player {
+
     display: flex;
 
     align-items: center;
@@ -387,10 +523,16 @@ h1 {
     border:
         1px solid
         rgba(255, 255, 255, 0.05);
+
 }
 
+
+/* PLAY BUTTON */
+
 #music-toggle {
+
     width: 38px;
+
     height: 38px;
 
     flex-shrink: 0;
@@ -409,67 +551,93 @@ h1 {
     cursor: pointer;
 
     transition:
+
         background 0.2s ease,
+
         transform 0.2s ease;
+
 }
 
+
+/* PLAY BUTTON HOVER */
+
 #music-toggle:hover {
+
     background:
         rgba(255, 255, 255, 0.14);
 
-    transform: scale(1.05);
+    transform:
+        scale(1.05);
+
 }
+
 
 /* =========================
    TRACK INFO
    ========================= */
 
 .track {
+
     flex: 1;
 
     min-width: 0;
 
     display: flex;
+
     flex-direction: column;
 
     text-align: left;
+
 }
+
 
 .track strong {
+
     font-size: 12px;
+
 }
 
+
 .track span {
+
     margin-top: 2px;
 
     color:
         rgba(255, 255, 255, 0.45);
 
     font-size: 11px;
+
 }
+
 
 /* =========================
    VOLUME
    ========================= */
 
 .volume input {
+
     width: 70px;
 
     cursor: pointer;
+
 }
+
 
 /* =========================
    FOOTER
    ========================= */
 
 footer {
+
     margin-top: 18px;
 
     color:
         rgba(255, 255, 255, 0.35);
 
     font-size: 11px;
+
 }
+
 
 /* =========================
    MOBILE
@@ -478,25 +646,44 @@ footer {
 @media (max-width: 500px) {
 
     #profile {
+
         padding: 18px;
+
     }
+
 
     .card {
-        padding: 26px 20px;
+
+        padding:
+            26px
+            20px;
 
         border-radius: 18px;
+
     }
+
 
     .volume {
+
         display: none;
+
     }
+
 
     h1 {
+
         font-size: 28px;
+
     }
 
+
     #enter {
+
         font-size: 14px;
+
         letter-spacing: 6px;
+
     }
+
 }
+```
