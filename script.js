@@ -1,510 +1,221 @@
-/* =========================================
+/* =====================================================
    NxrDonut
-========================================= */
+   Main Website Script
+===================================================== */
 
 
-/* =========================================
+/* =====================================================
    ELEMENTS
-========================================= */
+===================================================== */
 
-const intro =
-    document.getElementById("intro");
+const intro = document.getElementById("intro");
+const enterButton = document.getElementById("enter-button");
 
-const music =
-    document.getElementById("background-music");
+const audio = document.getElementById("background-music");
 
-const volume =
-    document.getElementById("volume");
+const musicToggle = document.getElementById("music-toggle");
 
-const volumeIcon =
-    document.getElementById("volume-icon");
+const volume = document.getElementById("volume");
+const volumeButton = document.getElementById("volume-button");
 
-const musicToggle =
-    document.getElementById("music-toggle");
+const viewsButton = document.getElementById("views-button");
+const viewsPopup = document.getElementById("views-popup");
 
-const viewsButton =
-    document.getElementById("views-button");
-
-const viewsPopup =
-    document.getElementById("views-popup");
-
-const discordLink =
-    document.getElementById("discord-link");
-
-const discordText =
-    document.getElementById("discord-text");
-
-const experienceButton =
-    document.getElementById("experience-button");
-
-const homeButton =
-    document.getElementById("home-button");
-
-const heroContent =
-    document.getElementById("hero-content");
-
-const cursorGlow =
-    document.getElementById("cursor-glow");
-
-const cursorDot =
-    document.querySelector(".cursor-dot");
+const cursorDot = document.getElementById("cursor-dot");
+const cursorGlow = document.getElementById("cursor-glow");
 
 const trails = [
     document.querySelector(".trail-1"),
     document.querySelector(".trail-2"),
     document.querySelector(".trail-3"),
     document.querySelector(".trail-4"),
-    document.querySelector(".trail-5"),
-    document.querySelector(".trail-6")
+    document.querySelector(".trail-5")
 ];
 
-
-/* =========================================
-   STATE
-========================================= */
-
-let entered = false;
-
-let mouseX =
-    window.innerWidth / 2;
-
-let mouseY =
-    window.innerHeight / 2;
+const waveform = document.getElementById("waveform");
+const ctx = waveform.getContext("2d");
 
 
-/* =========================================
-   ENTER WEBSITE
-========================================= */
+/* =====================================================
+   MUSIC
+===================================================== */
 
-async function enterWebsite() {
+let audioContext = null;
+let analyser = null;
+let source = null;
+let audioStarted = false;
 
-    if (entered) {
+
+/*
+    Creates the Web Audio analyser only once.
+*/
+
+function setupAudioAnalyser() {
+
+    if (audioContext) {
         return;
     }
 
-    entered = true;
+    try {
 
+        audioContext =
+            new (
+                window.AudioContext ||
+                window.webkitAudioContext
+            )();
 
-    if (intro) {
-        intro.classList.add("hidden");
-    }
+        analyser =
+            audioContext.createAnalyser();
 
+        analyser.fftSize = 128;
 
-    document.body.classList.add("entered");
+        analyser.smoothingTimeConstant = 0.82;
 
+        source =
+            audioContext.createMediaElementSource(audio);
 
-    if (music) {
+        source.connect(analyser);
 
-        music.volume =
-            volume
-                ? Number(volume.value)
-                : 0.35;
+        analyser.connect(audioContext.destination);
 
+    } catch (error) {
 
-        try {
-
-            await music.play();
-
-            if (musicToggle) {
-                musicToggle.textContent =
-                    "❚❚";
-            }
-
-        } catch (error) {
-
-            console.log(
-                "Music playback blocked:",
-                error
-            );
-
-        }
+        console.log(
+            "Audio visualizer unavailable:",
+            error
+        );
 
     }
-
 }
 
 
-/* =========================================
-   CLICK ANYWHERE
-========================================= */
+/*
+    Start music.
+*/
 
-document.addEventListener(
-    "click",
-    function () {
+async function startMusic() {
 
-        if (!entered) {
-            enterWebsite();
+    setupAudioAnalyser();
+
+    if (audioContext) {
+
+        if (audioContext.state === "suspended") {
+            await audioContext.resume();
         }
 
-    },
-    true
-);
-
-
-/* =========================================
-   TOUCH
-========================================= */
-
-document.addEventListener(
-    "touchstart",
-    function () {
-
-        if (!entered) {
-            enterWebsite();
-        }
-
-    },
-    {
-        passive: true
     }
-);
 
+    audio.volume =
+        parseFloat(volume.value);
 
-/* =========================================
-   EXPERIENCE NAVIGATION
-========================================= */
+    try {
 
-if (experienceButton) {
+        await audio.play();
 
-    experienceButton.addEventListener(
-        "click",
-        function (event) {
+        audioStarted = true;
 
-            event.preventDefault();
+        musicToggle.textContent = "❚❚";
 
-            event.stopPropagation();
+    } catch (error) {
 
+        console.log(
+            "Music could not start:",
+            error
+        );
 
-            if (!entered) {
-                enterWebsite();
-            }
-
-
-            const experience =
-                document.getElementById(
-                    "experience"
-                );
-
-
-            if (experience) {
-
-                setTimeout(
-                    function () {
-
-                        experience.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start"
-                        });
-
-                    },
-                    150
-                );
-
-            }
-
-        }
-    );
-
+    }
 }
 
 
-/* =========================================
-   HOME NAVIGATION
-========================================= */
+/*
+    Pause music.
+*/
 
-if (homeButton) {
+function pauseMusic() {
 
-    homeButton.addEventListener(
-        "click",
-        function (event) {
+    audio.pause();
 
-            event.preventDefault();
+    audioStarted = false;
 
-            event.stopPropagation();
-
-
-            const home =
-                document.getElementById(
-                    "home"
-                );
-
-
-            if (home) {
-
-                home.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start"
-                });
-
-            }
-
-        }
-    );
-
+    musicToggle.textContent = "▶";
 }
 
 
-/* =========================================
-   VOLUME
-========================================= */
+/* =====================================================
+   CLICK ANYWHERE INTRO
+===================================================== */
 
-function updateVolumeIcon() {
+let introRemoved = false;
 
-    if (
-        !volumeIcon ||
-        !volume
-    ) {
+
+async function enterExperience() {
+
+    if (introRemoved) {
         return;
     }
 
+    introRemoved = true;
 
-    const value =
-        Number(volume.value);
+    /*
+        Start the audio BEFORE removing the intro.
+        This keeps the click as a valid browser
+        user interaction for autoplay.
+    */
 
+    await startMusic();
 
-    if (value === 0) {
+    intro.classList.add("hidden");
 
-        volumeIcon.textContent =
-            "🔇";
-
-    } else if (value < 0.5) {
-
-        volumeIcon.textContent =
-            "🔉";
-
-    } else {
-
-        volumeIcon.textContent =
-            "🔊";
-
-    }
-
+    document.body.style.overflowX = "hidden";
 }
 
 
-if (volume) {
+/*
+    IMPORTANT:
+    The entire intro is clickable.
+*/
 
-    volume.addEventListener(
-        "input",
-        function () {
-
-            if (!music) {
-                return;
-            }
-
-
-            music.volume =
-                Number(this.value);
+intro.addEventListener(
+    "pointerdown",
+    enterExperience,
+    { once: true }
+);
 
 
-            updateVolumeIcon();
+/*
+    Also allow the actual button to work.
+*/
 
-        }
-    );
+enterButton.addEventListener(
+    "pointerdown",
+    function(event) {
 
-}
+        event.stopPropagation();
+
+        enterExperience();
+
+    },
+    { once: true }
+);
 
 
-updateVolumeIcon();
-
-
-/* =========================================
+/* =====================================================
    MUSIC BUTTON
-========================================= */
+===================================================== */
 
-if (musicToggle) {
+musicToggle.addEventListener(
+    "click",
+    async function(event) {
 
-    musicToggle.addEventListener(
-        "click",
-        async function (event) {
+        event.stopPropagation();
 
-            event.preventDefault();
+        if (audio.paused) {
 
-            event.stopPropagation();
+            await startMusic();
 
+        } else {
 
-            if (!music) {
-                return;
-            }
-
-
-            if (music.paused) {
-
-                try {
-
-                    await music.play();
-
-                    musicToggle.textContent =
-                        "❚❚";
-
-                } catch (error) {
-
-                    console.log(error);
-
-                }
-
-            } else {
-
-                music.pause();
-
-                musicToggle.textContent =
-                    "▶";
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   VIEWS
-========================================= */
-
-if (
-    viewsButton &&
-    viewsPopup
-) {
-
-    viewsButton.addEventListener(
-        "click",
-        function (event) {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-
-            viewsPopup.classList.toggle(
-                "open"
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   DISCORD
-========================================= */
-
-if (discordLink) {
-
-    discordLink.addEventListener(
-        "click",
-        async function (event) {
-
-            event.preventDefault();
-
-            event.stopPropagation();
-
-
-            const username =
-                "nxrdonut";
-
-
-            try {
-
-                await navigator.clipboard.writeText(
-                    username
-                );
-
-
-                if (discordText) {
-
-                    discordText.textContent =
-                        "Copied!";
-
-
-                    setTimeout(
-                        function () {
-
-                            discordText.textContent =
-                                "Discord";
-
-                        },
-                        1500
-                    );
-
-                }
-
-            } catch (error) {
-
-                alert(
-                    "Discord: nxrdonut"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================
-   MOUSE
-========================================= */
-
-document.addEventListener(
-    "mousemove",
-    function (event) {
-
-        mouseX =
-            event.clientX;
-
-        mouseY =
-            event.clientY;
-
-
-        if (cursorGlow) {
-
-            cursorGlow.style.left =
-                mouseX + "px";
-
-            cursorGlow.style.top =
-                mouseY + "px";
-
-        }
-
-
-        if (cursorDot) {
-
-            cursorDot.style.left =
-                mouseX + "px";
-
-            cursorDot.style.top =
-                mouseY + "px";
-
-        }
-
-
-        /* PROFILE PARALLAX */
-
-        if (
-            heroContent &&
-            window.innerWidth > 700
-        ) {
-
-            const x =
-                mouseX /
-                window.innerWidth -
-                0.5;
-
-
-            const y =
-                mouseY /
-                window.innerHeight -
-                0.5;
-
-
-            heroContent.style.transform = `
-                perspective(1200px)
-                rotateX(${y * -3}deg)
-                rotateY(${x * 3}deg)
-            `;
+            pauseMusic();
 
         }
 
@@ -512,102 +223,308 @@ document.addEventListener(
 );
 
 
-/* =========================================
-   CURSOR TRAIL
-========================================= */
+/* =====================================================
+   VOLUME
+===================================================== */
+
+audio.volume =
+    parseFloat(volume.value);
+
+
+volume.addEventListener(
+    "input",
+    function() {
+
+        audio.volume =
+            parseFloat(this.value);
+
+        if (audio.volume === 0) {
+
+            volumeButton.innerHTML = "×";
+
+        } else {
+
+            volumeButton.innerHTML = "♪";
+
+        }
+
+    }
+);
+
+
+volumeButton.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        if (audio.volume > 0) {
+
+            audio.dataset.previousVolume =
+                audio.volume;
+
+            audio.volume = 0;
+
+            volume.value = 0;
+
+            volumeButton.innerHTML = "×";
+
+        } else {
+
+            const previous =
+                parseFloat(
+                    audio.dataset.previousVolume || "0.35"
+                );
+
+            audio.volume = previous;
+
+            volume.value = previous;
+
+            volumeButton.innerHTML = "♪";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   VIEWS POPUP
+===================================================== */
+
+viewsButton.addEventListener(
+    "click",
+    function(event) {
+
+        event.stopPropagation();
+
+        viewsPopup.classList.toggle("show");
+
+        setTimeout(
+            function() {
+                viewsPopup.classList.remove("show");
+            },
+            2500
+        );
+
+    }
+);
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+document
+    .querySelectorAll("[data-scroll]")
+    .forEach(
+        function(button) {
+
+            button.addEventListener(
+                "click",
+                function(event) {
+
+                    event.preventDefault();
+
+                    const targetID =
+                        this.dataset.scroll;
+
+                    const target =
+                        document.getElementById(targetID);
+
+                    if (!target) {
+                        return;
+                    }
+
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   CURSOR
+===================================================== */
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+let dotX = mouseX;
+let dotY = mouseY;
+
+let glowX = mouseX;
+let glowY = mouseY;
 
 const trailPositions =
     trails.map(
-        function () {
-
+        function() {
             return {
                 x: mouseX,
                 y: mouseY
             };
-
         }
     );
 
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+    }
+);
+
+
+/*
+    Smooth cursor animation.
+*/
 
 function animateCursor() {
 
-    trails.forEach(
-        function (trail, index) {
+    dotX +=
+        (mouseX - dotX) * 0.32;
 
-            if (!trail) {
-                return;
-            }
+    dotY +=
+        (mouseY - dotY) * 0.32;
 
+    glowX +=
+        (mouseX - glowX) * 0.12;
 
-            const target =
-                index === 0
-                    ? {
-                        x: mouseX,
-                        y: mouseY
-                    }
-                    : trailPositions[
-                        index - 1
-                    ];
+    glowY +=
+        (mouseY - glowY) * 0.12;
 
 
-            const speed =
-                0.28 -
-                index * 0.035;
+    cursorDot.style.left =
+        dotX + "px";
+
+    cursorDot.style.top =
+        dotY + "px";
 
 
-            trailPositions[index].x +=
-                (
-                    target.x -
-                    trailPositions[index].x
-                ) * speed;
+    cursorGlow.style.left =
+        glowX + "px";
+
+    cursorGlow.style.top =
+        glowY + "px";
 
 
-            trailPositions[index].y +=
-                (
-                    target.y -
-                    trailPositions[index].y
-                ) * speed;
+    /*
+        Motion-blur trail.
+    */
 
+    for (
+        let i = 0;
+        i < trailPositions.length;
+        i++
+    ) {
 
-            trail.style.left =
-                trailPositions[index].x +
-                "px";
+        const previous =
+            i === 0
+                ? {
+                    x: dotX,
+                    y: dotY
+                }
+                : trailPositions[i - 1];
 
+        const position =
+            trailPositions[i];
 
-            trail.style.top =
-                trailPositions[index].y +
-                "px";
+        position.x +=
+            (previous.x - position.x) *
+            (0.18 - i * 0.018);
 
-        }
-    );
+        position.y +=
+            (previous.y - position.y) *
+            (0.18 - i * 0.018);
+
+        trails[i].style.left =
+            position.x + "px";
+
+        trails[i].style.top =
+            position.y + "px";
+
+        trails[i].style.opacity =
+            String(
+                0.28 - i * 0.045
+            );
+
+    }
 
 
     requestAnimationFrame(
         animateCursor
     );
-
 }
-
 
 animateCursor();
 
 
-/* =========================================
-   PARTICLES
-========================================= */
+/* =====================================================
+   CURSOR HOVER EFFECT
+===================================================== */
 
-const particleContainer =
-    document.getElementById(
-        "particles"
+const interactiveElements =
+    document.querySelectorAll(
+        "a, button, input"
     );
 
 
-if (particleContainer) {
+interactiveElements.forEach(
+    function(element) {
+
+        element.addEventListener(
+            "mouseenter",
+            function() {
+
+                cursorDot.style.width =
+                    "12px";
+
+                cursorDot.style.height =
+                    "12px";
+
+            }
+        );
+
+
+        element.addEventListener(
+            "mouseleave",
+            function() {
+
+                cursorDot.style.width =
+                    "7px";
+
+                cursorDot.style.height =
+                    "7px";
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+const particleContainer =
+    document.getElementById("particles");
+
+
+function createParticles() {
 
     const amount =
-        window.innerWidth < 600
-            ? 25
-            : 55;
+        window.innerWidth < 700
+            ? 45
+            : 80;
 
 
     for (
@@ -617,48 +534,35 @@ if (particleContainer) {
     ) {
 
         const particle =
-            document.createElement(
-                "div"
-            );
-
+            document.createElement("div");
 
         particle.className =
             "particle";
 
 
-        particle.style.left =
-            Math.random() * 100 +
-            "%";
+        const size =
+            Math.random() * 2 + 1;
 
+        particle.style.width =
+            size + "px";
+
+        particle.style.height =
+            size + "px";
+
+
+        particle.style.left =
+            Math.random() * 100 + "%";
 
         particle.style.top =
-            (
-                100 +
-                Math.random() * 30
-            ) +
-            "%";
+            Math.random() * 100 + "%";
 
 
         particle.style.animationDuration =
-            (
-                12 +
-                Math.random() * 18
-            ) +
-            "s";
+            (7 + Math.random() * 13) + "s";
 
 
         particle.style.animationDelay =
-            (
-                Math.random() * 18
-            ) +
-            "s";
-
-
-        particle.style.transform =
-            `scale(${
-                .5 +
-                Math.random() * 1.5
-            })`;
+            (-Math.random() * 15) + "s";
 
 
         particleContainer.appendChild(
@@ -669,81 +573,269 @@ if (particleContainer) {
 
 }
 
-
-/* =========================================
-   ANIMATED TITLE
-========================================= */
-
-const titleFrames = [
-    "NxrDonut",
-    "NxrDonut.",
-    "NxrDonut..",
-    "NxrDonut..."
-];
+createParticles();
 
 
-let titleIndex = 0;
+/* =====================================================
+   AUDIO WAVEFORM
+===================================================== */
+
+function drawWaveform() {
+
+    const width =
+        waveform.width;
+
+    const height =
+        waveform.height;
 
 
-setInterval(
-    function () {
-
-        titleIndex =
-            (
-                titleIndex + 1
-            ) %
-            titleFrames.length;
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
 
 
-        document.title =
-            titleFrames[titleIndex];
+    /*
+        If audio isn't running yet,
+        draw a subtle idle waveform.
+    */
 
-    },
-    800
-);
+    if (!analyser || !audioStarted) {
 
+        ctx.beginPath();
 
-/* =========================================
-   SPACEBAR MUSIC
-========================================= */
+        ctx.lineWidth = 1;
 
-document.addEventListener(
-    "keydown",
-    function (event) {
+        ctx.strokeStyle =
+            "rgba(255,255,255,0.16)";
 
-        if (
-            event.code === "Space" &&
-            entered &&
-            document.activeElement.tagName !== "INPUT"
+        for (
+            let x = 0;
+            x < width;
+            x += 5
         ) {
 
-            event.preventDefault();
+            const y =
+                height / 2 +
+                Math.sin(x * 0.08) * 3;
 
-
-            if (musicToggle) {
-                musicToggle.click();
+            if (x === 0) {
+                ctx.moveTo(x, y);
+            } else {
+                ctx.lineTo(x, y);
             }
 
         }
+
+        ctx.stroke();
+
+        requestAnimationFrame(
+            drawWaveform
+        );
+
+        return;
+    }
+
+
+    const data =
+        new Uint8Array(
+            analyser.frequencyBinCount
+        );
+
+
+    analyser.getByteFrequencyData(
+        data
+    );
+
+
+    const bars =
+        34;
+
+    const barWidth =
+        width / bars;
+
+
+    for (
+        let i = 0;
+        i < bars;
+        i++
+    ) {
+
+        const dataIndex =
+            Math.floor(
+                i *
+                data.length /
+                bars
+            );
+
+        const value =
+            data[dataIndex] / 255;
+
+
+        const barHeight =
+            Math.max(
+                3,
+                value * height * 0.8
+            );
+
+
+        const x =
+            i * barWidth;
+
+        const y =
+            (height - barHeight) / 2;
+
+
+        ctx.fillStyle =
+            "rgba(255,255,255,0.7)";
+
+
+        ctx.beginPath();
+
+        ctx.roundRect(
+            x,
+            y,
+            Math.max(2, barWidth - 3),
+            barHeight,
+            3
+        );
+
+        ctx.fill();
+
+    }
+
+
+    requestAnimationFrame(
+        drawWaveform
+    );
+
+}
+
+drawWaveform();
+
+
+/* =====================================================
+   SCROLL MOTION
+===================================================== */
+
+let scrollTimer;
+
+
+window.addEventListener(
+    "scroll",
+    function() {
+
+        document.body.classList.add(
+            "scrolling"
+        );
+
+
+        clearTimeout(
+            scrollTimer
+        );
+
+
+        scrollTimer =
+            setTimeout(
+                function() {
+
+                    document.body.classList.remove(
+                        "scrolling"
+                    );
+
+                },
+                120
+            );
+
+    },
+    { passive: true }
+);
+
+
+/* =====================================================
+   PARALLAX
+===================================================== */
+
+let targetParallaxX = 0;
+let targetParallaxY = 0;
+
+let currentParallaxX = 0;
+let currentParallaxY = 0;
+
+
+document.addEventListener(
+    "mousemove",
+    function(event) {
+
+        targetParallaxX =
+            (event.clientX /
+                window.innerWidth -
+                0.5) * 5;
+
+        targetParallaxY =
+            (event.clientY /
+                window.innerHeight -
+                0.5) * 5;
 
     }
 );
 
 
-/* =========================================
-   RESET PARALLAX
-========================================= */
+function animateParallax() {
 
-document.addEventListener(
-    "mouseleave",
-    function () {
+    currentParallaxX +=
+        (targetParallaxX -
+            currentParallaxX) *
+        0.04;
 
-        if (heroContent) {
+    currentParallaxY +=
+        (targetParallaxY -
+            currentParallaxY) *
+        0.04;
 
-            heroContent.style.transform =
-                "perspective(1200px) rotateX(0deg) rotateY(0deg)";
 
-        }
+    const avatar =
+        document.querySelector(".avatar");
+
+    if (avatar) {
+
+        avatar.style.transform =
+            `translate(
+                ${currentParallaxX}px,
+                ${currentParallaxY}px
+            )`;
+
+    }
+
+
+    requestAnimationFrame(
+        animateParallax
+    );
+
+}
+
+animateParallax();
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        /*
+            Make sure audio starts muted/paused
+            until the visitor clicks the intro.
+        */
+
+        audio.pause();
+
+        audio.volume =
+            parseFloat(volume.value);
 
     }
 );
