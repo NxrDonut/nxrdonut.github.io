@@ -5,19 +5,31 @@
 html,
 body {
     margin: 0;
+    width: 100%;
     min-height: 100%;
 }
 
 body {
-    background: #000;
+    background: #050505;
     color: white;
-    font-family: monospace;
-    overflow-x: hidden;
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    overflow: hidden;
 }
 
-/* Background video */
+/* =========================
+   BACKGROUND VIDEO
+   ========================= */
 
-#bg-video {
+#background-video {
     position: fixed;
     inset: 0;
 
@@ -28,7 +40,7 @@ body {
 
     z-index: -3;
 
-    filter: blur(15px);
+    filter: blur(18px);
     transform: scale(1.08);
 
     transition:
@@ -38,25 +50,54 @@ body {
 
 /* Remove blur after clicking */
 
-body.started #bg-video {
+body.entered #background-video {
     filter: blur(0);
     transform: scale(1);
 }
 
-/* Darkens the video slightly */
+/* =========================
+   DARK OVERLAY
+   ========================= */
 
-.overlay {
+.darkness {
     position: fixed;
     inset: 0;
 
-    background: rgba(0, 0, 0, 0.45);
-
     z-index: -2;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.72)
+        );
+
+    pointer-events: none;
 }
 
-/* Click screen */
+/* =========================
+   NOISE
+   ========================= */
 
-#start-screen {
+.noise {
+    position: fixed;
+    inset: 0;
+
+    z-index: 20;
+
+    pointer-events: none;
+
+    opacity: 0.035;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+/* =========================
+   CLICK SCREEN
+   ========================= */
+
+#intro {
     position: fixed;
     inset: 0;
 
@@ -66,32 +107,58 @@ body.started #bg-video {
 
     z-index: 10;
 
-    cursor: pointer;
-
     transition:
-        opacity 1s ease,
-        visibility 1s ease;
+        opacity 0.9s ease,
+        visibility 0.9s ease;
 }
 
-.click-text {
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 8px;
-
-    text-shadow:
-        0 0 20px rgba(255, 255, 255, 0.5);
-
-    animation: pulse 2s infinite;
-}
-
-#start-screen.hidden {
+#intro.hidden {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
 }
 
-@keyframes pulse {
-    0%, 100% {
+#enter {
+    appearance: none;
+
+    border: 0;
+
+    background: transparent;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 900;
+
+    letter-spacing: 8px;
+
+    padding: 25px;
+
+    text-shadow:
+        0 0 25px rgba(255, 255, 255, 0.45);
+
+    animation: breathe 2s ease-in-out infinite;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+#enter:hover {
+    transform: scale(1.1);
+}
+
+#enter:active {
+    transform: scale(0.95);
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
         opacity: 0.5;
     }
 
@@ -100,104 +167,340 @@ body.started #bg-video {
     }
 }
 
-/* Main website */
+/* =========================
+   PROFILE
+   ========================= */
 
-#site {
-    width: min(700px, calc(100% - 40px));
+#profile {
+    position: relative;
 
-    margin: auto;
-    padding: 120px 0 50px;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px;
 
     opacity: 0;
 
-    transform: translateY(15px);
+    transform:
+        translateY(20px)
+        scale(0.97);
 
     transition:
-        opacity 1.5s ease,
-        transform 1.5s ease;
-
-    pointer-events: none;
+        opacity 1s ease 0.25s,
+        transform 1s ease 0.25s;
 }
 
-#site.visible {
+body.entered #profile {
     opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
+
+    transform:
+        translateY(0)
+        scale(1);
 }
 
-header {
-    margin-bottom: 100px;
+/* =========================
+   PROFILE CARD
+   ========================= */
+
+.card {
+    width: min(430px, 100%);
+
+    padding: 34px;
+
+    text-align: center;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.13);
+
+    border-radius: 22px;
+
+    background:
+        rgba(10, 10, 10, 0.42);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.45),
+        inset 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.small {
-    color: #ccc;
-    margin: 0;
+/* =========================
+   AVATAR
+   ========================= */
+
+.avatar {
+    width: 78px;
+    height: 78px;
+
+    margin:
+        0 auto
+        18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #333,
+            #111
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.2);
+
+    font-size: 34px;
+    font-weight: 900;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 0, 0, 0.4);
 }
+
+/* =========================
+   TEXT
+   ========================= */
 
 h1 {
-    margin: 5px 0;
+    margin: 0;
 
-    font-size: clamp(55px, 12vw, 100px);
-    line-height: 1;
+    font-size: 32px;
+    font-weight: 800;
 
-    letter-spacing: -5px;
+    letter-spacing: -1px;
 
-    text-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+    text-shadow:
+        0 0 25px
+        rgba(255, 255, 255, 0.15);
 }
 
-h1 span {
-    color: #aaa;
+.handle {
+    margin:
+        5px 0
+        16px;
+
+    color:
+        rgba(255, 255, 255, 0.45);
+
+    font-size: 13px;
 }
 
-.subtitle {
-    color: #ddd;
-}
+.bio {
+    margin: 0;
 
-section {
-    margin-bottom: 80px;
-}
+    color:
+        rgba(255, 255, 255, 0.78);
 
-h2 {
-    color: #ccc;
     font-size: 14px;
-    font-weight: normal;
-
-    text-transform: uppercase;
-    letter-spacing: 3px;
 }
 
-section p {
-    color: white;
+/* =========================
+   DIVIDER
+   ========================= */
+
+.divider {
+    height: 1px;
+
+    margin: 25px 0;
+
+    background:
+        rgba(255, 255, 255, 0.1);
 }
+
+/* =========================
+   LINKS
+   ========================= */
 
 .links {
     display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
+    flex-direction: column;
+
+    gap: 10px;
 }
 
 .links a {
-    padding: 10px 16px;
+    display: flex;
 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 6px;
+    align-items: center;
+    justify-content: space-between;
+
+    padding:
+        13px
+        15px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.1);
+
+    border-radius: 11px;
 
     color: white;
+
     text-decoration: none;
 
-    background: rgba(0, 0, 0, 0.25);
-    backdrop-filter: blur(5px);
+    background:
+        rgba(255, 255, 255, 0.045);
 
-    transition: 0.2s;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
 
 .links a:hover {
-    background: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
+
+    background:
+        rgba(255, 255, 255, 0.1);
+
+    border-color:
+        rgba(255, 255, 255, 0.2);
 }
 
-footer {
-    margin-top: 120px;
-    color: #ccc;
+/* =========================
+   MUSIC PLAYER
+   ========================= */
+
+.player {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 22px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(0, 0, 0, 0.22);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.05);
+}
+
+#music-toggle {
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.15);
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+#music-toggle:hover {
+    background:
+        rgba(255, 255, 255, 0.14);
+
+    transform: scale(1.05);
+}
+
+/* =========================
+   TRACK INFO
+   ========================= */
+
+.track {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    text-align: left;
+}
+
+.track strong {
     font-size: 12px;
+}
+
+.track span {
+    margin-top: 2px;
+
+    color:
+        rgba(255, 255, 255, 0.45);
+
+    font-size: 11px;
+}
+
+/* =========================
+   VOLUME
+   ========================= */
+
+.volume input {
+    width: 70px;
+
+    cursor: pointer;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+
+footer {
+    margin-top: 18px;
+
+    color:
+        rgba(255, 255, 255, 0.35);
+
+    font-size: 11px;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 500px) {
+
+    #profile {
+        padding: 18px;
+    }
+
+    .card {
+        padding: 26px 20px;
+
+        border-radius: 18px;
+    }
+
+    .volume {
+        display: none;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    #enter {
+        font-size: 14px;
+        letter-spacing: 6px;
+    }
 }
