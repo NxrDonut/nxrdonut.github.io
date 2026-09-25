@@ -3,656 +3,441 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#050505">
-  <meta name="description" content="NxrDonut — Developer, Screensharer, Competitive Minecraft Player.">
-  <title>NxrDonut</title>
+
+  <title>NxrDonut — Developer · Screensharer</title>
+  <meta
+    name="description"
+    content="NxrDonut — Developer and Screensharer."
+  >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="./style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Ambient background -->
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
-  <div class="grain"></div>
-
-  <!-- Cursor -->
-  <div class="cursor"></div>
-  <div class="cursor-trail"></div>
-
   <!-- INTRO -->
-  <section class="intro" id="intro">
+  <div class="intro" id="intro">
     <div class="intro-content">
-      <span class="intro-enter">CLICK ANYWHERE</span>
+      <span>CLICK ANYWHERE</span>
     </div>
-  </section>
+  </div>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
 
   <!-- NAV -->
-  <header class="nav-wrap">
-    <nav class="nav">
-      <a href="#top" class="brand">NXR<span>DONUT</span></a>
+  <header class="nav">
+    <a href="#top" class="nav-logo">NXRDONUT</a>
 
-      <div class="nav-links">
-        <a href="#bio">Bio</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-      </div>
-
-      <button class="nav-music" id="navMusic" aria-label="Toggle music">
-        <span class="music-dot"></span>
-        <span>Music</span>
-      </button>
+    <nav class="nav-links">
+      <a href="#bio">Bio</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
     </nav>
+
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      AVAILABLE
+    </div>
   </header>
 
   <main id="top">
 
     <!-- HERO -->
-    <section class="hero section" id="bio">
-      <div class="hero-grid">
+    <section class="hero" id="bio">
 
-        <div class="hero-copy reveal">
-          <p class="eyebrow">NXR / DONUT</p>
-
-          <h1>
-            Developer.
-            <br>
-            Screensharer.
-            <br>
-            <span>Competitive Player.</span>
-          </h1>
-
-          <p class="hero-description">
-            Building software, creating digital experiences,
-            and competing at the highest level of Minecraft PvP.
-          </p>
-
-          <div class="hero-badges">
-            <span>DEV</span>
-            <span>SSER</span>
-            <span>RLT2</span>
-          </div>
-        </div>
-
-        <div class="hero-profile reveal">
-          <div class="pfp-wrap" id="pfpWrap">
-            <div class="pfp-light"></div>
-            <img src="./pfp.jpg" alt="NxrDonut">
-          </div>
-        </div>
-
+      <div class="hero-background">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
       </div>
 
-      <!-- Socials -->
-      <div class="social-grid reveal">
+      <div class="hero-inner">
 
-        <a class="social-card" href="https://discord.com/users/873534867210637333" target="_blank" rel="noopener">
-          <img src="./icons/discord.png" alt="">
-          <div>
-            <small>Discord</small>
-            <strong>nxrdonut</strong>
+        <div class="hero-label">
+          <span>01</span>
+          <span>PROFILE</span>
+        </div>
+
+        <div class="hero-main">
+
+          <div class="pfp-wrap">
+            <img
+              src="pfp.png"
+              alt="NxrDonut"
+              class="pfp"
+              id="pfp"
+            >
           </div>
-          <span class="arrow">↗</span>
-        </a>
 
-        <a class="social-card" href="https://www.youtube.com/@nxrdonut" target="_blank" rel="noopener">
-          <img src="./icons/youtube.png" alt="">
-          <div>
-            <small>YouTube</small>
-            <strong>@nxrdonut</strong>
+          <div class="hero-copy">
+            <div class="eyebrow">
+              DEVELOPER · SCREENSHARER
+            </div>
+
+            <h1>NxrDonut</h1>
+
+            <p class="hero-description">
+              I build software, interfaces and digital experiences
+              with a focus on precision, simplicity and detail.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#projects" class="button button-primary">
+                View Projects
+                <span>↗</span>
+              </a>
+
+              <a href="#experience" class="button button-secondary">
+                Experience
+              </a>
+            </div>
           </div>
-          <span class="arrow">↗</span>
-        </a>
 
-        <a class="social-card" href="https://www.tiktok.com/@rcvol_" target="_blank" rel="noopener">
-          <img src="./icons/tiktok.png" alt="">
-          <div>
-            <small>TikTok</small>
-            <strong>@rcvol_</strong>
-          </div>
-          <span class="arrow">↗</span>
-        </a>
+        </div>
 
-        <a class="social-card" href="https://github.com/nxrdonut" target="_blank" rel="noopener">
-          <img src="./icons/github.png" alt="">
-          <div>
-            <small>GitHub</small>
-            <strong>@nxrdonut</strong>
-          </div>
-          <span class="arrow">↗</span>
-        </a>
+        <!-- MUSIC -->
+        <div class="music-player">
 
-      </div>
-
-      <!-- Music -->
-      <div class="music-player reveal">
-        <div class="music-left">
-          <button id="musicToggle" class="play-button" aria-label="Play music">
+          <button class="music-play" id="musicPlay" aria-label="Play music">
             <span class="play-icon">▶</span>
           </button>
 
-          <div>
-            <small>NOW PLAYING</small>
-            <strong>Drake · Nation Treasures</strong>
+          <div class="music-info">
+            <span class="music-label">NOW PLAYING</span>
+            <span class="music-title">Drake · Nation Treasures</span>
           </div>
+
+          <div class="waveform" id="waveform">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+
+          <span class="music-time" id="musicTime">00:00</span>
+
         </div>
 
-        <div class="waveform" id="waveform">
-          <i></i><i></i><i></i><i></i><i></i>
-          <i></i><i></i><i></i><i></i><i></i>
-          <i></i><i></i><i></i><i></i><i></i>
-          <i></i><i></i><i></i><i></i><i></i>
-          <i></i><i></i><i></i><i></i><i></i>
-        </div>
-
-        <audio id="audio" src="./video.mp3" loop></audio>
       </div>
 
     </section>
 
+    <!-- SOCIALS -->
+    <section class="social-section">
+
+      <div class="section-label">
+        <span>02</span>
+        <span>CONNECT</span>
+      </div>
+
+      <div class="social-grid">
+
+        <a
+          href="https://discord.com/users/873534867210637333"
+          target="_blank"
+          class="social-card"
+        >
+          <img src="icons/discord.png" alt="Discord">
+          <div>
+            <span class="social-name">Discord</span>
+            <span class="social-handle">nxrdonut</span>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+
+        <a
+          href="https://www.youtube.com/@nxrdonut"
+          target="_blank"
+          class="social-card"
+        >
+          <img src="icons/youtube.png" alt="YouTube">
+          <div>
+            <span class="social-name">YouTube</span>
+            <span class="social-handle">@nxrdonut</span>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+
+        <a
+          href="https://www.tiktok.com/@rcvol_"
+          target="_blank"
+          class="social-card"
+        >
+          <img src="icons/tiktok.png" alt="TikTok">
+          <div>
+            <span class="social-name">TikTok</span>
+            <span class="social-handle">@rcvol_</span>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+
+        <a
+          href="https://github.com/nxrdonut"
+          target="_blank"
+          class="social-card"
+        >
+          <img src="icons/github.png" alt="GitHub">
+          <div>
+            <span class="social-name">GitHub</span>
+            <span class="social-handle">@nxrdonut</span>
+          </div>
+          <span class="social-arrow">↗</span>
+        </a>
+
+      </div>
+
+    </section>
 
     <!-- EXPERIENCE -->
-    <section class="section experience-section" id="experience">
+    <section class="section" id="experience">
 
-      <div class="section-heading reveal">
-        <div>
-          <p class="eyebrow">02 / EXPERIENCE</p>
-          <h2>Experience</h2>
+      <div class="section-heading">
+        <div class="section-label">
+          <span>03</span>
+          <span>BACKGROUND</span>
         </div>
 
-        <p>
-          A combination of development, competitive play,
-          and community experience.
-        </p>
+        <h2>Experience</h2>
       </div>
 
       <div class="experience-grid">
 
+        <!-- DEVELOPMENT -->
         <article class="experience-card reveal">
-          <div class="card-number">01</div>
+
+          <span class="card-number">01</span>
 
           <div class="experience-content">
+
             <h3>Development</h3>
 
             <p>
-              I develop software, websites, interfaces,
-              screenshare utilities and more.
+              I develop software, websites, interfaces, screenshare
+              utilities, Custom Bypasses, Closet cheats and more.
             </p>
 
             <div class="language-row">
-              <span>Java</span>
-              <span>Python</span>
-              <span>C++</span>
-              <span>JavaScript</span>
-              <span>More</span>
+              <span>SOFTWARE</span>
+              <span>WEB</span>
+              <span>UI</span>
             </div>
+
           </div>
+
         </article>
 
+        <!-- SCREENSHARING -->
         <article class="experience-card reveal">
-          <div class="card-number">02</div>
+
+          <span class="card-number">02</span>
 
           <div class="experience-content">
+
             <h3>Screensharing</h3>
 
             <p class="experience-line">
-              Former SSER · KryptonSmp
+              Former SS Manager · Kum Network
             </p>
 
             <p class="experience-line">
-              Former SSER · CertifyFFA
+              Former Head SSER · Certify Network
             </p>
 
             <p class="experience-line">
-              Former Helper · Anticheat.ac
+              Former SSER · BJTL
             </p>
+
+            <p class="experience-line">
+              Former SSER · TitanFFA
+            </p>
+
+            <p class="experience-line">
+              Current PC Checker · Ocean anticheat.ac
+            </p>
+
           </div>
+
         </article>
 
+        <!-- MINECRAFT -->
         <article class="experience-card reveal">
-          <div class="card-number">03</div>
+
+          <span class="card-number">03</span>
 
           <div class="experience-content">
+
             <h3>Competitive Minecraft</h3>
 
-            <p>
-              Tiers · 4x HT3 · 1x LT2
+            <p class="experience-line">
+              Tiers · 6x HT3 · 1x LT2
             </p>
 
-            <p>
-              #21 MCPVP.com · #37 CatPvP
+            <p class="experience-line">
+              Restricted #5 Mcpvp.com Global
             </p>
+
+            <p class="experience-line">
+              MCSR Best 11.09:12
+            </p>
+
           </div>
+
         </article>
 
       </div>
-    </section>
 
+    </section>
 
     <!-- PROJECTS -->
     <section class="section projects-section" id="projects">
 
-      <div class="section-heading reveal">
-        <div>
-          <p class="eyebrow">03 / SELECTED PROJECTS</p>
-          <h2>My Projects</h2>
+      <div class="section-heading">
+        <div class="section-label">
+          <span>04</span>
+          <span>SELECTED WORK</span>
         </div>
 
-        <p>
-          A compact selection of projects and concepts.
-        </p>
+        <h2>My Projects</h2>
       </div>
 
       <div class="projects-grid">
 
-        <article class="project-card reveal">
+        <!-- CLOSET CHEATS -->
+        <article class="project-card reveal" id="closetProject">
+
           <div class="project-top">
-            <span>01</span>
-            <span>PROJECT</span>
-          </div>
 
-          <div class="project-content">
-            <h3>Closet Cheats</h3>
-            <p>
-              A visual product concept focused on
-              interface design and presentation.
-            </p>
-          </div>
+            <span class="project-index">01</span>
 
-          <div class="project-footer">
-            <span>PRODUCT</span>
-            <span>↗</span>
-          </div>
-        </article>
-
-        <article class="project-card reveal">
-          <div class="project-top">
-            <span>02</span>
-            <span>PROJECT</span>
-          </div>
-
-          <div class="project-content">
-            <h3>Premium Bypass Methods</h3>
-            <p>
-              A separate project concept presented
-              through a refined premium interface.
-            </p>
-          </div>
-
-          <div class="project-footer">
-            <span>CONCEPT</span>
-            <span>↗</span>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-
-    <!-- BLACKFISH / CLOSET CHEATS SHOWCASE -->
-    <section class="blackfish-section section">
-
-      <div class="section-heading reveal">
-        <div>
-          <p class="eyebrow">04 / INTERACTIVE SHOWCASE</p>
-          <h2>Closet Cheats</h2>
-        </div>
-
-        <p>
-          Explore the interface, modules and settings
-          through an interactive product presentation.
-        </p>
-      </div>
-
-      <div class="blackfish-shell reveal">
-
-        <!-- LEFT INFO -->
-        <aside class="blackfish-sidebar">
-
-          <div class="blackfish-brand">
-            <div class="blackfish-mark">C</div>
-            <div>
-              <small>PRODUCT</small>
-              <strong>Closet Cheats</strong>
-            </div>
-          </div>
-
-          <div class="sidebar-tabs">
-            <button class="bf-tab active" data-tab="combat">
-              <span>01</span>
-              Combat
-            </button>
-
-            <button class="bf-tab" data-tab="visuals">
-              <span>02</span>
-              Visuals
-            </button>
-
-            <button class="bf-tab" data-tab="hud">
-              <span>03</span>
-              HUD
-            </button>
-
-            <button class="bf-tab" data-tab="settings">
-              <span>04</span>
-              Settings
-            </button>
-          </div>
-
-          <div class="sidebar-footer">
-            <span>INTERACTIVE DEMO</span>
-            <span class="status">
-              <i></i>
-              ONLINE
+            <span class="project-status">
+              INTERACTIVE
             </span>
+
           </div>
 
-        </aside>
+          <div class="project-content">
 
+            <h3>Closet Cheats</h3>
 
-        <!-- MAIN PRODUCT -->
-        <div class="blackfish-main">
+            <p>
+              An interactive visual interface concept featuring
+              modular controls, configuration panels and a
+              polished desktop-style experience.
+            </p>
 
-          <div class="bf-topbar">
-            <div>
-              <small>INTERFACE PREVIEW</small>
-              <strong id="bfCurrentTitle">Combat</strong>
-            </div>
-
-            <button id="viewMore" class="view-more">
-              View More
+            <button
+              class="project-open"
+              id="openShowcase"
+            >
+              Open Showcase
               <span>↗</span>
             </button>
-          </div>
-
-
-          <!-- 3D PRODUCT STAGE -->
-          <div class="bf-stage" id="bfStage">
-
-            <div class="stage-light"></div>
-
-            <div class="client-device" id="clientDevice">
-
-              <div class="device-glow"></div>
-
-              <div class="client-window">
-
-                <div class="client-header">
-                  <div class="client-title">
-                    <span class="mini-logo">C</span>
-                    <strong>Closet</strong>
-                  </div>
-
-                  <div class="window-actions">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-                </div>
-
-                <div class="client-body">
-
-                  <div class="client-menu">
-                    <div class="menu-label">MODULES</div>
-
-                    <button class="client-menu-item active" data-tab="combat">
-                      Combat
-                    </button>
-
-                    <button class="client-menu-item" data-tab="visuals">
-                      Visuals
-                    </button>
-
-                    <button class="client-menu-item" data-tab="hud">
-                      HUD
-                    </button>
-
-                    <button class="client-menu-item" data-tab="settings">
-                      Settings
-                    </button>
-                  </div>
-
-                  <div class="client-panel">
-
-                    <div class="panel-heading">
-                      <div>
-                        <small>MODULE CATEGORY</small>
-                        <h3 id="panelTitle">Combat</h3>
-                      </div>
-
-                      <span class="panel-counter">
-                        <b id="enabledCount">2</b> ACTIVE
-                      </span>
-                    </div>
-
-                    <!-- Combat -->
-                    <div class="module-content active" data-content="combat">
-
-                      <div class="module-row">
-                        <div>
-                          <strong>Target Display</strong>
-                          <small>Visual interface preview</small>
-                        </div>
-
-                        <button class="toggle active" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                      <div class="module-row">
-                        <div>
-                          <strong>Range Display</strong>
-                          <small>Range visualization</small>
-                        </div>
-
-                        <button class="toggle active" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                      <div class="module-row">
-                        <div>
-                          <strong>Module Overlay</strong>
-                          <small>Display module status</small>
-                        </div>
-
-                        <button class="toggle" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                    </div>
-
-                    <!-- Visuals -->
-                    <div class="module-content" data-content="visuals">
-
-                      <div class="module-row">
-                        <div>
-                          <strong>Entity Highlights</strong>
-                          <small>Visual highlighting preview</small>
-                        </div>
-
-                        <button class="toggle active" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                      <div class="module-row">
-                        <div>
-                          <strong>Interface Glow</strong>
-                          <small>Ambient interface lighting</small>
-                        </div>
-
-                        <button class="toggle" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                      <div class="module-row">
-                        <div>
-                          <strong>Clean HUD</strong>
-                          <small>Minimal presentation mode</small>
-                        </div>
-
-                        <button class="toggle" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                    </div>
-
-                    <!-- HUD -->
-                    <div class="module-content" data-content="hud">
-
-                      <div class="module-row">
-                        <div>
-                          <strong>Module List</strong>
-                          <small>Show active module states</small>
-                        </div>
-
-                        <button class="toggle active" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                      <div class="slider-row">
-                        <div class="slider-heading">
-                          <strong>Opacity</strong>
-                          <span id="opacityValue">80%</span>
-                        </div>
-
-                        <input
-                          type="range"
-                          min="0"
-                          max="100"
-                          value="80"
-                          id="opacitySlider"
-                        >
-                      </div>
-
-                      <div class="slider-row">
-                        <div class="slider-heading">
-                          <strong>Scale</strong>
-                          <span id="scaleValue">100%</span>
-                        </div>
-
-                        <input
-                          type="range"
-                          min="50"
-                          max="150"
-                          value="100"
-                          id="scaleSlider"
-                        >
-                      </div>
-
-                    </div>
-
-                    <!-- Settings -->
-                    <div class="module-content" data-content="settings">
-
-                      <div class="settings-row">
-                        <span>Interface Theme</span>
-                        <button class="select-button">
-                          Platinum
-                          <span>⌄</span>
-                        </button>
-                      </div>
-
-                      <div class="settings-row">
-                        <span>Animations</span>
-
-                        <button class="toggle active" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                      <div class="settings-row">
-                        <span>Particles</span>
-
-                        <button class="toggle active" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                      <div class="settings-row">
-                        <span>Performance Mode</span>
-
-                        <button class="toggle" data-toggle>
-                          <span></span>
-                        </button>
-                      </div>
-
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="stage-floor"></div>
-          </div>
-
-
-          <!-- BOTTOM CONTROLS -->
-          <div class="bf-controls">
-
-            <div class="control-info">
-              <span>DRAG TO ROTATE</span>
-              <span>CLICK MODULES TO EXPLORE</span>
-            </div>
-
-            <div class="control-buttons">
-              <button id="resetView">Reset View</button>
-              <button id="openSettings">Open Settings</button>
-            </div>
 
           </div>
 
-        </div>
+        </article>
+
+        <!-- PREMIUM BYPASS -->
+        <article class="project-card reveal">
+
+          <div class="project-top">
+
+            <span class="project-index">02</span>
+
+            <span class="project-status">
+              DEVELOPMENT
+            </span>
+
+          </div>
+
+          <div class="project-content">
+
+            <h3>Custom Premium Bypass Methods</h3>
+
+            <p>
+              A project title and concept focused on custom
+              premium systems and advanced interface work.
+            </p>
+
+            <span class="project-tag">
+              CUSTOM SYSTEMS
+            </span>
+
+          </div>
+
+        </article>
+
       </div>
 
     </section>
 
-
     <!-- COMMUNITIES -->
-    <section class="section communities-section">
+    <section class="communities section">
 
-      <div class="section-heading reveal">
-        <div>
-          <p class="eyebrow">05 / COMMUNITIES</p>
-          <h2>Communities</h2>
+      <div class="section-heading">
+        <div class="section-label">
+          <span>05</span>
+          <span>COMMUNITIES</span>
         </div>
 
-        <p>
-          Places and communities I've been involved with.
-        </p>
+        <h2>Communities</h2>
       </div>
 
       <div class="community-grid">
 
-        <a href="https://discord.gg/Tet3kUDjW7" target="_blank" rel="noopener" class="community-card reveal">
-          <span>01</span>
-          <strong>trace.ac</strong>
-          <small>Discord Community ↗</small>
+        <a
+          href="https://discord.gg/Tet3kUDjW7"
+          target="_blank"
+          class="community-card"
+        >
+          <span>trace.ac</span>
+          <small>Discord Community</small>
+          <b>↗</b>
         </a>
 
-        <a href="https://discord.gg/n7hNV4797w" target="_blank" rel="noopener" class="community-card reveal">
-          <span>02</span>
-          <strong>Texture Packs</strong>
-          <small>Discord Community ↗</small>
+        <a
+          href="https://discord.gg/n7hNV4797w"
+          target="_blank"
+          class="community-card"
+        >
+          <span>Texture Packs</span>
+          <small>Discord Community</small>
+          <b>↗</b>
         </a>
 
-        <a href="https://discord.gg/syBqCkRPvD" target="_blank" rel="noopener" class="community-card reveal">
-          <span>03</span>
-          <strong>RSTD</strong>
-          <small>Discord Community ↗</small>
+        <a
+          href="https://discord.gg/syBqCkRPvD"
+          target="_blank"
+          class="community-card"
+        >
+          <span>RSTD</span>
+          <small>Discord Community</small>
+          <b>↗</b>
         </a>
 
       </div>
@@ -661,18 +446,380 @@
 
   </main>
 
+  <!-- SHOWCASE MODAL -->
+  <div class="showcase" id="showcase">
+
+    <div class="showcase-backdrop"></div>
+
+    <div class="showcase-window">
+
+      <div class="showcase-header">
+
+        <div>
+          <span class="showcase-overline">
+            INTERACTIVE PROJECT
+          </span>
+
+          <h2>Closet Cheats</h2>
+        </div>
+
+        <button
+          class="showcase-close"
+          id="closeShowcase"
+          aria-label="Close showcase"
+        >
+          ×
+        </button>
+
+      </div>
+
+      <div class="showcase-body">
+
+        <!-- SIDEBAR -->
+        <aside class="showcase-sidebar">
+
+          <button class="showcase-tab active" data-tab="combat">
+            Combat
+          </button>
+
+          <button class="showcase-tab" data-tab="visuals">
+            Visuals
+          </button>
+
+          <button class="showcase-tab" data-tab="hud">
+            HUD
+          </button>
+
+          <button class="showcase-tab" data-tab="settings">
+            Settings
+          </button>
+
+        </aside>
+
+        <!-- CONTENT -->
+        <div class="showcase-content">
+
+          <!-- COMBAT -->
+          <div
+            class="module-panel active"
+            data-panel="combat"
+          >
+
+            <div class="module-header">
+              <div>
+                <span>01</span>
+                <h3>Combat</h3>
+              </div>
+
+              <span class="module-count">
+                <b id="combatCount">0</b> ACTIVE
+              </span>
+            </div>
+
+            <div class="module-list">
+
+              <div class="module">
+                <div>
+                  <strong>Aim Assist</strong>
+                  <small>Visual configuration preview</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Aim Assist"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+              <div class="module">
+                <div>
+                  <strong>Click Visualizer</strong>
+                  <small>Input visualization</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Click Visualizer"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+              <div class="module">
+                <div>
+                  <strong>Target HUD</strong>
+                  <small>Interface preview</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Target HUD"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- VISUALS -->
+          <div
+            class="module-panel"
+            data-panel="visuals"
+          >
+
+            <div class="module-header">
+
+              <div>
+                <span>02</span>
+                <h3>Visuals</h3>
+              </div>
+
+              <span class="module-count">
+                <b id="visualsCount">0</b> ACTIVE
+              </span>
+
+            </div>
+
+            <div class="module-list">
+
+              <div class="module">
+                <div>
+                  <strong>ESP Preview</strong>
+                  <small>Visual overlay concept</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="ESP Preview"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+              <div class="module">
+                <div>
+                  <strong>Tracers</strong>
+                  <small>Visual line preview</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Tracers"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+              <div class="module">
+                <div>
+                  <strong>Motion Blur</strong>
+                  <small>Interface visual effect</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Motion Blur"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- HUD -->
+          <div
+            class="module-panel"
+            data-panel="hud"
+          >
+
+            <div class="module-header">
+
+              <div>
+                <span>03</span>
+                <h3>HUD</h3>
+              </div>
+
+              <span class="module-count">
+                <b id="hudCount">0</b> ACTIVE
+              </span>
+
+            </div>
+
+            <div class="module-list">
+
+              <div class="module">
+                <div>
+                  <strong>Array List</strong>
+                  <small>Active module display</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Array List"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+              <div class="module">
+                <div>
+                  <strong>Watermark</strong>
+                  <small>Branding preview</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Watermark"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+              <div class="module">
+                <div>
+                  <strong>Coordinates</strong>
+                  <small>Information display</small>
+                </div>
+
+                <button
+                  class="toggle"
+                  data-module="Coordinates"
+                >
+                  <span></span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- SETTINGS -->
+          <div
+            class="module-panel"
+            data-panel="settings"
+          >
+
+            <div class="module-header">
+
+              <div>
+                <span>04</span>
+                <h3>Settings</h3>
+              </div>
+
+              <span class="module-count">
+                CONFIG
+              </span>
+
+            </div>
+
+            <div class="settings-list">
+
+              <label class="setting">
+
+                <div>
+                  <strong>Interface Opacity</strong>
+                  <small>Adjust preview transparency</small>
+                </div>
+
+                <input
+                  type="range"
+                  min="20"
+                  max="100"
+                  value="85"
+                  id="opacitySlider"
+                >
+
+                <span id="opacityValue">85%</span>
+
+              </label>
+
+              <label class="setting">
+
+                <div>
+                  <strong>Interface Scale</strong>
+                  <small>Adjust showcase scale</small>
+                </div>
+
+                <input
+                  type="range"
+                  min="80"
+                  max="120"
+                  value="100"
+                  id="scaleSlider"
+                >
+
+                <span id="scaleValue">100%</span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+          <!-- FOOTER -->
+          <div class="showcase-footer">
+
+            <div class="showcase-info">
+              <span>MODULES</span>
+              <strong id="activeModules">0</strong>
+            </div>
+
+            <div class="showcase-actions">
+
+              <button
+                class="showcase-action"
+                id="viewMore"
+              >
+                View More
+              </button>
+
+              <button
+                class="showcase-action"
+                id="resetShowcase"
+              >
+                Reset View
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
   <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <strong>NXR<span>DONUT</span></strong>
+  <footer>
 
-      <span>BUILT WITH INTENTION.</span>
-
-      <span>© 2026</span>
+    <div class="footer-left">
+      <span>NxrDonut</span>
+      <small>Developer · Screensharer</small>
     </div>
+
+    <div class="footer-right">
+      <span>© 2026</span>
+      <span>BUILT WITH PRECISION</span>
+    </div>
+
   </footer>
 
-  <script src="./script.js"></script>
+  <audio
+    id="audio"
+    src="./video.mp3"
+    loop
+    preload="auto"
+  ></audio>
+
+  <script src="script.js"></script>
+
 </body>
 </html>
