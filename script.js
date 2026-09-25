@@ -1,59 +1,56 @@
 /* =========================================================
-   NXR DONUT
-   Premium portfolio interactions
-========================================================= */
-
-
-/* =========================
    INTRO
-========================= */
+========================================================= */
 
 const intro = document.getElementById("intro");
 
-function enterSite() {
+function closeIntro() {
   if (!intro) return;
 
   intro.classList.add("hidden");
-  document.body.classList.add("entered");
 
-  setTimeout(() => {
-    intro.style.display = "none";
-  }, 1100);
+  document.body.style.overflow = "";
 }
 
-intro?.addEventListener("click", enterSite);
+document.addEventListener("click", () => {
+  closeIntro();
+}, { once: true });
+
+document.addEventListener("keydown", () => {
+  closeIntro();
+}, { once: true });
 
 
-/* =========================
+/* =========================================================
    CURSOR
-========================= */
+========================================================= */
 
-const cursor = document.querySelector(".cursor");
-const cursorTrail = document.querySelector(".cursor-trail");
+const cursor = document.getElementById("cursor");
+const cursorDot = document.getElementById("cursorDot");
 
 let mouseX = window.innerWidth / 2;
 let mouseY = window.innerHeight / 2;
 
-let trailX = mouseX;
-let trailY = mouseY;
+let cursorX = mouseX;
+let cursorY = mouseY;
 
-window.addEventListener("mousemove", (event) => {
+document.addEventListener("mousemove", (event) => {
   mouseX = event.clientX;
   mouseY = event.clientY;
 
-  if (cursor) {
-    cursor.style.left = `${mouseX}px`;
-    cursor.style.top = `${mouseY}px`;
+  if (cursorDot) {
+    cursorDot.style.left = `${mouseX}px`;
+    cursorDot.style.top = `${mouseY}px`;
   }
 });
 
 function animateCursor() {
-  trailX += (mouseX - trailX) * 0.13;
-  trailY += (mouseY - trailY) * 0.13;
+  cursorX += (mouseX - cursorX) * 0.15;
+  cursorY += (mouseY - cursorY) * 0.15;
 
-  if (cursorTrail) {
-    cursorTrail.style.left = `${trailX}px`;
-    cursorTrail.style.top = `${trailY}px`;
+  if (cursor) {
+    cursor.style.left = `${cursorX}px`;
+    cursor.style.top = `${cursorY}px`;
   }
 
   requestAnimationFrame(animateCursor);
@@ -61,8 +58,7 @@ function animateCursor() {
 
 animateCursor();
 
-
-document.querySelectorAll("a, button, input").forEach((element) => {
+document.querySelectorAll("a, button").forEach((element) => {
   element.addEventListener("mouseenter", () => {
     document.body.classList.add("cursor-hover");
   });
@@ -73,76 +69,84 @@ document.querySelectorAll("a, button, input").forEach((element) => {
 });
 
 
-/* =========================
+/* =========================================================
    MUSIC
-========================= */
+========================================================= */
 
 const audio = document.getElementById("audio");
-const musicToggle = document.getElementById("musicToggle");
-const navMusic = document.getElementById("navMusic");
+const musicPlay = document.getElementById("musicPlay");
 const musicPlayer = document.querySelector(".music-player");
+const musicTime = document.getElementById("musicTime");
 
-let musicPlaying = false;
+let playing = false;
 
-async function toggleMusic() {
-  if (!audio) return;
-
-  if (audio.paused) {
-    try {
-      await audio.play();
-      musicPlaying = true;
-    } catch {
-      musicPlaying = false;
-    }
-  } else {
-    audio.pause();
-    musicPlaying = false;
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) {
+    return "00:00";
   }
 
-  updateMusicUI();
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+
+  return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
-function updateMusicUI() {
-  if (!musicToggle || !navMusic || !musicPlayer) return;
+musicPlay?.addEventListener("click", async (event) => {
+  event.stopPropagation();
 
-  musicToggle.querySelector(".play-icon").textContent =
-    musicPlaying ? "Ⅱ" : "▶";
+  if (!audio) return;
 
-  navMusic.classList.toggle("playing", musicPlaying);
-  musicPlayer.classList.toggle("playing", musicPlaying);
-}
+  try {
+    if (audio.paused) {
+      await audio.play();
 
-musicToggle?.addEventListener("click", toggleMusic);
-navMusic?.addEventListener("click", toggleMusic);
+      playing = true;
 
-audio?.addEventListener("play", () => {
-  musicPlaying = true;
-  updateMusicUI();
+      musicPlayer?.classList.add("playing");
+
+      musicPlay.querySelector(".play-icon").textContent = "Ⅱ";
+    } else {
+      audio.pause();
+
+      playing = false;
+
+      musicPlayer?.classList.remove("playing");
+
+      musicPlay.querySelector(".play-icon").textContent = "▶";
+    }
+  } catch (error) {
+    console.log("Audio could not be played.", error);
+  }
 });
 
-audio?.addEventListener("pause", () => {
-  musicPlaying = false;
-  updateMusicUI();
+audio?.addEventListener("timeupdate", () => {
+  if (musicTime) {
+    musicTime.textContent = formatTime(audio.currentTime);
+  }
 });
 
 
-/* =========================
-   SCROLL REVEAL
-========================= */
+/* =========================================================
+   REVEAL ANIMATIONS
+========================================================= */
 
 const revealElements = document.querySelectorAll(".reveal");
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
+
     entries.forEach((entry) => {
+
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
         revealObserver.unobserve(entry.target);
       }
+
     });
+
   },
   {
-    threshold: 0.08
+    threshold: 0.12
   }
 );
 
@@ -151,315 +155,180 @@ revealElements.forEach((element) => {
 });
 
 
-/* =========================
+/* =========================================================
    PFP PARALLAX
-========================= */
+========================================================= */
 
-const pfpWrap = document.getElementById("pfpWrap");
+const pfp = document.getElementById("pfp");
 
-if (pfpWrap && window.matchMedia("(pointer:fine)").matches) {
+document.addEventListener("mousemove", (event) => {
 
-  window.addEventListener("mousemove", (event) => {
+  if (!pfp) return;
 
-    const x =
-      (event.clientX / window.innerWidth - 0.5) * 2;
+  const x = (event.clientX / window.innerWidth - 0.5) * 8;
+  const y = (event.clientY / window.innerHeight - 0.5) * 8;
 
-    const y =
-      (event.clientY / window.innerHeight - 0.5) * 2;
-
-    pfpWrap.style.transform = `
-      rotateY(${x * 5}deg)
-      rotateX(${y * -5}deg)
-    `;
-  });
-
-}
+  pfp.style.transform = `
+    translate(${x}px, ${y}px)
+    scale(1.04)
+  `;
+});
 
 
 /* =========================================================
-   BLACKFISH / CLOSET CHEATS INTERACTIVE SHOWCASE
+   SHOWCASE
 ========================================================= */
 
-const bfTabs = document.querySelectorAll(".bf-tab");
-const clientMenuItems = document.querySelectorAll(".client-menu-item");
+const showcase = document.getElementById("showcase");
+const openShowcase = document.getElementById("openShowcase");
+const closeShowcase = document.getElementById("closeShowcase");
+const showcaseBackdrop = document.querySelector(".showcase-backdrop");
 
-const moduleContents = document.querySelectorAll(".module-content");
+function openShowcaseModal() {
+  if (!showcase) return;
 
-const currentTitle = document.getElementById("bfCurrentTitle");
-const panelTitle = document.getElementById("panelTitle");
+  showcase.classList.add("active");
 
-const clientDevice = document.getElementById("clientDevice");
-const bfStage = document.getElementById("bfStage");
-
-const enabledCount = document.getElementById("enabledCount");
-
-
-/* -------------------------
-   Tab Switching
-------------------------- */
-
-function activateTab(tabName) {
-
-  bfTabs.forEach((tab) => {
-    tab.classList.toggle(
-      "active",
-      tab.dataset.tab === tabName
-    );
-  });
-
-  clientMenuItems.forEach((item) => {
-    item.classList.toggle(
-      "active",
-      item.dataset.tab === tabName
-    );
-  });
-
-  moduleContents.forEach((content) => {
-    content.classList.toggle(
-      "active",
-      content.dataset.content === tabName
-    );
-  });
-
-  const formattedName =
-    tabName.charAt(0).toUpperCase() + tabName.slice(1);
-
-  if (currentTitle) {
-    currentTitle.textContent = formattedName;
-  }
-
-  if (panelTitle) {
-    panelTitle.textContent = formattedName;
-  }
-
-  updateEnabledCount();
+  document.body.style.overflow = "hidden";
 }
 
-bfTabs.forEach((tab) => {
-  tab.addEventListener("click", () => {
-    activateTab(tab.dataset.tab);
-  });
+function closeShowcaseModal() {
+  if (!showcase) return;
+
+  showcase.classList.remove("active");
+
+  document.body.style.overflow = "";
+}
+
+openShowcase?.addEventListener("click", (event) => {
+  event.stopPropagation();
+
+  openShowcaseModal();
 });
 
-clientMenuItems.forEach((item) => {
-  item.addEventListener("click", () => {
-    activateTab(item.dataset.tab);
-  });
+closeShowcase?.addEventListener("click", (event) => {
+  event.stopPropagation();
+
+  closeShowcaseModal();
+});
+
+showcaseBackdrop?.addEventListener("click", () => {
+  closeShowcaseModal();
+});
+
+document.addEventListener("keydown", (event) => {
+
+  if (event.key === "Escape") {
+    closeShowcaseModal();
+  }
+
 });
 
 
-/* -------------------------
-   Module Toggles
-------------------------- */
+/* =========================================================
+   SHOWCASE TABS
+========================================================= */
 
-function updateEnabledCount() {
+const showcaseTabs = document.querySelectorAll(".showcase-tab");
+const modulePanels = document.querySelectorAll(".module-panel");
 
-  const activeModule =
-    document.querySelector(".module-content.active");
+showcaseTabs.forEach((tab) => {
 
-  if (!activeModule || !enabledCount) return;
+  tab.addEventListener("click", (event) => {
 
-  const toggles =
-    activeModule.querySelectorAll(".toggle");
+    event.stopPropagation();
 
-  const active =
-    activeModule.querySelectorAll(".toggle.active");
+    const target = tab.dataset.tab;
 
-  enabledCount.textContent = active.length;
+    showcaseTabs.forEach((item) => {
+      item.classList.remove("active");
+    });
+
+    modulePanels.forEach((panel) => {
+      panel.classList.remove("active");
+    });
+
+    tab.classList.add("active");
+
+    const targetPanel = document.querySelector(
+      `.module-panel[data-panel="${target}"]`
+    );
+
+    targetPanel?.classList.add("active");
+
+  });
+
+});
+
+
+/* =========================================================
+   MODULE TOGGLES
+========================================================= */
+
+const toggles = document.querySelectorAll(".toggle");
+
+function updateModuleCounts() {
+
+  const activeModules = document.querySelectorAll(
+    ".toggle.active"
+  ).length;
+
+  const totalElement = document.getElementById("activeModules");
+
+  if (totalElement) {
+    totalElement.textContent = activeModules;
+  }
+
+  const combatCount = document.getElementById("combatCount");
+  const visualsCount = document.getElementById("visualsCount");
+  const hudCount = document.getElementById("hudCount");
+
+  if (combatCount) {
+    combatCount.textContent =
+      document.querySelectorAll(
+        '[data-module="Aim Assist"].active, [data-module="Click Visualizer"].active, [data-module="Target HUD"].active'
+      ).length;
+  }
+
+  if (visualsCount) {
+    visualsCount.textContent =
+      document.querySelectorAll(
+        '[data-module="ESP Preview"].active, [data-module="Tracers"].active, [data-module="Motion Blur"].active'
+      ).length;
+  }
+
+  if (hudCount) {
+    hudCount.textContent =
+      document.querySelectorAll(
+        '[data-module="Array List"].active, [data-module="Watermark"].active, [data-module="Coordinates"].active'
+      ).length;
+  }
 }
 
-document.querySelectorAll("[data-toggle]").forEach((toggle) => {
+toggles.forEach((toggle) => {
 
-  toggle.addEventListener("click", () => {
+  toggle.addEventListener("click", (event) => {
+
+    event.stopPropagation();
 
     toggle.classList.toggle("active");
 
-    updateEnabledCount();
+    updateModuleCounts();
 
   });
 
 });
 
 
-/* -------------------------
-   View More
-------------------------- */
+/* =========================================================
+   SETTINGS
+========================================================= */
 
-const viewMore = document.getElementById("viewMore");
+const opacitySlider = document.getElementById("opacitySlider");
+const opacityValue = document.getElementById("opacityValue");
 
-viewMore?.addEventListener("click", () => {
-
-  const activeContent =
-    document.querySelector(".module-content.active");
-
-  if (!activeContent) return;
-
-  const firstToggle =
-    activeContent.querySelector(".toggle");
-
-  if (firstToggle) {
-    firstToggle.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-
-    firstToggle.animate(
-      [
-        {
-          transform: "scale(1)"
-        },
-        {
-          transform: "scale(1.12)"
-        },
-        {
-          transform: "scale(1)"
-        }
-      ],
-      {
-        duration: 500,
-        easing: "ease-out"
-      }
-    );
-  }
-
-});
-
-
-/* -------------------------
-   Open Settings
-------------------------- */
-
-const openSettings =
-  document.getElementById("openSettings");
-
-openSettings?.addEventListener("click", () => {
-  activateTab("settings");
-
-  document.querySelector(".blackfish-shell")
-    ?.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-});
-
-
-/* -------------------------
-   Reset View
-------------------------- */
-
-const resetView =
-  document.getElementById("resetView");
-
-resetView?.addEventListener("click", () => {
-
-  if (!clientDevice) return;
-
-  clientDevice.style.transform =
-    "rotateX(8deg) rotateY(-15deg) rotateZ(-1deg)";
-});
-
-
-/* -------------------------
-   3D Drag / Mouse Interaction
-------------------------- */
-
-let dragging = false;
-let startX = 0;
-let startY = 0;
-
-let rotationX = 8;
-let rotationY = -15;
-
-if (bfStage && clientDevice) {
-
-  bfStage.addEventListener("pointerdown", (event) => {
-
-    dragging = true;
-
-    startX = event.clientX;
-    startY = event.clientY;
-
-    bfStage.setPointerCapture(event.pointerId);
-
-    document.body.classList.add("cursor-hover");
-  });
-
-
-  bfStage.addEventListener("pointermove", (event) => {
-
-    if (!dragging) return;
-
-    const deltaX = event.clientX - startX;
-    const deltaY = event.clientY - startY;
-
-    rotationY += deltaX * 0.18;
-    rotationX -= deltaY * 0.12;
-
-    rotationX = Math.max(-20, Math.min(25, rotationX));
-
-    clientDevice.style.transform = `
-      rotateX(${rotationX}deg)
-      rotateY(${rotationY}deg)
-      rotateZ(-1deg)
-    `;
-
-    startX = event.clientX;
-    startY = event.clientY;
-  });
-
-
-  const stopDragging = () => {
-    dragging = false;
-    document.body.classList.remove("cursor-hover");
-  };
-
-  bfStage.addEventListener("pointerup", stopDragging);
-  bfStage.addEventListener("pointercancel", stopDragging);
-  bfStage.addEventListener("pointerleave", stopDragging);
-}
-
-
-/* -------------------------
-   Stage Light
-------------------------- */
-
-const stageLight =
-  document.querySelector(".stage-light");
-
-if (bfStage && stageLight) {
-
-  bfStage.addEventListener("pointermove", (event) => {
-
-    if (dragging) return;
-
-    const rect =
-      bfStage.getBoundingClientRect();
-
-    const x =
-      ((event.clientX - rect.left) / rect.width) * 100;
-
-    const y =
-      ((event.clientY - rect.top) / rect.height) * 100;
-
-    stageLight.style.left = `${x}%`;
-    stageLight.style.top = `${y}%`;
-
-    stageLight.style.transform =
-      "translate(-50%, -50%)";
-  });
-
-}
-
-
-/* -------------------------
-   HUD Sliders
-------------------------- */
-
-const opacitySlider =
-  document.getElementById("opacitySlider");
-
-const opacityValue =
-  document.getElementById("opacityValue");
+const scaleSlider = document.getElementById("scaleSlider");
+const scaleValue = document.getElementById("scaleValue");
 
 opacitySlider?.addEventListener("input", () => {
 
@@ -469,50 +338,176 @@ opacitySlider?.addEventListener("input", () => {
     opacityValue.textContent = `${value}%`;
   }
 
-  if (clientDevice) {
-    clientDevice.style.opacity =
-      Number(value) / 100;
+  const showcaseWindow =
+    document.querySelector(".showcase-window");
+
+  if (showcaseWindow) {
+    showcaseWindow.style.opacity = value / 100;
   }
 
 });
 
-
-const scaleSlider =
-  document.getElementById("scaleSlider");
-
-const scaleValue =
-  document.getElementById("scaleValue");
-
 scaleSlider?.addEventListener("input", () => {
 
-  const value = Number(scaleSlider.value);
+  const value = scaleSlider.value;
 
   if (scaleValue) {
     scaleValue.textContent = `${value}%`;
   }
 
-  if (clientDevice) {
+  const showcaseWindow =
+    document.querySelector(".showcase-window");
 
-    const scale =
-      value / 100;
-
-    clientDevice.style.transform = `
-      scale(${scale})
-      rotateX(${rotationX}deg)
-      rotateY(${rotationY}deg)
-      rotateZ(-1deg)
-    `;
+  if (showcaseWindow) {
+    showcaseWindow.style.transform =
+      `perspective(1200px) scale(${value / 100})`;
   }
 
 });
 
 
-/* =========================
-   NAV ACTIVE STATE
-========================= */
+/* =========================================================
+   RESET SHOWCASE
+========================================================= */
 
-const navLinks =
-  document.querySelectorAll(".nav-links a");
+const resetShowcase =
+  document.getElementById("resetShowcase");
+
+resetShowcase?.addEventListener("click", (event) => {
+
+  event.stopPropagation();
+
+  toggles.forEach((toggle) => {
+    toggle.classList.remove("active");
+  });
+
+  if (opacitySlider) {
+    opacitySlider.value = 85;
+  }
+
+  if (opacityValue) {
+    opacityValue.textContent = "85%";
+  }
+
+  if (scaleSlider) {
+    scaleSlider.value = 100;
+  }
+
+  if (scaleValue) {
+    scaleValue.textContent = "100%";
+  }
+
+  const showcaseWindow =
+    document.querySelector(".showcase-window");
+
+  if (showcaseWindow) {
+    showcaseWindow.style.opacity = "1";
+    showcaseWindow.style.transform = "";
+  }
+
+  updateModuleCounts();
+
+});
+
+
+/* =========================================================
+   VIEW MORE
+========================================================= */
+
+const viewMore = document.getElementById("viewMore");
+
+viewMore?.addEventListener("click", (event) => {
+
+  event.stopPropagation();
+
+  const panels = [
+    ...document.querySelectorAll(".module-panel")
+  ];
+
+  const activePanel =
+    panels.find((panel) =>
+      panel.classList.contains("active")
+    );
+
+  if (!activePanel) return;
+
+  const modules =
+    activePanel.querySelectorAll(".module");
+
+  modules.forEach((module, index) => {
+
+    module.animate(
+      [
+        {
+          opacity: .35,
+          transform: "translateX(0)"
+        },
+        {
+          opacity: 1,
+          transform: "translateX(5px)"
+        },
+        {
+          opacity: 1,
+          transform: "translateX(0)"
+        }
+      ],
+      {
+        duration: 550,
+        delay: index * 60,
+        easing: "cubic-bezier(.16,1,.3,1)"
+      }
+    );
+
+  });
+
+});
+
+
+/* =========================================================
+   CARD TILT
+========================================================= */
+
+const tiltCards = document.querySelectorAll(
+  ".project-card, .experience-card, .social-card, .community-card"
+);
+
+tiltCards.forEach((card) => {
+
+  card.addEventListener("mousemove", (event) => {
+
+    if (window.innerWidth < 800) return;
+
+    const rect = card.getBoundingClientRect();
+
+    const x =
+      (event.clientX - rect.left) / rect.width - 0.5;
+
+    const y =
+      (event.clientY - rect.top) / rect.height - 0.5;
+
+    card.style.transform = `
+      perspective(800px)
+      rotateX(${y * -2}deg)
+      rotateY(${x * 2}deg)
+      translateY(-4px)
+    `;
+
+  });
+
+  card.addEventListener("mouseleave", () => {
+
+    card.style.transform = "";
+
+  });
+
+});
+
+
+/* =========================================================
+   NAV ACTIVE STATE
+========================================================= */
+
+const navLinks = document.querySelectorAll(".nav-links a");
 
 const sections = [
   document.getElementById("bio"),
@@ -528,23 +523,23 @@ const navObserver = new IntersectionObserver(
       if (!entry.isIntersecting) return;
 
       navLinks.forEach((link) => {
-        link.style.color = "#777";
+        link.style.color = "#626262";
       });
 
-      const active =
+      const activeLink =
         document.querySelector(
           `.nav-links a[href="#${entry.target.id}"]`
         );
 
-      if (active) {
-        active.style.color = "white";
+      if (activeLink) {
+        activeLink.style.color = "white";
       }
 
     });
 
   },
   {
-    threshold: 0.45
+    rootMargin: "-35% 0px -55% 0px"
   }
 );
 
@@ -553,50 +548,19 @@ sections.forEach((section) => {
 });
 
 
-/* =========================
-   PROJECT CARD TILT
-========================= */
-
-document.querySelectorAll(".project-card, .community-card, .social-card")
-  .forEach((card) => {
-
-    card.addEventListener("mousemove", (event) => {
-
-      if (window.innerWidth < 700) return;
-
-      const rect = card.getBoundingClientRect();
-
-      const x =
-        (event.clientX - rect.left) / rect.width - .5;
-
-      const y =
-        (event.clientY - rect.top) / rect.height - .5;
-
-      card.style.transform = `
-        perspective(700px)
-        rotateX(${y * -3}deg)
-        rotateY(${x * 3}deg)
-        translateY(-5px)
-      `;
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
-    });
-
-  });
-
-
-/* =========================
-   SMOOTH ANCHORS
-========================= */
+/* =========================================================
+   SMOOTH INTERNAL LINKS
+========================================================= */
 
 document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
   link.addEventListener("click", (event) => {
 
+    const targetId =
+      link.getAttribute("href");
+
     const target =
-      document.querySelector(link.getAttribute("href"));
+      document.querySelector(targetId);
 
     if (!target) return;
 
@@ -612,9 +576,8 @@ document.querySelectorAll('a[href^="#"]').forEach((link) => {
 });
 
 
-/* =========================
+/* =========================================================
    INITIAL STATE
-========================= */
+========================================================= */
 
-activateTab("combat");
-updateEnabledCount();
+updateModuleCounts();
