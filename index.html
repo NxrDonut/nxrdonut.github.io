@@ -3,22 +3,15 @@
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="theme-color"
-    content="#050505"
-  >
-
+  <meta name="theme-color" content="#050505">
   <meta
     name="description"
-    content="NxrDonut — premium digital portfolio."
+    content="NxrDonut — developer portfolio."
   >
 
-  <title>NxrDonut — Digital Portfolio</title>
+  <title>NxrDonut</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,71 +26,49 @@
 
 <body class="locked">
 
-  <!-- ======================================================
-       INTRO
-  ======================================================= -->
+  <!-- =====================================================
+       ENTER SCREEN
+  ====================================================== -->
 
   <div
     id="intro"
     class="intro"
     tabindex="0"
     role="button"
-    aria-label="Enter experience"
+    aria-label="Click anywhere to enter experience"
   >
-    
+    <div class="intro-content">
       <div class="intro-title">
-        ENTER EXPERIENCE
-      </div>
-
-      <div class="intro-subtitle">
         CLICK ANYWHERE
       </div>
-
-      <div class="intro-line">
-        <span></span>
-      </div>
-
-      <div class="intro-meta">
-        NXR DONUT
-      </div>
-
     </div>
-
   </div>
 
 
-  <!-- ======================================================
-       CURSOR
-  ======================================================= -->
+  <!-- =====================================================
+       CUSTOM CURSOR
+  ====================================================== -->
 
   <div class="cursor-ring"></div>
   <div class="cursor-dot"></div>
 
 
-  <!-- ======================================================
-       NAVIGATION
-  ======================================================= -->
+  <!-- =====================================================
+       NAV
+  ====================================================== -->
 
   <header class="nav">
 
-    <a
-      href="#home"
-      class="nav-logo magnetic"
-    >
-      <span>NXR</span>
-      <b>DONUT</b>
+    <a href="#home" class="nav-logo magnetic">
+      <span>NXR</span><b>DONUT</b>
     </a>
 
-
     <nav class="nav-links">
-
       <a href="#home">Home</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#communities">Communities</a>
-
     </nav>
-
 
     <div class="nav-right">
 
@@ -115,157 +86,126 @@
   </header>
 
 
-  <!-- ======================================================
-       PAGE
-  ======================================================= -->
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
 
   <main id="home">
 
 
-    <!-- ====================================================
-         HERO
-    ===================================================== -->
+    <!-- ===================================================
+         PROFILE
+    ==================================================== -->
 
-    <section class="hero">
+    <section class="profile-hero">
 
-      <div class="hero-grid"></div>
+      <div class="profile-background"></div>
 
-      <div class="hero-glow hero-glow-a"></div>
-      <div class="hero-glow hero-glow-b"></div>
+      <div class="profile-content reveal">
 
+        <div class="profile-avatar">
 
-      <div class="hero-container">
+          <div class="avatar-glow"></div>
 
+          <div class="avatar-ring">
 
-        <div class="hero-top reveal">
+            <img
+              src="./pfp.jpg"
+              alt="NxrDonut"
+              class="pfp"
+            >
 
-          <span class="section-index">
-            001
-          </span>
+          </div>
 
-          <span class="section-name">
-            PERSONAL
-          </span>
-
-          <span class="section-line"></span>
-
-          <span class="section-year">
-            2026
-          </span>
+          <span class="avatar-online"></span>
 
         </div>
 
 
-        <div class="hero-main">
+        <div class="profile-name">
+          NxrDonut
+        </div>
 
 
-          <div class="hero-copy reveal">
+        <div class="profile-tags">
 
-            <div class="eyebrow">
-              <span class="led"></span>
-              NXRDONUT
-            </div>
+          <span>RLT2</span>
+          <span>DEV</span>
+          <span>SSER</span>
 
-
-            <h1>
-              Developer<span>Screensharer</span>
-            </h1>
+        </div>
 
 
-            <div class="hero-subline">
-              <span></span>
-
-              <p>
-                Cheat Merchant.
-              </p>
-
-            </div>
+        <p class="profile-bio">
+          Developer & digital creator.
+        </p>
 
 
-            <div class="hero-actions">
+        <!-- SOCIALS -->
 
-              <a
-                href="#projects"
-                class="button button-primary magnetic"
-              >
-                <span>VIEW PROJECTS</span>
-                <b>↗</b>
-              </a>
+        <div class="profile-socials">
 
-              <a
-                href="#experience"
-                class="button button-secondary magnetic"
-              >
-                <span>EXPLORE</span>
-                <b>↓</b>
-              </a>
-
-            </div>
-
-          </div>
-
-
-          <!-- PROFILE -->
-
-          <div class="hero-profile reveal">
-
-            <div
-              class="pfp-wrap"
-              id="pfpWrap"
+          <a
+            href="https://discord.com/users/873534867210637333"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="profile-social magnetic"
+          >
+            <img
+              src="./icons/discord.png"
+              alt="Discord"
             >
-
-              <div class="pfp-orbit orbit-one"></div>
-              <div class="pfp-orbit orbit-two"></div>
-
-              <div class="pfp-chrome">
-
-                <div class="pfp-inner">
-
-                  <img
-                    src="./pfp.jpg"
-                    alt="NxrDonut"
-                    class="pfp"
-                  >
-
-                  <div class="pfp-reflection"></div>
-
-                </div>
-
-              </div>
+            <span>nxrdonut</span>
+          </a>
 
 
-              <div class="pfp-status">
-                <span></span>
-                ONLINE
-              </div>
+          <a
+            href="https://www.youtube.com/@nxrdonut"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="profile-social magnetic"
+          >
+            <img
+              src="./icons/youtube.png"
+              alt="YouTube"
+            >
+            <span>@nxrdonut</span>
+          </a>
 
-            </div>
+
+          <a
+            href="https://www.tiktok.com/@rcvol_"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="profile-social magnetic"
+          >
+            <img
+              src="./icons/tiktok.png"
+              alt="TikTok"
+            >
+            <span>@rcvol_</span>
+          </a>
 
 
-            <div class="profile-info">
-
-              <span>
-                PROFILE
-              </span>
-
-              <strong>
-                NXRDONUT
-              </strong>
-
-              <small>
-                RLT2 · DEV · SSER
-              </small>
-
-            </div>
-
-          </div>
+          <a
+            href="https://github.com/nxrdonut"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="profile-social magnetic"
+          >
+            <img
+              src="./icons/github.png"
+              alt="GitHub"
+            >
+            <span>@nxrdonut</span>
+          </a>
 
         </div>
 
 
         <!-- MUSIC -->
 
-        <div class="music-player reveal">
+        <div class="profile-music">
 
           <button
             id="musicToggle"
@@ -276,19 +216,15 @@
             <span id="musicIcon">▶</span>
           </button>
 
-
           <div class="music-track">
 
-            <span class="music-label">
-              NOW PLAYING
-            </span>
+            <span>NOW PLAYING</span>
 
             <strong>
               Drake · Nation Treasures
             </strong>
 
           </div>
-
 
           <div
             class="music-wave"
@@ -302,12 +238,7 @@
             <i></i>
             <i></i>
             <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
           </div>
-
 
           <span
             class="music-time"
@@ -323,117 +254,9 @@
     </section>
 
 
-    <!-- ====================================================
-         SOCIALS
-    ===================================================== -->
-
-    <section class="social-section">
-
-      <div class="social-grid">
-
-        <a
-          href="https://discord.com/users/873534867210637333"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="social-card reveal magnetic"
-        >
-
-          <div class="social-icon">
-            <img
-              src="./icons/discord.png"
-              alt="Discord"
-            >
-          </div>
-
-          <div class="social-content">
-            <span>DISCORD</span>
-            <strong>nxrdonut</strong>
-          </div>
-
-          <b>↗</b>
-
-        </a>
-
-
-        <a
-          href="https://www.youtube.com/@nxrdonut"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="social-card reveal magnetic"
-        >
-
-          <div class="social-icon">
-            <img
-              src="./icons/youtube.png"
-              alt="YouTube"
-            >
-          </div>
-
-          <div class="social-content">
-            <span>YOUTUBE</span>
-            <strong>@nxrdonut</strong>
-          </div>
-
-          <b>↗</b>
-
-        </a>
-
-
-        <a
-          href="https://www.tiktok.com/@rcvol_"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="social-card reveal magnetic"
-        >
-
-          <div class="social-icon">
-            <img
-              src="./icons/tiktok.png"
-              alt="TikTok"
-            >
-          </div>
-
-          <div class="social-content">
-            <span>TIKTOK</span>
-            <strong>@rcvol_</strong>
-          </div>
-
-          <b>↗</b>
-
-        </a>
-
-
-        <a
-          href="https://github.com/nxrdonut"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="social-card reveal magnetic"
-        >
-
-          <div class="social-icon">
-            <img
-              src="./icons/github.png"
-              alt="GitHub"
-            >
-          </div>
-
-          <div class="social-content">
-            <span>GITHUB</span>
-            <strong>@nxrdonut</strong>
-          </div>
-
-          <b>↗</b>
-
-        </a>
-
-      </div>
-
-    </section>
-
-
-    <!-- ====================================================
+    <!-- ===================================================
          EXPERIENCE
-    ===================================================== -->
+    ==================================================== -->
 
     <section
       id="experience"
@@ -443,33 +266,21 @@
       <div class="section-heading reveal">
 
         <div class="section-heading-top">
-
-          <span>
-            002
-          </span>
-
+          <span>001</span>
           <i></i>
-
-          <small>
-            EXPERIENCE
-          </small>
-
+          <small>EXPERIENCE</small>
         </div>
 
-        <h2>
-          Experience
-        </h2>
+        <h2>Experience</h2>
 
         <p>
-          A collection of Devlopment, Screensharing
-          and staff focused experiences.
+          Development, community and digital project experience.
         </p>
 
       </div>
 
 
       <div class="experience-grid">
-
 
         <article class="experience-card reveal">
 
@@ -484,12 +295,10 @@
 
           <div class="card-bottom">
 
-            <h3>
-              Trace.ac
-            </h3>
+            <h3>Trace.ac</h3>
 
             <p>
-              Community-focused Screensharing and Bypasses.
+              Community-focused development and screensharing experience.
             </p>
 
             <div class="card-line"></div>
@@ -512,12 +321,10 @@
 
           <div class="card-bottom">
 
-            <h3>
-              Screensharing
-            </h3>
+            <h3>Screensharing</h3>
 
             <p>
-              FORMER SSER - Kum Network, FORMER SSER - TitanFFA, FORMER SSER - BJTL, Current PC Checker - Ocean anitcheat.ac
+              Previous community and PC-checking experience across multiple projects.
             </p>
 
             <div class="card-line"></div>
@@ -531,7 +338,7 @@
 
           <div class="card-top">
             <span>03</span>
-            <small>DESIGN</small>
+            <small>DEVELOPMENT</small>
           </div>
 
           <div class="card-icon">
@@ -540,12 +347,10 @@
 
           <div class="card-bottom">
 
-            <h3>
-              Development
-            </h3>
+            <h3>Development</h3>
 
             <p>
-              Can Code in C++, Java, Javascript, Python and more.
+              C++, Java, JavaScript, Python and additional technologies.
             </p>
 
             <div class="card-line"></div>
@@ -554,15 +359,14 @@
 
         </article>
 
-
       </div>
 
     </section>
 
 
-    <!-- ====================================================
+    <!-- ===================================================
          PROJECTS
-    ===================================================== -->
+    ==================================================== -->
 
     <section
       id="projects"
@@ -572,25 +376,15 @@
       <div class="section-heading reveal">
 
         <div class="section-heading-top">
-
-          <span>
-            003
-          </span>
-
+          <span>002</span>
           <i></i>
-
-          <small>
-            WORK
-          </small>
-
+          <small>PROJECTS</small>
         </div>
 
-        <h2>
-          My Projects
-        </h2>
+        <h2>My Projects</h2>
 
         <p>
-          Request Custom Bypasses and Custom Closet Cheats for minecaft bedrock or java 1.21+ . 
+          Selected personal projects and interactive interface concepts.
         </p>
 
       </div>
@@ -610,11 +404,11 @@
           <div class="project-top">
 
             <span>
-              CUSTOM CHEATS / 01
+              CLOSET CHEATS / 01
             </span>
 
             <small>
-              INTERACTIVE
+              UI CONCEPT
             </small>
 
           </div>
@@ -669,9 +463,9 @@
             </h3>
 
             <p>
-              A premium interactive interface concept
-              with configurable visual modules,
-              settings and presentation controls.
+              A polished dark matte interface concept with
+              animated modules, chrome details and configurable
+              presentation settings.
             </p>
 
             <button
@@ -679,10 +473,7 @@
               class="project-button magnetic"
               type="button"
             >
-              <span>
-                OPEN EXPERIENCE
-              </span>
-
+              <span>OPEN EXPERIENCE</span>
               <b>↗</b>
             </button>
 
@@ -700,7 +491,7 @@
           <div class="project-top">
 
             <span>
-              CUSTOM BYPASSES / 02
+              PREMIUM METHODS / 02
             </span>
 
             <small>
@@ -734,7 +525,8 @@
             </h3>
 
             <p>
-              Custom Bypass methods that evade popular anticheats, automated scanners and manual forensics.
+              A premium branded project concept focused on
+              interface design, presentation and customization.
             </p>
 
             <span class="project-arrow">
@@ -745,15 +537,14 @@
 
         </article>
 
-
       </div>
 
     </section>
 
 
-    <!-- ====================================================
+    <!-- ===================================================
          COMMUNITIES
-    ===================================================== -->
+    ==================================================== -->
 
     <section
       id="communities"
@@ -763,25 +554,15 @@
       <div class="section-heading reveal">
 
         <div class="section-heading-top">
-
-          <span>
-            004
-          </span>
-
+          <span>003</span>
           <i></i>
-
-          <small>
-            COMMUNITIES
-          </small>
-
+          <small>COMMUNITIES</small>
         </div>
 
-        <h2>
-          Communities
-        </h2>
+        <h2>Communities</h2>
 
         <p>
-          Communities you should join.
+          Communities and projects worth checking out.
         </p>
 
       </div>
@@ -804,7 +585,7 @@
           <div>
 
             <small>
-              screensharing community
+              SCREENS HARING COMMUNITY
             </small>
 
             <h3>
@@ -832,7 +613,7 @@
           <div>
 
             <small>
-              Custom texture packs
+              CUSTOM TEXTURE PACKS
             </small>
 
             <h3>
@@ -860,7 +641,7 @@
           <div>
 
             <small>
-              Restricted org
+              PRIVATE COMMUNITY
             </small>
 
             <h3>
@@ -878,13 +659,12 @@
 
     </section>
 
-
   </main>
 
 
-  <!-- ======================================================
-       SHOWCASE
-  ======================================================= -->
+  <!-- =====================================================
+       CLIENT SHOWCASE
+  ====================================================== -->
 
   <div
     id="showcase"
@@ -899,19 +679,19 @@
       class="showcase-window"
       role="dialog"
       aria-modal="true"
+      aria-label="Closet Cheats interface showcase"
     >
-
 
       <header class="showcase-header">
 
         <div>
 
           <span>
-            INTERACTIVE PROJECT
+            INTERACTIVE UI CONCEPT
           </span>
 
           <h2>
-            Custom Closet Cheats
+            Closet Cheats
           </h2>
 
         </div>
@@ -937,7 +717,7 @@
         <aside class="showcase-sidebar">
 
           <div class="sidebar-label">
-            MODULES
+            INTERFACE
           </div>
 
 
@@ -947,7 +727,7 @@
             type="button"
           >
             <span>01</span>
-            Combat
+            Modules
           </button>
 
 
@@ -957,7 +737,7 @@
             type="button"
           >
             <span>02</span>
-            Macros
+            Presets
           </button>
 
 
@@ -967,7 +747,7 @@
             type="button"
           >
             <span>03</span>
-            Closet
+            Visuals
           </button>
 
 
@@ -983,7 +763,7 @@
 
           <div class="sidebar-bottom">
             <span class="sidebar-led"></span>
-            SYSTEM READY
+            PREVIEW READY
           </div>
 
         </aside>
@@ -994,7 +774,7 @@
         <div class="showcase-main">
 
 
-          <!-- COMBAT -->
+          <!-- MODULES -->
 
           <div
             class="showcase-panel active"
@@ -1004,15 +784,15 @@
             <div class="panel-heading">
 
               <span>
-                01 / COMBAT
+                01 / MODULES
               </span>
 
               <h3>
-                Combat Modules
+                Interface Modules
               </h3>
 
               <p>
-                Interactive interface preview.
+                Visual controls for the project showcase.
               </p>
 
             </div>
@@ -1024,11 +804,11 @@
 
                 <div>
                   <strong>
-                    Aim Assist
+                    Target HUD
                   </strong>
 
                   <small>
-                    Smoothly adjust aim towards target
+                    Example interface element
                   </small>
                 </div>
 
@@ -1048,11 +828,11 @@
 
                 <div>
                   <strong>
-                   Triggerbot
+                    Click Visualizer
                   </strong>
 
                   <small>
-                    Times and Attacks an entity
+                    Animated interaction preview
                   </small>
                 </div>
 
@@ -1072,11 +852,11 @@
 
                 <div>
                   <strong>
-                    Auto Jump Reset
+                    Motion Effects
                   </strong>
 
                   <small>
-                    Auto jumps right as hit to cancel knockback
+                    Smooth interface transitions
                   </small>
                 </div>
 
@@ -1095,7 +875,7 @@
           </div>
 
 
-          <!-- MACROS -->
+          <!-- PRESETS -->
 
           <div
             class="showcase-panel"
@@ -1105,15 +885,15 @@
             <div class="panel-heading">
 
               <span>
-                02 / Macros
+                02 / PRESETS
               </span>
 
               <h3>
-                Macros
+                Interface Presets
               </h3>
 
               <p>
-                Automated Keypresses.
+                Different presentation styles for the concept.
               </p>
 
             </div>
@@ -1125,11 +905,11 @@
 
                 <div>
                   <strong>
-                    KeyPot
+                    Platinum
                   </strong>
 
                   <small>
-                    Auto throws a buff on keypress
+                    High contrast chrome presentation
                   </small>
                 </div>
 
@@ -1149,11 +929,11 @@
 
                 <div>
                   <strong>
-                    Xbow
+                    Matte
                   </strong>
 
                   <small>
-                    Automates Placing a tnt cart, rail. flint and steal and shoots crossbow
+                    Dark matte interface presentation
                   </small>
                 </div>
 
@@ -1172,11 +952,11 @@
 
                 <div>
                   <strong>
-                    Fast Use
+                    Minimal
                   </strong>
 
                   <small>
-                    Removes delay between block Placements
+                    Reduced interface presentation
                   </small>
                 </div>
 
@@ -1196,7 +976,7 @@
           </div>
 
 
-          <!-- CLOSET -->
+          <!-- VISUALS -->
 
           <div
             class="showcase-panel"
@@ -1206,15 +986,15 @@
             <div class="panel-heading">
 
               <span>
-                03 / Closet
+                03 / VISUALS
               </span>
 
               <h3>
-                Closet Modules
+                Visual System
               </h3>
 
               <p>
-                Bypass manual screenshares and automated scanners.
+                Preview the visual language of the project.
               </p>
 
             </div>
@@ -1226,11 +1006,11 @@
 
                 <div>
                   <strong>
-                    Fileless Injection
+                    Chrome Highlights
                   </strong>
-                    No Files on desktop
+
                   <small>
-                    
+                    Metallic interface reflections
                   </small>
                 </div>
 
@@ -1250,11 +1030,11 @@
 
                 <div>
                   <strong>
-                    Closet Style
+                    LED Glow
                   </strong>
 
                   <small>
-                    Hides pannel from screenshots and screenshares
+                    Subtle white interface illumination
                   </small>
                 </div>
 
@@ -1274,11 +1054,11 @@
 
                 <div>
                   <strong>
-                    Auto Injection
+                    Glass Reflection
                   </strong>
 
                   <small>
-                    Auto finds process and injects
+                    Animated glass-like surface effect
                   </small>
                 </div>
 
@@ -1420,7 +1200,7 @@
                 5
               </strong>
 
-              ACTIVE MODULES
+              ACTIVE
 
             </div>
 
@@ -1456,17 +1236,15 @@
   </div>
 
 
-  <!-- ======================================================
+  <!-- =====================================================
        FOOTER
-  ======================================================= -->
+  ====================================================== -->
 
   <footer class="footer">
 
     <div>
 
-      <strong>
-        NXR DONUT
-      </strong>
+      <strong>NXR DONUT</strong>
 
       <span>
         nxrdonut.github.io
@@ -1474,11 +1252,9 @@
 
     </div>
 
-
     <span>
       © 2026 NxrDonut
     </span>
-
 
     <a href="#home">
       BACK TO TOP ↑
@@ -1487,7 +1263,9 @@
   </footer>
 
 
-  <!-- AUDIO -->
+  <!-- =====================================================
+       AUDIO
+  ====================================================== -->
 
   <audio
     id="audio"
@@ -1497,7 +1275,47 @@
   ></audio>
 
 
-  <!-- JAVASCRIPT -->
+  <!-- =====================================================
+       INTRO FALLBACK
+       Makes the enter screen work even if script.js
+       has a loading/cache issue.
+  ====================================================== -->
+
+  <script>
+    (() => {
+      const intro = document.getElementById("intro");
+
+      if (!intro) return;
+
+      let opened = false;
+
+      document.body.classList.add("locked");
+
+      function openExperience() {
+        if (opened) return;
+
+        opened = true;
+
+        intro.classList.add("hidden");
+        document.body.classList.remove("locked");
+
+        setTimeout(() => {
+          intro.style.display = "none";
+        }, 850);
+      }
+
+      intro.addEventListener("pointerup", openExperience);
+      intro.addEventListener("click", openExperience);
+
+      intro.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openExperience();
+        }
+      });
+    })();
+  </script>
+
 
   <script src="./script.js"></script>
 
