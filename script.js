@@ -1,315 +1,158 @@
 /* =========================================================
-   INTRO
-========================================================= */
-
-const intro = document.getElementById("intro");
-
-function closeIntro() {
-  if (!intro) return;
-
-  intro.classList.add("hidden");
-
-  document.body.style.overflow = "";
-}
-
-document.addEventListener("click", () => {
-  closeIntro();
-}, { once: true });
-
-document.addEventListener("keydown", () => {
-  closeIntro();
-}, { once: true });
-
-
-/* =========================================================
-   CURSOR
-========================================================= */
-
-const cursor = document.getElementById("cursor");
-const cursorDot = document.getElementById("cursorDot");
-
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-
-let cursorX = mouseX;
-let cursorY = mouseY;
-
-document.addEventListener("mousemove", (event) => {
-  mouseX = event.clientX;
-  mouseY = event.clientY;
-
-  if (cursorDot) {
-    cursorDot.style.left = `${mouseX}px`;
-    cursorDot.style.top = `${mouseY}px`;
-  }
-});
-
-function animateCursor() {
-  cursorX += (mouseX - cursorX) * 0.15;
-  cursorY += (mouseY - cursorY) * 0.15;
-
-  if (cursor) {
-    cursor.style.left = `${cursorX}px`;
-    cursor.style.top = `${cursorY}px`;
-  }
-
-  requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
-
-document.querySelectorAll("a, button").forEach((element) => {
-  element.addEventListener("mouseenter", () => {
-    document.body.classList.add("cursor-hover");
-  });
-
-  element.addEventListener("mouseleave", () => {
-    document.body.classList.remove("cursor-hover");
-  });
-});
-
-
-/* =========================================================
-   MUSIC
-========================================================= */
-
-const audio = document.getElementById("audio");
-const musicPlay = document.getElementById("musicPlay");
-const musicPlayer = document.querySelector(".music-player");
-const musicTime = document.getElementById("musicTime");
-
-let playing = false;
-
-function formatTime(seconds) {
-  if (!Number.isFinite(seconds)) {
-    return "00:00";
-  }
-
-  const minutes = Math.floor(seconds / 60);
-  const secs = Math.floor(seconds % 60);
-
-  return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-}
-
-musicPlay?.addEventListener("click", async (event) => {
-  event.stopPropagation();
-
-  if (!audio) return;
-
-  try {
-    if (audio.paused) {
-      await audio.play();
-
-      playing = true;
-
-      musicPlayer?.classList.add("playing");
-
-      musicPlay.querySelector(".play-icon").textContent = "Ⅱ";
-    } else {
-      audio.pause();
-
-      playing = false;
-
-      musicPlayer?.classList.remove("playing");
-
-      musicPlay.querySelector(".play-icon").textContent = "▶";
-    }
-  } catch (error) {
-    console.log("Audio could not be played.", error);
-  }
-});
-
-audio?.addEventListener("timeupdate", () => {
-  if (musicTime) {
-    musicTime.textContent = formatTime(audio.currentTime);
-  }
-});
-
-
-/* =========================================================
-   REVEAL ANIMATIONS
-========================================================= */
-
-const revealElements = document.querySelectorAll(".reveal");
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-
-    entries.forEach((entry) => {
-
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        revealObserver.unobserve(entry.target);
-      }
-
-    });
-
-  },
-  {
-    threshold: 0.12
-  }
-);
-
-revealElements.forEach((element) => {
-  revealObserver.observe(element);
-});
-
-
-/* =========================================================
-   PFP PARALLAX
-========================================================= */
-
-const pfp = document.getElementById("pfp");
-
-document.addEventListener("mousemove", (event) => {
-
-  if (!pfp) return;
-
-  const x = (event.clientX / window.innerWidth - 0.5) * 8;
-  const y = (event.clientY / window.innerHeight - 0.5) * 8;
-
-  pfp.style.transform = `
-    translate(${x}px, ${y}px)
-    scale(1.04)
-  `;
-});
-
-
-/* =========================================================
-   SHOWCASE
+   PREMIUM CLIENT INTERFACE
 ========================================================= */
 
 const showcase = document.getElementById("showcase");
 const openShowcase = document.getElementById("openShowcase");
 const closeShowcase = document.getElementById("closeShowcase");
-const showcaseBackdrop = document.querySelector(".showcase-backdrop");
 
-function openShowcaseModal() {
-  if (!showcase) return;
+const clientNav = document.querySelectorAll(".client-nav");
+const clientPages = document.querySelectorAll(".client-page");
 
-  showcase.classList.add("active");
+const toggles = document.querySelectorAll(".client-toggle");
 
-  document.body.style.overflow = "hidden";
+const dashboardActive = document.getElementById("dashboardActive");
+const dashboardModules = document.getElementById("dashboardModules");
+
+let sessionSeconds = 0;
+
+/* OPEN */
+
+if (openShowcase) {
+  openShowcase.addEventListener("click", () => {
+
+    showcase.classList.add("active");
+
+    document.body.classList.add("modal-open");
+
+  });
 }
 
-function closeShowcaseModal() {
-  if (!showcase) return;
+/* CLOSE */
+
+function closeClient() {
 
   showcase.classList.remove("active");
 
-  document.body.style.overflow = "";
+  document.body.classList.remove("modal-open");
+
 }
 
-openShowcase?.addEventListener("click", (event) => {
-  event.stopPropagation();
+if (closeShowcase) {
+  closeShowcase.addEventListener("click", closeClient);
+}
 
-  openShowcaseModal();
-});
+/* BACKDROP */
 
-closeShowcase?.addEventListener("click", (event) => {
-  event.stopPropagation();
+const showcaseBackdrop =
+  document.querySelector(".showcase-backdrop");
 
-  closeShowcaseModal();
-});
+if (showcaseBackdrop) {
 
-showcaseBackdrop?.addEventListener("click", () => {
-  closeShowcaseModal();
-});
+  showcaseBackdrop.addEventListener(
+    "click",
+    closeClient
+  );
+
+}
+
+/* ESC */
 
 document.addEventListener("keydown", (event) => {
 
-  if (event.key === "Escape") {
-    closeShowcaseModal();
+  if (
+    event.key === "Escape" &&
+    showcase.classList.contains("active")
+  ) {
+
+    closeClient();
+
   }
 
 });
 
+/* NAVIGATION */
 
-/* =========================================================
-   SHOWCASE TABS
-========================================================= */
+clientNav.forEach((button) => {
 
-const showcaseTabs = document.querySelectorAll(".showcase-tab");
-const modulePanels = document.querySelectorAll(".module-panel");
+  button.addEventListener("click", () => {
 
-showcaseTabs.forEach((tab) => {
+    const target =
+      button.dataset.clientTab;
 
-  tab.addEventListener("click", (event) => {
-
-    event.stopPropagation();
-
-    const target = tab.dataset.tab;
-
-    showcaseTabs.forEach((item) => {
+    clientNav.forEach((item) => {
       item.classList.remove("active");
     });
 
-    modulePanels.forEach((panel) => {
-      panel.classList.remove("active");
+    clientPages.forEach((page) => {
+      page.classList.remove("active");
     });
 
-    tab.classList.add("active");
+    button.classList.add("active");
 
-    const targetPanel = document.querySelector(
-      `.module-panel[data-panel="${target}"]`
-    );
+    const page =
+      document.querySelector(
+        `[data-client-page="${target}"]`
+      );
 
-    targetPanel?.classList.add("active");
+    if (page) {
+      page.classList.add("active");
+    }
 
   });
 
 });
 
-
-/* =========================================================
-   MODULE TOGGLES
-========================================================= */
-
-const toggles = document.querySelectorAll(".toggle");
+/* TOGGLES */
 
 function updateModuleCounts() {
 
-  const activeModules = document.querySelectorAll(
-    ".toggle.active"
-  ).length;
+  const groups = [
+    "combat",
+    "visuals",
+    "hud",
+    "player"
+  ];
 
-  const totalElement = document.getElementById("activeModules");
+  let total = 0;
 
-  if (totalElement) {
-    totalElement.textContent = activeModules;
-  }
+  groups.forEach((group) => {
 
-  const combatCount = document.getElementById("combatCount");
-  const visualsCount = document.getElementById("visualsCount");
-  const hudCount = document.getElementById("hudCount");
-
-  if (combatCount) {
-    combatCount.textContent =
+    const count =
       document.querySelectorAll(
-        '[data-module="Aim Assist"].active, [data-module="Click Visualizer"].active, [data-module="Target HUD"].active'
+        `.client-toggle.active[data-group="${group}"]`
       ).length;
+
+    const counter =
+      document.querySelector(
+        `[data-count-group="${group}"]`
+      );
+
+    if (counter) {
+      counter.textContent = count;
+    }
+
+    total += count;
+
+  });
+
+  if (dashboardActive) {
+    dashboardActive.textContent = total;
   }
 
-  if (visualsCount) {
-    visualsCount.textContent =
-      document.querySelectorAll(
-        '[data-module="ESP Preview"].active, [data-module="Tracers"].active, [data-module="Motion Blur"].active'
-      ).length;
+  if (dashboardModules) {
+    dashboardModules.textContent = total;
   }
 
-  if (hudCount) {
-    hudCount.textContent =
-      document.querySelectorAll(
-        '[data-module="Array List"].active, [data-module="Watermark"].active, [data-module="Coordinates"].active'
-      ).length;
-  }
 }
 
 toggles.forEach((toggle) => {
 
-  toggle.addEventListener("click", (event) => {
+  if (toggle.id === "animationToggle") {
+    return;
+  }
 
-    event.stopPropagation();
+  toggle.addEventListener("click", () => {
 
     toggle.classList.toggle("active");
 
@@ -319,265 +162,169 @@ toggles.forEach((toggle) => {
 
 });
 
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-const opacitySlider = document.getElementById("opacitySlider");
-const opacityValue = document.getElementById("opacityValue");
-
-const scaleSlider = document.getElementById("scaleSlider");
-const scaleValue = document.getElementById("scaleValue");
-
-opacitySlider?.addEventListener("input", () => {
-
-  const value = opacitySlider.value;
-
-  if (opacityValue) {
-    opacityValue.textContent = `${value}%`;
-  }
-
-  const showcaseWindow =
-    document.querySelector(".showcase-window");
-
-  if (showcaseWindow) {
-    showcaseWindow.style.opacity = value / 100;
-  }
-
-});
-
-scaleSlider?.addEventListener("input", () => {
-
-  const value = scaleSlider.value;
-
-  if (scaleValue) {
-    scaleValue.textContent = `${value}%`;
-  }
-
-  const showcaseWindow =
-    document.querySelector(".showcase-window");
-
-  if (showcaseWindow) {
-    showcaseWindow.style.transform =
-      `perspective(1200px) scale(${value / 100})`;
-  }
-
-});
-
-
-/* =========================================================
-   RESET SHOWCASE
-========================================================= */
-
-const resetShowcase =
-  document.getElementById("resetShowcase");
-
-resetShowcase?.addEventListener("click", (event) => {
-
-  event.stopPropagation();
-
-  toggles.forEach((toggle) => {
-    toggle.classList.remove("active");
-  });
-
-  if (opacitySlider) {
-    opacitySlider.value = 85;
-  }
-
-  if (opacityValue) {
-    opacityValue.textContent = "85%";
-  }
-
-  if (scaleSlider) {
-    scaleSlider.value = 100;
-  }
-
-  if (scaleValue) {
-    scaleValue.textContent = "100%";
-  }
-
-  const showcaseWindow =
-    document.querySelector(".showcase-window");
-
-  if (showcaseWindow) {
-    showcaseWindow.style.opacity = "1";
-    showcaseWindow.style.transform = "";
-  }
-
-  updateModuleCounts();
-
-});
-
-
-/* =========================================================
-   VIEW MORE
-========================================================= */
-
-const viewMore = document.getElementById("viewMore");
-
-viewMore?.addEventListener("click", (event) => {
-
-  event.stopPropagation();
-
-  const panels = [
-    ...document.querySelectorAll(".module-panel")
-  ];
-
-  const activePanel =
-    panels.find((panel) =>
-      panel.classList.contains("active")
-    );
-
-  if (!activePanel) return;
-
-  const modules =
-    activePanel.querySelectorAll(".module");
-
-  modules.forEach((module, index) => {
-
-    module.animate(
-      [
-        {
-          opacity: .35,
-          transform: "translateX(0)"
-        },
-        {
-          opacity: 1,
-          transform: "translateX(5px)"
-        },
-        {
-          opacity: 1,
-          transform: "translateX(0)"
-        }
-      ],
-      {
-        duration: 550,
-        delay: index * 60,
-        easing: "cubic-bezier(.16,1,.3,1)"
-      }
-    );
-
-  });
-
-});
-
-
-/* =========================================================
-   CARD TILT
-========================================================= */
-
-const tiltCards = document.querySelectorAll(
-  ".project-card, .experience-card, .social-card, .community-card"
-);
-
-tiltCards.forEach((card) => {
-
-  card.addEventListener("mousemove", (event) => {
-
-    if (window.innerWidth < 800) return;
-
-    const rect = card.getBoundingClientRect();
-
-    const x =
-      (event.clientX - rect.left) / rect.width - 0.5;
-
-    const y =
-      (event.clientY - rect.top) / rect.height - 0.5;
-
-    card.style.transform = `
-      perspective(800px)
-      rotateX(${y * -2}deg)
-      rotateY(${x * 2}deg)
-      translateY(-4px)
-    `;
-
-  });
-
-  card.addEventListener("mouseleave", () => {
-
-    card.style.transform = "";
-
-  });
-
-});
-
-
-/* =========================================================
-   NAV ACTIVE STATE
-========================================================= */
-
-const navLinks = document.querySelectorAll(".nav-links a");
-
-const sections = [
-  document.getElementById("bio"),
-  document.getElementById("experience"),
-  document.getElementById("projects")
-].filter(Boolean);
-
-const navObserver = new IntersectionObserver(
-  (entries) => {
-
-    entries.forEach((entry) => {
-
-      if (!entry.isIntersecting) return;
-
-      navLinks.forEach((link) => {
-        link.style.color = "#626262";
-      });
-
-      const activeLink =
-        document.querySelector(
-          `.nav-links a[href="#${entry.target.id}"]`
-        );
-
-      if (activeLink) {
-        activeLink.style.color = "white";
-      }
-
-    });
-
-  },
-  {
-    rootMargin: "-35% 0px -55% 0px"
-  }
-);
-
-sections.forEach((section) => {
-  navObserver.observe(section);
-});
-
-
-/* =========================================================
-   SMOOTH INTERNAL LINKS
-========================================================= */
-
-document.querySelectorAll('a[href^="#"]').forEach((link) => {
-
-  link.addEventListener("click", (event) => {
-
-    const targetId =
-      link.getAttribute("href");
-
-    const target =
-      document.querySelector(targetId);
-
-    if (!target) return;
-
-    event.preventDefault();
-
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-
-  });
-
-});
-
-
-/* =========================================================
-   INITIAL STATE
-========================================================= */
-
 updateModuleCounts();
+
+/* CONFIGS */
+
+const configs =
+  document.querySelectorAll(".config-card");
+
+configs.forEach((config) => {
+
+  config.addEventListener("click", () => {
+
+    configs.forEach((item) => {
+      item.classList.remove("active");
+    });
+
+    config.classList.add("active");
+
+  });
+
+});
+
+/* OPACITY */
+
+const opacity =
+  document.getElementById("clientOpacity");
+
+const opacityValue =
+  document.getElementById("clientOpacityValue");
+
+if (opacity) {
+
+  opacity.addEventListener("input", () => {
+
+    const value = opacity.value;
+
+    opacityValue.textContent =
+      `${value}%`;
+
+    document
+      .querySelector(".client-window")
+      .style.opacity =
+      Number(value) / 100;
+
+  });
+
+}
+
+/* SCALE */
+
+const scale =
+  document.getElementById("clientScale");
+
+const scaleValue =
+  document.getElementById("clientScaleValue");
+
+if (scale) {
+
+  scale.addEventListener("input", () => {
+
+    const value = scale.value;
+
+    scaleValue.textContent =
+      `${value}%`;
+
+    document
+      .querySelector(".client-window")
+      .style.transform =
+      `scale(${Number(value) / 100})`;
+
+  });
+
+}
+
+/* ANIMATIONS */
+
+const animationToggle =
+  document.getElementById("animationToggle");
+
+if (animationToggle) {
+
+  animationToggle.addEventListener("click", () => {
+
+    animationToggle.classList.toggle("active");
+
+    document.body.classList.toggle(
+      "client-reduced-motion"
+    );
+
+  });
+
+}
+
+/* SESSION CLOCK */
+
+setInterval(() => {
+
+  if (
+    showcase &&
+    showcase.classList.contains("active")
+  ) {
+
+    sessionSeconds++;
+
+    const minutes =
+      String(
+        Math.floor(sessionSeconds / 60)
+      ).padStart(2, "0");
+
+    const seconds =
+      String(
+        sessionSeconds % 60
+      ).padStart(2, "0");
+
+    const sessionTime =
+      document.getElementById("sessionTime");
+
+    if (sessionTime) {
+
+      sessionTime.textContent =
+        `${minutes}:${seconds}`;
+
+    }
+
+  }
+
+}, 1000);
+
+/* LIVE TELEMETRY */
+
+setInterval(() => {
+
+  if (
+    !showcase ||
+    !showcase.classList.contains("active")
+  ) {
+    return;
+  }
+
+  const fps =
+    document.getElementById("fpsValue");
+
+  const ping =
+    document.getElementById("pingValue");
+
+  const memory =
+    document.getElementById("memoryValue");
+
+  if (fps) {
+    fps.textContent =
+      String(
+        220 +
+        Math.floor(Math.random() * 40)
+      );
+  }
+
+  if (ping) {
+    ping.textContent =
+      `${8 + Math.floor(Math.random() * 9)}ms`;
+  }
+
+  if (memory) {
+    memory.textContent =
+      `${38 + Math.floor(Math.random() * 8)}%`;
+  }
+
+}, 1200);
