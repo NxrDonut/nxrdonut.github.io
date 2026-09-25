@@ -1,207 +1,390 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* =========================================
-     INTRO
-     ========================================= */
+  "use strict";
 
-  const intro = document.getElementById("intro");
-  const body = document.body;
+
+  /* =========================================================
+     HELPERS
+  ========================================================= */
+
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
+
+  const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
+
+
+  /* =========================================================
+     INTRO
+  ========================================================= */
+
+  const intro = $("#intro");
 
   let introOpened = false;
 
   function openIntro() {
+
     if (!intro || introOpened) return;
 
     introOpened = true;
 
     intro.classList.add("hidden");
-    body.classList.remove("locked");
+
+    document.body.classList.remove("locked");
 
     setTimeout(() => {
       intro.style.display = "none";
-    }, 850);
+    }, 950);
+
   }
 
   if (intro) {
-    body.classList.add("locked");
 
-    intro.addEventListener("pointerup", openIntro);
-    intro.addEventListener("click", openIntro);
+    intro.addEventListener(
+      "pointerup",
+      openIntro
+    );
 
-    intro.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Enter" ||
-        event.key === " "
-      ) {
-        event.preventDefault();
-        openIntro();
+    intro.addEventListener(
+      "click",
+      openIntro
+    );
+
+    intro.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          openIntro();
+
+        }
+
       }
-    });
+    );
+
   }
 
 
-  /* =========================================
-     CUSTOM CURSOR
-     ========================================= */
+  /* =========================================================
+     CURSOR
+  ========================================================= */
 
-  const cursor = document.getElementById("cursor");
-  const cursorDot = document.getElementById("cursorDot");
+  const cursorRing = $(".cursor-ring");
+  const cursorDot = $(".cursor-dot");
 
-  if (cursor && cursorDot && window.matchMedia("(pointer: fine)").matches) {
+  if (
+    cursorRing &&
+    cursorDot &&
+    window.matchMedia("(pointer:fine)").matches
+  ) {
 
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
+    let mouseX = innerWidth / 2;
+    let mouseY = innerHeight / 2;
 
-    let cursorX = mouseX;
-    let cursorY = mouseY;
+    let ringX = mouseX;
+    let ringY = mouseY;
 
-    document.addEventListener("mousemove", (event) => {
-      mouseX = event.clientX;
-      mouseY = event.clientY;
+    document.addEventListener(
+      "mousemove",
+      (event) => {
 
-      cursorDot.style.left = `${mouseX}px`;
-      cursorDot.style.top = `${mouseY}px`;
-    });
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        cursorDot.style.left =
+          `${mouseX}px`;
+
+        cursorDot.style.top =
+          `${mouseY}px`;
+
+      }
+    );
+
 
     function animateCursor() {
-      cursorX += (mouseX - cursorX) * 0.16;
-      cursorY += (mouseY - cursorY) * 0.16;
 
-      cursor.style.left = `${cursorX}px`;
-      cursor.style.top = `${cursorY}px`;
+      ringX +=
+        (mouseX - ringX) * .14;
 
-      requestAnimationFrame(animateCursor);
+      ringY +=
+        (mouseY - ringY) * .14;
+
+      cursorRing.style.left =
+        `${ringX}px`;
+
+      cursorRing.style.top =
+        `${ringY}px`;
+
+      requestAnimationFrame(
+        animateCursor
+      );
+
     }
 
     animateCursor();
 
-    const hoverElements = document.querySelectorAll(
-      "a, button, input, .pfp-wrap"
-    );
 
-    hoverElements.forEach((element) => {
+    $$(".magnetic").forEach((element) => {
 
-      element.addEventListener("mouseenter", () => {
-        cursor.classList.add("hover");
-      });
+      element.addEventListener(
+        "mouseenter",
+        () => {
+          cursorRing.classList.add("hover");
+        }
+      );
 
-      element.addEventListener("mouseleave", () => {
-        cursor.classList.remove("hover");
-      });
+      element.addEventListener(
+        "mouseleave",
+        () => {
+          cursorRing.classList.remove("hover");
+
+          element.style.transform = "";
+        }
+      );
 
     });
+
   }
 
 
-  /* =========================================
-     SCROLL REVEALS
-     ========================================= */
+  /* =========================================================
+     CLOCK
+  ========================================================= */
+
+  const clock = $("#navClock");
+
+  function updateClock() {
+
+    if (!clock) return;
+
+    const now = new Date();
+
+    const hours =
+      String(now.getHours())
+        .padStart(2, "0");
+
+    const minutes =
+      String(now.getMinutes())
+        .padStart(2, "0");
+
+    const seconds =
+      String(now.getSeconds())
+        .padStart(2, "0");
+
+    clock.textContent =
+      `${hours}:${minutes}:${seconds}`;
+
+  }
+
+  updateClock();
+
+  setInterval(
+    updateClock,
+    1000
+  );
+
+
+  /* =========================================================
+     REVEAL
+  ========================================================= */
 
   const revealElements =
-    document.querySelectorAll(".reveal");
+    $$(".reveal");
 
-  const revealObserver =
-    new IntersectionObserver(
-      (entries) => {
+  if ("IntersectionObserver" in window) {
 
-        entries.forEach((entry) => {
+    const revealObserver =
+      new IntersectionObserver(
+        (entries, observer) => {
 
-          if (entry.isIntersecting) {
+          entries.forEach(
+            (entry) => {
 
-            entry.target.classList.add("visible");
+              if (
+                entry.isIntersecting
+              ) {
 
-            revealObserver.unobserve(entry.target);
+                entry.target
+                  .classList
+                  .add("visible");
 
-          }
+                observer.unobserve(
+                  entry.target
+                );
 
-        });
+              }
 
-      },
-      {
-        threshold: 0.12
-      }
+            }
+          );
+
+        },
+        {
+          threshold: .1
+        }
+      );
+
+    revealElements.forEach(
+      element =>
+        revealObserver.observe(element)
     );
 
-  revealElements.forEach((element) => {
-    revealObserver.observe(element);
-  });
+  } else {
 
+    revealElements.forEach(
+      element =>
+        element.classList.add("visible")
+    );
 
-  /* =========================================
-     PFP TILT
-     ========================================= */
-
-  const pfpWrap = document.querySelector(".pfp-wrap");
-
-  if (
-    pfpWrap &&
-    window.matchMedia("(pointer: fine)").matches
-  ) {
-
-    pfpWrap.addEventListener("mousemove", (event) => {
-
-      const rect =
-        pfpWrap.getBoundingClientRect();
-
-      const x =
-        (event.clientX - rect.left) /
-        rect.width;
-
-      const y =
-        (event.clientY - rect.top) /
-        rect.height;
-
-      const rotateY = (x - 0.5) * 10;
-      const rotateX = (y - 0.5) * -10;
-
-      pfpWrap.style.transform =
-        `perspective(700px)
-         rotateX(${rotateX}deg)
-         rotateY(${rotateY}deg)
-         scale(1.02)`;
-    });
-
-    pfpWrap.addEventListener("mouseleave", () => {
-
-      pfpWrap.style.transform =
-        "perspective(700px) rotateX(0deg) rotateY(0deg) scale(1)";
-    });
   }
 
 
-  /* =========================================
-     MUSIC PLAYER
-     ========================================= */
+  /* =========================================================
+     PFP 3D TILT
+  ========================================================= */
 
-  const audio = document.getElementById("audio");
-  const musicPlay = document.getElementById("musicPlay");
-  const playIcon = musicPlay?.querySelector(".play-icon");
-  const waveform = document.getElementById("waveform");
-  const musicTime = document.getElementById("musicTime");
+  const pfp =
+    $("#pfpWrap");
 
   if (
-    audio &&
-    musicPlay &&
-    waveform &&
-    musicTime
+    pfp &&
+    window.matchMedia("(pointer:fine)").matches
   ) {
 
-    function formatTime(seconds) {
+    pfp.addEventListener(
+      "mousemove",
+      (event) => {
 
-      if (!Number.isFinite(seconds)) {
-        return "00:00";
+        const rect =
+          pfp.getBoundingClientRect();
+
+        const x =
+          (event.clientX - rect.left)
+          / rect.width;
+
+        const y =
+          (event.clientY - rect.top)
+          / rect.height;
+
+        const rotateY =
+          (x - .5) * 12;
+
+        const rotateX =
+          (y - .5) * -12;
+
+        pfp.style.transform =
+          `
+          perspective(900px)
+          rotateX(${rotateX}deg)
+          rotateY(${rotateY}deg)
+          scale(1.025)
+          `;
+
       }
+    );
 
-      const minutes =
-        Math.floor(seconds / 60);
 
-      const remaining =
-        Math.floor(seconds % 60);
+    pfp.addEventListener(
+      "mouseleave",
+      () => {
 
-      return `${String(minutes).padStart(2, "0")}:${String(remaining).padStart(2, "0")}`;
+        pfp.style.transform =
+          `
+          perspective(900px)
+          rotateX(0deg)
+          rotateY(0deg)
+          scale(1)
+          `;
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     MUSIC
+  ========================================================= */
+
+  const audio =
+    $("#audio");
+
+  const musicToggle =
+    $("#musicToggle");
+
+  const musicIcon =
+    $("#musicIcon");
+
+  const musicWave =
+    $("#musicWave");
+
+  const musicTime =
+    $("#musicTime");
+
+
+  function formatTime(seconds) {
+
+    if (!Number.isFinite(seconds)) {
+      return "00:00";
     }
 
-    musicPlay.addEventListener("click", async () => {
+    const minutes =
+      Math.floor(seconds / 60);
+
+    const remaining =
+      Math.floor(seconds % 60);
+
+    return (
+      String(minutes).padStart(2, "0") +
+      ":" +
+      String(remaining).padStart(2, "0")
+    );
+
+  }
+
+
+  function updateMusicUI() {
+
+    if (!audio) return;
+
+    if (musicTime) {
+
+      musicTime.textContent =
+        formatTime(audio.currentTime);
+
+    }
+
+    if (musicWave) {
+
+      musicWave.classList.toggle(
+        "playing",
+        !audio.paused
+      );
+
+    }
+
+    if (musicIcon) {
+
+      musicIcon.textContent =
+        audio.paused
+          ? "▶"
+          : "Ⅱ";
+
+    }
+
+  }
+
+
+  musicToggle?.addEventListener(
+    "click",
+    async () => {
+
+      if (!audio) return;
 
       try {
 
@@ -209,427 +392,565 @@ document.addEventListener("DOMContentLoaded", () => {
 
           await audio.play();
 
-          waveform.classList.add("playing");
-
-          if (playIcon) {
-            playIcon.textContent = "Ⅱ";
-          }
-
         } else {
 
           audio.pause();
 
-          waveform.classList.remove("playing");
-
-          if (playIcon) {
-            playIcon.textContent = "▶";
-          }
-
         }
+
+        updateMusicUI();
 
       } catch (error) {
 
         console.log(
-          "Audio could not be played:",
+          "Music playback requires user interaction.",
           error
         );
 
       }
 
-    });
-
-    audio.addEventListener("timeupdate", () => {
-
-      musicTime.textContent =
-        formatTime(audio.currentTime);
-
-    });
-
-    audio.addEventListener("pause", () => {
-
-      waveform.classList.remove("playing");
-
-      if (playIcon) {
-        playIcon.textContent = "▶";
-      }
-
-    });
-
-    audio.addEventListener("play", () => {
-
-      waveform.classList.add("playing");
-
-      if (playIcon) {
-        playIcon.textContent = "Ⅱ";
-      }
-
-    });
-  }
+    }
+  );
 
 
-  /* =========================================
+  audio?.addEventListener(
+    "timeupdate",
+    updateMusicUI
+  );
+
+  audio?.addEventListener(
+    "play",
+    updateMusicUI
+  );
+
+  audio?.addEventListener(
+    "pause",
+    updateMusicUI
+  );
+
+
+  /* =========================================================
      SHOWCASE
-     ========================================= */
+  ========================================================= */
 
   const showcase =
-    document.getElementById("showcase");
+    $("#showcase");
+
+  const showcaseWindow =
+    $(".showcase-window");
 
   const openShowcase =
-    document.getElementById("openShowcase");
+    $("#openShowcase");
 
   const closeShowcase =
-    document.getElementById("closeShowcase");
+    $("#closeShowcase");
 
   const showcaseBackdrop =
-    document.querySelector(".showcase-backdrop");
+    $(".showcase-backdrop");
 
-  function openProjectShowcase() {
+
+  function openProject() {
 
     if (!showcase) return;
 
     showcase.classList.add("open");
 
-    body.classList.add("locked");
+    showcase.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.classList.add(
+      "locked"
+    );
+
   }
 
-  function closeProjectShowcase() {
+
+  function closeProject() {
 
     if (!showcase) return;
 
     showcase.classList.remove("open");
 
-    body.classList.remove("locked");
+    showcase.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "locked"
+    );
+
   }
+
 
   openShowcase?.addEventListener(
     "click",
-    openProjectShowcase
+    openProject
   );
 
   closeShowcase?.addEventListener(
     "click",
-    closeProjectShowcase
+    closeProject
   );
 
   showcaseBackdrop?.addEventListener(
     "click",
-    closeProjectShowcase
+    closeProject
   );
 
-  document.addEventListener("keydown", (event) => {
 
-    if (
-      event.key === "Escape" &&
-      showcase?.classList.contains("open")
-    ) {
-      closeProjectShowcase();
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (
+        event.key === "Escape" &&
+        showcase?.classList.contains("open")
+      ) {
+
+        closeProject();
+
+      }
+
     }
+  );
 
-  });
 
-
-  /* =========================================
+  /* =========================================================
      SHOWCASE TABS
-     ========================================= */
+  ========================================================= */
 
   const tabs =
-    document.querySelectorAll(".showcase-tab");
+    $$(".showcase-tab");
 
   const panels =
-    document.querySelectorAll(".module-panel");
-
-  tabs.forEach((tab) => {
-
-    tab.addEventListener("click", () => {
-
-      const target =
-        tab.dataset.tab;
-
-      tabs.forEach((item) => {
-        item.classList.remove("active");
-      });
-
-      panels.forEach((panel) => {
-        panel.classList.remove("active");
-      });
-
-      tab.classList.add("active");
-
-      const panel =
-        document.querySelector(
-          `.module-panel[data-panel="${target}"]`
-        );
-
-      panel?.classList.add("active");
-
-    });
-
-  });
+    $$(".showcase-panel");
 
 
-  /* =========================================
-     MODULE TOGGLES
-     ========================================= */
+  tabs.forEach(
+    (tab) => {
 
-  const toggles =
-    document.querySelectorAll(".toggle");
+      tab.addEventListener(
+        "click",
+        () => {
 
-  const totalModules =
-    document.getElementById("activeModules");
+          const target =
+            tab.dataset.tab;
 
-  function updateModuleCounts() {
+          tabs.forEach(
+            item =>
+              item.classList.remove(
+                "active"
+              )
+          );
 
-    const groups = {
-      combat: document.querySelectorAll(
-        '[data-panel="combat"] .toggle.active'
-      ),
+          panels.forEach(
+            panel =>
+              panel.classList.remove(
+                "active"
+              )
+          );
 
-      visuals: document.querySelectorAll(
-        '[data-panel="visuals"] .toggle.active'
-      ),
+          tab.classList.add(
+            "active"
+          );
 
-      hud: document.querySelectorAll(
-        '[data-panel="hud"] .toggle.active'
-      )
-    };
+          const targetPanel =
+            $(
+              `.showcase-panel[data-panel="${target}"]`
+            );
 
-    const combatCount =
-      document.getElementById("combatCount");
+          targetPanel?.classList.add(
+            "active"
+          );
 
-    const visualsCount =
-      document.getElementById("visualsCount");
+        }
+      );
 
-    const hudCount =
-      document.getElementById("hudCount");
-
-    if (combatCount) {
-      combatCount.textContent =
-        groups.combat.length;
     }
+  );
 
-    if (visualsCount) {
-      visualsCount.textContent =
-        groups.visuals.length;
-    }
 
-    if (hudCount) {
-      hudCount.textContent =
-        groups.hud.length;
-    }
+  /* =========================================================
+     MODULE COUNTER
+  ========================================================= */
 
-    const total =
-      groups.combat.length +
-      groups.visuals.length +
-      groups.hud.length;
+  const moduleToggles =
+    $$(".module-toggle");
 
-    if (totalModules) {
-      totalModules.textContent = total;
-    }
+  const activeModules =
+    $("#activeModules");
+
+
+  function updateModuleCount() {
+
+    if (!activeModules) return;
+
+    const count =
+      moduleToggles.filter(
+        toggle =>
+          toggle.checked
+      ).length;
+
+    activeModules.textContent =
+      count;
 
   }
 
-  toggles.forEach((toggle) => {
 
-    toggle.addEventListener("click", () => {
+  moduleToggles.forEach(
+    toggle => {
 
-      toggle.classList.toggle("active");
+      toggle.addEventListener(
+        "change",
+        updateModuleCount
+      );
 
-      updateModuleCounts();
-
-    });
-
-  });
-
-  updateModuleCounts();
+    }
+  );
 
 
-  /* =========================================
+  updateModuleCount();
+
+
+  /* =========================================================
      SETTINGS
-     ========================================= */
+  ========================================================= */
 
   const opacitySlider =
-    document.getElementById("opacitySlider");
+    $("#opacitySlider");
 
   const opacityValue =
-    document.getElementById("opacityValue");
+    $("#opacityValue");
 
   const scaleSlider =
-    document.getElementById("scaleSlider");
+    $("#scaleSlider");
 
   const scaleValue =
-    document.getElementById("scaleValue");
+    $("#scaleValue");
 
-  const showcaseWindow =
-    document.querySelector(".showcase-window");
+  const glowSlider =
+    $("#glowSlider");
 
-  if (opacitySlider && opacityValue) {
+  const glowValue =
+    $("#glowValue");
 
-    opacitySlider.addEventListener(
-      "input",
-      () => {
 
-        const value =
-          opacitySlider.value;
+  opacitySlider?.addEventListener(
+    "input",
+    () => {
+
+      const value =
+        Number(opacitySlider.value);
+
+      if (opacityValue) {
 
         opacityValue.textContent =
           `${value}%`;
 
-        if (showcaseWindow) {
+      }
 
-          showcaseWindow.style.setProperty(
-            "--showcase-opacity",
-            `${value / 100}`
-          );
+      if (showcaseWindow) {
 
-          showcaseWindow.style.opacity =
-            value / 100;
-        }
+        showcaseWindow.style.setProperty(
+          "--showcase-opacity",
+          value / 100
+        );
 
       }
-    );
-  }
 
-  if (scaleSlider && scaleValue) {
+    }
+  );
 
-    scaleSlider.addEventListener(
-      "input",
-      () => {
 
-        const value =
-          scaleSlider.value;
+  scaleSlider?.addEventListener(
+    "input",
+    () => {
+
+      const value =
+        Number(scaleSlider.value);
+
+      if (scaleValue) {
 
         scaleValue.textContent =
           `${value}%`;
 
-        if (showcaseWindow) {
+      }
 
-          showcaseWindow.style.transform =
-            `scale(${value / 100})`;
-        }
+      if (showcaseWindow) {
+
+        showcaseWindow.style.transform =
+          `scale(${value / 100})`;
 
       }
-    );
-  }
+
+    }
+  );
 
 
-  /* =========================================
+  glowSlider?.addEventListener(
+    "input",
+    () => {
+
+      const value =
+        Number(glowSlider.value);
+
+      if (glowValue) {
+
+        glowValue.textContent =
+          `${value}%`;
+
+      }
+
+      if (showcaseWindow) {
+
+        showcaseWindow.style.setProperty(
+          "--showcase-glow",
+          value / 100
+        );
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
+     RESET
+  ========================================================= */
+
+  const resetShowcase =
+    $("#resetShowcase");
+
+  resetShowcase?.addEventListener(
+    "click",
+    () => {
+
+      moduleToggles.forEach(
+        (toggle, index) => {
+
+          toggle.checked =
+            index < 5;
+
+        }
+      );
+
+      if (opacitySlider) {
+        opacitySlider.value = 100;
+      }
+
+      if (opacityValue) {
+        opacityValue.textContent = "100%";
+      }
+
+      if (scaleSlider) {
+        scaleSlider.value = 100;
+      }
+
+      if (scaleValue) {
+        scaleValue.textContent = "100%";
+      }
+
+      if (glowSlider) {
+        glowSlider.value = 45;
+      }
+
+      if (glowValue) {
+        glowValue.textContent = "45%";
+      }
+
+      if (showcaseWindow) {
+
+        showcaseWindow.style.setProperty(
+          "--showcase-opacity",
+          "1"
+        );
+
+        showcaseWindow.style.setProperty(
+          "--showcase-glow",
+          ".45"
+        );
+
+        showcaseWindow.style.transform =
+          "scale(1)";
+
+      }
+
+      updateModuleCount();
+
+    }
+  );
+
+
+  /* =========================================================
      VIEW MORE
-     ========================================= */
+  ========================================================= */
 
   const viewMore =
-    document.getElementById("viewMore");
+    $("#viewMore");
 
-  if (viewMore) {
+  viewMore?.addEventListener(
+    "click",
+    () => {
 
-    viewMore.addEventListener("click", () => {
+      const buttonText =
+        viewMore.querySelector("span");
 
-      const current =
-        viewMore.textContent.trim();
+      if (
+        viewMore.dataset.open !== "true"
+      ) {
 
-      if (current === "View More") {
+        viewMore.dataset.open =
+          "true";
 
-        viewMore.textContent =
-          "Interactive Preview";
+        viewMore.firstChild.textContent =
+          "ACTIVE PREVIEW ";
+
+        if (buttonText) {
+          buttonText.textContent = "✓";
+        }
 
       } else {
 
-        viewMore.textContent =
-          "View More";
+        viewMore.dataset.open =
+          "false";
+
+        viewMore.firstChild.textContent =
+          "VIEW MORE ";
+
+        if (buttonText) {
+          buttonText.textContent = "↗";
+        }
+
       }
 
-    });
+    }
+  );
 
-  }
 
+  /* =========================================================
+     SMOOTH ANCHORS
+  ========================================================= */
 
-  /* =========================================
-     RESET SHOWCASE
-     ========================================= */
+  $$('a[href^="#"]').forEach(
+    (link) => {
 
-  const resetShowcase =
-    document.getElementById("resetShowcase");
+      link.addEventListener(
+        "click",
+        (event) => {
 
-  if (resetShowcase) {
+          const id =
+            link.getAttribute("href");
 
-    resetShowcase.addEventListener(
-      "click",
-      () => {
+          if (
+            !id ||
+            id === "#"
+          ) {
+            return;
+          }
 
-        toggles.forEach((toggle) => {
-          toggle.classList.remove("active");
-        });
+          const target =
+            $(id);
 
-        if (opacitySlider) {
-          opacitySlider.value = 85;
+          if (!target) return;
+
+          event.preventDefault();
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
         }
+      );
 
-        if (opacityValue) {
-          opacityValue.textContent = "85%";
-        }
-
-        if (scaleSlider) {
-          scaleSlider.value = 100;
-        }
-
-        if (scaleValue) {
-          scaleValue.textContent = "100%";
-        }
-
-        if (showcaseWindow) {
-          showcaseWindow.style.opacity = "1";
-          showcaseWindow.style.transform =
-            "scale(1)";
-        }
-
-        if (viewMore) {
-          viewMore.textContent =
-            "View More";
-        }
-
-        updateModuleCounts();
-
-      }
-    );
-
-  }
+    }
+  );
 
 
-  /* =========================================
-     SMOOTH NAVIGATION
-     ========================================= */
+  /* =========================================================
+     KEYBOARD SHORTCUT
+  ========================================================= */
 
-  document
-    .querySelectorAll('a[href^="#"]')
-    .forEach((link) => {
+  document.addEventListener(
+    "keydown",
+    (event) => {
 
-      link.addEventListener("click", (event) => {
-
-        const targetId =
-          link.getAttribute("href");
+      if (
+        event.key.toLowerCase() === "m" &&
+        !event.ctrlKey &&
+        !event.metaKey &&
+        !event.altKey
+      ) {
 
         if (
-          !targetId ||
-          targetId === "#"
+          document.activeElement?.tagName ===
+          "INPUT"
         ) {
           return;
         }
 
-        const target =
-          document.querySelector(targetId);
+        musicToggle?.click();
 
-        if (!target) {
-          return;
-        }
+      }
 
-        event.preventDefault();
+    }
+  );
 
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
 
-      });
+  /* =========================================================
+     MAGNETIC BUTTON EFFECT
+  ========================================================= */
 
-    });
+  if (
+    window.matchMedia("(pointer:fine)").matches
+  ) {
+
+    $$(".magnetic").forEach(
+      (element) => {
+
+        element.addEventListener(
+          "mousemove",
+          (event) => {
+
+            const rect =
+              element.getBoundingClientRect();
+
+            const x =
+              event.clientX -
+              rect.left -
+              rect.width / 2;
+
+            const y =
+              event.clientY -
+              rect.top -
+              rect.height / 2;
+
+            const strength = 0.08;
+
+            element.style.transform =
+              `translate(
+                ${x * strength}px,
+                ${y * strength}px
+              )`;
+
+          }
+        );
+
+        element.addEventListener(
+          "mouseleave",
+          () => {
+
+            element.style.transform = "";
+
+          }
+        );
+
+      }
+    );
+
+  }
 
 });
