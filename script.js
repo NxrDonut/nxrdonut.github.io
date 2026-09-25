@@ -1,51 +1,432 @@
 /* =========================================================
-   PREMIUM CLIENT INTERFACE
+   N X R D O N U T
+   Premium Portfolio Interaction
 ========================================================= */
 
-const showcase = document.getElementById("showcase");
-const openShowcase = document.getElementById("openShowcase");
-const closeShowcase = document.getElementById("closeShowcase");
 
-const clientNav = document.querySelectorAll(".client-nav");
-const clientPages = document.querySelectorAll(".client-page");
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
-const toggles = document.querySelectorAll(".client-toggle");
+const body = document.body;
 
-const dashboardActive = document.getElementById("dashboardActive");
-const dashboardModules = document.getElementById("dashboardModules");
+const intro =
+  document.getElementById("intro");
+
+const cursor =
+  document.getElementById("cursor");
+
+const cursorDot =
+  document.getElementById("cursorDot");
+
+const pfp =
+  document.getElementById("pfp");
+
+const audio =
+  document.getElementById("audio");
+
+const musicPlay =
+  document.getElementById("musicPlay");
+
+const musicPlayer =
+  document.querySelector(".music-player");
+
+const musicTime =
+  document.getElementById("musicTime");
+
+const waveform =
+  document.getElementById("waveform");
+
+const showcase =
+  document.getElementById("showcase");
+
+const openShowcase =
+  document.getElementById("openShowcase");
+
+const closeShowcase =
+  document.getElementById("closeShowcase");
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+let introFinished = false;
+
+function closeIntro() {
+
+  if (introFinished) {
+    return;
+  }
+
+  introFinished = true;
+
+  if (intro) {
+    intro.classList.add("hidden");
+  }
+
+}
+
+if (intro) {
+
+  intro.addEventListener(
+    "click",
+    closeIntro
+  );
+
+}
+
+
+/* =========================================================
+   CURSOR
+========================================================= */
+
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
+
+let cursorX = mouseX;
+let cursorY = mouseY;
+
+document.addEventListener(
+  "mousemove",
+  (event) => {
+
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+
+  }
+);
+
+
+function animateCursor() {
+
+  cursorX +=
+    (mouseX - cursorX) * .18;
+
+  cursorY +=
+    (mouseY - cursorY) * .18;
+
+  if (cursor) {
+
+    cursor.style.left =
+      `${cursorX}px`;
+
+    cursor.style.top =
+      `${cursorY}px`;
+
+  }
+
+  if (cursorDot) {
+
+    cursorDot.style.left =
+      `${mouseX}px`;
+
+    cursorDot.style.top =
+      `${mouseY}px`;
+
+  }
+
+  requestAnimationFrame(
+    animateCursor
+  );
+
+}
+
+animateCursor();
+
+
+const hoverElements =
+  document.querySelectorAll(
+    "a, button, input, .social-card, .community-card, .project-card"
+  );
+
+hoverElements.forEach((element) => {
+
+  element.addEventListener(
+    "mouseenter",
+    () => {
+      body.classList.add("cursor-hover");
+    }
+  );
+
+  element.addEventListener(
+    "mouseleave",
+    () => {
+      body.classList.remove("cursor-hover");
+    }
+  );
+
+});
+
+
+/* =========================================================
+   PFP PARALLAX
+========================================================= */
+
+document.addEventListener(
+  "mousemove",
+  (event) => {
+
+    if (!pfp) {
+      return;
+    }
+
+    const x =
+      (event.clientX / window.innerWidth - .5) * 8;
+
+    const y =
+      (event.clientY / window.innerHeight - .5) * 8;
+
+    pfp.style.transform =
+      `translate(${x}px, ${y}px) scale(1.05)`;
+
+  }
+);
+
+
+/* =========================================================
+   MUSIC PLAYER
+========================================================= */
+
+if (audio && musicPlay) {
+
+  musicPlay.addEventListener(
+    "click",
+    async () => {
+
+      try {
+
+        if (audio.paused) {
+
+          await audio.play();
+
+          musicPlayer.classList.add(
+            "playing"
+          );
+
+          musicPlay
+            .querySelector(".play-icon")
+            .textContent = "Ⅱ";
+
+        } else {
+
+          audio.pause();
+
+          musicPlayer.classList.remove(
+            "playing"
+          );
+
+          musicPlay
+            .querySelector(".play-icon")
+            .textContent = "▶";
+
+        }
+
+      } catch (error) {
+
+        console.warn(
+          "Audio could not be played.",
+          error
+        );
+
+      }
+
+    }
+  );
+
+
+  audio.addEventListener(
+    "timeupdate",
+    () => {
+
+      if (!musicTime) {
+        return;
+      }
+
+      const minutes =
+        Math.floor(
+          audio.currentTime / 60
+        );
+
+      const seconds =
+        Math.floor(
+          audio.currentTime % 60
+        );
+
+      musicTime.textContent =
+        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+    }
+  );
+
+
+  audio.addEventListener(
+    "ended",
+    () => {
+
+      musicPlayer.classList.remove(
+        "playing"
+      );
+
+      musicPlay
+        .querySelector(".play-icon")
+        .textContent = "▶";
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   REVEAL ANIMATIONS
+========================================================= */
+
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+const revealObserver =
+  new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach(
+        (entry) => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add(
+              "visible"
+            );
+
+            revealObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold: .12
+    }
+  );
+
+
+revealElements.forEach(
+  (element) => {
+
+    revealObserver.observe(
+      element
+    );
+
+  }
+);
+
+
+/* =========================================================
+   PREMIUM CLIENT
+========================================================= */
 
 let sessionSeconds = 0;
 
-/* OPEN */
+let sessionTimer = null;
 
-if (openShowcase) {
-  openShowcase.addEventListener("click", () => {
+let telemetryTimer = null;
 
-    showcase.classList.add("active");
 
-    document.body.classList.add("modal-open");
+/* =========================================================
+   OPEN CLIENT
+========================================================= */
 
-  });
+function openClient() {
+
+  if (!showcase) {
+    return;
+  }
+
+  showcase.classList.add(
+    "active"
+  );
+
+  showcase.setAttribute(
+    "aria-hidden",
+    "false"
+  );
+
+  body.classList.add(
+    "modal-open"
+  );
+
+  if (!sessionTimer) {
+
+    sessionTimer =
+      setInterval(
+        updateSession,
+        1000
+      );
+
+  }
+
+  startTelemetry();
+
 }
 
-/* CLOSE */
+
+/* =========================================================
+   CLOSE CLIENT
+========================================================= */
 
 function closeClient() {
 
-  showcase.classList.remove("active");
+  if (!showcase) {
+    return;
+  }
 
-  document.body.classList.remove("modal-open");
+  showcase.classList.remove(
+    "active"
+  );
+
+  showcase.setAttribute(
+    "aria-hidden",
+    "true"
+  );
+
+  body.classList.remove(
+    "modal-open"
+  );
+
+  stopTelemetry();
 
 }
+
+
+if (openShowcase) {
+
+  openShowcase.addEventListener(
+    "click",
+    openClient
+  );
+
+}
+
 
 if (closeShowcase) {
-  closeShowcase.addEventListener("click", closeClient);
+
+  closeShowcase.addEventListener(
+    "click",
+    closeClient
+  );
+
 }
 
-/* BACKDROP */
 
 const showcaseBackdrop =
-  document.querySelector(".showcase-backdrop");
+  document.querySelector(
+    ".showcase-backdrop"
+  );
+
 
 if (showcaseBackdrop) {
 
@@ -56,275 +437,791 @@ if (showcaseBackdrop) {
 
 }
 
-/* ESC */
 
-document.addEventListener("keydown", (event) => {
+/* =========================================================
+   KEYBOARD
+========================================================= */
 
-  if (
-    event.key === "Escape" &&
-    showcase.classList.contains("active")
-  ) {
+document.addEventListener(
+  "keydown",
+  (event) => {
 
-    closeClient();
+    if (
+      event.key === "Escape" &&
+      showcase &&
+      showcase.classList.contains("active")
+    ) {
 
-  }
+      closeClient();
 
-});
-
-/* NAVIGATION */
-
-clientNav.forEach((button) => {
-
-  button.addEventListener("click", () => {
-
-    const target =
-      button.dataset.clientTab;
-
-    clientNav.forEach((item) => {
-      item.classList.remove("active");
-    });
-
-    clientPages.forEach((page) => {
-      page.classList.remove("active");
-    });
-
-    button.classList.add("active");
-
-    const page =
-      document.querySelector(
-        `[data-client-page="${target}"]`
-      );
-
-    if (page) {
-      page.classList.add("active");
     }
 
-  });
+  }
+);
 
-});
 
-/* TOGGLES */
+/* =========================================================
+   CLIENT NAVIGATION
+========================================================= */
+
+const clientNav =
+  document.querySelectorAll(
+    ".client-nav"
+  );
+
+const clientPages =
+  document.querySelectorAll(
+    ".client-page"
+  );
+
+
+clientNav.forEach(
+  (button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        const target =
+          button.dataset.clientTab;
+
+        if (!target) {
+          return;
+        }
+
+
+        clientNav.forEach(
+          (item) => {
+
+            item.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        clientPages.forEach(
+          (page) => {
+
+            page.classList.remove(
+              "active"
+            );
+
+          }
+        );
+
+
+        button.classList.add(
+          "active"
+        );
+
+
+        const page =
+          document.querySelector(
+            `[data-client-page="${target}"]`
+          );
+
+
+        if (page) {
+
+          page.classList.add(
+            "active"
+          );
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   MODULE COUNTERS
+========================================================= */
+
+const moduleGroups = [
+  "combat",
+  "visuals",
+  "hud",
+  "player"
+];
+
 
 function updateModuleCounts() {
 
-  const groups = [
-    "combat",
-    "visuals",
-    "hud",
-    "player"
-  ];
-
   let total = 0;
 
-  groups.forEach((group) => {
 
-    const count =
-      document.querySelectorAll(
-        `.client-toggle.active[data-group="${group}"]`
-      ).length;
+  moduleGroups.forEach(
+    (group) => {
 
-    const counter =
-      document.querySelector(
-        `[data-count-group="${group}"]`
-      );
+      const active =
+        document.querySelectorAll(
+          `.client-toggle.active[data-group="${group}"]`
+        );
 
-    if (counter) {
-      counter.textContent = count;
+
+      const counter =
+        document.querySelector(
+          `[data-count-group="${group}"]`
+        );
+
+
+      if (counter) {
+
+        counter.textContent =
+          active.length;
+
+      }
+
+
+      total += active.length;
+
     }
+  );
 
-    total += count;
 
-  });
+  const dashboardActive =
+    document.getElementById(
+      "dashboardActive"
+    );
+
+
+  const dashboardModules =
+    document.getElementById(
+      "dashboardModules"
+    );
+
 
   if (dashboardActive) {
-    dashboardActive.textContent = total;
+
+    dashboardActive.textContent =
+      total;
+
   }
 
+
   if (dashboardModules) {
-    dashboardModules.textContent = total;
+
+    dashboardModules.textContent =
+      total;
+
   }
 
 }
 
-toggles.forEach((toggle) => {
 
-  if (toggle.id === "animationToggle") {
-    return;
+const moduleToggles =
+  document.querySelectorAll(
+    ".client-toggle[data-group]"
+  );
+
+
+moduleToggles.forEach(
+  (toggle) => {
+
+    toggle.addEventListener(
+      "click",
+      () => {
+
+        toggle.classList.toggle(
+          "active"
+        );
+
+        updateModuleCounts();
+
+      }
+    );
+
   }
+);
 
-  toggle.addEventListener("click", () => {
-
-    toggle.classList.toggle("active");
-
-    updateModuleCounts();
-
-  });
-
-});
 
 updateModuleCounts();
 
-/* CONFIGS */
 
-const configs =
-  document.querySelectorAll(".config-card");
+/* =========================================================
+   CONFIGS
+========================================================= */
 
-configs.forEach((config) => {
+const configCards =
+  document.querySelectorAll(
+    ".config-card"
+  );
 
-  config.addEventListener("click", () => {
 
-    configs.forEach((item) => {
-      item.classList.remove("active");
-    });
+configCards.forEach(
+  (card) => {
 
-    config.classList.add("active");
+    card.addEventListener(
+      "click",
+      () => {
 
-  });
+        configCards.forEach(
+          (item) => {
 
-});
+            item.classList.remove(
+              "active"
+            );
 
-/* OPACITY */
+          }
+        );
 
-const opacity =
-  document.getElementById("clientOpacity");
 
-const opacityValue =
-  document.getElementById("clientOpacityValue");
+        card.classList.add(
+          "active"
+        );
 
-if (opacity) {
+      }
+    );
 
-  opacity.addEventListener("input", () => {
+  }
+);
 
-    const value = opacity.value;
 
-    opacityValue.textContent =
-      `${value}%`;
+/* =========================================================
+   OPACITY
+========================================================= */
 
-    document
-      .querySelector(".client-window")
-      .style.opacity =
-      Number(value) / 100;
+const clientOpacity =
+  document.getElementById(
+    "clientOpacity"
+  );
 
-  });
+const clientOpacityValue =
+  document.getElementById(
+    "clientOpacityValue"
+  );
+
+
+if (clientOpacity) {
+
+  clientOpacity.addEventListener(
+    "input",
+    () => {
+
+      const value =
+        Number(
+          clientOpacity.value
+        );
+
+
+      if (clientOpacityValue) {
+
+        clientOpacityValue.textContent =
+          `${value}%`;
+
+      }
+
+
+      const clientWindow =
+        document.querySelector(
+          ".client-window"
+        );
+
+
+      if (clientWindow) {
+
+        clientWindow.style.opacity =
+          value / 100;
+
+      }
+
+    }
+  );
 
 }
 
-/* SCALE */
 
-const scale =
-  document.getElementById("clientScale");
+/* =========================================================
+   SCALE
+========================================================= */
 
-const scaleValue =
-  document.getElementById("clientScaleValue");
+const clientScale =
+  document.getElementById(
+    "clientScale"
+  );
 
-if (scale) {
+const clientScaleValue =
+  document.getElementById(
+    "clientScaleValue"
+  );
 
-  scale.addEventListener("input", () => {
 
-    const value = scale.value;
+if (clientScale) {
 
-    scaleValue.textContent =
-      `${value}%`;
+  clientScale.addEventListener(
+    "input",
+    () => {
 
-    document
-      .querySelector(".client-window")
-      .style.transform =
-      `scale(${Number(value) / 100})`;
+      const value =
+        Number(
+          clientScale.value
+        );
 
-  });
+
+      if (clientScaleValue) {
+
+        clientScaleValue.textContent =
+          `${value}%`;
+
+      }
+
+
+      const clientWindow =
+        document.querySelector(
+          ".client-window"
+        );
+
+
+      if (clientWindow) {
+
+        clientWindow.style.transform =
+          `scale(${value / 100})`;
+
+      }
+
+    }
+  );
 
 }
 
-/* ANIMATIONS */
+
+/* =========================================================
+   ANIMATION TOGGLE
+========================================================= */
 
 const animationToggle =
-  document.getElementById("animationToggle");
+  document.getElementById(
+    "animationToggle"
+  );
+
 
 if (animationToggle) {
 
-  animationToggle.addEventListener("click", () => {
+  animationToggle.addEventListener(
+    "click",
+    () => {
 
-    animationToggle.classList.toggle("active");
+      animationToggle.classList.toggle(
+        "active"
+      );
 
-    document.body.classList.toggle(
-      "client-reduced-motion"
-    );
 
-  });
+      const enabled =
+        animationToggle.classList.contains(
+          "active"
+        );
+
+
+      body.classList.toggle(
+        "client-reduced-motion",
+        !enabled
+      );
+
+    }
+  );
 
 }
 
-/* SESSION CLOCK */
 
-setInterval(() => {
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
 
-  if (
-    showcase &&
-    showcase.classList.contains("active")
-  ) {
+const motionToggle =
+  document.getElementById(
+    "motionToggle"
+  );
 
-    sessionSeconds++;
 
-    const minutes =
-      String(
-        Math.floor(sessionSeconds / 60)
-      ).padStart(2, "0");
+if (motionToggle) {
 
-    const seconds =
-      String(
-        sessionSeconds % 60
-      ).padStart(2, "0");
+  motionToggle.addEventListener(
+    "click",
+    () => {
 
-    const sessionTime =
-      document.getElementById("sessionTime");
+      motionToggle.classList.toggle(
+        "active"
+      );
 
-    if (sessionTime) {
 
-      sessionTime.textContent =
-        `${minutes}:${seconds}`;
+      const reduced =
+        motionToggle.classList.contains(
+          "active"
+        );
+
+
+      body.classList.toggle(
+        "client-reduced-motion",
+        reduced
+      );
 
     }
+  );
 
-  }
+}
 
-}, 1000);
 
-/* LIVE TELEMETRY */
+/* =========================================================
+   SESSION TIMER
+========================================================= */
 
-setInterval(() => {
+function updateSession() {
 
   if (
     !showcase ||
     !showcase.classList.contains("active")
   ) {
+
+    return;
+
+  }
+
+
+  sessionSeconds++;
+
+
+  const minutes =
+    Math.floor(
+      sessionSeconds / 60
+    );
+
+
+  const seconds =
+    sessionSeconds % 60;
+
+
+  const sessionTime =
+    document.getElementById(
+      "sessionTime"
+    );
+
+
+  if (sessionTime) {
+
+    sessionTime.textContent =
+      `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+  }
+
+}
+
+
+/* =========================================================
+   TELEMETRY
+========================================================= */
+
+function startTelemetry() {
+
+  if (telemetryTimer) {
     return;
   }
 
+
+  telemetryTimer =
+    setInterval(
+      updateTelemetry,
+      1200
+    );
+
+
+  updateTelemetry();
+
+}
+
+
+function stopTelemetry() {
+
+  if (!telemetryTimer) {
+    return;
+  }
+
+
+  clearInterval(
+    telemetryTimer
+  );
+
+  telemetryTimer = null;
+
+}
+
+
+function updateTelemetry() {
+
+  if (
+    !showcase ||
+    !showcase.classList.contains("active")
+  ) {
+
+    return;
+
+  }
+
+
   const fps =
-    document.getElementById("fpsValue");
+    document.getElementById(
+      "fpsValue"
+    );
+
 
   const ping =
-    document.getElementById("pingValue");
+    document.getElementById(
+      "pingValue"
+    );
+
 
   const memory =
-    document.getElementById("memoryValue");
+    document.getElementById(
+      "memoryValue"
+    );
+
 
   if (fps) {
+
     fps.textContent =
       String(
         220 +
-        Math.floor(Math.random() * 40)
+        Math.floor(
+          Math.random() * 40
+        )
       );
+
   }
+
 
   if (ping) {
+
     ping.textContent =
       `${8 + Math.floor(Math.random() * 9)}ms`;
+
   }
+
 
   if (memory) {
+
     memory.textContent =
       `${38 + Math.floor(Math.random() * 8)}%`;
+
   }
 
-}, 1200);
+}
+
+
+/* =========================================================
+   CLIENT KEYBOARD SHORTCUTS
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  (event) => {
+
+    if (
+      !showcase ||
+      !showcase.classList.contains("active")
+    ) {
+
+      return;
+
+    }
+
+
+    const key =
+      event.key.toLowerCase();
+
+
+    const shortcuts = {
+
+      "1": "dashboard",
+      "2": "combat",
+      "3": "visuals",
+      "4": "hud",
+      "5": "player",
+      "6": "configs",
+      "7": "settings"
+
+    };
+
+
+    if (!shortcuts[key]) {
+      return;
+    }
+
+
+    const target =
+      shortcuts[key];
+
+
+    const navButton =
+      document.querySelector(
+        `.client-nav[data-client-tab="${target}"]`
+      );
+
+
+    if (navButton) {
+
+      navButton.click();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   RESET CLIENT
+========================================================= */
+
+function resetClient() {
+
+  moduleToggles.forEach(
+    (toggle) => {
+
+      toggle.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  updateModuleCounts();
+
+
+  if (clientOpacity) {
+
+    clientOpacity.value = 92;
+
+  }
+
+
+  if (clientOpacityValue) {
+
+    clientOpacityValue.textContent =
+      "92%";
+
+  }
+
+
+  if (clientScale) {
+
+    clientScale.value = 100;
+
+  }
+
+
+  if (clientScaleValue) {
+
+    clientScaleValue.textContent =
+      "100%";
+
+  }
+
+
+  const clientWindow =
+    document.querySelector(
+      ".client-window"
+    );
+
+
+  if (clientWindow) {
+
+    clientWindow.style.opacity =
+      "1";
+
+    clientWindow.style.transform =
+      "translateY(0) scale(1)";
+
+  }
+
+
+  configCards.forEach(
+    (card) => {
+
+      card.classList.remove(
+        "active"
+      );
+
+    }
+  );
+
+
+  const defaultConfig =
+    document.querySelector(
+      '.config-card[data-config="default"]'
+    );
+
+
+  if (defaultConfig) {
+
+    defaultConfig.classList.add(
+      "active"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DOUBLE CLICK LOGO = RESET
+========================================================= */
+
+const clientLogo =
+  document.querySelector(
+    ".client-logo"
+  );
+
+
+if (clientLogo) {
+
+  clientLogo.addEventListener(
+    "dblclick",
+    resetClient
+  );
+
+}
+
+
+/* =========================================================
+   SMOOTH ANCHOR FALLBACK
+========================================================= */
+
+document
+  .querySelectorAll(
+    'a[href^="#"]'
+  )
+  .forEach(
+    (link) => {
+
+      link.addEventListener(
+        "click",
+        (event) => {
+
+          const target =
+            document.querySelector(
+              link.getAttribute("href")
+            );
+
+
+          if (!target) {
+            return;
+          }
+
+
+          event.preventDefault();
+
+
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+
+        }
+      );
+
+    }
+  );
