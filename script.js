@@ -1,1227 +1,1229 @@
-/* =========================================================
-   N X R D O N U T
-   Premium Portfolio Interaction
-========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =====================================================
+     ELEMENT HELPERS
+  ====================================================== */
+
+  const $ = (selector, parent = document) =>
+    parent.querySelector(selector);
+
+  const $$ = (selector, parent = document) =>
+    [...parent.querySelectorAll(selector)];
 
 
-/* =========================================================
-   ELEMENTS
-========================================================= */
+  /* =====================================================
+     INTRO — CLICK ANYWHERE
+  ====================================================== */
 
-const body = document.body;
+  const intro = $("#intro");
 
-const intro =
-  document.getElementById("intro");
+  function enterWebsite() {
 
-const cursor =
-  document.getElementById("cursor");
+    if (!intro) return;
 
-const cursorDot =
-  document.getElementById("cursorDot");
+    intro.classList.add("intro-hidden");
 
-const pfp =
-  document.getElementById("pfp");
+    document.body.classList.remove("intro-active");
 
-const audio =
-  document.getElementById("audio");
+    /*
+      Completely remove the intro after the
+      fade animation so it can never block clicks.
+    */
 
-const musicPlay =
-  document.getElementById("musicPlay");
+    setTimeout(() => {
+      intro.style.display = "none";
+    }, 900);
 
-const musicPlayer =
-  document.querySelector(".music-player");
+    /*
+      Start music after the user's click.
+      Browsers generally allow audio after a
+      direct user interaction.
+    */
 
-const musicTime =
-  document.getElementById("musicTime");
+    const audio = $("#audio");
 
-const waveform =
-  document.getElementById("waveform");
-
-const showcase =
-  document.getElementById("showcase");
-
-const openShowcase =
-  document.getElementById("openShowcase");
-
-const closeShowcase =
-  document.getElementById("closeShowcase");
-
-
-/* =========================================================
-   INTRO
-========================================================= */
-
-let introFinished = false;
-
-function closeIntro() {
-
-  if (introFinished) {
-    return;
+    if (audio) {
+      audio.play().catch(() => {
+        // Browser may still block audio.
+      });
+    }
   }
-
-  introFinished = true;
 
   if (intro) {
-    intro.classList.add("hidden");
-  }
 
-}
+    intro.addEventListener("click", enterWebsite);
 
-if (intro) {
+    intro.addEventListener("keydown", (event) => {
 
-  intro.addEventListener(
-    "click",
-    closeIntro
-  );
-
-}
-
-
-/* =========================================================
-   CURSOR
-========================================================= */
-
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
-
-let cursorX = mouseX;
-let cursorY = mouseY;
-
-document.addEventListener(
-  "mousemove",
-  (event) => {
-
-    mouseX = event.clientX;
-    mouseY = event.clientY;
-
-  }
-);
-
-
-function animateCursor() {
-
-  cursorX +=
-    (mouseX - cursorX) * .18;
-
-  cursorY +=
-    (mouseY - cursorY) * .18;
-
-  if (cursor) {
-
-    cursor.style.left =
-      `${cursorX}px`;
-
-    cursor.style.top =
-      `${cursorY}px`;
-
-  }
-
-  if (cursorDot) {
-
-    cursorDot.style.left =
-      `${mouseX}px`;
-
-    cursorDot.style.top =
-      `${mouseY}px`;
-
-  }
-
-  requestAnimationFrame(
-    animateCursor
-  );
-
-}
-
-animateCursor();
-
-
-const hoverElements =
-  document.querySelectorAll(
-    "a, button, input, .social-card, .community-card, .project-card"
-  );
-
-hoverElements.forEach((element) => {
-
-  element.addEventListener(
-    "mouseenter",
-    () => {
-      body.classList.add("cursor-hover");
-    }
-  );
-
-  element.addEventListener(
-    "mouseleave",
-    () => {
-      body.classList.remove("cursor-hover");
-    }
-  );
-
-});
-
-
-/* =========================================================
-   PFP PARALLAX
-========================================================= */
-
-document.addEventListener(
-  "mousemove",
-  (event) => {
-
-    if (!pfp) {
-      return;
-    }
-
-    const x =
-      (event.clientX / window.innerWidth - .5) * 8;
-
-    const y =
-      (event.clientY / window.innerHeight - .5) * 8;
-
-    pfp.style.transform =
-      `translate(${x}px, ${y}px) scale(1.05)`;
-
-  }
-);
-
-
-/* =========================================================
-   MUSIC PLAYER
-========================================================= */
-
-if (audio && musicPlay) {
-
-  musicPlay.addEventListener(
-    "click",
-    async () => {
-
-      try {
-
-        if (audio.paused) {
-
-          await audio.play();
-
-          musicPlayer.classList.add(
-            "playing"
-          );
-
-          musicPlay
-            .querySelector(".play-icon")
-            .textContent = "Ⅱ";
-
-        } else {
-
-          audio.pause();
-
-          musicPlayer.classList.remove(
-            "playing"
-          );
-
-          musicPlay
-            .querySelector(".play-icon")
-            .textContent = "▶";
-
-        }
-
-      } catch (error) {
-
-        console.warn(
-          "Audio could not be played.",
-          error
-        );
-
+      if (
+        event.key === "Enter" ||
+        event.key === " "
+      ) {
+        event.preventDefault();
+        enterWebsite();
       }
 
-    }
-  );
+    });
+
+  }
 
 
-  audio.addEventListener(
-    "timeupdate",
-    () => {
+  /* =====================================================
+     NAV CLOCK
+  ====================================================== */
 
-      if (!musicTime) {
-        return;
+  const navClock = $("#navClock");
+
+  function updateNavClock() {
+
+    if (!navClock) return;
+
+    const now = new Date();
+
+    const hours =
+      String(now.getHours()).padStart(2, "0");
+
+    const minutes =
+      String(now.getMinutes()).padStart(2, "0");
+
+    navClock.textContent =
+      `${hours}:${minutes}`;
+  }
+
+  updateNavClock();
+
+  setInterval(updateNavClock, 1000);
+
+
+  /* =====================================================
+     CLIENT CLOCK
+  ====================================================== */
+
+  const clientClock = $("#clientClock");
+
+  function updateClientClock() {
+
+    if (!clientClock) return;
+
+    const now = new Date();
+
+    const hours =
+      String(now.getHours()).padStart(2, "0");
+
+    const minutes =
+      String(now.getMinutes()).padStart(2, "0");
+
+    const seconds =
+      String(now.getSeconds()).padStart(2, "0");
+
+    clientClock.textContent =
+      `${hours}:${minutes}:${seconds}`;
+  }
+
+  updateClientClock();
+
+  setInterval(updateClientClock, 1000);
+
+
+  /* =====================================================
+     MUSIC
+  ====================================================== */
+
+  const audio = $("#audio");
+  const musicPlay = $("#musicPlay");
+  const musicTime = $("#musicTime");
+  const waveform = $("#waveform");
+
+  if (audio && musicPlay) {
+
+    musicPlay.addEventListener("click", () => {
+
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      } else {
+        audio.pause();
       }
+
+    });
+
+    audio.addEventListener("play", () => {
+
+      musicPlay.classList.add("playing");
+
+      const icon = $(".play-icon", musicPlay);
+
+      if (icon) {
+        icon.textContent = "Ⅱ";
+      }
+
+      if (waveform) {
+        waveform.classList.add("playing");
+      }
+
+    });
+
+    audio.addEventListener("pause", () => {
+
+      musicPlay.classList.remove("playing");
+
+      const icon = $(".play-icon", musicPlay);
+
+      if (icon) {
+        icon.textContent = "▶";
+      }
+
+      if (waveform) {
+        waveform.classList.remove("playing");
+      }
+
+    });
+
+    audio.addEventListener("timeupdate", () => {
+
+      if (!musicTime) return;
 
       const minutes =
-        Math.floor(
-          audio.currentTime / 60
-        );
+        Math.floor(audio.currentTime / 60);
 
       const seconds =
-        Math.floor(
-          audio.currentTime % 60
-        );
+        Math.floor(audio.currentTime % 60);
 
       musicTime.textContent =
-        `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+        `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
-    }
-  );
+    });
+
+  }
 
 
-  audio.addEventListener(
-    "ended",
-    () => {
+  /* =====================================================
+     SHOWCASE
+  ====================================================== */
 
-      musicPlayer.classList.remove(
-        "playing"
+  const showcase = $("#showcase");
+  const openShowcase = $("#openShowcase");
+  const closeShowcase = $("#closeShowcase");
+  const heroClientButton = $("#heroClientButton");
+
+  function openClient() {
+
+    if (!showcase) return;
+
+    showcase.classList.add("showcase-open");
+
+    document.body.classList.add("modal-open");
+
+  }
+
+  function closeClient() {
+
+    if (!showcase) return;
+
+    showcase.classList.remove("showcase-open");
+
+    document.body.classList.remove("modal-open");
+
+    closeCommandPalette();
+
+  }
+
+  if (openShowcase) {
+    openShowcase.addEventListener("click", openClient);
+  }
+
+  if (heroClientButton) {
+    heroClientButton.addEventListener("click", openClient);
+  }
+
+  if (closeShowcase) {
+    closeShowcase.addEventListener("click", closeClient);
+  }
+
+  const showcaseBackdrop =
+    $(".showcase-backdrop");
+
+  if (showcaseBackdrop) {
+    showcaseBackdrop.addEventListener(
+      "click",
+      closeClient
+    );
+  }
+
+
+  /* =====================================================
+     CLIENT TABS
+  ====================================================== */
+
+  const clientTabs =
+    $$(".client-tab");
+
+  const clientPanels =
+    $$(".client-panel");
+
+  const clientPageTitle =
+    $("#clientPageTitle");
+
+
+  const titles = {
+    dashboard: "Dashboard",
+    modules: "Modules",
+    visuals: "Visuals",
+    hud: "HUD Studio",
+    settings: "Settings"
+  };
+
+
+  function switchClientTab(tabName) {
+
+    clientTabs.forEach((tab) => {
+
+      tab.classList.toggle(
+        "active",
+        tab.dataset.tab === tabName
       );
 
-      musicPlay
-        .querySelector(".play-icon")
-        .textContent = "▶";
+    });
+
+
+    clientPanels.forEach((panel) => {
+
+      panel.classList.toggle(
+        "active",
+        panel.dataset.panel === tabName
+      );
+
+    });
+
+
+    if (clientPageTitle) {
+      clientPageTitle.textContent =
+        titles[tabName] || tabName;
+    }
+
+  }
+
+
+  clientTabs.forEach((tab) => {
+
+    tab.addEventListener("click", () => {
+
+      switchClientTab(tab.dataset.tab);
+
+    });
+
+  });
+
+
+  /* =====================================================
+     MODULE TOGGLES
+  ====================================================== */
+
+  const toggles =
+    $$(".toggle");
+
+  const activeModules =
+    $("#activeModules");
+
+  const dashboardModuleCount =
+    $("#dashboardModuleCount");
+
+
+  function updateModuleCount() {
+
+    /*
+      Only count module toggles inside the
+      actual Modules panel.
+
+      This prevents the HUD / settings toggles
+      from inflating the module counter.
+    */
+
+    const modulePanel =
+      $('.client-panel[data-panel="modules"]');
+
+    let count = 0;
+
+    if (modulePanel) {
+
+      count =
+        $$(".toggle.active", modulePanel).length;
 
     }
-  );
-
-}
 
 
-/* =========================================================
-   REVEAL ANIMATIONS
-========================================================= */
+    if (activeModules) {
+      activeModules.textContent = count;
+    }
 
-const revealElements =
-  document.querySelectorAll(".reveal");
+    if (dashboardModuleCount) {
+      dashboardModuleCount.textContent = count;
+    }
 
-const revealObserver =
-  new IntersectionObserver(
-    (entries) => {
+  }
 
-      entries.forEach(
-        (entry) => {
 
-          if (entry.isIntersecting) {
+  function addActivity(text) {
 
-            entry.target.classList.add(
-              "visible"
-            );
+    const list = $("#activityList");
 
-            revealObserver.unobserve(
-              entry.target
-            );
+    if (!list) return;
 
-          }
+    const item =
+      document.createElement("div");
+
+    item.innerHTML = `
+      <i></i>
+      <span>${text}</span>
+      <small>now</small>
+    `;
+
+    list.prepend(item);
+
+    /*
+      Keep the activity panel clean.
+    */
+
+    while (list.children.length > 5) {
+      list.lastElementChild.remove();
+    }
+
+  }
+
+
+  toggles.forEach((toggle) => {
+
+    toggle.addEventListener("click", () => {
+
+      toggle.classList.toggle("active");
+
+      updateModuleCount();
+
+      const moduleName =
+        toggle.dataset.module;
+
+      if (moduleName) {
+
+        const state =
+          toggle.classList.contains("active")
+            ? "Enabled"
+            : "Disabled";
+
+        addActivity(
+          `${state} ${moduleName}`
+        );
+
+      }
+
+    });
+
+  });
+
+
+  updateModuleCount();
+
+
+  /* =====================================================
+     OPACITY
+  ====================================================== */
+
+  const opacitySlider =
+    $("#opacitySlider");
+
+  const opacityValue =
+    $("#opacityValue");
+
+  if (opacitySlider) {
+
+    opacitySlider.addEventListener(
+      "input",
+      () => {
+
+        const value =
+          Number(opacitySlider.value);
+
+        if (opacityValue) {
+          opacityValue.textContent =
+            `${value}%`;
+        }
+
+        const windowElement =
+          $(".showcase-window");
+
+        if (windowElement) {
+
+          windowElement.style.setProperty(
+            "--client-opacity",
+            value / 100
+          );
 
         }
-      );
 
-    },
-    {
-      threshold: .12
-    }
-  );
-
-
-revealElements.forEach(
-  (element) => {
-
-    revealObserver.observe(
-      element
+      }
     );
 
   }
-);
 
 
-/* =========================================================
-   PREMIUM CLIENT
-========================================================= */
+  /* =====================================================
+     SCALE
+  ====================================================== */
 
-let sessionSeconds = 0;
+  const scaleSlider =
+    $("#scaleSlider");
 
-let sessionTimer = null;
+  const scaleValue =
+    $("#scaleValue");
 
-let telemetryTimer = null;
+  if (scaleSlider) {
 
+    scaleSlider.addEventListener(
+      "input",
+      () => {
 
-/* =========================================================
-   OPEN CLIENT
-========================================================= */
+        const value =
+          Number(scaleSlider.value);
 
-function openClient() {
+        if (scaleValue) {
+          scaleValue.textContent =
+            `${value}%`;
+        }
 
-  if (!showcase) {
-    return;
-  }
+        const windowElement =
+          $(".showcase-window");
 
-  showcase.classList.add(
-    "active"
-  );
+        if (windowElement) {
 
-  showcase.setAttribute(
-    "aria-hidden",
-    "false"
-  );
+          windowElement.style.setProperty(
+            "--client-scale",
+            value / 100
+          );
 
-  body.classList.add(
-    "modal-open"
-  );
+        }
 
-  if (!sessionTimer) {
-
-    sessionTimer =
-      setInterval(
-        updateSession,
-        1000
-      );
+      }
+    );
 
   }
 
-  startTelemetry();
 
-}
+  /* =====================================================
+     MOTION TOGGLE
+  ====================================================== */
 
+  const motionToggle =
+    $("#motionToggle");
 
-/* =========================================================
-   CLOSE CLIENT
-========================================================= */
+  if (motionToggle) {
 
-function closeClient() {
+    motionToggle.addEventListener(
+      "click",
+      () => {
 
-  if (!showcase) {
-    return;
+        motionToggle.classList.toggle("active");
+
+        document.body.classList.toggle(
+          "reduced-client-motion",
+          !motionToggle.classList.contains("active")
+        );
+
+        addActivity(
+          motionToggle.classList.contains("active")
+            ? "Motion enabled"
+            : "Motion disabled"
+        );
+
+      }
+    );
+
   }
 
-  showcase.classList.remove(
-    "active"
-  );
 
-  showcase.setAttribute(
-    "aria-hidden",
-    "true"
-  );
+  /* =====================================================
+     GRID TOGGLE
+  ====================================================== */
 
-  body.classList.remove(
-    "modal-open"
-  );
+  const gridToggle =
+    $("#gridToggle");
 
-  stopTelemetry();
+  const gameGrid =
+    $(".game-grid");
 
-}
+  if (gridToggle) {
 
+    gridToggle.addEventListener(
+      "click",
+      () => {
 
-if (openShowcase) {
+        gridToggle.classList.toggle("active");
 
-  openShowcase.addEventListener(
-    "click",
-    openClient
-  );
+        if (gameGrid) {
 
-}
+          gameGrid.style.opacity =
+            gridToggle.classList.contains("active")
+              ? "1"
+              : "0";
 
+        }
 
-if (closeShowcase) {
+        addActivity(
+          gridToggle.classList.contains("active")
+            ? "Grid enabled"
+            : "Grid disabled"
+        );
 
-  closeShowcase.addEventListener(
-    "click",
-    closeClient
-  );
+      }
+    );
 
-}
-
-
-const showcaseBackdrop =
-  document.querySelector(
-    ".showcase-backdrop"
-  );
+  }
 
 
-if (showcaseBackdrop) {
+  /* =====================================================
+     RESET
+  ====================================================== */
 
-  showcaseBackdrop.addEventListener(
-    "click",
-    closeClient
-  );
+  const resetButton =
+    $("#resetShowcase");
 
-}
+  if (resetButton) {
+
+    resetButton.addEventListener(
+      "click",
+      () => {
+
+        /*
+          Default modules
+        */
+
+        toggles.forEach((toggle) => {
+
+          const module =
+            toggle.dataset.module;
+
+          const defaultOn =
+            module === "Motion Blur" ||
+            module === "Array List" ||
+            module === "Watermark";
+
+          toggle.classList.toggle(
+            "active",
+            defaultOn
+          );
+
+        });
 
 
-/* =========================================================
-   KEYBOARD
-========================================================= */
+        /*
+          Sliders
+        */
 
-document.addEventListener(
-  "keydown",
-  (event) => {
+        if (opacitySlider) {
+          opacitySlider.value = 85;
+        }
 
-    if (
-      event.key === "Escape" &&
-      showcase &&
-      showcase.classList.contains("active")
-    ) {
+        if (opacityValue) {
+          opacityValue.textContent = "85%";
+        }
 
-      closeClient();
+        if (scaleSlider) {
+          scaleSlider.value = 100;
+        }
+
+        if (scaleValue) {
+          scaleValue.textContent = "100%";
+        }
+
+
+        /*
+          Window
+        */
+
+        const windowElement =
+          $(".showcase-window");
+
+        if (windowElement) {
+
+          windowElement.style.setProperty(
+            "--client-opacity",
+            ".85"
+          );
+
+          windowElement.style.setProperty(
+            "--client-scale",
+            "1"
+          );
+
+        }
+
+
+        /*
+          Motion
+        */
+
+        if (motionToggle) {
+          motionToggle.classList.add("active");
+        }
+
+        document.body.classList.remove(
+          "reduced-client-motion"
+        );
+
+
+        /*
+          Grid
+        */
+
+        if (gridToggle) {
+          gridToggle.classList.add("active");
+        }
+
+        if (gameGrid) {
+          gameGrid.style.opacity = "1";
+        }
+
+
+        updateModuleCount();
+
+        addActivity(
+          "Interface restored"
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     COMMAND PALETTE
+  ====================================================== */
+
+  const commandPalette =
+    $("#commandPalette");
+
+  const commandButton =
+    $("#clientCommand");
+
+  const commandInput =
+    $("#commandInput");
+
+
+  function openCommandPalette() {
+
+    if (!commandPalette) return;
+
+    commandPalette.classList.add("open");
+
+    if (commandInput) {
+
+      commandInput.value = "";
+
+      setTimeout(() => {
+        commandInput.focus();
+      }, 50);
 
     }
 
   }
-);
 
 
-/* =========================================================
-   CLIENT NAVIGATION
-========================================================= */
+  function closeCommandPalette() {
 
-const clientNav =
-  document.querySelectorAll(
-    ".client-nav"
-  );
+    if (!commandPalette) return;
 
-const clientPages =
-  document.querySelectorAll(
-    ".client-page"
-  );
+    commandPalette.classList.remove("open");
+
+  }
 
 
-clientNav.forEach(
-  (button) => {
+  if (commandButton) {
 
-    button.addEventListener(
+    commandButton.addEventListener(
       "click",
+      openCommandPalette
+    );
+
+  }
+
+
+  if (commandPalette) {
+
+    commandPalette.addEventListener(
+      "click",
+      (event) => {
+
+        if (
+          event.target === commandPalette
+        ) {
+          closeCommandPalette();
+        }
+
+      }
+    );
+
+  }
+
+
+  const commandButtons =
+    $$(".command-results button");
+
+
+  commandButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+      const command =
+        button.dataset.command;
+
+      switchClientTab(command);
+
+      closeCommandPalette();
+
+    });
+
+  });
+
+
+  if (commandInput) {
+
+    commandInput.addEventListener(
+      "input",
       () => {
 
-        const target =
-          button.dataset.clientTab;
+        const query =
+          commandInput.value
+            .trim()
+            .toLowerCase();
 
-        if (!target) {
+        commandButtons.forEach((button) => {
+
+          const text =
+            button.textContent.toLowerCase();
+
+          button.style.display =
+            text.includes(query)
+              ? "flex"
+              : "none";
+
+        });
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     KEYBOARD SHORTCUTS
+  ====================================================== */
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      /*
+        Escape closes everything.
+      */
+
+      if (event.key === "Escape") {
+
+        closeCommandPalette();
+
+        if (
+          showcase &&
+          showcase.classList.contains(
+            "showcase-open"
+          )
+        ) {
+          closeClient();
+        }
+
+      }
+
+
+      /*
+        "/" opens command palette
+        unless user is already typing.
+      */
+
+      if (
+        event.key === "/" &&
+        document.activeElement?.tagName !== "INPUT" &&
+        document.activeElement?.tagName !== "TEXTAREA"
+      ) {
+
+        event.preventDefault();
+
+        if (
+          showcase &&
+          showcase.classList.contains(
+            "showcase-open"
+          )
+        ) {
+          openCommandPalette();
+        }
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     CUSTOM CURSOR
+  ====================================================== */
+
+  const cursor =
+    $("#cursor");
+
+  const cursorDot =
+    $("#cursorDot");
+
+
+  if (
+    cursor &&
+    cursorDot &&
+    window.matchMedia("(pointer: fine)").matches
+  ) {
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    let cursorX = 0;
+    let cursorY = 0;
+
+
+    document.addEventListener(
+      "mousemove",
+      (event) => {
+
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+
+        cursorDot.style.left =
+          `${mouseX}px`;
+
+        cursorDot.style.top =
+          `${mouseY}px`;
+
+      }
+    );
+
+
+    function animateCursor() {
+
+      cursorX +=
+        (mouseX - cursorX) * .15;
+
+      cursorY +=
+        (mouseY - cursorY) * .15;
+
+      cursor.style.left =
+        `${cursorX}px`;
+
+      cursor.style.top =
+        `${cursorY}px`;
+
+      requestAnimationFrame(
+        animateCursor
+      );
+
+    }
+
+    animateCursor();
+
+
+    function bindCursorHover() {
+
+      const interactive =
+        $$(
+          "a, button, input, .social-card, .community-card, .experience-card, .project-card"
+        );
+
+      interactive.forEach((element) => {
+
+        element.addEventListener(
+          "mouseenter",
+          () => {
+            cursor.classList.add(
+              "cursor-hover"
+            );
+          }
+        );
+
+        element.addEventListener(
+          "mouseleave",
+          () => {
+            cursor.classList.remove(
+              "cursor-hover"
+            );
+          }
+        );
+
+      });
+
+    }
+
+    bindCursorHover();
+
+  }
+
+
+  /* =====================================================
+     HERO PARALLAX
+  ====================================================== */
+
+  const hero =
+    $(".hero");
+
+  const pfp =
+    $("#pfp");
+
+
+  if (
+    hero &&
+    pfp &&
+    window.matchMedia("(pointer: fine)").matches
+  ) {
+
+    hero.addEventListener(
+      "mousemove",
+      (event) => {
+
+        const rect =
+          hero.getBoundingClientRect();
+
+        const x =
+          (event.clientX - rect.left) /
+            rect.width -
+          .5;
+
+        const y =
+          (event.clientY - rect.top) /
+            rect.height -
+          .5;
+
+        pfp.style.transform =
+          `translate(${x * 12}px, ${y * 12}px)`;
+
+      }
+    );
+
+
+    hero.addEventListener(
+      "mouseleave",
+      () => {
+
+        pfp.style.transform =
+          "translate(0, 0)";
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     PROJECT CARD TILT
+  ====================================================== */
+
+  const projectCards =
+    $$(".project-card");
+
+
+  if (
+    window.matchMedia("(pointer: fine)").matches
+  ) {
+
+    projectCards.forEach((card) => {
+
+      card.addEventListener(
+        "mousemove",
+        (event) => {
+
+          const rect =
+            card.getBoundingClientRect();
+
+          const x =
+            (event.clientX - rect.left) /
+              rect.width -
+            .5;
+
+          const y =
+            (event.clientY - rect.top) /
+              rect.height -
+            .5;
+
+          card.style.transform =
+            `perspective(1000px)
+             rotateX(${y * -2}deg)
+             rotateY(${x * 2}deg)
+             translateY(-5px)`;
+
+        }
+      );
+
+
+      card.addEventListener(
+        "mouseleave",
+        () => {
+
+          card.style.transform = "";
+
+        }
+      );
+
+    });
+
+  }
+
+
+  /* =====================================================
+     SCROLL REVEAL
+  ====================================================== */
+
+  const revealElements =
+    $$(".reveal");
+
+
+  if ("IntersectionObserver" in window) {
+
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add(
+                "visible"
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: .12
+        }
+      );
+
+
+    revealElements.forEach(
+      (element) => {
+        observer.observe(element);
+      }
+    );
+
+  } else {
+
+    revealElements.forEach(
+      (element) => {
+        element.classList.add("visible");
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     SMOOTH NAVIGATION
+  ====================================================== */
+
+  $$('a[href^="#"]').forEach((link) => {
+
+    link.addEventListener(
+      "click",
+      (event) => {
+
+        const targetId =
+          link.getAttribute("href");
+
+        if (
+          !targetId ||
+          targetId === "#"
+        ) {
           return;
         }
 
-
-        clientNav.forEach(
-          (item) => {
-
-            item.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        clientPages.forEach(
-          (page) => {
-
-            page.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        button.classList.add(
-          "active"
-        );
-
-
-        const page =
+        const target =
           document.querySelector(
-            `[data-client-page="${target}"]`
+            targetId
           );
 
+        if (!target) return;
 
-        if (page) {
+        event.preventDefault();
 
-          page.classList.add(
-            "active"
-          );
+        target.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
 
+      }
+    );
+
+  });
+
+
+  /* =====================================================
+     PREVENT MODAL SCROLL EVENTS LEAKING
+  ====================================================== */
+
+  if (showcase) {
+
+    showcase.addEventListener(
+      "wheel",
+      (event) => {
+
+        if (
+          event.target.closest(
+            ".client-content"
+          )
+        ) {
+          return;
         }
 
-      }
+        event.preventDefault();
+
+      },
+      { passive: false }
     );
 
   }
-);
 
 
-/* =========================================================
-   MODULE COUNTERS
-========================================================= */
+  /* =====================================================
+     INITIAL STATE
+  ====================================================== */
 
-const moduleGroups = [
-  "combat",
-  "visuals",
-  "hud",
-  "player"
-];
+  /*
+    Make sure the intro starts visible and
+    the page is usable even if CSS/JS was
+    cached strangely.
+  */
 
+  if (intro) {
 
-function updateModuleCounts() {
+    intro.style.display = "flex";
 
-  let total = 0;
+    requestAnimationFrame(() => {
 
-
-  moduleGroups.forEach(
-    (group) => {
-
-      const active =
-        document.querySelectorAll(
-          `.client-toggle.active[data-group="${group}"]`
-        );
-
-
-      const counter =
-        document.querySelector(
-          `[data-count-group="${group}"]`
-        );
-
-
-      if (counter) {
-
-        counter.textContent =
-          active.length;
-
-      }
-
-
-      total += active.length;
-
-    }
-  );
-
-
-  const dashboardActive =
-    document.getElementById(
-      "dashboardActive"
-    );
-
-
-  const dashboardModules =
-    document.getElementById(
-      "dashboardModules"
-    );
-
-
-  if (dashboardActive) {
-
-    dashboardActive.textContent =
-      total;
-
-  }
-
-
-  if (dashboardModules) {
-
-    dashboardModules.textContent =
-      total;
-
-  }
-
-}
-
-
-const moduleToggles =
-  document.querySelectorAll(
-    ".client-toggle[data-group]"
-  );
-
-
-moduleToggles.forEach(
-  (toggle) => {
-
-    toggle.addEventListener(
-      "click",
-      () => {
-
-        toggle.classList.toggle(
-          "active"
-        );
-
-        updateModuleCounts();
-
-      }
-    );
-
-  }
-);
-
-
-updateModuleCounts();
-
-
-/* =========================================================
-   CONFIGS
-========================================================= */
-
-const configCards =
-  document.querySelectorAll(
-    ".config-card"
-  );
-
-
-configCards.forEach(
-  (card) => {
-
-    card.addEventListener(
-      "click",
-      () => {
-
-        configCards.forEach(
-          (item) => {
-
-            item.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        card.classList.add(
-          "active"
-        );
-
-      }
-    );
-
-  }
-);
-
-
-/* =========================================================
-   OPACITY
-========================================================= */
-
-const clientOpacity =
-  document.getElementById(
-    "clientOpacity"
-  );
-
-const clientOpacityValue =
-  document.getElementById(
-    "clientOpacityValue"
-  );
-
-
-if (clientOpacity) {
-
-  clientOpacity.addEventListener(
-    "input",
-    () => {
-
-      const value =
-        Number(
-          clientOpacity.value
-        );
-
-
-      if (clientOpacityValue) {
-
-        clientOpacityValue.textContent =
-          `${value}%`;
-
-      }
-
-
-      const clientWindow =
-        document.querySelector(
-          ".client-window"
-        );
-
-
-      if (clientWindow) {
-
-        clientWindow.style.opacity =
-          value / 100;
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SCALE
-========================================================= */
-
-const clientScale =
-  document.getElementById(
-    "clientScale"
-  );
-
-const clientScaleValue =
-  document.getElementById(
-    "clientScaleValue"
-  );
-
-
-if (clientScale) {
-
-  clientScale.addEventListener(
-    "input",
-    () => {
-
-      const value =
-        Number(
-          clientScale.value
-        );
-
-
-      if (clientScaleValue) {
-
-        clientScaleValue.textContent =
-          `${value}%`;
-
-      }
-
-
-      const clientWindow =
-        document.querySelector(
-          ".client-window"
-        );
-
-
-      if (clientWindow) {
-
-        clientWindow.style.transform =
-          `scale(${value / 100})`;
-
-      }
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   ANIMATION TOGGLE
-========================================================= */
-
-const animationToggle =
-  document.getElementById(
-    "animationToggle"
-  );
-
-
-if (animationToggle) {
-
-  animationToggle.addEventListener(
-    "click",
-    () => {
-
-      animationToggle.classList.toggle(
-        "active"
-      );
-
-
-      const enabled =
-        animationToggle.classList.contains(
-          "active"
-        );
-
-
-      body.classList.toggle(
-        "client-reduced-motion",
-        !enabled
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-const motionToggle =
-  document.getElementById(
-    "motionToggle"
-  );
-
-
-if (motionToggle) {
-
-  motionToggle.addEventListener(
-    "click",
-    () => {
-
-      motionToggle.classList.toggle(
-        "active"
-      );
-
-
-      const reduced =
-        motionToggle.classList.contains(
-          "active"
-        );
-
-
-      body.classList.toggle(
-        "client-reduced-motion",
-        reduced
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================================
-   SESSION TIMER
-========================================================= */
-
-function updateSession() {
-
-  if (
-    !showcase ||
-    !showcase.classList.contains("active")
-  ) {
-
-    return;
-
-  }
-
-
-  sessionSeconds++;
-
-
-  const minutes =
-    Math.floor(
-      sessionSeconds / 60
-    );
-
-
-  const seconds =
-    sessionSeconds % 60;
-
-
-  const sessionTime =
-    document.getElementById(
-      "sessionTime"
-    );
-
-
-  if (sessionTime) {
-
-    sessionTime.textContent =
-      `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
-
-  }
-
-}
-
-
-/* =========================================================
-   TELEMETRY
-========================================================= */
-
-function startTelemetry() {
-
-  if (telemetryTimer) {
-    return;
-  }
-
-
-  telemetryTimer =
-    setInterval(
-      updateTelemetry,
-      1200
-    );
-
-
-  updateTelemetry();
-
-}
-
-
-function stopTelemetry() {
-
-  if (!telemetryTimer) {
-    return;
-  }
-
-
-  clearInterval(
-    telemetryTimer
-  );
-
-  telemetryTimer = null;
-
-}
-
-
-function updateTelemetry() {
-
-  if (
-    !showcase ||
-    !showcase.classList.contains("active")
-  ) {
-
-    return;
-
-  }
-
-
-  const fps =
-    document.getElementById(
-      "fpsValue"
-    );
-
-
-  const ping =
-    document.getElementById(
-      "pingValue"
-    );
-
-
-  const memory =
-    document.getElementById(
-      "memoryValue"
-    );
-
-
-  if (fps) {
-
-    fps.textContent =
-      String(
-        220 +
-        Math.floor(
-          Math.random() * 40
+      if (
+        intro.classList.contains(
+          "intro-hidden"
         )
-      );
+      ) {
+        intro.style.display = "none";
+      }
+
+    });
 
   }
 
-
-  if (ping) {
-
-    ping.textContent =
-      `${8 + Math.floor(Math.random() * 9)}ms`;
-
-  }
-
-
-  if (memory) {
-
-    memory.textContent =
-      `${38 + Math.floor(Math.random() * 8)}%`;
-
-  }
-
-}
-
-
-/* =========================================================
-   CLIENT KEYBOARD SHORTCUTS
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  (event) => {
-
-    if (
-      !showcase ||
-      !showcase.classList.contains("active")
-    ) {
-
-      return;
-
-    }
-
-
-    const key =
-      event.key.toLowerCase();
-
-
-    const shortcuts = {
-
-      "1": "dashboard",
-      "2": "combat",
-      "3": "visuals",
-      "4": "hud",
-      "5": "player",
-      "6": "configs",
-      "7": "settings"
-
-    };
-
-
-    if (!shortcuts[key]) {
-      return;
-    }
-
-
-    const target =
-      shortcuts[key];
-
-
-    const navButton =
-      document.querySelector(
-        `.client-nav[data-client-tab="${target}"]`
-      );
-
-
-    if (navButton) {
-
-      navButton.click();
-
-    }
-
-  }
-);
-
-
-/* =========================================================
-   RESET CLIENT
-========================================================= */
-
-function resetClient() {
-
-  moduleToggles.forEach(
-    (toggle) => {
-
-      toggle.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
-  updateModuleCounts();
-
-
-  if (clientOpacity) {
-
-    clientOpacity.value = 92;
-
-  }
-
-
-  if (clientOpacityValue) {
-
-    clientOpacityValue.textContent =
-      "92%";
-
-  }
-
-
-  if (clientScale) {
-
-    clientScale.value = 100;
-
-  }
-
-
-  if (clientScaleValue) {
-
-    clientScaleValue.textContent =
-      "100%";
-
-  }
-
-
-  const clientWindow =
-    document.querySelector(
-      ".client-window"
-    );
-
-
-  if (clientWindow) {
-
-    clientWindow.style.opacity =
-      "1";
-
-    clientWindow.style.transform =
-      "translateY(0) scale(1)";
-
-  }
-
-
-  configCards.forEach(
-    (card) => {
-
-      card.classList.remove(
-        "active"
-      );
-
-    }
-  );
-
-
-  const defaultConfig =
-    document.querySelector(
-      '.config-card[data-config="default"]'
-    );
-
-
-  if (defaultConfig) {
-
-    defaultConfig.classList.add(
-      "active"
-    );
-
-  }
-
-}
-
-
-/* =========================================================
-   DOUBLE CLICK LOGO = RESET
-========================================================= */
-
-const clientLogo =
-  document.querySelector(
-    ".client-logo"
-  );
-
-
-if (clientLogo) {
-
-  clientLogo.addEventListener(
-    "dblclick",
-    resetClient
-  );
-
-}
-
-
-/* =========================================================
-   SMOOTH ANCHOR FALLBACK
-========================================================= */
-
-document
-  .querySelectorAll(
-    'a[href^="#"]'
-  )
-  .forEach(
-    (link) => {
-
-      link.addEventListener(
-        "click",
-        (event) => {
-
-          const target =
-            document.querySelector(
-              link.getAttribute("href")
-            );
-
-
-          if (!target) {
-            return;
-          }
-
-
-          event.preventDefault();
-
-
-          target.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
-
-        }
-      );
-
-    }
-  );
+});
