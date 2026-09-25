@@ -4,86 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NxrDonut</title>
+    <title>NxrDonut — Digital Profile</title>
+
+    <meta
+        name="description"
+        content="NxrDonut — Developer, Screensharer and Competitive Minecraft Player."
+    >
 
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <!-- =========================
-         AUDIO
-    ========================== -->
-
-    <audio
-        id="background-music"
-        src="./video.mp3"
-        loop
-        preload="auto">
-    </audio>
-
-
-    <!-- =========================
-         BACKGROUND
-    ========================== -->
-
-    <div class="background"></div>
-    <div class="background-blur"></div>
-
-    <div id="particles"></div>
-
-
-    <!-- =========================
+    <!-- =========================================
          CURSOR
-    ========================== -->
+    ========================================== -->
 
-    <div id="cursor-glow"></div>
-    <div id="cursor-dot"></div>
+    <div class="cursor-glow"></div>
+    <div class="cursor-dot"></div>
 
     <div class="cursor-trail trail-1"></div>
     <div class="cursor-trail trail-2"></div>
     <div class="cursor-trail trail-3"></div>
     <div class="cursor-trail trail-4"></div>
-    <div class="cursor-trail trail-5"></div>
 
 
-    <!-- =========================
+    <!-- =========================================
+         AMBIENT BACKGROUND
+    ========================================== -->
+
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
+
+    <div class="grain"></div>
+
+    <div id="particles"></div>
+
+
+    <!-- =========================================
          INTRO
-    ========================== -->
+    ========================================== -->
 
     <div id="intro">
 
-        <div class="intro-center">
+        <div class="intro-content">
 
-            <div class="intro-ring"></div>
+            <div class="intro-mark">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <p class="intro-kicker">
+                NXR / DIGITAL PROFILE
+            </p>
 
             <button id="enter-button">
                 CLICK ANYWHERE
             </button>
 
-            <span class="intro-line">
-                ENTER EXPERIENCE
-            </span>
+            <div class="intro-bottom">
+                <span>2026</span>
+                <span>SCROLL TO EXPLORE</span>
+            </div>
 
         </div>
 
     </div>
 
 
-    <!-- =========================
-         TOP NAVIGATION
-    ========================== -->
+    <!-- =========================================
+         NAVIGATION
+    ========================================== -->
 
     <header class="topbar">
 
-        <div class="top-logo">
+        <a href="#bio-section" class="brand">
+            <span class="brand-dot"></span>
             NxrDonut
-        </div>
+        </a>
 
         <nav>
 
             <button
-                class="nav-button"
+                class="nav-button active"
                 data-scroll="bio-section">
                 Bio
             </button>
@@ -94,19 +98,44 @@
                 Experience
             </button>
 
+            <button
+                class="nav-button"
+                data-scroll="projects-section">
+                Projects
+            </button>
+
         </nav>
+
+        <div class="nav-status">
+            <span></span>
+            AVAILABLE
+        </div>
 
     </header>
 
 
-    <!-- =========================
+    <!-- =========================================
+         AUDIO
+    ========================================== -->
+
+    <audio
+        id="background-music"
+        src="./video.mp3"
+        loop
+        preload="auto">
+    </audio>
+
+
+    <!-- =========================================
          VOLUME
-    ========================== -->
+    ========================================== -->
 
     <div class="volume-control">
 
-        <button id="volume-button" aria-label="Volume">
-            <span>♪</span>
+        <button
+            id="volume-button"
+            aria-label="Toggle music">
+            ♪
         </button>
 
         <div class="volume-slider-wrapper">
@@ -124,203 +153,218 @@
     </div>
 
 
-    <!-- =========================
+    <!-- =========================================
          MAIN
-    ========================== -->
+    ========================================== -->
 
     <main>
 
 
-        <!-- =========================
-             PROFILE
-        ========================== -->
+        <!-- =====================================
+             HERO / BIO
+        ====================================== -->
 
-        <section id="bio-section" class="profile-section">
+        <section
+            id="bio-section"
+            class="hero-section section">
 
-            <div class="profile-content">
+            <div class="hero-orbit"></div>
+            <div class="hero-orbit orbit-two"></div>
 
-                <div class="avatar-wrapper">
+            <div class="hero-content">
 
-                    <div class="avatar-aura"></div>
+                <div
+                    class="profile-object tilt-object"
+                    data-tilt-strength="10">
 
-                    <img
-                        src="./pfp.jpg"
-                        alt="NxrDonut"
-                        class="avatar">
+                    <div class="profile-light"></div>
 
-                </div>
+                    <div class="profile-frame">
 
+                        <div class="profile-corner corner-one"></div>
+                        <div class="profile-corner corner-two"></div>
+                        <div class="profile-corner corner-three"></div>
+                        <div class="profile-corner corner-four"></div>
 
-                <div class="username-row">
-
-                    <h1>
-                        NxrDonut
-                    </h1>
-
-                    <span class="verified">
-                        ✓
-                    </span>
-
-                </div>
-
-
-                <div class="badges">
-
-                    <span>DEV</span>
-                    <span>SSER</span>
-                    <span>RLT2</span>
-
-                </div>
-
-
-                <p class="headline">
-                    Developer · Screensharer · Competitive Minecraft Player
-                </p>
-
-
-                <p class="bio-text">
-                    DM Me for Inquiries.
-                </p>
-
-
-                <!-- STATS -->
-
-                <div class="stats">
-
-                    <button
-                        id="views-button"
-                        class="stat">
-
-                        <strong>2,981</strong>
-                        <span>views</span>
-
-                    </button>
-
-
-                    <div class="stat">
-
-                        <strong>2+</strong>
-                        <span>years SS</span>
+                        <img
+                            src="./pfp.jpg"
+                            alt="NxrDonut"
+                            class="avatar">
 
                     </div>
 
                 </div>
 
 
-                <!-- SOCIAL LINKS -->
+                <div class="hero-text reveal">
 
-                <div class="social-links">
+                    <div class="eyebrow">
+                        <span></span>
+                        DIGITAL PROFILE
+                    </div>
+
+                    <div class="name-row">
+
+                        <h1>NxrDonut</h1>
+
+                        <span class="verified">
+                            ✓
+                        </span>
+
+                    </div>
+
+                    <p class="hero-role">
+                        Developer · Screensharer · Competitive Minecraft Player
+                    </p>
+
+                    <p class="hero-description">
+                        Building software, tools and digital experiences
+                        while competing across the Minecraft community.
+                    </p>
 
 
-                    <!-- DISCORD -->
+                    <div class="badges">
+
+                        <span>DEV</span>
+                        <span>SSER</span>
+                        <span>RLT2</span>
+
+                    </div>
+
+
+                    <div class="hero-stats">
+
+                        <div class="hero-stat">
+
+                            <strong>1,284</strong>
+                            <span>PROFILE VIEWS</span>
+
+                        </div>
+
+                        <div class="hero-stat-divider"></div>
+
+                        <div class="hero-stat">
+
+                            <strong>2+</strong>
+                            <span>YEARS SS</span>
+
+                        </div>
+
+                        <div class="hero-stat-divider"></div>
+
+                        <div class="hero-stat">
+
+                            <strong>4x</strong>
+                            <span>HT3</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     SOCIALS
+                ================================== -->
+
+                <div class="social-grid reveal">
 
                     <a
-                        class="social-link"
+                        class="social-card magnetic"
                         href="https://discord.com/users/873534867210637333"
                         target="_blank"
                         rel="noopener noreferrer">
 
-                        <div class="social-left">
-
+                        <div class="social-icon">
                             <img
                                 src="./icons/discord.png"
-                                alt="Discord">
-
-                            <div>
-                                <strong>Discord</strong>
-                                <small>nxrdonut</small>
-                            </div>
-
+                                alt="">
                         </div>
 
-                        <span class="arrow">↗</span>
+                        <div>
+                            <small>DISCORD</small>
+                            <strong>nxrdonut</strong>
+                        </div>
+
+                        <span>↗</span>
 
                     </a>
 
 
-                    <!-- YOUTUBE -->
-
                     <a
-                        class="social-link"
+                        class="social-card magnetic"
                         href="https://www.youtube.com/@nxrdonut"
                         target="_blank"
                         rel="noopener noreferrer">
 
-                        <div class="social-left">
-
+                        <div class="social-icon">
                             <img
                                 src="./icons/youtube.png"
-                                alt="YouTube">
-
-                            <div>
-                                <strong>YouTube</strong>
-                                <small>@nxrdonut</small>
-                            </div>
-
+                                alt="">
                         </div>
 
-                        <span class="arrow">↗</span>
+                        <div>
+                            <small>YOUTUBE</small>
+                            <strong>@nxrdonut</strong>
+                        </div>
+
+                        <span>↗</span>
 
                     </a>
 
 
-                    <!-- TIKTOK -->
-
                     <a
-                        class="social-link"
+                        class="social-card magnetic"
                         href="https://www.tiktok.com/@rcvol_"
                         target="_blank"
                         rel="noopener noreferrer">
 
-                        <div class="social-left">
-
+                        <div class="social-icon">
                             <img
                                 src="./icons/tiktok.png"
-                                alt="TikTok">
-
-                            <div>
-                                <strong>TikTok</strong>
-                                <small>@rcvol_</small>
-                            </div>
-
+                                alt="">
                         </div>
 
-                        <span class="arrow">↗</span>
+                        <div>
+                            <small>TIKTOK</small>
+                            <strong>@rcvol_</strong>
+                        </div>
+
+                        <span>↗</span>
 
                     </a>
 
 
-                    <!-- GITHUB -->
-
                     <a
-                        class="social-link"
+                        class="social-card magnetic"
                         href="https://github.com/nxrdonut"
                         target="_blank"
                         rel="noopener noreferrer">
 
-                        <div class="social-left">
-
+                        <div class="social-icon">
                             <img
                                 src="./icons/github.png"
-                                alt="GitHub">
-
-                            <div>
-                                <strong>GitHub</strong>
-                                <small>@nxrdonut</small>
-                            </div>
-
+                                alt="">
                         </div>
 
-                        <span class="arrow">↗</span>
+                        <div>
+                            <small>GITHUB</small>
+                            <strong>@nxrdonut</strong>
+                        </div>
+
+                        <span>↗</span>
 
                     </a>
 
                 </div>
 
 
-                <!-- MUSIC PLAYER -->
+                <!-- =================================
+                     MUSIC
+                ================================== -->
 
-                <div class="music-player">
+                <div class="music-player reveal">
 
                     <button
                         id="music-toggle"
@@ -328,26 +372,33 @@
                         ▶
                     </button>
 
-
                     <div class="music-information">
 
-                        <span class="music-label">
-                            NOW PLAYING
-                        </span>
+                        <span>NOW PLAYING</span>
 
-                        <span class="music-title">
+                        <strong>
                             Drake · Nation Treasures
-                        </span>
+                        </strong>
 
                     </div>
 
-
                     <canvas
                         id="waveform"
-                        width="260"
-                        height="55">
+                        width="420"
+                        height="60">
                     </canvas>
 
+                </div>
+
+            </div>
+
+
+            <div class="scroll-indicator">
+
+                <span>SCROLL</span>
+
+                <div class="scroll-line">
+                    <i></i>
                 </div>
 
             </div>
@@ -355,45 +406,49 @@
         </section>
 
 
-        <!-- =========================
+        <!-- =====================================
              EXPERIENCE
-        ========================== -->
+        ====================================== -->
 
         <section
             id="experience-section"
-            class="experience-section">
+            class="experience-section section">
 
-            <div class="experience-container">
+            <div class="section-container">
 
-                <div class="section-heading">
+                <div class="section-heading reveal">
 
-                    <span>
-                        EXPERIENCE
+                    <span class="section-number">
+                        01 / EXPERIENCE
                     </span>
 
                     <h2>
-                        What I Do
+                        What I Do<span>.</span>
                     </h2>
 
                     <p>
-                        Developer, screensharer and competitive Minecraft player.
+                        A collection of experience across development,
+                        screensharing and competitive Minecraft.
                     </p>
 
                 </div>
 
 
-                <div class="experience-grid">
+                <div class="experience-list">
 
 
-                    <!-- DEVELOPMENT -->
+                    <article
+                        class="experience-item tilt-card reveal">
 
-                    <article class="experience-card">
-
-                        <div class="experience-icon">
-                            &lt;/&gt;
+                        <div class="item-number">
+                            01
                         </div>
 
-                        <div>
+                        <div class="item-main">
+
+                            <div class="item-label">
+                                DEVELOPMENT
+                            </div>
 
                             <h3>
                                 Development
@@ -404,30 +459,37 @@
                                 screenshare tools and more.
                             </p>
 
-                            <div class="languages">
-                                5+ Years Experience Java
-                            <br>
-                                6+ Years Experience JavaScript
-                            <br>
-                                4+ Years Experience Python
-                            <br>
-                                4+ Years Experience C++
+                            <div class="tech-tags">
+
+                                <span>JAVA</span>
+                                <span>PYTHON</span>
+                                <span>C++</span>
+                                <span>JAVASCRIPT</span>
+                                <span>MORE</span>
+
                             </div>
 
+                        </div>
+
+                        <div class="item-arrow">
+                            ↗
                         </div>
 
                     </article>
 
 
-                    <!-- SCREENSHARING -->
+                    <article
+                        class="experience-item tilt-card reveal">
 
-                    <article class="experience-card">
-
-                        <div class="experience-icon">
-                            ◉
+                        <div class="item-number">
+                            02
                         </div>
 
-                        <div>
+                        <div class="item-main">
+
+                            <div class="item-label">
+                                SCREENSHARING
+                            </div>
 
                             <h3>
                                 Screensharing
@@ -438,50 +500,211 @@
                                 2+ years of experience.
                             </p>
 
-                            <div class="experience-list">
-                                Current Staff · Ocean anticheat
-                                <br>
-                                Former SSER · Certify Network
-                                <br>
-                                Former SSER · Kum Network
-                                <br>
-                                Former SSER · MetaTiers
-                                 <br>
-                                Former SSER · BJTL
+                            <div class="experience-details">
+
+                                <span>Former SSER · KryptonSmp</span>
+                                <span>Former SSER · CertifyFFA</span>
+                                <span>Former Helper · Anticheat.ac</span>
+
                             </div>
 
+                        </div>
+
+                        <div class="item-arrow">
+                            ↗
                         </div>
 
                     </article>
 
 
-                    <!-- MINECRAFT -->
+                    <article
+                        class="experience-item tilt-card reveal">
 
-                    <article class="experience-card">
-
-                        <div class="experience-icon">
-                            ◆
+                        <div class="item-number">
+                            03
                         </div>
 
-                        <div>
+                        <div class="item-main">
+
+                            <div class="item-label">
+                                COMPETITIVE MINECRAFT
+                            </div>
 
                             <h3>
                                 Competitive Minecraft
                             </h3>
 
                             <p>
-                                Competitive Minecraft Player with
+                                Competitive Minecraft player with
                                 experience across different communities.
                             </p>
 
-                            <div class="experience-list">
-                                Restricted 4x HT3, 2x LT2 · McTiers.com
-                                <br>
-                                Restricted Top 10 · McPvP.com
-                                <br>
-                                Top 40 Global · Catpvp.xyz
-                                <br>
-                                Best Speedrun 10:47.29 · MCSR
+                            <div class="experience-details">
+
+                                <span>Tiers · 4x HT3 · 1x LT2</span>
+                                <span>#21 MCPVP.com · #37 CatPvP</span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="item-arrow">
+                            ↗
+                        </div>
+
+                    </article>
+
+
+                    <article
+                        class="experience-item tilt-card reveal">
+
+                        <div class="item-number">
+                            04
+                        </div>
+
+                        <div class="item-main">
+
+                            <div class="item-label">
+                                COMMUNITIES
+                            </div>
+
+                            <h3>
+                                Communities
+                            </h3>
+
+                            <p>
+                                Communities and projects I've been
+                                involved with.
+                            </p>
+
+                            <div class="community-mini-list">
+
+                                <a
+                                    href="https://discord.gg/Tet3kUDjW7"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    trace.ac ↗
+                                </a>
+
+                                <a
+                                    href="https://discord.gg/n7hNV4797w"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    Texture Packs ↗
+                                </a>
+
+                                <a
+                                    href="https://discord.gg/syBqCkRPvD"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    RSTD ↗
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="item-arrow">
+                            ↗
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             PROJECTS
+        ====================================== -->
+
+        <section
+            id="projects-section"
+            class="projects-section section">
+
+            <div class="section-container">
+
+                <div class="section-heading reveal">
+
+                    <span class="section-number">
+                        02 / PROJECTS
+                    </span>
+
+                    <h2>
+                        Selected Work<span>.</span>
+                    </h2>
+
+                    <p>
+                        Projects, tools and digital work.
+                    </p>
+
+                </div>
+
+
+                <div class="project-grid">
+
+
+                    <article
+                        class="project-card project-large tilt-card reveal">
+
+                        <div class="project-number">
+                            01
+                        </div>
+
+                        <div class="project-content">
+
+                            <span>COMMUNITY</span>
+
+                            <h3>
+                                trace.ac
+                            </h3>
+
+                            <p>
+                                A community-focused project built
+                                around Minecraft and digital development.
+                            </p>
+
+                            <a
+                                href="https://discord.gg/Tet3kUDjW7"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="project-link magnetic">
+                                Explore ↗
+                            </a>
+
+                        </div>
+
+                        <div class="project-orb"></div>
+
+                    </article>
+
+
+                    <article
+                        class="project-card tilt-card reveal">
+
+                        <div class="project-number">
+                            02
+                        </div>
+
+                        <div class="project-content">
+
+                            <span>PROJECT</span>
+
+                            <h3>
+                                Premium Bypass Methods
+                            </h3>
+
+                            <p>
+                                A project name and concept presented
+                                as part of the NxrDonut portfolio.
+                            </p>
+
+                            <div class="project-tags">
+                                <span>PRIVATE</span>
+                                <span>PROJECT</span>
                             </div>
 
                         </div>
@@ -489,48 +712,61 @@
                     </article>
 
 
-                    <!-- COMMUNITY -->
+                    <article
+                        class="project-card tilt-card reveal">
 
-                    <article class="experience-card">
-
-                        <div class="experience-icon">
-                            +
+                        <div class="project-number">
+                            03
                         </div>
 
-                        <div>
+                        <div class="project-content">
+
+                            <span>MCBE</span>
 
                             <h3>
-                                Communities
+                                Blackfish Client
                             </h3>
 
                             <p>
-                                Owner of online communities and
-                                projects.
+                                Interactive client showcase and
+                                interface concept.
                             </p>
 
-                            <a
-                                class="community-link"
-                                href="https://discord.gg/Tet3kUDjW7"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                Join trace.ac ↗
-                            </a>
+                            <button
+                                class="project-link blackfish-open magnetic">
+                                Open Showcase ↗
+                            </button>
 
-                            <a
-                                class="community-link"
-                                href="https://discord.gg/n7hNV4797w"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                Join Texture Packs ↗
-                            </a>
+                        </div>
 
-                            <a
-                                class="community-link"
-                                href="https://discord.gg/rstd"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                Join RSTD ↗
-                            </a>
+                    </article>
+
+
+                    <article
+                        class="project-card project-large tilt-card reveal">
+
+                        <div class="project-number">
+                            04
+                        </div>
+
+                        <div class="project-content">
+
+                            <span>TOOLS</span>
+
+                            <h3>
+                                Screenshare Tools
+                            </h3>
+
+                            <p>
+                                Development work focused on
+                                screensharing and moderation tooling.
+                            </p>
+
+                            <div class="project-tags">
+                                <span>JAVA</span>
+                                <span>PYTHON</span>
+                                <span>TOOLS</span>
+                            </div>
 
                         </div>
 
@@ -543,33 +779,375 @@
         </section>
 
 
-        <!-- =========================
+        <!-- =====================================
+             BLACKFISH SHOWCASE
+        ====================================== -->
+
+        <section
+            id="blackfish-section"
+            class="blackfish-section section">
+
+            <div class="section-container">
+
+                <div class="blackfish-header reveal">
+
+                    <div>
+
+                        <span class="section-number">
+                            03 / BLACKFISH
+                        </span>
+
+                        <h2>
+                            Built to be explored<span>.</span>
+                        </h2>
+
+                    </div>
+
+                    <p>
+                        Drag the interface. Move your cursor.
+                        Explore the concept.
+                    </p>
+
+                </div>
+
+
+                <div class="blackfish-stage">
+
+                    <div class="blackfish-light"></div>
+
+                    <div
+                        id="blackfish-device"
+                        class="blackfish-device">
+
+                        <div class="device-shadow"></div>
+
+                        <div class="device-body">
+
+                            <div class="device-top">
+
+                                <span>
+                                    BLACKFISH
+                                </span>
+
+                                <span>
+                                    MCBE
+                                </span>
+
+                            </div>
+
+
+                            <div class="device-screen">
+
+                                <div class="screen-top">
+
+                                    <strong>
+                                        BLACKFISH
+                                    </strong>
+
+                                    <span>
+                                        v2.0
+                                    </span>
+
+                                </div>
+
+
+                                <div class="screen-layout">
+
+                                    <aside class="screen-sidebar">
+
+                                        <button
+                                            class="client-tab active"
+                                            data-panel="combat">
+                                            Combat
+                                        </button>
+
+                                        <button
+                                            class="client-tab"
+                                            data-panel="visuals">
+                                            Visuals
+                                        </button>
+
+                                        <button
+                                            class="client-tab"
+                                            data-panel="hud">
+                                            HUD
+                                        </button>
+
+                                        <button
+                                            class="client-tab"
+                                            data-panel="settings">
+                                            Settings
+                                        </button>
+
+                                    </aside>
+
+
+                                    <div class="screen-content">
+
+                                        <div
+                                            class="client-panel active"
+                                            data-panel-content="combat">
+
+                                            <small>
+                                                COMBAT
+                                            </small>
+
+                                            <h4>
+                                                Combat Interface
+                                            </h4>
+
+                                            <div class="fake-setting">
+                                                <span>Module</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>Configuration</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>Profile</span>
+                                                <i></i>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div
+                                            class="client-panel"
+                                            data-panel-content="visuals">
+
+                                            <small>
+                                                VISUALS
+                                            </small>
+
+                                            <h4>
+                                                Visual Interface
+                                            </h4>
+
+                                            <div class="fake-setting">
+                                                <span>Interface</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>Theme</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>Effects</span>
+                                                <i></i>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div
+                                            class="client-panel"
+                                            data-panel-content="hud">
+
+                                            <small>
+                                                HUD
+                                            </small>
+
+                                            <h4>
+                                                HUD Interface
+                                            </h4>
+
+                                            <div class="fake-setting">
+                                                <span>Layout</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>Elements</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>Position</span>
+                                                <i></i>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div
+                                            class="client-panel"
+                                            data-panel-content="settings">
+
+                                            <small>
+                                                SETTINGS
+                                            </small>
+
+                                            <h4>
+                                                Client Settings
+                                            </h4>
+
+                                            <div class="fake-setting">
+                                                <span>General</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>Interface</span>
+                                                <i></i>
+                                            </div>
+
+                                            <div class="fake-setting">
+                                                <span>About</span>
+                                                <i></i>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="device-bottom">
+
+                                <span></span>
+
+                                <strong>
+                                    BLACKFISH
+                                </strong>
+
+                                <span></span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="blackfish-info info-one">
+                        <span>01</span>
+                        INTERACTIVE UI
+                    </div>
+
+                    <div class="blackfish-info info-two">
+                        <span>02</span>
+                        MCBE
+                    </div>
+
+                    <div class="blackfish-info info-three">
+                        <span>03</span>
+                        PRODUCT CONCEPT
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
+             COMMUNITIES
+        ====================================== -->
+
+        <section
+            class="communities-section section">
+
+            <div class="section-container">
+
+                <div class="section-heading reveal">
+
+                    <span class="section-number">
+                        04 / COMMUNITIES
+                    </span>
+
+                    <h2>
+                        Places I’m involved<span>.</span>
+                    </h2>
+
+                </div>
+
+
+                <div class="community-list reveal">
+
+                    <a
+                        href="https://discord.gg/Tet3kUDjW7"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="community-row">
+
+                        <div>
+                            <span>01</span>
+                            <strong>trace.ac</strong>
+                        </div>
+
+                        <span>Join ↗</span>
+
+                    </a>
+
+
+                    <a
+                        href="https://discord.gg/n7hNV4797w"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="community-row">
+
+                        <div>
+                            <span>02</span>
+                            <strong>Texture Packs</strong>
+                        </div>
+
+                        <span>Join ↗</span>
+
+                    </a>
+
+
+                    <a
+                        href="https://discord.gg/syBqCkRPvD"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="community-row">
+
+                        <div>
+                            <span>03</span>
+                            <strong>RSTD</strong>
+                        </div>
+
+                        <span>Join ↗</span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================
              FOOTER
-        ========================== -->
+        ====================================== -->
 
         <footer>
-            NxrDonut · 2026
+
+            <div class="footer-brand">
+                NxrDonut
+            </div>
+
+            <p>
+                Developer · Screensharer · Competitive Minecraft Player
+            </p>
+
+            <span>
+                © 2026 NxrDonut
+            </span>
+
         </footer>
 
     </main>
-
-
-    <!-- =========================
-         VIEWS POPUP
-    ========================== -->
-
-    <div id="views-popup">
-
-        <span>
-            PROFILE VIEWS
-        </span>
-
-        <strong>
-            2,981
-        </strong>
-
-    </div>
-
 
     <script src="./script.js"></script>
 
