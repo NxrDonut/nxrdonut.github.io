@@ -2,186 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>NxrDonut — Developer · Screensharer</title>
-
-  <meta
-    name="description"
-    content="NxrDonut — Developer, screensharer and digital creator."
-  >
+  <meta name="description" content="NxrDonut — Developer and Screensharer.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  >
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   >
 
-  <link
-    rel="stylesheet"
-    href="./style.css"
-  >
+  <link rel="stylesheet" href="./style.css">
 </head>
 
 <body class="locked">
 
-  <!-- =====================================================
-       INTRO
-  ====================================================== -->
-
+  <!-- INTRO -->
   <div
     class="intro"
     id="intro"
     tabindex="0"
     role="button"
-    aria-label="Enter portfolio"
+    aria-label="Enter experience"
   >
-
-    <div class="intro-noise"></div>
-
-    <div class="intro-center">
-
-      <div class="intro-mark">
-        N
-      </div>
-
-      <div class="intro-title">
-        NXR<span>DONUT</span>
-      </div>
-
-      <div class="intro-line"></div>
-
-      <div class="intro-prompt">
-        <span class="intro-dot"></span>
-        CLICK ANYWHERE
-      </div>
-
+    <div class="intro-content">
+      <span class="intro-title">ENTER EXPERIENCE</span>
+      <span class="intro-subtitle">CLICK ANYWHERE</span>
     </div>
-
-    <div class="intro-corner intro-corner-top">
-      01 / 01
-    </div>
-
-    <div class="intro-corner intro-corner-bottom">
-      ENTER EXPERIENCE
-    </div>
-
   </div>
 
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
 
-  <!-- =====================================================
-       CUSTOM CURSOR
-  ====================================================== -->
-
-  <div
-    class="cursor"
-    id="cursor"
-  ></div>
-
-  <div
-    class="cursor-dot"
-    id="cursorDot"
-  ></div>
-
-
-  <!-- =====================================================
-       NAVIGATION
-  ====================================================== -->
-
+  <!-- NAV -->
   <header class="nav">
-
-    <a
-      href="#top"
-      class="nav-logo"
-    >
-      NXRDONUT
-    </a>
+    <a href="#top" class="nav-logo">NXRDONUT</a>
 
     <nav class="nav-links">
-
-      <a href="#bio">
-        Bio
-      </a>
-
-      <a href="#experience">
-        Experience
-      </a>
-
-      <a href="#projects">
-        Projects
-      </a>
-
+      <a href="#bio">Bio</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
     </nav>
 
     <div class="nav-status">
-
       <span class="status-dot"></span>
-
       AVAILABLE
-
     </div>
-
   </header>
-
-
-  <!-- =====================================================
-       MAIN
-  ====================================================== -->
 
   <main id="top">
 
-
-    <!-- ===================================================
-         HERO
-    ==================================================== -->
-
-    <section
-      class="hero"
-      id="bio"
-    >
+    <!-- HERO -->
+    <section class="hero" id="bio">
 
       <div class="hero-background">
-
         <div class="hero-grid"></div>
-
         <div class="hero-glow"></div>
-
       </div>
-
 
       <div class="hero-inner">
 
         <div class="hero-label">
-
           <span>01</span>
-
           <span>PROFILE</span>
-
         </div>
-
 
         <div class="hero-main">
 
           <div class="pfp-wrap">
-
             <img
               src="./pfp.jpg"
               alt="NxrDonut"
               class="pfp"
+              id="pfp"
             >
-
           </div>
-
 
           <div class="hero-copy">
 
@@ -189,131 +88,68 @@
               DEVELOPER · SCREENSHARER
             </div>
 
-            <h1>
-              NxrDonut
-            </h1>
+            <h1>NxrDonut</h1>
 
             <p class="hero-description">
-              I build software, interfaces and digital
-              experiences with a focus on precision,
-              simplicity and detail.
+              I build software, interfaces and digital experiences
+              with a focus on precision, simplicity and detail.
             </p>
 
-
             <div class="hero-actions">
-
-              <a
-                href="#projects"
-                class="button button-primary"
-              >
+              <a href="#projects" class="button button-primary">
                 View Projects
                 <span>↗</span>
               </a>
 
-              <a
-                href="#experience"
-                class="button button-secondary"
-              >
+              <a href="#experience" class="button button-secondary">
                 Experience
               </a>
-
             </div>
 
           </div>
-
         </div>
 
-
         <!-- MUSIC -->
-
         <div class="music-player">
 
           <button
             class="music-play"
             id="musicPlay"
-            type="button"
             aria-label="Play music"
           >
-            <span class="play-icon">
-              ▶
-            </span>
+            <span class="play-icon">▶</span>
           </button>
 
-
           <div class="music-info">
-
-            <span class="music-label">
-              NOW PLAYING
-            </span>
-
-            <span class="music-title">
-              Drake · Nation Treasures
-            </span>
-
+            <span class="music-label">NOW PLAYING</span>
+            <span class="music-title">Drake · Nation Treasures</span>
           </div>
 
-
-          <div
-            class="waveform"
-            id="waveform"
-          >
-
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-            <i></i>
-
+          <div class="waveform" id="waveform">
+            <i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i>
           </div>
 
-
-          <span
-            class="music-time"
-            id="musicTime"
-          >
+          <span class="music-time" id="musicTime">
             00:00
           </span>
 
         </div>
 
       </div>
-
     </section>
 
-
-    <!-- ===================================================
-         SOCIALS
-    ==================================================== -->
-
+    <!-- SOCIALS -->
     <section class="social-section">
 
       <div class="section-label">
-
         <span>02</span>
-
         <span>CONNECT</span>
-
       </div>
 
-
       <div class="social-grid">
-
 
         <a
           href="https://discord.com/users/873534867210637333"
@@ -321,30 +157,15 @@
           rel="noopener noreferrer"
           class="social-card"
         >
+          <img src="./icons/discord.png" alt="Discord">
 
-          <img
-            src="./icons/discord.png"
-            alt="Discord"
-          >
-
-          <div class="social-card-info">
-
-            <span class="social-name">
-              Discord
-            </span>
-
-            <span class="social-handle">
-              nxrdonut
-            </span>
-
+          <div>
+            <span class="social-name">Discord</span>
+            <span class="social-handle">nxrdonut</span>
           </div>
 
-          <span class="social-arrow">
-            ↗
-          </span>
-
+          <span class="social-arrow">↗</span>
         </a>
-
 
         <a
           href="https://www.youtube.com/@nxrdonut"
@@ -352,30 +173,15 @@
           rel="noopener noreferrer"
           class="social-card"
         >
+          <img src="./icons/youtube.png" alt="YouTube">
 
-          <img
-            src="./icons/youtube.png"
-            alt="YouTube"
-          >
-
-          <div class="social-card-info">
-
-            <span class="social-name">
-              YouTube
-            </span>
-
-            <span class="social-handle">
-              @nxrdonut
-            </span>
-
+          <div>
+            <span class="social-name">YouTube</span>
+            <span class="social-handle">@nxrdonut</span>
           </div>
 
-          <span class="social-arrow">
-            ↗
-          </span>
-
+          <span class="social-arrow">↗</span>
         </a>
-
 
         <a
           href="https://www.tiktok.com/@rcvol_"
@@ -383,30 +189,15 @@
           rel="noopener noreferrer"
           class="social-card"
         >
+          <img src="./icons/tiktok.png" alt="TikTok">
 
-          <img
-            src="./icons/tiktok.png"
-            alt="TikTok"
-          >
-
-          <div class="social-card-info">
-
-            <span class="social-name">
-              TikTok
-            </span>
-
-            <span class="social-handle">
-              @rcvol_
-            </span>
-
+          <div>
+            <span class="social-name">TikTok</span>
+            <span class="social-handle">@rcvol_</span>
           </div>
 
-          <span class="social-arrow">
-            ↗
-          </span>
-
+          <span class="social-arrow">↗</span>
         </a>
-
 
         <a
           href="https://github.com/nxrdonut"
@@ -414,263 +205,157 @@
           rel="noopener noreferrer"
           class="social-card"
         >
+          <img src="./icons/github.png" alt="GitHub">
 
-          <img
-            src="./icons/github.png"
-            alt="GitHub"
-          >
-
-          <div class="social-card-info">
-
-            <span class="social-name">
-              GitHub
-            </span>
-
-            <span class="social-handle">
-              @nxrdonut
-            </span>
-
+          <div>
+            <span class="social-name">GitHub</span>
+            <span class="social-handle">@nxrdonut</span>
           </div>
 
-          <span class="social-arrow">
-            ↗
-          </span>
-
+          <span class="social-arrow">↗</span>
         </a>
 
       </div>
-
     </section>
 
-
-    <!-- ===================================================
-         EXPERIENCE
-    ==================================================== -->
-
-    <section
-      class="section"
-      id="experience"
-    >
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
 
       <div class="section-heading">
 
         <div class="section-label">
-
           <span>03</span>
-
           <span>BACKGROUND</span>
-
         </div>
 
-        <h2>
-          Experience
-        </h2>
+        <h2>Experience</h2>
 
       </div>
-
 
       <div class="experience-grid">
 
-
         <article class="experience-card reveal">
 
-          <span class="card-number">
-            01
-          </span>
+          <span class="card-number">01</span>
 
           <div class="experience-content">
 
-            <span class="card-kicker">
-              DEVELOPMENT
-            </span>
-
-            <h3>
-              Development
-            </h3>
+            <h3>Development</h3>
 
             <p>
               I develop software, websites, interfaces,
-              screenshare utilities and interactive
-              digital experiences.
+              screenshare utilities, custom systems and
+              interactive digital experiences.
             </p>
 
             <div class="language-row">
-
-              <span>
-                SOFTWARE
-              </span>
-
-              <span>
-                WEB
-              </span>
-
-              <span>
-                UI
-              </span>
-
+              <span>SOFTWARE</span>
+              <span>WEB</span>
+              <span>UI</span>
             </div>
 
           </div>
 
         </article>
 
-
         <article class="experience-card reveal">
 
-          <span class="card-number">
-            02
-          </span>
+          <span class="card-number">02</span>
 
           <div class="experience-content">
 
-            <span class="card-kicker">
-              COMMUNITIES
-            </span>
+            <h3>Screensharing</h3>
 
-            <h3>
-              Screensharing
-            </h3>
+            <p class="experience-line">
+              Former SS Manager · Kum Network
+            </p>
 
-            <div class="experience-list">
+            <p class="experience-line">
+              Former Head SSER · Certify Network
+            </p>
 
-              <p>
-                Former SS Manager · Kum Network
-              </p>
+            <p class="experience-line">
+              Former SSER · BJTL
+            </p>
 
-              <p>
-                Former Head SSER · Certify Network
-              </p>
+            <p class="experience-line">
+              Former SSER · TitanFFA
+            </p>
 
-              <p>
-                Former SSER · BJTL
-              </p>
-
-              <p>
-                Former SSER · TitanFFA
-              </p>
-
-              <p>
-                Current PC Checker · Ocean anticheat.ac
-              </p>
-
-            </div>
+            <p class="experience-line">
+              Current PC Checker · Ocean anticheat.ac
+            </p>
 
           </div>
 
         </article>
 
-
         <article class="experience-card reveal">
 
-          <span class="card-number">
-            03
-          </span>
+          <span class="card-number">03</span>
 
           <div class="experience-content">
 
-            <span class="card-kicker">
-              COMPETITIVE
-            </span>
+            <h3>Competitive Minecraft</h3>
 
-            <h3>
-              Competitive Minecraft
-            </h3>
+            <p class="experience-line">
+              Tiers · 6x HT3 · 1x LT2
+            </p>
 
-            <div class="experience-list">
+            <p class="experience-line">
+              Restricted #5 Mcpvp.com Global
+            </p>
 
-              <p>
-                Tiers · 6x HT3 · 1x LT2
-              </p>
-
-              <p>
-                Restricted #5 Mcpvp.com Global
-              </p>
-
-              <p>
-                MCSR Best 11.09:12
-              </p>
-
-            </div>
+            <p class="experience-line">
+              MCSR Best 11.09:12
+            </p>
 
           </div>
 
         </article>
 
       </div>
-
     </section>
 
-
-    <!-- ===================================================
-         PROJECTS
-    ==================================================== -->
-
-    <section
-      class="section projects-section"
-      id="projects"
-    >
+    <!-- PROJECTS -->
+    <section class="section projects-section" id="projects">
 
       <div class="section-heading">
 
         <div class="section-label">
-
           <span>04</span>
-
           <span>SELECTED WORK</span>
-
         </div>
 
-        <h2>
-          My Projects
-        </h2>
+        <h2>My Projects</h2>
 
       </div>
 
-
       <div class="projects-grid">
-
-
-        <!-- CLOSET -->
 
         <article
           class="project-card reveal"
+          id="closetProject"
         >
 
           <div class="project-top">
-
-            <span class="project-index">
-              01
-            </span>
-
-            <span class="project-status">
-              INTERACTIVE
-            </span>
-
+            <span class="project-index">01</span>
+            <span class="project-status">INTERACTIVE</span>
           </div>
-
 
           <div class="project-content">
 
-            <span class="project-kicker">
-              INTERFACE CONCEPT
-            </span>
-
-            <h3>
-              Closet Cheats
-            </h3>
+            <h3>Closet Cheats</h3>
 
             <p>
-              An interactive desktop-style interface
-              concept featuring modular controls,
-              configuration panels and a polished
-              visual system.
+              An interactive visual interface concept featuring
+              modular controls, configuration panels and a
+              polished desktop-style experience.
             </p>
-
 
             <button
               class="project-open"
               id="openShowcase"
-              type="button"
             >
               Open Showcase
               <span>↗</span>
@@ -680,40 +365,21 @@
 
         </article>
 
-
-        <!-- PREMIUM SYSTEMS -->
-
-        <article
-          class="project-card reveal"
-        >
+        <article class="project-card reveal">
 
           <div class="project-top">
-
-            <span class="project-index">
-              02
-            </span>
-
-            <span class="project-status">
-              DEVELOPMENT
-            </span>
-
+            <span class="project-index">02</span>
+            <span class="project-status">DEVELOPMENT</span>
           </div>
-
 
           <div class="project-content">
 
-            <span class="project-kicker">
-              CUSTOM SYSTEMS
-            </span>
-
-            <h3>
-              Custom Premium Bypass Methods
-            </h3>
+            <h3>Custom Premium Bypass Methods</h3>
 
             <p>
-              A premium systems concept exploring
-              modular configuration, polished tooling
-              and high-fidelity interface design.
+              A premium systems concept exploring modular
+              configuration, privacy-focused tooling and
+              high-fidelity interface design.
             </p>
 
             <span class="project-tag">
@@ -725,35 +391,23 @@
         </article>
 
       </div>
-
     </section>
 
-
-    <!-- ===================================================
-         COMMUNITIES
-    ==================================================== -->
-
-    <section class="section communities">
+    <!-- COMMUNITIES -->
+    <section class="communities section">
 
       <div class="section-heading">
 
         <div class="section-label">
-
           <span>05</span>
-
           <span>COMMUNITIES</span>
-
         </div>
 
-        <h2>
-          Communities
-        </h2>
+        <h2>Communities</h2>
 
       </div>
 
-
       <div class="community-grid">
-
 
         <a
           href="https://discord.gg/Tet3kUDjW7"
@@ -761,21 +415,10 @@
           rel="noopener noreferrer"
           class="community-card"
         >
-
-          <span>
-            trace.ac
-          </span>
-
-          <small>
-            Discord Community
-          </small>
-
-          <b>
-            ↗
-          </b>
-
+          <span>trace.ac</span>
+          <small>Discord Community</small>
+          <b>↗</b>
         </a>
-
 
         <a
           href="https://discord.gg/n7hNV4797w"
@@ -783,21 +426,10 @@
           rel="noopener noreferrer"
           class="community-card"
         >
-
-          <span>
-            Texture Packs
-          </span>
-
-          <small>
-            Discord Community
-          </small>
-
-          <b>
-            ↗
-          </b>
-
+          <span>Texture Packs</span>
+          <small>Discord Community</small>
+          <b>↗</b>
         </a>
-
 
         <a
           href="https://discord.gg/syBqCkRPvD"
@@ -805,78 +437,36 @@
           rel="noopener noreferrer"
           class="community-card"
         >
-
-          <span>
-            RSTD
-          </span>
-
-          <small>
-            Discord Community
-          </small>
-
-          <b>
-            ↗
-          </b>
-
+          <span>RSTD</span>
+          <small>Discord Community</small>
+          <b>↗</b>
         </a>
 
       </div>
-
     </section>
 
   </main>
 
-
-  <!-- =====================================================
-       SHOWCASE
-  ====================================================== -->
-
-  <div
-    class="showcase"
-    id="showcase"
-    aria-hidden="true"
-  >
+  <!-- SHOWCASE -->
+  <div class="showcase" id="showcase">
 
     <div class="showcase-backdrop"></div>
 
-
-    <div
-      class="showcase-window"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Closet Cheats showcase"
-    >
-
-
-      <!-- TOP BAR -->
+    <div class="showcase-window">
 
       <div class="showcase-header">
 
-        <div class="showcase-brand">
+        <div>
+          <span class="showcase-overline">
+            INTERACTIVE PROJECT
+          </span>
 
-          <div class="showcase-logo">
-            C
-          </div>
-
-          <div>
-
-            <span class="showcase-overline">
-              INTERACTIVE PROJECT
-            </span>
-
-            <h2>
-              Closet Cheats
-            </h2>
-
-          </div>
-
+          <h2>Closet Cheats</h2>
         </div>
-
 
         <button
           class="showcase-close"
           id="closeShowcase"
-          type="button"
           aria-label="Close showcase"
         >
           ×
@@ -884,107 +474,43 @@
 
       </div>
 
-
-      <!-- BODY -->
-
       <div class="showcase-body">
 
-
-        <!-- SIDEBAR -->
-
         <aside class="showcase-sidebar">
-
-          <div class="sidebar-label">
-            MODULES
-          </div>
-
 
           <button
             class="showcase-tab active"
             data-tab="combat"
-            type="button"
           >
-
-            <span class="tab-number">
-              01
-            </span>
-
-            <span>
-              Combat
-            </span>
-
+            Combat
           </button>
-
 
           <button
             class="showcase-tab"
             data-tab="visuals"
-            type="button"
           >
-
-            <span class="tab-number">
-              02
-            </span>
-
-            <span>
-              Visuals
-            </span>
-
+            Visuals
           </button>
-
 
           <button
             class="showcase-tab"
             data-tab="hud"
-            type="button"
           >
-
-            <span class="tab-number">
-              03
-            </span>
-
-            <span>
-              HUD
-            </span>
-
+            HUD
           </button>
-
 
           <button
             class="showcase-tab"
             data-tab="settings"
-            type="button"
           >
-
-            <span class="tab-number">
-              04
-            </span>
-
-            <span>
-              Settings
-            </span>
-
+            Settings
           </button>
-
-
-          <div class="sidebar-status">
-
-            <span class="status-dot"></span>
-
-            PREVIEW MODE
-
-          </div>
 
         </aside>
 
-
-        <!-- CONTENT -->
-
         <div class="showcase-content">
 
-
           <!-- COMBAT -->
-
           <div
             class="module-panel active"
             data-panel="combat"
@@ -993,100 +519,60 @@
             <div class="module-header">
 
               <div>
-
-                <span>
-                  01
-                </span>
-
-                <h3>
-                  Combat
-                </h3>
-
-                <p>
-                  Visual configuration preview
-                </p>
-
+                <span>01</span>
+                <h3>Combat</h3>
               </div>
 
               <span class="module-count">
-                <b>0</b>
-                ACTIVE
+                <b id="combatCount">0</b> ACTIVE
               </span>
 
             </div>
 
-
             <div class="module-list">
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Aim Assist
-                  </strong>
-
-                  <small>
-                    Visual configuration preview
-                  </small>
-
+                <div>
+                  <strong>Aim Assist</strong>
+                  <small>Visual configuration preview</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Aim Assist"
+                  data-module="Aim Assist"
                 >
                   <span></span>
                 </button>
 
               </div>
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Click Visualizer
-                  </strong>
-
-                  <small>
-                    Input visualization
-                  </small>
-
+                <div>
+                  <strong>Click Visualizer</strong>
+                  <small>Input visualization</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Click Visualizer"
+                  data-module="Click Visualizer"
                 >
                   <span></span>
                 </button>
 
               </div>
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Target HUD
-                  </strong>
-
-                  <small>
-                    Interface preview
-                  </small>
-
+                <div>
+                  <strong>Target HUD</strong>
+                  <small>Interface preview</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Target HUD"
+                  data-module="Target HUD"
                 >
                   <span></span>
                 </button>
@@ -1094,12 +580,9 @@
               </div>
 
             </div>
-
           </div>
 
-
           <!-- VISUALS -->
-
           <div
             class="module-panel"
             data-panel="visuals"
@@ -1108,100 +591,60 @@
             <div class="module-header">
 
               <div>
-
-                <span>
-                  02
-                </span>
-
-                <h3>
-                  Visuals
-                </h3>
-
-                <p>
-                  Interface visualization controls
-                </p>
-
+                <span>02</span>
+                <h3>Visuals</h3>
               </div>
 
               <span class="module-count">
-                <b>0</b>
-                ACTIVE
+                <b id="visualsCount">0</b> ACTIVE
               </span>
 
             </div>
 
-
             <div class="module-list">
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    ESP Preview
-                  </strong>
-
-                  <small>
-                    Visual overlay concept
-                  </small>
-
+                <div>
+                  <strong>ESP Preview</strong>
+                  <small>Visual overlay concept</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle ESP Preview"
+                  data-module="ESP Preview"
                 >
                   <span></span>
                 </button>
 
               </div>
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Tracers
-                  </strong>
-
-                  <small>
-                    Visual line preview
-                  </small>
-
+                <div>
+                  <strong>Tracers</strong>
+                  <small>Visual line preview</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Tracers"
+                  data-module="Tracers"
                 >
                   <span></span>
                 </button>
 
               </div>
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Motion Blur
-                  </strong>
-
-                  <small>
-                    Interface visual effect
-                  </small>
-
+                <div>
+                  <strong>Motion Blur</strong>
+                  <small>Interface visual effect</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Motion Blur"
+                  data-module="Motion Blur"
                 >
                   <span></span>
                 </button>
@@ -1209,12 +652,9 @@
               </div>
 
             </div>
-
           </div>
 
-
           <!-- HUD -->
-
           <div
             class="module-panel"
             data-panel="hud"
@@ -1223,100 +663,60 @@
             <div class="module-header">
 
               <div>
-
-                <span>
-                  03
-                </span>
-
-                <h3>
-                  HUD
-                </h3>
-
-                <p>
-                  Information display concepts
-                </p>
-
+                <span>03</span>
+                <h3>HUD</h3>
               </div>
 
               <span class="module-count">
-                <b>0</b>
-                ACTIVE
+                <b id="hudCount">0</b> ACTIVE
               </span>
 
             </div>
 
-
             <div class="module-list">
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Array List
-                  </strong>
-
-                  <small>
-                    Active module display
-                  </small>
-
+                <div>
+                  <strong>Array List</strong>
+                  <small>Active module display</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Array List"
+                  data-module="Array List"
                 >
                   <span></span>
                 </button>
 
               </div>
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Watermark
-                  </strong>
-
-                  <small>
-                    Branding preview
-                  </small>
-
+                <div>
+                  <strong>Watermark</strong>
+                  <small>Branding preview</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Watermark"
+                  data-module="Watermark"
                 >
                   <span></span>
                 </button>
 
               </div>
 
-
               <div class="module">
 
-                <div class="module-copy">
-
-                  <strong>
-                    Coordinates
-                  </strong>
-
-                  <small>
-                    Information display
-                  </small>
-
+                <div>
+                  <strong>Coordinates</strong>
+                  <small>Information display</small>
                 </div>
 
                 <button
                   class="toggle"
-                  type="button"
-                  aria-label="Toggle Coordinates"
+                  data-module="Coordinates"
                 >
                   <span></span>
                 </button>
@@ -1324,12 +724,9 @@
               </div>
 
             </div>
-
           </div>
 
-
           <!-- SETTINGS -->
-
           <div
             class="module-panel"
             data-panel="settings"
@@ -1338,19 +735,8 @@
             <div class="module-header">
 
               <div>
-
-                <span>
-                  04
-                </span>
-
-                <h3>
-                  Settings
-                </h3>
-
-                <p>
-                  Adjust the showcase appearance
-                </p>
-
+                <span>04</span>
+                <h3>Settings</h3>
               </div>
 
               <span class="module-count">
@@ -1359,22 +745,13 @@
 
             </div>
 
-
             <div class="settings-list">
-
 
               <label class="setting">
 
                 <div>
-
-                  <strong>
-                    Interface Opacity
-                  </strong>
-
-                  <small>
-                    Adjust preview transparency
-                  </small>
-
+                  <strong>Interface Opacity</strong>
+                  <small>Adjust preview transparency</small>
                 </div>
 
                 <input
@@ -1391,25 +768,17 @@
 
               </label>
 
-
               <label class="setting">
 
                 <div>
-
-                  <strong>
-                    Interface Scale
-                  </strong>
-
-                  <small>
-                    Adjust showcase scale
-                  </small>
-
+                  <strong>Interface Scale</strong>
+                  <small>Adjust showcase scale</small>
                 </div>
 
                 <input
                   type="range"
                   min="80"
-                  max="110"
+                  max="120"
                   value="100"
                   id="scaleSlider"
                 >
@@ -1421,33 +790,21 @@
               </label>
 
             </div>
-
           </div>
 
-
           <!-- FOOTER -->
-
           <div class="showcase-footer">
 
             <div class="showcase-info">
-
-              <span>
-                ACTIVE MODULES
-              </span>
-
-              <strong id="activeModules">
-                0
-              </strong>
-
+              <span>MODULES</span>
+              <strong id="activeModules">0</strong>
             </div>
-
 
             <div class="showcase-actions">
 
               <button
                 class="showcase-action"
                 id="viewMore"
-                type="button"
               >
                 View More
               </button>
@@ -1455,7 +812,6 @@
               <button
                 class="showcase-action"
                 id="resetShowcase"
-                type="button"
               >
                 Reset View
               </button>
@@ -1465,63 +821,32 @@
           </div>
 
         </div>
-
       </div>
-
     </div>
-
   </div>
 
-
-  <!-- =====================================================
-       FOOTER
-  ====================================================== -->
-
+  <!-- FOOTER -->
   <footer>
 
     <div class="footer-left">
-
-      <span>
-        NxrDonut
-      </span>
-
-      <small>
-        Developer · Screensharer
-      </small>
-
+      <span>NxrDonut</span>
+      <small>Developer · Screensharer</small>
     </div>
 
-
     <div class="footer-right">
-
-      <span>
-        © 2026
-      </span>
-
-      <span>
-        BUILT WITH PRECISION
-      </span>
-
+      <span>© 2026</span>
+      <span>BUILT WITH PRECISION</span>
     </div>
 
   </footer>
 
-
-  <!-- =====================================================
-       AUDIO
-  ====================================================== -->
-
+  <!-- AUDIO -->
   <audio
     id="audio"
     src="./video.mp3"
     loop
-    preload="metadata"
+    preload="auto"
   ></audio>
-
-
-  <!-- =====================================================
-       SCRIPT
-  ====================================================== -->
 
   <script src="./script.js"></script>
 
