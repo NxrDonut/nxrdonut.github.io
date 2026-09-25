@@ -1,715 +1,1947 @@
-<!-- PREMIUM CLIENT SHOWCASE -->
-<div class="showcase" id="showcase">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <div class="showcase-backdrop"></div>
+  <title>NxrDonut — Developer · Screensharer</title>
 
-  <div class="client-window">
+  <meta
+    name="description"
+    content="NxrDonut — Developer and Screensharer."
+  >
 
-    <!-- CLIENT TOP BAR -->
-    <header class="client-topbar">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-      <div class="client-brand">
-        <div class="client-logo">N</div>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-        <div>
-          <strong>NXR CLIENT</strong>
-          <span>PRIVATE BUILD · 1.0.8</span>
-        </div>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =====================================================
+       INTRO
+  ====================================================== -->
+
+  <div class="intro" id="intro">
+    <div class="intro-content">
+      <span>CLICK ANYWHERE</span>
+    </div>
+  </div>
+
+
+  <!-- =====================================================
+       CURSOR
+  ====================================================== -->
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+
+  <!-- =====================================================
+       NAVIGATION
+  ====================================================== -->
+
+  <header class="nav">
+
+    <a href="#top" class="nav-logo">
+      NXRDONUT
+    </a>
+
+    <nav class="nav-links">
+      <a href="#bio">Bio</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+    </nav>
+
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      AVAILABLE
+    </div>
+
+  </header>
+
+
+  <main id="top">
+
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+
+    <section class="hero" id="bio">
+
+      <div class="hero-background">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
       </div>
 
-      <div class="client-server">
+      <div class="hero-inner">
 
-        <span class="server-dot"></span>
-
-        <div>
-          <strong>LOCAL SESSION</strong>
-          <small>Connected</small>
+        <div class="hero-label">
+          <span>01</span>
+          <span>PROFILE</span>
         </div>
 
-      </div>
 
-      <button
-        class="client-close"
-        id="closeShowcase"
-        aria-label="Close client"
-      >
-        ×
-      </button>
+        <div class="hero-main">
 
-    </header>
+          <div class="pfp-wrap">
 
-    <div class="client-layout">
+            <img
+              src="pfp.png"
+              alt="NxrDonut"
+              class="pfp"
+              id="pfp"
+            >
 
-      <!-- SIDEBAR -->
-      <aside class="client-sidebar">
+          </div>
 
-        <div class="sidebar-label">
-          CLIENT
-        </div>
 
-        <button
-          class="client-nav active"
-          data-client-tab="dashboard"
-        >
-          <span class="nav-icon">⌂</span>
-          Dashboard
-        </button>
+          <div class="hero-copy">
 
-        <button
-          class="client-nav"
-          data-client-tab="combat"
-        >
-          <span class="nav-icon">◇</span>
-          Combat
-        </button>
-
-        <button
-          class="client-nav"
-          data-client-tab="visuals"
-        >
-          <span class="nav-icon">◉</span>
-          Visuals
-        </button>
-
-        <button
-          class="client-nav"
-          data-client-tab="hud"
-        >
-          <span class="nav-icon">□</span>
-          HUD
-        </button>
-
-        <button
-          class="client-nav"
-          data-client-tab="player"
-        >
-          <span class="nav-icon">○</span>
-          Player
-        </button>
-
-        <div class="sidebar-divider"></div>
-
-        <div class="sidebar-label">
-          SYSTEM
-        </div>
-
-        <button
-          class="client-nav"
-          data-client-tab="configs"
-        >
-          <span class="nav-icon">▣</span>
-          Configs
-        </button>
-
-        <button
-          class="client-nav"
-          data-client-tab="settings"
-        >
-          <span class="nav-icon">⚙</span>
-          Settings
-        </button>
-
-        <div class="sidebar-bottom">
-
-          <div class="client-user">
-
-            <div class="user-avatar">
-              N
+            <div class="eyebrow">
+              DEVELOPER · SCREENSHARER
             </div>
 
-            <div>
-              <strong>NxrDonut</strong>
-              <small>Developer</small>
+            <h1>NxrDonut</h1>
+
+            <p class="hero-description">
+              I build software, interfaces and digital experiences
+              with a focus on precision, simplicity and detail.
+            </p>
+
+
+            <div class="hero-actions">
+
+              <a
+                href="#projects"
+                class="button button-primary"
+              >
+                View Projects
+                <span>↗</span>
+              </a>
+
+              <a
+                href="#experience"
+                class="button button-secondary"
+              >
+                Experience
+              </a>
+
             </div>
 
           </div>
 
-          <span class="build-status">
-            BUILD 1.0.8
+        </div>
+
+
+        <!-- MUSIC -->
+
+        <div class="music-player">
+
+          <button
+            class="music-play"
+            id="musicPlay"
+            aria-label="Play music"
+          >
+            <span class="play-icon">▶</span>
+          </button>
+
+          <div class="music-info">
+
+            <span class="music-label">
+              NOW PLAYING
+            </span>
+
+            <span class="music-title">
+              Drake · Nation Treasures
+            </span>
+
+          </div>
+
+
+          <div
+            class="waveform"
+            id="waveform"
+          >
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+
+          <span
+            class="music-time"
+            id="musicTime"
+          >
+            00:00
           </span>
 
         </div>
 
-      </aside>
+      </div>
 
-      <!-- MAIN CLIENT -->
-      <main class="client-main">
+    </section>
 
-        <!-- DASHBOARD -->
-        <section
-          class="client-page active"
-          data-client-page="dashboard"
+
+    <!-- ===================================================
+         SOCIALS
+    ==================================================== -->
+
+    <section class="social-section">
+
+      <div class="section-label">
+        <span>02</span>
+        <span>CONNECT</span>
+      </div>
+
+
+      <div class="social-grid">
+
+        <a
+          href="https://discord.com/users/873534867210637333"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-card"
         >
 
-          <div class="page-header">
+          <img
+            src="icons/discord.png"
+            alt="Discord"
+          >
 
-            <div>
-              <span class="page-overline">
-                OVERVIEW
-              </span>
+          <div>
+            <span class="social-name">
+              Discord
+            </span>
 
-              <h2>Dashboard</h2>
+            <span class="social-handle">
+              nxrdonut
+            </span>
+          </div>
 
-              <p>
-                Welcome back. Your workspace is ready.
-              </p>
-            </div>
+          <span class="social-arrow">
+            ↗
+          </span>
 
-            <div class="live-status">
-              <span></span>
-              SYSTEM ONLINE
+        </a>
+
+
+        <a
+          href="https://www.youtube.com/@nxrdonut"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-card"
+        >
+
+          <img
+            src="icons/youtube.png"
+            alt="YouTube"
+          >
+
+          <div>
+            <span class="social-name">
+              YouTube
+            </span>
+
+            <span class="social-handle">
+              @nxrdonut
+            </span>
+          </div>
+
+          <span class="social-arrow">
+            ↗
+          </span>
+
+        </a>
+
+
+        <a
+          href="https://www.tiktok.com/@rcvol_"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-card"
+        >
+
+          <img
+            src="icons/tiktok.png"
+            alt="TikTok"
+          >
+
+          <div>
+            <span class="social-name">
+              TikTok
+            </span>
+
+            <span class="social-handle">
+              @rcvol_
+            </span>
+          </div>
+
+          <span class="social-arrow">
+            ↗
+          </span>
+
+        </a>
+
+
+        <a
+          href="https://github.com/nxrdonut"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-card"
+        >
+
+          <img
+            src="icons/github.png"
+            alt="GitHub"
+          >
+
+          <div>
+            <span class="social-name">
+              GitHub
+            </span>
+
+            <span class="social-handle">
+              @nxrdonut
+            </span>
+          </div>
+
+          <span class="social-arrow">
+            ↗
+          </span>
+
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         EXPERIENCE
+    ==================================================== -->
+
+    <section
+      class="section"
+      id="experience"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-label">
+          <span>03</span>
+          <span>BACKGROUND</span>
+        </div>
+
+        <h2>Experience</h2>
+
+      </div>
+
+
+      <div class="experience-grid">
+
+
+        <!-- DEVELOPMENT -->
+
+        <article class="experience-card reveal">
+
+          <span class="card-number">
+            01
+          </span>
+
+          <div class="experience-content">
+
+            <h3>
+              Development
+            </h3>
+
+            <p>
+              I develop software, websites, interfaces,
+              screenshare utilities, custom systems,
+              visual products and more.
+            </p>
+
+            <div class="language-row">
+
+              <span>SOFTWARE</span>
+              <span>WEB</span>
+              <span>UI</span>
+
             </div>
 
           </div>
 
-          <div class="dashboard-grid">
+        </article>
 
-            <div class="dashboard-card dashboard-main">
 
-              <div class="dashboard-card-top">
-                <span>CLIENT STATUS</span>
-                <span class="status-pill">ONLINE</span>
+        <!-- SCREENSHARING -->
+
+        <article class="experience-card reveal">
+
+          <span class="card-number">
+            02
+          </span>
+
+          <div class="experience-content">
+
+            <h3>
+              Screensharing
+            </h3>
+
+            <p class="experience-line">
+              Former SS Manager · Kum Network
+            </p>
+
+            <p class="experience-line">
+              Former Head SSER · Certify Network
+            </p>
+
+            <p class="experience-line">
+              Former SSER · BJTL
+            </p>
+
+            <p class="experience-line">
+              Former SSER · TitanFFA
+            </p>
+
+            <p class="experience-line">
+              Current PC Checker · Ocean anticheat.ac
+            </p>
+
+          </div>
+
+        </article>
+
+
+        <!-- MINECRAFT -->
+
+        <article class="experience-card reveal">
+
+          <span class="card-number">
+            03
+          </span>
+
+          <div class="experience-content">
+
+            <h3>
+              Competitive Minecraft
+            </h3>
+
+            <p class="experience-line">
+              Tiers · 6x HT3 · 1x LT2
+            </p>
+
+            <p class="experience-line">
+              Restricted #5 Mcpvp.com Global
+            </p>
+
+            <p class="experience-line">
+              MCSR Best 11.09:12
+            </p>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PROJECTS
+    ==================================================== -->
+
+    <section
+      class="section projects-section"
+      id="projects"
+    >
+
+      <div class="section-heading">
+
+        <div class="section-label">
+          <span>04</span>
+          <span>SELECTED WORK</span>
+        </div>
+
+        <h2>
+          My Projects
+        </h2>
+
+      </div>
+
+
+      <div class="projects-grid">
+
+
+        <!-- CLOSET CLIENT -->
+
+        <article
+          class="project-card reveal"
+          id="closetProject"
+        >
+
+          <div class="project-top">
+
+            <span class="project-index">
+              01
+            </span>
+
+            <span class="project-status">
+              INTERACTIVE
+            </span>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <h3>
+              Closet Cheats
+            </h3>
+
+            <p>
+              A premium interactive client interface concept
+              featuring modular controls, configuration
+              panels, telemetry and a polished desktop-style
+              experience.
+            </p>
+
+            <button
+              class="project-open"
+              id="openShowcase"
+            >
+              Open Client
+              <span>↗</span>
+            </button>
+
+          </div>
+
+        </article>
+
+
+        <!-- CUSTOM SYSTEMS -->
+
+        <article class="project-card reveal">
+
+          <div class="project-top">
+
+            <span class="project-index">
+              02
+            </span>
+
+            <span class="project-status">
+              DEVELOPMENT
+            </span>
+
+          </div>
+
+
+          <div class="project-content">
+
+            <h3>
+              Custom Premium Bypass Methods
+            </h3>
+
+            <p>
+              Custom premium systems focused on polished
+              interfaces, private tooling concepts and
+              high-detail software experiences.
+            </p>
+
+            <span class="project-tag">
+              CUSTOM SYSTEMS
+            </span>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         COMMUNITIES
+    ==================================================== -->
+
+    <section class="communities section">
+
+      <div class="section-heading">
+
+        <div class="section-label">
+          <span>05</span>
+          <span>COMMUNITIES</span>
+        </div>
+
+        <h2>
+          Communities
+        </h2>
+
+      </div>
+
+
+      <div class="community-grid">
+
+        <a
+          href="https://discord.gg/Tet3kUDjW7"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="community-card"
+        >
+
+          <span>
+            trace.ac
+          </span>
+
+          <small>
+            Discord Community
+          </small>
+
+          <b>
+            ↗
+          </b>
+
+        </a>
+
+
+        <a
+          href="https://discord.gg/n7hNV4797w"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="community-card"
+        >
+
+          <span>
+            Texture Packs
+          </span>
+
+          <small>
+            Discord Community
+          </small>
+
+          <b>
+            ↗
+          </b>
+
+        </a>
+
+
+        <a
+          href="https://discord.gg/syBqCkRPvD"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="community-card"
+        >
+
+          <span>
+            RSTD
+          </span>
+
+          <small>
+            Discord Community
+          </small>
+
+          <b>
+            ↗
+          </b>
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================
+       PREMIUM CLIENT SHOWCASE
+  ====================================================== -->
+
+  <div
+    class="showcase"
+    id="showcase"
+    aria-hidden="true"
+  >
+
+    <div class="showcase-backdrop"></div>
+
+
+    <div class="client-window">
+
+
+      <!-- CLIENT TOP BAR -->
+
+      <header class="client-topbar">
+
+        <div class="client-brand">
+
+          <div class="client-logo">
+            N
+          </div>
+
+          <div>
+
+            <strong>
+              NXR CLIENT
+            </strong>
+
+            <span>
+              PRIVATE BUILD · 1.0.8
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div class="client-server">
+
+          <span class="server-dot"></span>
+
+          <div>
+
+            <strong>
+              LOCAL SESSION
+            </strong>
+
+            <small>
+              Connected
+            </small>
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="client-close"
+          id="closeShowcase"
+          aria-label="Close client"
+        >
+          ×
+        </button>
+
+      </header>
+
+
+      <div class="client-layout">
+
+
+        <!-- =================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="client-sidebar">
+
+          <div class="sidebar-label">
+            CLIENT
+          </div>
+
+
+          <button
+            class="client-nav active"
+            data-client-tab="dashboard"
+          >
+
+            <span class="nav-icon">
+              ⌂
+            </span>
+
+            Dashboard
+
+          </button>
+
+
+          <button
+            class="client-nav"
+            data-client-tab="combat"
+          >
+
+            <span class="nav-icon">
+              ◇
+            </span>
+
+            Combat
+
+          </button>
+
+
+          <button
+            class="client-nav"
+            data-client-tab="visuals"
+          >
+
+            <span class="nav-icon">
+              ◉
+            </span>
+
+            Visuals
+
+          </button>
+
+
+          <button
+            class="client-nav"
+            data-client-tab="hud"
+          >
+
+            <span class="nav-icon">
+              □
+            </span>
+
+            HUD
+
+          </button>
+
+
+          <button
+            class="client-nav"
+            data-client-tab="player"
+          >
+
+            <span class="nav-icon">
+              ○
+            </span>
+
+            Player
+
+          </button>
+
+
+          <div class="sidebar-divider"></div>
+
+
+          <div class="sidebar-label">
+            SYSTEM
+          </div>
+
+
+          <button
+            class="client-nav"
+            data-client-tab="configs"
+          >
+
+            <span class="nav-icon">
+              ▣
+            </span>
+
+            Configs
+
+          </button>
+
+
+          <button
+            class="client-nav"
+            data-client-tab="settings"
+          >
+
+            <span class="nav-icon">
+              ⚙
+            </span>
+
+            Settings
+
+          </button>
+
+
+          <div class="sidebar-bottom">
+
+            <div class="client-user">
+
+              <div class="user-avatar">
+                N
               </div>
 
-              <div class="dashboard-client-name">
-                NXR CLIENT
-              </div>
+              <div>
 
-              <p>
-                Premium interactive client interface
-                showcase.
-              </p>
+                <strong>
+                  NxrDonut
+                </strong>
 
-              <div class="dashboard-metrics">
-
-                <div>
-                  <small>ACTIVE</small>
-                  <strong id="dashboardActive">0</strong>
-                </div>
-
-                <div>
-                  <small>PROFILE</small>
-                  <strong>DEFAULT</strong>
-                </div>
-
-                <div>
-                  <small>VERSION</small>
-                  <strong>1.0.8</strong>
-                </div>
+                <small>
+                  Developer
+                </small>
 
               </div>
 
             </div>
 
-            <div class="dashboard-card">
+            <span class="build-status">
+              BUILD 1.0.8
+            </span>
 
-              <span class="card-label">
-                SESSION
-              </span>
+          </div>
 
-              <strong class="big-stat">
-                <span id="sessionTime">00:00</span>
-              </strong>
+        </aside>
 
-              <small>
-                Current showcase session
-              </small>
 
-            </div>
+        <!-- =================================================
+             CLIENT MAIN
+        ================================================== -->
 
-            <div class="dashboard-card">
+        <main class="client-main">
 
-              <span class="card-label">
-                MODULES
-              </span>
 
-              <strong
-                class="big-stat"
-                id="dashboardModules"
-              >
-                0
-              </strong>
+          <!-- DASHBOARD -->
 
-              <small>
-                Currently enabled
-              </small>
+          <section
+            class="client-page active"
+            data-client-page="dashboard"
+          >
 
-            </div>
+            <div class="page-header">
 
-            <div class="dashboard-card wide">
+              <div>
 
-              <div class="card-heading">
-
-                <div>
-                  <span class="card-label">
-                    LIVE TELEMETRY
-                  </span>
-
-                  <strong>
-                    System Monitor
-                  </strong>
-                </div>
-
-                <span class="telemetry-live">
-                  LIVE
+                <span class="page-overline">
+                  OVERVIEW
                 </span>
 
+                <h2>
+                  Dashboard
+                </h2>
+
+                <p>
+                  Welcome back. Your workspace is ready.
+                </p>
+
               </div>
 
-              <div class="telemetry-grid">
 
-                <div class="telemetry-item">
-                  <span>FPS</span>
-                  <strong id="fpsValue">240</strong>
+              <div class="live-status">
+
+                <span></span>
+
+                SYSTEM ONLINE
+
+              </div>
+
+            </div>
+
+
+            <div class="dashboard-grid">
+
+
+              <div class="dashboard-card dashboard-main">
+
+                <div class="dashboard-card-top">
+
+                  <span>
+                    CLIENT STATUS
+                  </span>
+
+                  <span class="status-pill">
+                    ONLINE
+                  </span>
+
                 </div>
 
-                <div class="telemetry-item">
-                  <span>LATENCY</span>
-                  <strong id="pingValue">12ms</strong>
+
+                <div class="dashboard-client-name">
+                  NXR CLIENT
                 </div>
 
-                <div class="telemetry-item">
-                  <span>MEMORY</span>
-                  <strong id="memoryValue">41%</strong>
+
+                <p>
+                  Premium interactive client interface
+                  showcase.
+                </p>
+
+
+                <div class="dashboard-metrics">
+
+                  <div>
+
+                    <small>
+                      ACTIVE
+                    </small>
+
+                    <strong id="dashboardActive">
+                      0
+                    </strong>
+
+                  </div>
+
+
+                  <div>
+
+                    <small>
+                      PROFILE
+                    </small>
+
+                    <strong>
+                      DEFAULT
+                    </strong>
+
+                  </div>
+
+
+                  <div>
+
+                    <small>
+                      VERSION
+                    </small>
+
+                    <strong>
+                      1.0.8
+                    </strong>
+
+                  </div>
+
                 </div>
 
-                <div class="telemetry-item">
-                  <span>UPTIME</span>
-                  <strong>99.9%</strong>
+              </div>
+
+
+              <div class="dashboard-card">
+
+                <span class="card-label">
+                  SESSION
+                </span>
+
+                <strong class="big-stat">
+                  <span id="sessionTime">
+                    00:00
+                  </span>
+                </strong>
+
+                <small>
+                  Current showcase session
+                </small>
+
+              </div>
+
+
+              <div class="dashboard-card">
+
+                <span class="card-label">
+                  MODULES
+                </span>
+
+                <strong
+                  class="big-stat"
+                  id="dashboardModules"
+                >
+                  0
+                </strong>
+
+                <small>
+                  Currently enabled
+                </small>
+
+              </div>
+
+
+              <div class="dashboard-card wide">
+
+                <div class="card-heading">
+
+                  <div>
+
+                    <span class="card-label">
+                      LIVE TELEMETRY
+                    </span>
+
+                    <strong>
+                      System Monitor
+                    </strong>
+
+                  </div>
+
+                  <span class="telemetry-live">
+                    LIVE
+                  </span>
+
+                </div>
+
+
+                <div class="telemetry-grid">
+
+                  <div class="telemetry-item">
+                    <span>FPS</span>
+                    <strong id="fpsValue">
+                      240
+                    </strong>
+                  </div>
+
+                  <div class="telemetry-item">
+                    <span>LATENCY</span>
+                    <strong id="pingValue">
+                      12ms
+                    </strong>
+                  </div>
+
+                  <div class="telemetry-item">
+                    <span>MEMORY</span>
+                    <strong id="memoryValue">
+                      41%
+                    </strong>
+                  </div>
+
+                  <div class="telemetry-item">
+                    <span>UPTIME</span>
+                    <strong>
+                      99.9%
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <div class="telemetry-chart">
+
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+                  <i></i>
+
                 </div>
 
               </div>
 
-              <div class="telemetry-chart">
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-                <i></i>
-              </div>
-
             </div>
 
-          </div>
+          </section>
 
-        </section>
 
-        <!-- MODULE PAGES -->
-        <section
-          class="client-page"
-          data-client-page="combat"
-        >
+          <!-- COMBAT -->
 
-          <div class="page-header">
-            <div>
-              <span class="page-overline">01 · MODULES</span>
-              <h2>Combat</h2>
-              <p>Interactive configuration preview.</p>
-            </div>
+          <section
+            class="client-page"
+            data-client-page="combat"
+          >
 
-            <span class="module-counter">
-              <b data-count-group="combat">0</b> ACTIVE
-            </span>
-          </div>
-
-          <div class="client-module-grid">
-
-            <div class="module-card">
-
-              <div class="module-info">
-                <strong>Aim Assist</strong>
-                <small>
-                  Configuration preview
-                </small>
-              </div>
-
-              <button
-                class="client-toggle"
-                data-group="combat"
-              >
-                <span></span>
-              </button>
-
-            </div>
-
-            <div class="module-card">
-
-              <div class="module-info">
-                <strong>Click Visualizer</strong>
-                <small>
-                  Input visualization
-                </small>
-              </div>
-
-              <button
-                class="client-toggle"
-                data-group="combat"
-              >
-                <span></span>
-              </button>
-
-            </div>
-
-            <div class="module-card">
-
-              <div class="module-info">
-                <strong>Target HUD</strong>
-                <small>
-                  Interface preview
-                </small>
-              </div>
-
-              <button
-                class="client-toggle"
-                data-group="combat"
-              >
-                <span></span>
-              </button>
-
-            </div>
-
-            <div class="module-card">
-
-              <div class="module-info">
-                <strong>Reach Display</strong>
-                <small>
-                  Data visualization
-                </small>
-              </div>
-
-              <button
-                class="client-toggle"
-                data-group="combat"
-              >
-                <span></span>
-              </button>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        <section
-          class="client-page"
-          data-client-page="visuals"
-        >
-
-          <div class="page-header">
-            <div>
-              <span class="page-overline">02 · MODULES</span>
-              <h2>Visuals</h2>
-              <p>Visual interface configuration.</p>
-            </div>
-
-            <span class="module-counter">
-              <b data-count-group="visuals">0</b> ACTIVE
-            </span>
-          </div>
-
-          <div class="client-module-grid">
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>ESP Preview</strong>
-                <small>Visual overlay concept</small>
-              </div>
-              <button class="client-toggle" data-group="visuals">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Tracers</strong>
-                <small>Visual line preview</small>
-              </div>
-              <button class="client-toggle" data-group="visuals">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Motion Blur</strong>
-                <small>Interface visual effect</small>
-              </div>
-              <button class="client-toggle" data-group="visuals">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Color Overlay</strong>
-                <small>Appearance preview</small>
-              </div>
-              <button class="client-toggle" data-group="visuals">
-                <span></span>
-              </button>
-            </div>
-
-          </div>
-
-        </section>
-
-        <section
-          class="client-page"
-          data-client-page="hud"
-        >
-
-          <div class="page-header">
-            <div>
-              <span class="page-overline">03 · MODULES</span>
-              <h2>HUD</h2>
-              <p>Heads-up display customization.</p>
-            </div>
-
-            <span class="module-counter">
-              <b data-count-group="hud">0</b> ACTIVE
-            </span>
-          </div>
-
-          <div class="client-module-grid">
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Array List</strong>
-                <small>Active module display</small>
-              </div>
-              <button class="client-toggle" data-group="hud">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Watermark</strong>
-                <small>Branding preview</small>
-              </div>
-              <button class="client-toggle" data-group="hud">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Coordinates</strong>
-                <small>Information display</small>
-              </div>
-              <button class="client-toggle" data-group="hud">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Keystrokes</strong>
-                <small>Input display preview</small>
-              </div>
-              <button class="client-toggle" data-group="hud">
-                <span></span>
-              </button>
-            </div>
-
-          </div>
-
-        </section>
-
-        <section
-          class="client-page"
-          data-client-page="player"
-        >
-
-          <div class="page-header">
-            <div>
-              <span class="page-overline">04 · MODULES</span>
-              <h2>Player</h2>
-              <p>Player interface configuration.</p>
-            </div>
-
-            <span class="module-counter">
-              <b data-count-group="player">0</b> ACTIVE
-            </span>
-          </div>
-
-          <div class="client-module-grid">
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Auto Sprint</strong>
-                <small>Movement configuration preview</small>
-              </div>
-              <button class="client-toggle" data-group="player">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Movement HUD</strong>
-                <small>Movement visualization</small>
-              </div>
-              <button class="client-toggle" data-group="player">
-                <span></span>
-              </button>
-            </div>
-
-            <div class="module-card">
-              <div class="module-info">
-                <strong>Inventory Display</strong>
-                <small>Interface preview</small>
-              </div>
-              <button class="client-toggle" data-group="player">
-                <span></span>
-              </button>
-            </div>
-
-          </div>
-
-        </section>
-
-        <!-- CONFIGS -->
-        <section
-          class="client-page"
-          data-client-page="configs"
-        >
-
-          <div class="page-header">
-
-            <div>
-              <span class="page-overline">SYSTEM</span>
-              <h2>Configs</h2>
-              <p>Manage showcase configuration profiles.</p>
-            </div>
-
-          </div>
-
-          <div class="config-grid">
-
-            <button class="config-card active">
-              <span class="config-icon">01</span>
-              <strong>Default</strong>
-              <small>Current profile</small>
-            </button>
-
-            <button class="config-card">
-              <span class="config-icon">02</span>
-              <strong>Minimal</strong>
-              <small>Clean interface</small>
-            </button>
-
-            <button class="config-card">
-              <span class="config-icon">03</span>
-              <strong>Competitive</strong>
-              <small>Dense interface</small>
-            </button>
-
-            <button class="config-card">
-              <span class="config-icon">04</span>
-              <strong>Custom</strong>
-              <small>User configuration</small>
-            </button>
-
-          </div>
-
-        </section>
-
-        <!-- SETTINGS -->
-        <section
-          class="client-page"
-          data-client-page="settings"
-        >
-
-          <div class="page-header">
-
-            <div>
-              <span class="page-overline">SYSTEM</span>
-              <h2>Settings</h2>
-              <p>Customize the client showcase.</p>
-            </div>
-
-          </div>
-
-          <div class="settings-panel">
-
-            <label class="client-setting">
+            <div class="page-header">
 
               <div>
-                <strong>Interface Opacity</strong>
-                <small>Adjust interface transparency.</small>
+
+                <span class="page-overline">
+                  01 · MODULES
+                </span>
+
+                <h2>
+                  Combat
+                </h2>
+
+                <p>
+                  Interactive configuration preview.
+                </p>
+
               </div>
 
-              <input
-                type="range"
-                min="60"
-                max="100"
-                value="92"
-                id="clientOpacity"
-              >
+              <span class="module-counter">
+                <b data-count-group="combat">
+                  0
+                </b>
+                ACTIVE
+              </span>
 
-              <span id="clientOpacityValue">92%</span>
+            </div>
 
-            </label>
 
-            <label class="client-setting">
+            <div class="client-module-grid">
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+
+                  <strong>
+                    Aim Assist
+                  </strong>
+
+                  <small>
+                    Configuration preview
+                  </small>
+
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="combat"
+                  aria-label="Toggle Aim Assist preview"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+
+                  <strong>
+                    Click Visualizer
+                  </strong>
+
+                  <small>
+                    Input visualization
+                  </small>
+
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="combat"
+                  aria-label="Toggle Click Visualizer preview"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+
+                  <strong>
+                    Target HUD
+                  </strong>
+
+                  <small>
+                    Interface preview
+                  </small>
+
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="combat"
+                  aria-label="Toggle Target HUD preview"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+
+                  <strong>
+                    Reach Display
+                  </strong>
+
+                  <small>
+                    Data visualization
+                  </small>
+
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="combat"
+                  aria-label="Toggle Reach Display preview"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- VISUALS -->
+
+          <section
+            class="client-page"
+            data-client-page="visuals"
+          >
+
+            <div class="page-header">
 
               <div>
-                <strong>Interface Scale</strong>
-                <small>Adjust client presentation scale.</small>
+
+                <span class="page-overline">
+                  02 · MODULES
+                </span>
+
+                <h2>
+                  Visuals
+                </h2>
+
+                <p>
+                  Visual interface configuration.
+                </p>
+
               </div>
 
-              <input
-                type="range"
-                min="85"
-                max="110"
-                value="100"
-                id="clientScale"
-              >
+              <span class="module-counter">
 
-              <span id="clientScaleValue">100%</span>
+                <b data-count-group="visuals">
+                  0
+                </b>
 
-            </label>
+                ACTIVE
 
-            <label class="client-setting">
+              </span>
+
+            </div>
+
+
+            <div class="client-module-grid">
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>ESP Preview</strong>
+                  <small>
+                    Visual overlay concept
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="visuals"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Tracers</strong>
+                  <small>
+                    Visual line preview
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="visuals"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Motion Blur</strong>
+                  <small>
+                    Interface visual effect
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="visuals"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Color Overlay</strong>
+                  <small>
+                    Appearance preview
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="visuals"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- HUD -->
+
+          <section
+            class="client-page"
+            data-client-page="hud"
+          >
+
+            <div class="page-header">
 
               <div>
-                <strong>Animations</strong>
-                <small>Enable interface transitions.</small>
+
+                <span class="page-overline">
+                  03 · MODULES
+                </span>
+
+                <h2>
+                  HUD
+                </h2>
+
+                <p>
+                  Heads-up display customization.
+                </p>
+
               </div>
+
+              <span class="module-counter">
+
+                <b data-count-group="hud">
+                  0
+                </b>
+
+                ACTIVE
+
+              </span>
+
+            </div>
+
+
+            <div class="client-module-grid">
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Array List</strong>
+                  <small>
+                    Active module display
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="hud"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Watermark</strong>
+                  <small>
+                    Branding preview
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="hud"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Coordinates</strong>
+                  <small>
+                    Information display
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="hud"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Keystrokes</strong>
+                  <small>
+                    Input display preview
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="hud"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- PLAYER -->
+
+          <section
+            class="client-page"
+            data-client-page="player"
+          >
+
+            <div class="page-header">
+
+              <div>
+
+                <span class="page-overline">
+                  04 · MODULES
+                </span>
+
+                <h2>
+                  Player
+                </h2>
+
+                <p>
+                  Player interface configuration.
+                </p>
+
+              </div>
+
+              <span class="module-counter">
+
+                <b data-count-group="player">
+                  0
+                </b>
+
+                ACTIVE
+
+              </span>
+
+            </div>
+
+
+            <div class="client-module-grid">
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Auto Sprint</strong>
+                  <small>
+                    Movement configuration preview
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="player"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Movement HUD</strong>
+                  <small>
+                    Movement visualization
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="player"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+
+              <div class="module-card">
+
+                <div class="module-info">
+                  <strong>Inventory Display</strong>
+                  <small>
+                    Interface preview
+                  </small>
+                </div>
+
+                <button
+                  class="client-toggle"
+                  data-group="player"
+                >
+                  <span></span>
+                </button>
+
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <!-- CONFIGS -->
+
+          <section
+            class="client-page"
+            data-client-page="configs"
+          >
+
+            <div class="page-header">
+
+              <div>
+
+                <span class="page-overline">
+                  SYSTEM
+                </span>
+
+                <h2>
+                  Configs
+                </h2>
+
+                <p>
+                  Manage showcase configuration profiles.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="config-grid">
 
               <button
-                class="client-toggle active"
-                id="animationToggle"
+                class="config-card active"
+                data-config="default"
               >
-                <span></span>
+
+                <span class="config-icon">
+                  01
+                </span>
+
+                <strong>
+                  Default
+                </strong>
+
+                <small>
+                  Current profile
+                </small>
+
               </button>
 
-            </label>
 
-          </div>
+              <button
+                class="config-card"
+                data-config="minimal"
+              >
 
-        </section>
+                <span class="config-icon">
+                  02
+                </span>
 
-      </main>
+                <strong>
+                  Minimal
+                </strong>
+
+                <small>
+                  Clean interface
+                </small>
+
+              </button>
+
+
+              <button
+                class="config-card"
+                data-config="competitive"
+              >
+
+                <span class="config-icon">
+                  03
+                </span>
+
+                <strong>
+                  Competitive
+                </strong>
+
+                <small>
+                  Dense interface
+                </small>
+
+              </button>
+
+
+              <button
+                class="config-card"
+                data-config="custom"
+              >
+
+                <span class="config-icon">
+                  04
+                </span>
+
+                <strong>
+                  Custom
+                </strong>
+
+                <small>
+                  User configuration
+                </small>
+
+              </button>
+
+            </div>
+
+          </section>
+
+
+          <!-- SETTINGS -->
+
+          <section
+            class="client-page"
+            data-client-page="settings"
+          >
+
+            <div class="page-header">
+
+              <div>
+
+                <span class="page-overline">
+                  SYSTEM
+                </span>
+
+                <h2>
+                  Settings
+                </h2>
+
+                <p>
+                  Customize the client showcase.
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <div class="settings-panel">
+
+
+              <label class="client-setting">
+
+                <div>
+
+                  <strong>
+                    Interface Opacity
+                  </strong>
+
+                  <small>
+                    Adjust interface transparency.
+                  </small>
+
+                </div>
+
+                <input
+                  type="range"
+                  min="60"
+                  max="100"
+                  value="92"
+                  id="clientOpacity"
+                >
+
+                <span id="clientOpacityValue">
+                  92%
+                </span>
+
+              </label>
+
+
+              <label class="client-setting">
+
+                <div>
+
+                  <strong>
+                    Interface Scale
+                  </strong>
+
+                  <small>
+                    Adjust client presentation scale.
+                  </small>
+
+                </div>
+
+                <input
+                  type="range"
+                  min="85"
+                  max="110"
+                  value="100"
+                  id="clientScale"
+                >
+
+                <span id="clientScaleValue">
+                  100%
+                </span>
+
+              </label>
+
+
+              <label class="client-setting">
+
+                <div>
+
+                  <strong>
+                    Animations
+                  </strong>
+
+                  <small>
+                    Enable interface transitions.
+                  </small>
+
+                </div>
+
+                <button
+                  class="client-toggle active"
+                  id="animationToggle"
+                  aria-label="Toggle animations"
+                >
+                  <span></span>
+                </button>
+
+              </label>
+
+
+              <label class="client-setting">
+
+                <div>
+
+                  <strong>
+                    Reduce Motion
+                  </strong>
+
+                  <small>
+                    Reduce decorative interface motion.
+                  </small>
+
+                </div>
+
+                <button
+                  class="client-toggle"
+                  id="motionToggle"
+                  aria-label="Toggle reduced motion"
+                >
+                  <span></span>
+                </button>
+
+              </label>
+
+            </div>
+
+          </section>
+
+        </main>
+
+      </div>
 
     </div>
 
   </div>
 
-</div>
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer>
+
+    <div class="footer-left">
+
+      <span>
+        NxrDonut
+      </span>
+
+      <small>
+        Developer · Screensharer
+      </small>
+
+    </div>
+
+
+    <div class="footer-right">
+
+      <span>
+        © 2026
+      </span>
+
+      <span>
+        BUILT WITH PRECISION
+      </span>
+
+    </div>
+
+  </footer>
+
+
+  <!-- AUDIO -->
+
+  <audio
+    id="audio"
+    src="./video.mp3"
+    loop
+    preload="auto"
+  ></audio>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
