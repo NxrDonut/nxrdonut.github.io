@@ -41,7 +41,34 @@ macros:[["Key Xbow",["Activation key","Delay 1–5"]],["Key Cart",["Activation k
 const mods=$$(".module"),count=$("#activeCount"),detail=$("#moduleDetail"),detailTitle=$("#detailTitle"),detailOptions=$("#detailOptions"),closeDetail=$("#closeDetail");
 function update(){if(count)count.textContent=String(mods.filter(m=>m.classList.contains("is-on")).length)}
 function closeDetailPanel(){if(!detail)return;detail.classList.remove("open");detail.setAttribute("aria-hidden","true")}
-function openModule(m){const row=Object.values(moduleData).flat().find(x=>x[0]===m.dataset.module);if(!row)return;m.classList.toggle("is-on");const toggle=m.querySelector("i");toggle?.classList.toggle("on",m.classList.contains("is-on"));update();detailTitle.textContent=row[0];detailOptions.innerHTML=row[1].map(opt=>'<label class="detail-option"><span>'+opt+'</span><span>PREVIEW</span></label>').join("");detail.classList.add("open");detail.setAttribute("aria-hidden","false")}
+function controlFor(opt,index){
+  const range=opt.match(/(\\d+)\\s*[–-]\\s*(\\d+)/);
+  if(range){
+    const min=Number(range[1]),max=Number(range[2]),value=Math.round((min+max)/2);
+    return '<label class="detail-control range-control"><span>'+opt+'</span><input type="range" min="'+min+'" max="'+max+'" value="'+value+'" data-setting="'+opt+'"><output>'+value+'</output></label>';
+  }
+  if(/horizontal|vertical|fov|chance|delay/i.test(opt)){
+    let min=1,max=100,value=50;
+    if(/fov/i.test(opt)){min=30;max=120;value=75}
+    else if(/delay/i.test(opt)){min=1;max=20;value=5}
+    else if(/horizontal|vertical/i.test(opt)){min=1;max=10;value=5}
+    return '<label class="detail-control range-control"><span>'+opt+'</span><input type="range" min="'+min+'" max="'+max+'" value="'+value+'" data-setting="'+opt+'"><output>'+value+'</output></label>';
+  }
+  if(/tap|sneak|balanced|smooth|windmouse|legit|closet|hover|only on web|target water|item whitelist|attack shields|stop on kill|return|swap back|stun|break bind|explode|randomize|auto refill|click simulation|math option|totem key|anchor key|glowstone key|pearl key|wind charge key|activation key|key$/i.test(opt)){
+    return '<label class="detail-control toggle-control"><span>'+opt+'</span><input type="checkbox" data-setting="'+opt+'"><i></i></label>';
+  }
+  return '<label class="detail-control text-control"><span>'+opt+'</span><input type="text" value="" placeholder="Set..." data-setting="'+opt+'"></label>';
+}
+function bindDetailControls(){
+  detailOptions.querySelectorAll('input[type="range"]').forEach(input=>{
+    const output=input.parentElement.querySelector('output');
+    input.addEventListener('input',()=>{if(output)output.value=input.value});
+  });
+  detailOptions.querySelectorAll('.toggle-control input').forEach(input=>{
+    input.addEventListener('change',()=>input.parentElement.classList.toggle('enabled',input.checked));
+  });
+}
+function openModule(m){const row=Object.values(moduleData).flat().find(x=>x[0]===m.dataset.module);if(!row)return;m.classList.toggle("is-on");const toggle=m.querySelector("i");toggle?.classList.toggle("on",m.classList.contains("is-on"));update();detailTitle.textContent=row[0];detailOptions.innerHTML=row[1].map((opt,i)=>controlFor(opt,i)).join("");bindDetailControls();detail.classList.add("open");detail.setAttribute("aria-hidden","false")}
 mods.forEach(m=>m.addEventListener("click",e=>{e.preventDefault();openModule(m)}));
 closeDetail?.addEventListener("click",closeDetailPanel);
 update();
