@@ -91,3 +91,8 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rad
 .volume-control{width:108px;min-width:108px;opacity:0;transform:translateX(-5px);pointer-events:none;transition:opacity .18s var(--ease),transform .25s var(--ease)}
 .volume:hover .volume-control,.volume:focus-within .volume-control{opacity:1;transform:none;pointer-events:auto}
 @media(max-width:520px){.volume{top:8px;left:8px;width:26px;height:26px}.volume-btn{width:26px;height:26px;flex-basis:26px}.volume:hover,.volume:focus-within{width:140px;height:32px}.volume-control{width:98px;min-width:98px}}
+
+/* Extra-compact views badge */
+.view-badge{gap:5px;margin:8px 0 3px;padding:4px 7px;font-size:7px;letter-spacing:.08em;border-radius:999px}
+.view-badge span{font-size:5px}
+.hero .badges{margin:8px 0 16px}
