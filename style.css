@@ -37,3 +37,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rad
 .toggle-control i:after{content:"";position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:#777;transition:.2s}
 .toggle-control.enabled i{background:#eee;box-shadow:0 0 12px rgba(255,255,255,.18)}
 .toggle-control.enabled i:after{left:19px;background:#080808}
+
+/* Experience image styling */
+.exp-logo{overflow:hidden;display:grid;place-items:center}
+.exp-logo img{width:100%;height:100%;object-fit:cover;display:block}
