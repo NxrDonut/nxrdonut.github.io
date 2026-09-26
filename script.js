@@ -10,7 +10,7 @@ intro?.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.prevent
 const clock=$("#clock");
 setInterval(()=>{if(clock)clock.textContent=new Date().toLocaleTimeString([],{hour12:false})},1000);
 
-if(volume&&audio){audio.volume=.42;volume.addEventListener("input",()=>{audio.volume=Number(volume.value)/100;if(volumeToggle)volumeToggle.textContent=audio.volume===0?"○":"◖"});volumeToggle?.addEventListener("click",()=>{audio.muted=!audio.muted;volumeToggle.textContent=audio.muted?"○":"◖";volumeToggle.setAttribute("aria-label",audio.muted?"Unmute music":"Mute music")})}
+if(volume&&audio){const volumeValue=$("#volumeValue");const syncVolume=()=>{const pct=Math.round(Number(volume.value));audio.volume=pct/100;volume.style.setProperty("--volume",pct+"%");if(volumeValue)volumeValue.textContent=pct+"%";volumeToggle?.setAttribute("aria-label",audio.muted?"Unmute music":(pct===0?"Unmute music":"Mute music"))};audio.volume=.42;syncVolume();volume.addEventListener("input",()=>{audio.muted=false;syncVolume()});volumeToggle?.addEventListener("click",()=>{audio.muted=!audio.muted;volumeToggle.setAttribute("aria-label",audio.muted?"Unmute music":"Mute music")})}
 audio?.addEventListener("ended",()=>wave?.classList.add("paused"));
 audio?.addEventListener("play",()=>wave?.classList.remove("paused"));
 audio?.addEventListener("pause",()=>wave?.classList.add("paused"));
