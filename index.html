@@ -27,9 +27,9 @@
   <div class="nav-meta"><span id="clock">00:00:00</span><span><i></i>ONLINE</span></div>
 </header>
 
-<div class="volume">
-  <button id="volumeToggle" class="volume-btn magnetic" type="button" aria-label="Mute music">◖</button>
-  <input id="volumeSlider" type="range" min="0" max="100" value="42" aria-label="Music volume">
+<div class="volume" aria-label="Music controls">
+  <button id="volumeToggle" class="volume-btn magnetic" type="button" aria-label="Mute music"><span class="speaker-icon" aria-hidden="true"><i></i><b></b></span></button>
+  <div class="volume-control"><input id="volumeSlider" type="range" min="0" max="100" value="42" aria-label="Music volume"><span id="volumeValue">42%</span></div>
 </div>
 
 <main id="home">
