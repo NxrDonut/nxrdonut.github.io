@@ -19,3 +19,21 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rad
 
 /* Reliable module interaction state */
 .module{position:relative;z-index:2;pointer-events:auto}.module.is-on{border-color:#fff;background:linear-gradient(145deg,#171717,#0a0a0a);box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 28px rgba(255,255,255,.08),inset 0 1px rgba(255,255,255,.1)}.module.is-on span{color:#fff}.module.is-on i{background:#fff;box-shadow:0 0 12px rgba(255,255,255,.35)}.module.is-on i:after{left:14px;background:#080808}
+
+/* Interactive module setting controls */
+.detail-options{display:grid;grid-template-columns:1fr;gap:9px;margin-top:16px}
+.detail-control{display:grid;gap:8px;border:1px solid #202020;border-radius:10px;padding:11px 12px;background:linear-gradient(145deg,#111,#090909);color:#bdbdbd;font-size:9px}
+.detail-control>span{display:block;color:#aaa;letter-spacing:.02em}
+.range-control{grid-template-columns:1fr auto;align-items:center}
+.range-control>span{grid-column:1/-1}
+.range-control input[type=range]{width:100%;accent-color:#fff;cursor:pointer}
+.range-control output{min-width:28px;text-align:right;color:#fff;font:700 10px Manrope}
+.text-control{grid-template-columns:1fr}
+.text-control input{width:100%;box-sizing:border-box;border:1px solid #222;border-radius:7px;background:#070707;color:#fff;padding:9px;outline:none;font:500 9px "DM Sans"}
+.text-control input:focus{border-color:#555;box-shadow:0 0 0 2px rgba(255,255,255,.05)}
+.toggle-control{grid-template-columns:1fr 38px;align-items:center}
+.toggle-control input{position:absolute;opacity:0;pointer-events:none}
+.toggle-control i{position:relative;width:34px;height:18px;border-radius:999px;background:#292929;box-shadow:inset 0 0 0 1px #3a3a3a;transition:.2s}
+.toggle-control i:after{content:"";position:absolute;top:3px;left:3px;width:12px;height:12px;border-radius:50%;background:#777;transition:.2s}
+.toggle-control.enabled i{background:#eee;box-shadow:0 0 12px rgba(255,255,255,.18)}
+.toggle-control.enabled i:after{left:19px;background:#080808}
