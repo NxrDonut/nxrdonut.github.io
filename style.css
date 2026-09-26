@@ -67,3 +67,15 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rad
 
 /* Compact views badge */
 .view-badge{gap:7px;margin:11px 0 4px;padding:6px 10px;font-size:9px;letter-spacing:.1em}.view-badge span{font-size:7px}.hero .badges{margin:10px 0 18px}
+
+/* Compact top-left music control */
+.volume{top:88px;left:24px;width:44px;height:44px;padding:6px;gap:0;overflow:hidden;transition:width .3s var(--ease),padding .3s var(--ease),box-shadow .3s var(--ease),border-color .3s var(--ease)}
+.volume:hover,.volume:focus-within{width:178px;padding:6px 9px 6px 6px;gap:10px;border-color:rgba(255,255,255,.2);box-shadow:0 14px 50px rgba(0,0,0,.55),0 0 24px rgba(255,255,255,.035),inset 0 1px rgba(255,255,255,.06)}
+.volume-btn{flex:0 0 32px}
+.volume-control{width:125px;min-width:125px;opacity:0;transform:translateX(-7px);pointer-events:none;transition:opacity .22s var(--ease),transform .3s var(--ease)}
+.volume:hover .volume-control,.volume:focus-within .volume-control{opacity:1;transform:none;pointer-events:auto}
+@media(max-width:520px){
+  .volume{top:74px;left:14px;width:42px;height:42px}
+  .volume:hover,.volume:focus-within{width:158px}
+  .volume-control{width:105px;min-width:105px}
+}
