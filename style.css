@@ -45,3 +45,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rad
 /* Community image sizing */
 .community>span{overflow:hidden;display:grid;place-items:center}
 .community>span img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Kum Network transparent logo background */
+.kum-logo{background:#000!important;}
+.kum-logo img{background:#000;object-fit:contain!important;padding:8px;}
