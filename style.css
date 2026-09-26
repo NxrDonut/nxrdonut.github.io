@@ -79,3 +79,15 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rad
   .volume:hover,.volume:focus-within{width:158px}
   .volume-control{width:105px;min-width:105px}
 }
+
+/* Minimal top-left music note control */
+.volume{top:10px;left:10px;width:28px;height:28px;padding:0;gap:0;border:1px solid transparent;border-radius:8px;background:transparent;box-shadow:none;backdrop-filter:none;overflow:hidden;transition:width .25s var(--ease),height .25s var(--ease),padding .25s var(--ease),background .2s,border-color .2s,box-shadow .2s}
+.volume:hover,.volume:focus-within{width:154px;height:34px;padding:3px 7px 3px 3px;gap:8px;border-color:rgba(255,255,255,.12);background:rgba(8,8,8,.9);box-shadow:0 10px 35px rgba(0,0,0,.5),inset 0 1px rgba(255,255,255,.05);backdrop-filter:blur(14px)}
+.volume-btn{width:28px;height:28px;flex:0 0 28px;padding:0;border:0;border-radius:7px;background:transparent;box-shadow:none}
+.volume-btn:hover{background:rgba(255,255,255,.06);transform:none}
+.speaker-icon{width:13px;height:15px}
+.speaker-icon:before{content:"♪";position:absolute;inset:0;width:auto;height:auto;background:none;font:700 18px/15px Manrope;color:#eee;border-radius:0}
+.speaker-icon:after,.speaker-icon i,.speaker-icon b{display:none}
+.volume-control{width:108px;min-width:108px;opacity:0;transform:translateX(-5px);pointer-events:none;transition:opacity .18s var(--ease),transform .25s var(--ease)}
+.volume:hover .volume-control,.volume:focus-within .volume-control{opacity:1;transform:none;pointer-events:auto}
+@media(max-width:520px){.volume{top:8px;left:8px;width:26px;height:26px}.volume-btn{width:26px;height:26px;flex-basis:26px}.volume:hover,.volume:focus-within{width:140px;height:32px}.volume-control{width:98px;min-width:98px}}
