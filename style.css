@@ -41,3 +41,7 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;background:rad
 /* Experience image styling */
 .exp-logo{overflow:hidden;display:grid;place-items:center}
 .exp-logo img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Community image sizing */
+.community>span{overflow:hidden;display:grid;place-items:center}
+.community>span img{width:100%;height:100%;object-fit:cover;display:block}
