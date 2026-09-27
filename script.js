@@ -2,7 +2,20 @@ document.addEventListener("DOMContentLoaded",()=>{const $=s=>document.querySelec
 
 const intro=$("#intro"),audio=$("#audio"),wave=$("#wave"),volume=$("#volumeSlider"),volumeToggle=$("#volumeToggle");
 let entered=false;
-function enter(){if(entered)return;entered=true;intro?.classList.add("hide");document.body.classList.remove("locked");if(audio)audio.play().catch(()=>{});wave?.classList.remove("paused")}
+function recordView(){
+  try{
+    if(sessionStorage.getItem("nxr-view-recorded")) return;
+    sessionStorage.setItem("nxr-view-recorded","1");
+    const key="nxr-view-count";
+    const current=Number(localStorage.getItem(key)||2981);
+    localStorage.setItem(key,String(current+1));
+    const viewCount=$("#viewCount");
+    if(viewCount) viewCount.textContent=String(current+1).replace(/\B(?=(\d{3})+(?!\d))/g,",");
+  }catch{}
+}
+function syncViewCount(){try{const saved=Number(localStorage.getItem("nxr-view-count"));if(saved>0){const viewCount=$("#viewCount");if(viewCount)viewCount.textContent=saved.toLocaleString()}}catch{}}
+syncViewCount();
+function enter(){if(entered)return;entered=true;recordView();intro?.classList.add("hide");document.body.classList.remove("locked");if(audio)audio.play().catch(()=>{});wave?.classList.remove("paused")}
 intro?.addEventListener("click",enter);
 intro?.addEventListener("pointerup",e=>{if(e.button===0)enter()});
 intro?.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();enter()}});
