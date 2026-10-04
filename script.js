@@ -7,7 +7,7 @@ function recordView(){
     if(sessionStorage.getItem("nxr-view-recorded")) return;
     sessionStorage.setItem("nxr-view-recorded","1");
     const key="nxr-view-count";
-    const current=Number(localStorage.getItem(key)||2981);
+    const current=Number(localStorage.getItem(key)||2991);
     localStorage.setItem(key,String(current+1));
     const viewCount=$("#viewCount");
     if(viewCount) viewCount.textContent=String(current+1).replace(/\B(?=(\d{3})+(?!\d))/g,",");
