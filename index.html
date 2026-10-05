@@ -68,8 +68,18 @@
       <div class="music-copy"><small>NOW PLAYING</small><strong id="musicTitle">Hoes Come Easy <i>· FOREVER$TRONG</i></strong></div>
       <div id="wave" class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <span id="musicTime">00:00</span>
-      <button id="musicBack" class="music-skip magnetic" type="button" aria-label="Previous song" title="Click once to restart • double-click for previous">‹</button><button id="musicSkip" class="music-skip magnetic" type="button" aria-label="Next song" title="Next song">›</button>
+      <button id="musicBack" class="music-skip magnetic" type="button" aria-label="Restart current song; double-click for previous" title="Restart • double-click for previous">‹</button><button id="musicPause" class="music-skip music-pause magnetic" type="button" aria-label="Pause music" title="Pause / play">Ⅱ</button><button id="musicSkip" class="music-skip magnetic" type="button" aria-label="Next song" title="Next song">›</button>
     </div>
+  </div>
+</section>
+
+<section class="world-section section">
+  <div class="heading reveal"><small>LIVE / WORLD CLOCK</small><h2>World Clock</h2><p>Local time, key cities and the difference at a glance.</p></div>
+  <div class="world-clock reveal" id="worldClock">
+    <article class="world-card local"><small>YOUR TIMEZONE</small><strong id="worldLocalName">Detecting…</strong><b id="worldLocalTime">--:--:--</b><span>LOCAL</span></article>
+    <article class="world-card"><small>LONDON</small><strong>Europe / London</strong><b data-zone-time="Europe/London">--:--:--</b><span data-zone-diff="Europe/London">YOUR TIME</span></article>
+    <article class="world-card"><small>NEW YORK</small><strong>America / New York</strong><b data-zone-time="America/New_York">--:--:--</b><span data-zone-diff="America/New_York">YOUR TIME</span></article>
+    <article class="world-card"><small>TOKYO</small><strong>Asia / Tokyo</strong><b data-zone-time="Asia/Tokyo">--:--:--</b><span data-zone-diff="Asia/Tokyo">YOUR TIME</span></article>
   </div>
 </section>
 
