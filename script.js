@@ -3,19 +3,19 @@ const intro=$("#intro"),setup=$("#setupModal"),audio=$("#audio"),wave=$("#wave")
 const tracks=[["Hoes Come Easy","FOREVER$TRONG"],["National Treasures","DRAKE"],["Low Life","FUTURE"],["Love Sosa","CHIEF KEEF"],["Stay Schemin","RICK ROSS"],["2055","SLEEPY HALLOW"],["Skin","OTUKA"]].map((x,i)=>({src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1]}));
 let entered=false,index=0,theme="matte",glow="MEDIUM",backTimer=null;
 function recordView(){try{if(sessionStorage.getItem("nxr-view-recorded"))return;sessionStorage.setItem("nxr-view-recorded","1");const k="nxr-view-count",n=Number(localStorage.getItem(k)||2991)+1;localStorage.setItem(k,n);$("#viewCount").textContent=n.toLocaleString()}catch{}}
-
-function apply(){document.body.className=document.body.className.replace(/theme-\w+|no-motion|no-led/g,"").replace(/\s+/g," ").trim()+" theme-"+theme;document.body.dataset.glow=glow;$("[data-theme]").forEach(b=>b.classList.toggle("selected",b.dataset.theme===theme));$("#glowSelect").value=glow}
+function apply(){document.body.className=document.body.className.replace(/theme-\w+|no-motion|no-led/g,"").replace(/\s+/g," ").trim()+" theme-"+theme;document.body.dataset.glow=glow;$$("[data-theme]").forEach(b=>b.classList.toggle("selected",b.dataset.theme===theme));$("#glowSelect").value=glow}
 function render(){const t=tracks[index];$("#musicTitle").innerHTML=t.title+" <i>· "+t.artist+"</i>";$("#trackNumber").textContent=String(index+1).padStart(2,"0")+" / 07";$$(".track-choice").forEach((b,i)=>b.classList.toggle("selected",i===index));if(audio){audio.src=t.src;audio.load()}}
 function build(){const box=$("#trackChoices");box.innerHTML=tracks.map((t,i)=>'<button class="track-choice" type="button" data-i="'+i+'"><span class="track-num">'+String(i+1).padStart(2,"0")+'</span><span><strong>'+t.title+'</strong><small>'+t.artist+'</small></span><b>›</b></button>').join("");box.addEventListener("click",e=>{const b=e.target.closest(".track-choice");if(b){index=+b.dataset.i;render()}})}
-function openSetup(){if(entered)return;render();apply();setup.classList.add("open");setup.setAttribute("aria-hidden","false");}setup.setAttribute("aria-hidden","false")}
+function openSetup(){if(entered)return;render();apply();setup.classList.add("open");setup.setAttribute("aria-hidden","false")}
 function closeSetup(){setup.classList.remove("open");setup.setAttribute("aria-hidden","true")}
 function enter(){if(entered)return;entered=true;recordView();closeSetup();intro.classList.add("hide");document.body.classList.remove("locked");apply();audio.volume=+(volume.value||42)/100;audio.play().catch(()=>{});wave.classList.remove("paused")}
-intro.addEventListener("click",openSetup);intro.addEventListener("pointerup",e=>{if(e.button===0)openSetup()});intro.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSetup()}});
+intro.onclick=()=>openSetup();
+intro.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openSetup()}};
 $("#enterExperience").onclick=enter;$("#closeSetup").onclick=closeSetup;$(".setup-backdrop").onclick=closeSetup;
 $("#nextTrack").onclick=()=>{index=(index+1)%tracks.length;render()};$("#prevTrack").onclick=()=>{index=(index+tracks.length-1)%tracks.length;render()};
 back?.addEventListener("click",e=>{e.stopPropagation();if(backTimer){clearTimeout(backTimer);backTimer=null;index=(index+tracks.length-1)%tracks.length;render();audio.play().catch(()=>{});return}audio.currentTime=0;audio.play().catch(()=>{});backTimer=setTimeout(()=>{backTimer=null},550)});
 skip?.addEventListener("click",e=>{e.stopPropagation();index=(index+1)%tracks.length;render();audio.play().catch(()=>{})});
-$("[data-theme]").forEach(b=>b.onclick=()=>{theme=b.dataset.theme;apply()});$("#glowSelect").onchange=e=>{glow=e.target.value;apply()};
+$$("[data-theme]").forEach(b=>b.onclick=()=>{theme=b.dataset.theme;apply()});$("#glowSelect").onchange=e=>{glow=e.target.value;apply()};
 const clock=$("#clock");setInterval(()=>clock.textContent=new Date().toLocaleTimeString([],{hour12:false}),1000);
 if(volume&&audio){const v=$("#volumeValue"),sync=()=>{const p=+volume.value;audio.volume=p/100;volume.style.setProperty("--volume",p+"%");v.textContent=p+"%"};volume.oninput=sync;volumeToggle.onclick=()=>{audio.muted=!audio.muted;volumeToggle.setAttribute("aria-label",audio.muted?"Unmute music":"Mute music")};sync()}
 audio.addEventListener("ended",()=>{index=(index+1)%tracks.length;render();audio.play().catch(()=>{})});audio.addEventListener("play",()=>wave.classList.remove("paused"));audio.addEventListener("pause",()=>wave.classList.add("paused"));audio.addEventListener("timeupdate",()=>{const s=Math.floor(audio.currentTime);$("#musicTime").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")});
