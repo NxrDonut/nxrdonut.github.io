@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   function apply(){
     const body=document.body;
-    body.className=body.className.replace(/theme-\\w+|no-motion|no-led/g,"").replace(/\\s+/g," ").trim()+" theme-"+theme;
+    body.className=body.className.replace(/theme-[A-Za-z0-9_-]+|no-motion|no-led/g,"").replace(/\\s+/g," ").trim()+" theme-"+theme;
     body.dataset.glow=glow;
     body.dataset.cursor=cursor;
     qsa("[data-theme]").forEach(function(button){
