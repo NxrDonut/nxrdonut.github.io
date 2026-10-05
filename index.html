@@ -25,8 +25,8 @@
 <div class="setup-grid">
 <div class="setup-section"><div class="setup-label">MUSIC <span id="trackNumber">01 / 07</span></div><div id="trackChoices" class="track-choices"></div><div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div></div>
 <div class="setup-section"><div class="setup-label">BACKGROUND THEME</div><div id="themeChoices" class="theme-choices">
-<button type="button" data-theme="matte"><i></i><span>Matte Black</span></button><button type="button" data-theme="light"><i></i><span>Light</span></button><button type="button" data-theme="dark"><i></i><span>Dark</span></button><button type="button" data-theme="chrome"><i></i><span>Chrome</span></button><button type="button" data-theme="cream"><i></i><span>Cream</span></button></div>
-<div class="setup-options"><button id="motionToggle" type="button"><span>Animations</span><b>ON</b></button><button id="ledToggle" type="button"><span>LED Edges</span><b>ON</b></button><label><span>Glow</span><select id="glowSelect"><option>LOW</option><option selected>MEDIUM</option><option>HIGH</option></select></label><label class="remember"><input id="rememberChoices" type="checkbox"><span>Remember choices</span></label></div></div>
+<button type="button" data-theme="matte"><i></i><span>Matte Black</span></button><button type="button" data-theme="chrome"><i></i><span>Chrome</span></button></div>
+<div class="setup-options"><label><span>Glow</span><select id="glowSelect"><option>LOW</option><option selected>MEDIUM</option><option>HIGH</option></select></label></div></div>
 </div><button id="enterExperience" class="setup-enter" type="button">ENTER EXPERIENCE <span>→</span></button>
 </section></div>
 
@@ -62,7 +62,7 @@
       <div class="music-copy"><small>NOW PLAYING</small><strong id="musicTitle">Hoes Come Easy <i>· FOREVER$TRONG</i></strong></div>
       <div id="wave" class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
       <span id="musicTime">00:00</span>
-      <button id="musicSkip" class="music-skip magnetic" type="button" aria-label="Skip to next song" title="Next song">›</button>
+      <button id="musicBack" class="music-skip magnetic" type="button" aria-label="Previous song" title="Click once to restart • double-click for previous">‹</button><button id="musicSkip" class="music-skip magnetic" type="button" aria-label="Next song" title="Next song">›</button>
     </div>
   </div>
 </section>
