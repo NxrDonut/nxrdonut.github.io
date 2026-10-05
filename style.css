@@ -114,3 +114,47 @@ body[data-cursor="glow"] .cursor-dot{width:4px;height:4px}
 body[data-cursor="glow"] .cursor-glow{opacity:.55;width:180px;height:180px}
 body[data-cursor="classic"] .cursor-glow{opacity:.25}
 @media(max-width:760px){.setup-cursor{display:none}}
+
+/* Premium world clock */
+.nav-meta{align-items:center}
+.nav-tool{width:26px;height:26px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.1);border-radius:7px;color:#777;font-size:13px;line-height:1;transition:.25s var(--ease)}
+.nav-tool:hover{color:#fff;border-color:#444;background:rgba(255,255,255,.045);transform:translateY(-1px)}
+.world-section{padding-top:40px}
+.world-clock{display:grid;grid-template-columns:1.35fr repeat(3,1fr);gap:10px}
+.world-card{position:relative;min-height:150px;padding:20px;border:1px solid rgba(255,255,255,.09);border-radius:16px;background:linear-gradient(145deg,#101010,#070707);box-shadow:0 20px 70px rgba(0,0,0,.35),inset 0 1px rgba(255,255,255,.04);overflow:hidden;transition:transform .3s var(--ease),border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.world-card:before{content:"";position:absolute;inset:-40% 40% auto -30%;height:130px;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 70%);filter:blur(22px);pointer-events:none}
+.world-card:hover{transform:translateY(-4px);border-color:#333;box-shadow:0 28px 85px rgba(0,0,0,.5),inset 0 1px rgba(255,255,255,.06)}
+.world-card small{display:block;font:700 7px Manrope;letter-spacing:.2em;color:#666}
+.world-card strong{display:block;margin-top:11px;font:700 11px Manrope;color:#aaa}
+.world-card b{display:block;margin-top:22px;font:800 clamp(24px,3vw,34px) Manrope;letter-spacing:-.04em;color:#f5f5f5}
+.world-card span{display:block;margin-top:8px;font:700 7px Manrope;letter-spacing:.14em;color:#555}
+.world-card.local{background:linear-gradient(145deg,#171717,#080808)}
+.world-card.local b{font-size:clamp(27px,3.3vw,38px)}
+.world-card.local span{color:#aaa}
+.setup-options{grid-template-columns:1fr 1fr}
+.setup-volume>div{display:flex;align-items:center;gap:8px;width:145px}
+.setup-volume input{width:105px;height:18px;accent-color:#fff;cursor:pointer}
+.setup-volume output{min-width:30px;text-align:right;color:#ddd;font:700 7px Manrope}
+.setup-cursor{gap:8px}
+.setup-cursor select,.setup-timezone select{height:28px;max-width:135px;padding:0 9px;border:1px solid #292929;border-radius:7px;background:#111;color:#ddd;font:700 7px Manrope;outline:0;cursor:pointer}
+.setup-timezone{gap:8px}
+.setup-timezone select{max-width:125px}
+.setup-timezone-preview{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:11px 12px;border:1px solid #202020;border-radius:9px;background:linear-gradient(145deg,#101010,#090909)}
+.setup-timezone-preview span:first-child{font:700 7px Manrope;letter-spacing:.1em;color:#777}
+.setup-timezone-preview strong{font:800 8px Manrope;color:#ddd;letter-spacing:.08em}
+.setup-timezone-preview span:last-child{font:700 9px Manrope;color:#aaa;letter-spacing:.05em}
+.music-pause{font-size:10px;letter-spacing:-.08em}
+@media(max-width:760px){
+  .world-clock{grid-template-columns:1fr 1fr}
+  .world-card.local{grid-column:1/-1}
+  .setup-options{grid-template-columns:1fr}
+  .setup-timezone-preview{grid-template-columns:1fr}
+  .nav-meta{gap:10px}
+  .nav-tool{display:none}
+}
+@media(max-width:520px){
+  .world-card{min-height:125px;padding:15px}
+  .world-card b{margin-top:17px;font-size:22px}
+  .world-card strong{font-size:9px}
+  .music-pause{font-size:9px}
+}
