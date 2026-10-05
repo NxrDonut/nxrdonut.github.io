@@ -18,6 +18,18 @@
   <em>ONLINE</em><em>2026</em>
 </div>
 
+<div id="setupModal" class="setup-modal" aria-hidden="true">
+<div class="setup-backdrop"></div>
+<section class="setup-card" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
+<div class="setup-top"><div><small>PERSONALIZE EXPERIENCE</small><h2 id="setupTitle">Make it yours.</h2><p>Choose your music and visual theme before entering.</p></div><button id="closeSetup" class="setup-close" type="button" aria-label="Close">×</button></div>
+<div class="setup-grid">
+<div class="setup-section"><div class="setup-label">MUSIC <span id="trackNumber">01 / 07</span></div><div id="trackChoices" class="track-choices"></div><div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div></div>
+<div class="setup-section"><div class="setup-label">BACKGROUND THEME</div><div id="themeChoices" class="theme-choices">
+<button type="button" data-theme="matte"><i></i><span>Matte Black</span></button><button type="button" data-theme="light"><i></i><span>Light</span></button><button type="button" data-theme="dark"><i></i><span>Dark</span></button><button type="button" data-theme="chrome"><i></i><span>Chrome</span></button><button type="button" data-theme="cream"><i></i><span>Cream</span></button></div>
+<div class="setup-options"><button id="motionToggle" type="button"><span>Animations</span><b>ON</b></button><button id="ledToggle" type="button"><span>LED Edges</span><b>ON</b></button><label><span>Glow</span><select id="glowSelect"><option>LOW</option><option selected>MEDIUM</option><option>HIGH</option></select></label><label class="remember"><input id="rememberChoices" type="checkbox"><span>Remember choices</span></label></div></div>
+</div><button id="enterExperience" class="setup-enter" type="button">ENTER EXPERIENCE <span>→</span></button>
+</section></div>
+
 <div class="cursor-glow"></div><div class="cursor-ring"></div><div class="cursor-dot"></div>
 <div class="edge edge-t"></div><div class="edge edge-r"></div><div class="edge edge-b"></div><div class="edge edge-l"></div>
 
@@ -77,7 +89,7 @@
 </main>
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
-<audio id="audio" src="./video.mp3" preload="auto"></audio>
-<script src="./script.js?v=6"></script>
+<audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
+<script src="./script.js?v=7"></script>
 </body>
 </html>
