@@ -271,32 +271,6 @@ document.addEventListener("DOMContentLoaded",function(){
     });
   });
 
-  const glowSelect=qs("#glowSelect");
-  if(glowSelect){
-    glowSelect.addEventListener("change",function(event){
-      glow=event.target.value;
-      apply();
-    });
-  }
-
-  if(compareTimezone) compareTimezone.addEventListener("change",updateSetupTimezone);
-  if(cursorSelect) cursorSelect.addEventListener("change",function(event){
-    cursor=event.target.value;
-    apply();
-  });
-
-  if(volumeSlider) volumeSlider.addEventListener("input",function(){
-    setVolume(volumeSlider.value);
-  });
-  if(setupVolume) setupVolume.addEventListener("input",function(){
-    setVolume(setupVolume.value);
-  });
-  if(volumeToggle && audio) volumeToggle.addEventListener("click",function(event){
-    event.stopPropagation();
-    audio.muted=!audio.muted;
-    volumeToggle.setAttribute("aria-label",audio.muted?"Unmute music":"Mute music");
-  });
-
   if(audio){
     audio.addEventListener("ended",function(){
       index=(index+1)%tracks.length;
