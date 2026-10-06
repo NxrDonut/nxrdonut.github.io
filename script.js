@@ -31,8 +31,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
   function recordView(){
     try{
-      if(sessionStorage.getItem("nxr-view-recorded")) return;
-      sessionStorage.setItem("nxr-view-recorded","1");
       const key="nxr-view-count";
       const count=Number(localStorage.getItem(key)||2991)+1;
       localStorage.setItem(key,String(count));
