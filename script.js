@@ -65,6 +65,29 @@ document.addEventListener("DOMContentLoaded",function(){
     }
   }
 
+  function getTrackViews(trackIndex){
+    try{
+      return Number(localStorage.getItem("nxr-track-views-"+trackIndex)||0);
+    }catch(e){
+      return 0;
+    }
+  }
+
+  function recordTrackView(trackIndex){
+    try{
+      const key="nxr-track-views-"+trackIndex;
+      const views=getTrackViews(trackIndex)+1;
+      localStorage.setItem(key,String(views));
+      const active=qsa(".track-choice").find(function(button){
+        return Number(button.dataset.i)===trackIndex;
+      });
+      if(active){
+        const view=active.querySelector(".track-views");
+        if(view) view.textContent=views.toLocaleString()+" VIEWS";
+      }
+    }catch(e){}
+  }
+
   function buildTracks(){
     const box=qs("#trackChoices");
     if(!box) return;
@@ -160,20 +183,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
   }
 
-  function setVolume(value){
-    const percent=Math.max(0,Math.min(100,Number(value)||0));
-    if(audio) audio.volume=percent/100;
-    if(volumeSlider){
-      volumeSlider.value=String(percent);
-      volumeSlider.style.setProperty("--volume",percent+"%");
-    }
-    if(setupVolume) setupVolume.value=String(percent);
-    const mainValue=qs("#volumeValue");
-    const setupValue=qs("#setupVolumeValue");
-    if(mainValue) mainValue.textContent=percent+"%";
-    if(setupValue) setupValue.textContent=percent+"%";
-  }
-
   function enter(){
     if(entered || !intro) return;
     entered=true;
@@ -182,6 +191,7 @@ document.addEventListener("DOMContentLoaded",function(){
     intro.classList.add("hide");
     document.body.classList.remove("locked");
     apply();
+    if(audio) audio.volume=0.42;
     recordTrackView(index);
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
