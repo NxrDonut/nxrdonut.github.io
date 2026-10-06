@@ -12,13 +12,13 @@ document.addEventListener("DOMContentLoaded",function(){
   const fullscreenToggle=qs("#fullscreenToggle");
 
   const tracks=[
-    ["Hoes Come Easy","FOREVER$TRONG",96],
-    ["National Treasures","DRAKE",94],
-    ["Low Life","FUTURE",92],
-    ["Love Sosa","CHIEF KEEF",90],
-    ["Stay Schemin","RICK ROSS",88],
-    ["2055","SLEEPY HALLOW",84],
-    ["Skin","OTUKA",80]
+    ["Hoes Come Easy","FOREVER$TRONG"],
+    ["National Treasures","DRAKE"],
+    ["Low Life","FUTURE"],
+    ["Love Sosa","CHIEF KEEF"],
+    ["Stay Schemin","RICK ROSS"],
+    ["2055","SLEEPY HALLOW"],
+    ["Skin","OTUKA"]
   ].map(function(x,i){
     return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2]};
   });
@@ -63,38 +63,14 @@ document.addEventListener("DOMContentLoaded",function(){
     }
   }
 
-  function getTrackViews(trackIndex){
-    try{
-      return Number(localStorage.getItem("nxr-track-views-"+trackIndex)||0);
-    }catch(e){
-      return 0;
-    }
-  }
-
-  function recordTrackView(trackIndex){
-    try{
-      const key="nxr-track-views-"+trackIndex;
-      const views=getTrackViews(trackIndex)+1;
-      localStorage.setItem(key,String(views));
-      const active=qsa(".track-choice").find(function(button){
-        return Number(button.dataset.i)===trackIndex;
-      });
-      if(active){
-        const view=active.querySelector(".track-views");
-        if(view) view.textContent=views.toLocaleString()+" VIEWS";
-      }
-    }catch(e){}
-  }
-
   function buildTracks(){
     const box=qs("#trackChoices");
     if(!box) return;
     box.innerHTML=tracks.map(function(track,i){
-      const views=getTrackViews(i);
       return '<button class="track-choice" type="button" data-i="'+i+'">'+
         '<span class="track-num">'+String(i+1).padStart(2,"0")+'</span>'+
-        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small><span class="track-stats"><em>POPULARITY</em><span class="pop-bar"><i style="--pop:'+track.popularity+'%"></i></span><b>'+track.popularity+'%</b><label class="track-views">'+views.toLocaleString()+' VIEWS</label></span></span>'+
-        '<b class="track-arrow">›</b></button>';
+        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small></span>'+
+        '<span class="track-arrow">›</span></button>';
     }).join("");
     box.addEventListener("click",function(event){
       const button=event.target.closest(".track-choice");
@@ -103,7 +79,6 @@ document.addEventListener("DOMContentLoaded",function(){
       render();
     });
   }
-
   function openSetup(){
     if(entered || !setup) return;
     render();
@@ -190,7 +165,6 @@ document.addEventListener("DOMContentLoaded",function(){
     document.body.classList.remove("locked");
     apply();
     if(audio) audio.volume=0.42;
-    recordTrackView(index);
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
   }
@@ -231,7 +205,6 @@ document.addEventListener("DOMContentLoaded",function(){
         backTimer=null;
         index=(index+tracks.length-1)%tracks.length;
         render();
-        recordTrackView(index);
         if(audio) audio.play().catch(function(){});
         return;
       }
@@ -257,7 +230,6 @@ document.addEventListener("DOMContentLoaded",function(){
       event.stopPropagation();
       index=(index+1)%tracks.length;
       render();
-      recordTrackView(index);
       if(audio) audio.play().catch(function(){});
     });
   }
