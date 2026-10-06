@@ -438,3 +438,57 @@ body[data-cursor="classic"] .cursor-glow{opacity:.25}
   .track-choices{grid-template-columns:1fr;gap:6px}
   .track-choice{min-height:55px}
 }
+
+/* Restore track popularity and views in the wide picker */
+.track-stats{
+  display:grid!important;
+  grid-template-columns:auto minmax(42px,1fr) auto auto;
+  align-items:center;
+  gap:6px;
+  margin-top:6px;
+  min-width:0;
+}
+.track-stats em{
+  display:block;
+  font-style:normal;
+  font:700 6px Manrope;
+  letter-spacing:.1em;
+  color:#5f5f5f;
+}
+.track-stats b{
+  display:block;
+  font:800 7px Manrope;
+  color:#aaa;
+}
+.track-views{
+  display:block!important;
+  font:700 6px Manrope;
+  color:#555;
+  white-space:nowrap;
+}
+.pop-bar{
+  display:block;
+  position:relative;
+  height:3px;
+  min-width:42px;
+  border-radius:99px;
+  background:#252525;
+  overflow:hidden;
+}
+.pop-bar i{
+  display:block;
+  width:var(--pop,50%);
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#777,#fff);
+  box-shadow:0 0 8px rgba(255,255,255,.14);
+}
+@media(max-width:620px){
+  .track-stats{
+    grid-template-columns:auto 1fr auto;
+    gap:5px;
+  }
+  .track-views{
+    grid-column:2/-1;
+  }
+}
