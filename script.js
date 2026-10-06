@@ -6,33 +6,26 @@ document.addEventListener("DOMContentLoaded",function(){
   const setup=qs("#setupModal");
   const audio=qs("#audio");
   const wave=qs("#wave");
-  const volumeSlider=qs("#volumeSlider");
-  const setupVolume=qs("#setupVolume");
-  const volumeToggle=qs("#volumeToggle");
   const back=qs("#musicBack");
   const pause=qs("#musicPause");
   const skip=qs("#musicSkip");
-  const compareTimezone=qs("#compareTimezone");
-  const cursorSelect=qs("#cursorSelect");
   const fullscreenToggle=qs("#fullscreenToggle");
 
   const tracks=[
-    ["Hoes Come Easy","FOREVER$TRONG"],
-    ["National Treasures","DRAKE"],
-    ["Low Life","FUTURE"],
-    ["Love Sosa","CHIEF KEEF"],
-    ["Stay Schemin","RICK ROSS"],
-    ["2055","SLEEPY HALLOW"],
-    ["Skin","OTUKA"]
+    ["Hoes Come Easy","FOREVER$TRONG",96],
+    ["National Treasures","DRAKE",94],
+    ["Low Life","FUTURE",92],
+    ["Love Sosa","CHIEF KEEF",90],
+    ["Stay Schemin","RICK ROSS",88],
+    ["2055","SLEEPY HALLOW",84],
+    ["Skin","OTUKA",80]
   ].map(function(x,i){
-    return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1]};
+    return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2]};
   });
 
   let entered=false;
   let index=0;
   let theme="matte";
-  let glow="MEDIUM";
-  let cursor="classic";
   let backTimer=null;
   const localTimezone=Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
 
@@ -51,14 +44,9 @@ document.addEventListener("DOMContentLoaded",function(){
   function apply(){
     const body=document.body;
     body.className=body.className.replace(/theme-[A-Za-z0-9_-]+|no-motion|no-led/g,"").replace(/\s+/g," ").trim()+" theme-"+theme;
-    body.dataset.glow=glow;
-    body.dataset.cursor=cursor;
     qsa("[data-theme]").forEach(function(button){
       button.classList.toggle("selected",button.dataset.theme===theme);
     });
-    const glowSelect=qs("#glowSelect");
-    if(glowSelect) glowSelect.value=glow;
-    if(cursorSelect) cursorSelect.value=cursor;
   }
 
   function render(){
@@ -81,7 +69,11 @@ document.addEventListener("DOMContentLoaded",function(){
     const box=qs("#trackChoices");
     if(!box) return;
     box.innerHTML=tracks.map(function(track,i){
-      return '<button class="track-choice" type="button" data-i="'+i+'"><span class="track-num">'+String(i+1).padStart(2,"0")+'</span><span><strong>'+track.title+'</strong><small>'+track.artist+'</small></span><b>›</b></button>';
+      const views=getTrackViews(i);
+      return '<button class="track-choice" type="button" data-i="'+i+'">'+
+        '<span class="track-num">'+String(i+1).padStart(2,"0")+'</span>'+
+        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small><span class="track-stats"><em>POPULARITY</em><span class="pop-bar"><i style="--pop:'+track.popularity+'%"></i></span><b>'+track.popularity+'%</b><label class="track-views">'+views.toLocaleString()+' VIEWS</label></span></span>'+
+        '<b class="track-arrow">›</b></button>';
     }).join("");
     box.addEventListener("click",function(event){
       const button=event.target.closest(".track-choice");
@@ -143,27 +135,6 @@ document.addEventListener("DOMContentLoaded",function(){
     return String(zone||"UTC").split("/").pop().replace(/_/g," ");
   }
 
-  function updateSetupTimezone(){
-    const local=qs("#localTimezone");
-    const diff=qs("#timezoneDifference");
-    const time=qs("#compareTime");
-
-    if(local) local.textContent=timezoneLabel(localTimezone);
-    if(!compareTimezone || !diff || !time) return;
-
-    const target=compareTimezone.value;
-    const minutes=offsetMinutes(target)-offsetMinutes(localTimezone);
-    const sign=minutes>0?"+":minutes<0?"−":"";
-    const abs=Math.abs(minutes);
-    const hours=Math.floor(abs/60);
-    const mins=abs%60;
-
-    diff.textContent=minutes===0
-      ? "SAME TIME"
-      : sign+hours+"H"+(mins?String(mins).padStart(2,"0")+"M":"")+" VS YOU";
-    time.textContent=formatTime(target);
-  }
-
   function updateWorldClock(){
     const localName=qs("#worldLocalName");
     const localTime=qs("#worldLocalTime");
@@ -187,7 +158,6 @@ document.addEventListener("DOMContentLoaded",function(){
         : sign+hours+"H"+(mins?String(mins).padStart(2,"0")+"M":"")+" VS YOU";
     });
 
-    updateSetupTimezone();
   }
 
   function setVolume(value){
@@ -212,7 +182,7 @@ document.addEventListener("DOMContentLoaded",function(){
     intro.classList.add("hide");
     document.body.classList.remove("locked");
     apply();
-    setVolume(setupVolume ? setupVolume.value : (volumeSlider ? volumeSlider.value : 42));
+    recordTrackView(index);
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
   }
@@ -253,6 +223,7 @@ document.addEventListener("DOMContentLoaded",function(){
         backTimer=null;
         index=(index+tracks.length-1)%tracks.length;
         render();
+        recordTrackView(index);
         if(audio) audio.play().catch(function(){});
         return;
       }
@@ -278,6 +249,7 @@ document.addEventListener("DOMContentLoaded",function(){
       event.stopPropagation();
       index=(index+1)%tracks.length;
       render();
+      recordTrackView(index);
       if(audio) audio.play().catch(function(){});
     });
   }
@@ -386,51 +358,6 @@ document.addEventListener("DOMContentLoaded",function(){
     qsa(".reveal").forEach(function(el){el.classList.add("visible");});
   }
 
-  if(window.matchMedia && window.matchMedia("(pointer:fine)").matches){
-    const dot=qs(".cursor-dot");
-    const ring=qs(".cursor-ring");
-    const glowEl=qs(".cursor-glow");
-    let x=window.innerWidth/2;
-    let y=window.innerHeight/2;
-    let rx=x;
-    let ry=y;
-
-    window.addEventListener("mousemove",function(event){
-      x=event.clientX;
-      y=event.clientY;
-      if(dot){dot.style.left=x+"px";dot.style.top=y+"px";}
-      if(glowEl){glowEl.style.left=x+"px";glowEl.style.top=y+"px";}
-    });
-
-    (function cursorLoop(){
-      rx+=(x-rx)*0.14;
-      ry+=(y-ry)*0.14;
-      if(ring){ring.style.left=rx+"px";ring.style.top=ry+"px";}
-      window.requestAnimationFrame(cursorLoop);
-    })();
-
-    qsa(".magnetic").forEach(function(el){
-      el.addEventListener("mousemove",function(event){
-        const rect=el.getBoundingClientRect();
-        const moveX=(event.clientX-rect.left-rect.width/2)*0.06;
-        const moveY=(event.clientY-rect.top-rect.height/2)*0.06;
-        el.style.transform="translate("+moveX+"px,"+moveY+"px)";
-      });
-      el.addEventListener("mouseleave",function(){el.style.transform="";});
-    });
-
-    const avatar=qs("#avatarWrap");
-    if(avatar){
-      avatar.addEventListener("mousemove",function(event){
-        const rect=avatar.getBoundingClientRect();
-        const rotateX=(event.clientY-rect.top-rect.height/2)*-0.08;
-        const rotateY=(event.clientX-rect.left-rect.width/2)*0.08;
-        avatar.style.transform="perspective(800px) rotateX("+rotateX+"deg) rotateY("+rotateY+"deg)";
-      });
-      avatar.addEventListener("mouseleave",function(){avatar.style.transform="";});
-    }
-  }
-
   document.addEventListener("keydown",function(event){
     if(event.key==="Escape" && setup && setup.classList.contains("open")) closeSetup();
   });
@@ -447,6 +374,5 @@ document.addEventListener("DOMContentLoaded",function(){
 
   buildTracks();
   render();
-  setVolume(setupVolume ? setupVolume.value : 42);
   apply();
 });
