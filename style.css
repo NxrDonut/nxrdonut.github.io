@@ -324,3 +324,117 @@ body[data-cursor="classic"] .cursor-glow{opacity:.25}
   }
   .music-pause{font-size:9px}
 }
+
+/* Wide, low-profile personalization */
+.setup-card{
+  width:min(1040px,94vw);
+  max-height:78vh;
+  padding:24px 26px 22px;
+  border-radius:18px;
+}
+.setup-grid{
+  grid-template-columns:minmax(0,1fr) 230px;
+  gap:22px;
+  padding:18px 0;
+}
+.track-choices{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.track-choice{
+  min-height:58px;
+  grid-template-columns:30px minmax(0,1fr) 20px;
+  gap:12px;
+  padding:11px 13px;
+  border-radius:10px;
+  background:linear-gradient(145deg,#0d0d0d,#090909);
+}
+.track-choice:hover,
+.track-choice.selected{
+  border-color:#555;
+  background:linear-gradient(145deg,#151515,#0a0a0a);
+  box-shadow:inset 0 1px rgba(255,255,255,.04);
+}
+.track-num{
+  font-size:8px;
+  color:#4f4f4f;
+}
+.track-info{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  justify-content:center;
+  gap:3px;
+}
+.track-choice strong{
+  font-size:10px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.track-choice small{
+  margin:0;
+  font-size:7px;
+  color:#626262;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.track-arrow{
+  justify-self:end;
+  color:#4f4f4f;
+  font:700 16px/1 Manrope;
+  transition:transform .22s var(--ease),color .22s var(--ease);
+}
+.track-choice:hover .track-arrow,
+.track-choice.selected .track-arrow{
+  color:#eee;
+  transform:translateX(2px);
+}
+
+/* Hide legacy song metadata from previous version */
+.track-stats,.track-views,.pop-bar{display:none!important}
+
+.setup-track-nav{
+  margin-top:4px;
+  padding:0 3px;
+}
+.setup-track-nav button{
+  padding:8px 0;
+  color:#555;
+  transition:color .2s var(--ease);
+}
+.setup-track-nav button:hover{color:#eee}
+
+.setup-note{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid #1a1a1a;
+  border-radius:10px;
+  background:linear-gradient(145deg,#0e0e0e,#090909);
+}
+.setup-note span{color:#666}
+.setup-note small{color:#444}
+
+.setup-enter{
+  height:46px;
+  margin-top:2px;
+}
+
+@media(max-width:900px){
+  .setup-card{width:min(820px,94vw)}
+  .setup-grid{grid-template-columns:1fr}
+  .theme-choices{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .setup-note{display:none}
+}
+@media(max-width:620px){
+  .setup-card{
+    width:94vw;
+    max-height:86vh;
+    padding:17px;
+  }
+  .setup-grid{gap:14px;padding:14px 0}
+  .track-choices{grid-template-columns:1fr;gap:6px}
+  .track-choice{min-height:55px}
+}
