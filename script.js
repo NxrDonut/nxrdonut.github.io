@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded",function(){
   let entered=false;
   let index=0;
   let theme="matte";
-  let backTimer=null;
+  let backTimer=null; const BACK_WINDOW=2000;
   const localTimezone=Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   const COUNTER_API="https://abacus.jasoncameron.dev";
   const COUNTER_NAMESPACE="nxrdonut-public-v1";
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded",function(){
         audio.currentTime=0;
         audio.play().catch(function(){});
       }
-      backTimer=setTimeout(function(){backTimer=null;},550);
+      backTimer=setTimeout(function(){backTimer=null;},BACK_WINDOW);
     });
   }
 
