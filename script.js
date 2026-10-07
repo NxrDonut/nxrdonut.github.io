@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded",function(){
     ["Low Life","FUTURE",68,1127],
     ["Love Sosa","CHIEF KEEF",56,861],
     ["Stay Schemin","RICK ROSS",49,743],
-    ["2055","SLEEPY HALLOW",43,612]
+    ["Night, Blooming Jasmine.","N$GHT",43,612]
   ].map(function(x,i){
     return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2],baseViews:x[3]};
   });
