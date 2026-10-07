@@ -12,13 +12,12 @@ document.addEventListener("DOMContentLoaded",function(){
   const fullscreenToggle=qs("#fullscreenToggle");
 
   const tracks=[
-    ["Hoes Come Easy","FOREVER$TRONG",93,1266],
-    ["National Treasures","DRAKE",87,984],
-    ["Low Life","FUTURE",96,1127],
-    ["Love Sosa","CHIEF KEEF",91,861],
-    ["Stay Schemin","RICK ROSS",84,743],
-    ["2055","SLEEPY HALLOW",78,612],
-    ["Skin","OTUKA",89,537]
+    ["Hoes Come Easy","FOREVER$TRONG",72,1266],
+    ["National Treasures","DRAKE",61,984],
+    ["Low Life","FUTURE",68,1127],
+    ["Love Sosa","CHIEF KEEF",56,861],
+    ["Stay Schemin","RICK ROSS",49,743],
+    ["2055","SLEEPY HALLOW",43,612]
   ].map(function(x,i){
     return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2],baseViews:x[3]};
   });
@@ -65,12 +64,37 @@ document.addEventListener("DOMContentLoaded",function(){
   }
 
   async function refreshTrackViews(){
-    await Promise.all(tracks.map(async function(track,i){
-      const remote=await getCounter("song-"+i);
-      const row=qs('.track-choice[data-i="'+i+'"]');
-      const view=row ? row.querySelector(".track-views") : null;
-      if(view) view.textContent=formatCount(track.baseViews+(remote||0))+" VIEWS";
+    const totals=await Promise.all(tracks.map(function(track,i){
+      return getCounter("song-"+i);
     }));
+    let leaderIndex=0;
+    let leaderViews=-1;
+
+    tracks.forEach(function(track,i){
+      const remote=totals[i]===null?0:totals[i];
+      const total=track.baseViews+remote;
+      if(total>leaderViews){
+        leaderViews=total;
+        leaderIndex=i;
+      }
+    });
+
+    tracks.forEach(function(track,i){
+      const row=qs('.track-choice[data-i="'+i+'"]');
+      if(!row) return;
+      const view=row.querySelector(".track-views");
+      const remote=totals[i]===null?0:totals[i];
+      if(view) view.textContent=formatCount(track.baseViews+remote)+" VIEWS";
+      row.classList.toggle("most-popular",i===leaderIndex);
+      const oldLabel=row.querySelector(".most-popular-label");
+      if(oldLabel) oldLabel.remove();
+      if(i===leaderIndex){
+        const label=document.createElement("span");
+        label.className="most-popular-label";
+        label.textContent="MOST POPULAR";
+        row.appendChild(label);
+      }
+    });
   }
 
   function apply(){
@@ -86,7 +110,7 @@ document.addEventListener("DOMContentLoaded",function(){
     const title=qs("#musicTitle");
     const number=qs("#trackNumber");
     if(title) title.innerHTML=track.title+" <i>· "+track.artist+"</i>";
-    if(number) number.textContent=String(index+1).padStart(2,"0")+" / 07";
+    if(number) number.textContent=String(index+1).padStart(2,"0")+" / "+String(tracks.length).padStart(2,"0");
     qsa(".track-choice").forEach(function(button,i){
       button.classList.toggle("selected",i===index);
     });
@@ -95,26 +119,6 @@ document.addEventListener("DOMContentLoaded",function(){
       audio.load();
       if(pause) pause.textContent="▶";
     }
-  }
-
-  function getTrackViews(trackIndex){
-    try{return Number(localStorage.getItem("nxr-track-views-"+trackIndex)||0);}
-    catch(e){return 0;}
-  }
-
-  function recordTrackView(trackIndex){
-    try{
-      const key="nxr-track-views-"+trackIndex;
-      const views=getTrackViews(trackIndex)+1;
-      localStorage.setItem(key,String(views));
-      const active=qsa(".track-choice").find(function(button){
-        return Number(button.dataset.i)===trackIndex;
-      });
-      if(active){
-        const view=active.querySelector(".track-views");
-        if(view) view.textContent=views.toLocaleString()+" VIEWS";
-      }
-    }catch(e){}
   }
 
   function buildTracks(){
@@ -401,4 +405,5 @@ document.addEventListener("DOMContentLoaded",function(){
   render();
   apply();
   refreshTrackViews();
+  setInterval(refreshTrackViews,15000);
 });
