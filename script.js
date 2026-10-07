@@ -64,6 +64,15 @@ document.addEventListener("DOMContentLoaded",function(){
     if(view) view.textContent=formatCount(PROFILE_BASE_VIEWS+(remote||0));
   }
 
+  async function refreshTrackViews(){
+    await Promise.all(tracks.map(async function(track,i){
+      const remote=await getCounter("song-"+i);
+      const row=qs('.track-choice[data-i="'+i+'"]');
+      const view=row ? row.querySelector(".track-views") : null;
+      if(view) view.textContent=formatCount(track.baseViews+(remote||0))+" VIEWS";
+    }));
+  }
+
   function apply(){
     const body=document.body;
     body.className=body.className.replace(/theme-[A-Za-z0-9_-]+|no-motion|no-led/g,"").replace(/\s+/g," ").trim()+" theme-"+theme;
@@ -216,8 +225,14 @@ document.addEventListener("DOMContentLoaded",function(){
     ]);
 
     const profileRemote=results[0];
+    const songRemote=results[1];
+
     const profile=qs("#viewCount");
     if(profile && profileRemote!==null) profile.textContent=formatCount(PROFILE_BASE_VIEWS+profileRemote);
+
+    const row=qs('.track-choice[data-i="'+index+'"]');
+    const songView=row ? row.querySelector(".track-views") : null;
+    if(songView && songRemote!==null) songView.textContent=formatCount(tracks[index].baseViews+songRemote)+" VIEWS";
 
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
@@ -385,4 +400,5 @@ document.addEventListener("DOMContentLoaded",function(){
   buildTracks();
   render();
   apply();
+  refreshTrackViews();
 });
