@@ -12,15 +12,15 @@ document.addEventListener("DOMContentLoaded",function(){
   const fullscreenToggle=qs("#fullscreenToggle");
 
   const tracks=[
-    ["Hoes Come Easy","FOREVER$TRONG"],
-    ["National Treasures","DRAKE"],
-    ["Low Life","FUTURE"],
-    ["Love Sosa","CHIEF KEEF"],
-    ["Stay Schemin","RICK ROSS"],
-    ["2055","SLEEPY HALLOW"],
-    ["Skin","OTUKA"]
+    ["Hoes Come Easy","FOREVER$TRONG",93,1266],
+    ["National Treasures","DRAKE",87,984],
+    ["Low Life","FUTURE",96,1127],
+    ["Love Sosa","CHIEF KEEF",91,861],
+    ["Stay Schemin","RICK ROSS",84,743],
+    ["2055","SLEEPY HALLOW",78,612],
+    ["Skin","OTUKA",89,537]
   ].map(function(x,i){
-    return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2]};
+    return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2],baseViews:x[3]};
   });
 
   let entered=false;
@@ -28,15 +28,40 @@ document.addEventListener("DOMContentLoaded",function(){
   let theme="matte";
   let backTimer=null;
   const localTimezone=Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
+  const COUNTER_API="https://abacus.jasoncameron.dev";
+  const COUNTER_NAMESPACE="nxrdonut-public-v1";
+  const PROFILE_BASE_VIEWS=2991;
 
-  function recordView(){
+  async function hitCounter(key){
     try{
-      const key="nxr-view-count";
-      const count=Number(localStorage.getItem(key)||2991)+1;
-      localStorage.setItem(key,String(count));
-      const view=qs("#viewCount");
-      if(view) view.textContent=count.toLocaleString();
-    }catch(e){}
+      const response=await fetch(COUNTER_API+"/hit/"+encodeURIComponent(COUNTER_NAMESPACE)+"/"+encodeURIComponent(key),{cache:"no-store"});
+      if(!response.ok) throw new Error("counter request failed");
+      const data=await response.json();
+      return Number(data.value)||0;
+    }catch(e){
+      return null;
+    }
+  }
+
+  async function getCounter(key){
+    try{
+      const response=await fetch(COUNTER_API+"/get/"+encodeURIComponent(COUNTER_NAMESPACE)+"/"+encodeURIComponent(key),{cache:"no-store"});
+      if(!response.ok) throw new Error("counter request failed");
+      const data=await response.json();
+      return Number(data.value)||0;
+    }catch(e){
+      return null;
+    }
+  }
+
+  function formatCount(value){
+    return Number(value||0).toLocaleString();
+  }
+
+  async function refreshProfileViews(){
+    const remote=await getCounter("profile-views");
+    const view=qs("#viewCount");
+    if(view) view.textContent=formatCount(PROFILE_BASE_VIEWS+(remote||0));
   }
 
   function apply(){
@@ -87,10 +112,9 @@ document.addEventListener("DOMContentLoaded",function(){
     const box=qs("#trackChoices");
     if(!box) return;
     box.innerHTML=tracks.map(function(track,i){
-      const views=getTrackViews(i);
       return '<button class="track-choice" type="button" data-i="'+i+'">'+
         '<span class="track-num">'+String(i+1).padStart(2,"0")+'</span>'+
-        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small><span class="track-stats"><em>POPULARITY</em><span class="pop-bar"><i style="--pop:'+track.popularity+'%"></i></span><b>'+track.popularity+'%</b><label class="track-views">'+views.toLocaleString()+' VIEWS</label></span></span>'+
+        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small><span class="track-stats"><em>POPULARITY</em><span class="pop-bar"><i style="--pop:'+track.popularity+'%"></i></span><b>'+track.popularity+'%</b><label class="track-views">'+formatCount(track.baseViews)+' VIEWS</label></span></span>'+
         '<span class="track-arrow">›</span></button>';
     }).join("");
     box.addEventListener("click",function(event){
@@ -177,16 +201,24 @@ document.addEventListener("DOMContentLoaded",function(){
 
   }
 
-  function enter(){
+  async function enter(){
     if(entered || !intro) return;
     entered=true;
-    recordView();
     closeSetup();
     intro.classList.add("hide");
     document.body.classList.remove("locked");
     apply();
     if(audio) audio.volume=0.42;
-    recordTrackView(index);
+
+    const results=await Promise.all([
+      hitCounter("profile-views"),
+      hitCounter("song-"+index)
+    ]);
+
+    const profileRemote=results[0];
+    const profile=qs("#viewCount");
+    if(profile && profileRemote!==null) profile.textContent=formatCount(PROFILE_BASE_VIEWS+profileRemote);
+
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
   }
@@ -227,7 +259,6 @@ document.addEventListener("DOMContentLoaded",function(){
         backTimer=null;
         index=(index+tracks.length-1)%tracks.length;
         render();
-        recordTrackView(index);
         if(audio) audio.play().catch(function(){});
         return;
       }
@@ -253,7 +284,6 @@ document.addEventListener("DOMContentLoaded",function(){
       event.stopPropagation();
       index=(index+1)%tracks.length;
       render();
-      recordTrackView(index);
       if(audio) audio.play().catch(function(){});
       
     });
@@ -318,6 +348,7 @@ document.addEventListener("DOMContentLoaded",function(){
   },1000);
 
   updateWorldClock();
+  refreshProfileViews();
   setInterval(updateWorldClock,1000);
 
   if("IntersectionObserver" in window){
