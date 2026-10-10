@@ -10,6 +10,9 @@ document.addEventListener("DOMContentLoaded",function(){
   const pause=qs("#musicPause");
   const skip=qs("#musicSkip");
   const fullscreenToggle=qs("#fullscreenToggle");
+  const volumeToggle=qs("#volumeToggle");
+  const volumeSlider=qs("#volumeSlider");
+  const volumeValue=qs("#volumeValue");
 
   const tracks=[
     ["Hoes Come Easy","FOREVER$TRONG",72,1266],
@@ -25,6 +28,8 @@ document.addEventListener("DOMContentLoaded",function(){
   let entered=false;
   let index=0;
   let theme="matte";
+  let volumeLevel=0.42;
+  let lastNonZeroVolume=0.42;
   let backTimer=null; const BACK_WINDOW=2000;
   const localTimezone=Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   const COUNTER_API="https://abacus.jasoncameron.dev";
@@ -95,6 +100,28 @@ document.addEventListener("DOMContentLoaded",function(){
         row.appendChild(label);
       }
     });
+  }
+
+  function setVolume(value){
+    const parsed=Number(value);
+    volumeLevel=Math.max(0,Math.min(1,Number.isFinite(parsed)?parsed:0.42));
+    if(volumeLevel>0) lastNonZeroVolume=volumeLevel;
+    if(audio){
+      audio.volume=volumeLevel;
+      audio.muted=volumeLevel===0;
+    }
+    const percent=Math.round(volumeLevel*100);
+    if(volumeSlider){
+      volumeSlider.value=String(percent);
+      volumeSlider.style.setProperty("--volume",percent+"%");
+    }
+    if(volumeValue) volumeValue.textContent=percent+"%";
+    if(volumeToggle){
+      const muted=volumeLevel===0;
+      volumeToggle.setAttribute("aria-label",muted?"Unmute music":"Mute music");
+      volumeToggle.setAttribute("title",muted?"Unmute music":"Mute music");
+      volumeToggle.setAttribute("aria-pressed",String(muted));
+    }
   }
 
   function apply(){
@@ -221,7 +248,6 @@ document.addEventListener("DOMContentLoaded",function(){
     intro.classList.add("hide");
     document.body.classList.remove("locked");
     apply();
-    if(audio) audio.volume=0.42;
 
     const results=await Promise.all([
       hitCounter("profile-views"),
@@ -269,6 +295,20 @@ document.addEventListener("DOMContentLoaded",function(){
     index=(index+tracks.length-1)%tracks.length;
     render();
   });
+
+  if(volumeSlider){
+    volumeSlider.addEventListener("input",function(){
+      setVolume(Number(volumeSlider.value)/100);
+    });
+  }
+
+  if(volumeToggle){
+    volumeToggle.addEventListener("click",function(event){
+      event.stopPropagation();
+      if(volumeLevel===0) setVolume(lastNonZeroVolume||0.42);
+      else setVolume(0);
+    });
+  }
 
   if(back){
     back.addEventListener("click",function(event){
@@ -403,6 +443,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   buildTracks();
   render();
+  setVolume(volumeSlider ? Number(volumeSlider.value)/100 : 0.42);
   apply();
   refreshTrackViews();
   setInterval(refreshTrackViews,15000);
