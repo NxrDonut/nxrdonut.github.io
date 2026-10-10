@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./style.css?v=2">
 </head>
 <body class="locked">
 <div id="intro" class="intro" role="button" tabindex="0" aria-label="Click anywhere to enter experience">
@@ -34,7 +34,7 @@
 
 <header class="nav">
   <a class="logo magnetic" href="#home"><span>NXR</span><b>DONUT</b></a>
-  <nav><a href="#home">Home</a><a href="#experience">Experience</a><a href="#communities">Communities</a></nav>
+  <nav><a href="#home">Home</a><a href="#experience">Experience</a></nav>
   <div class="nav-meta"><span id="clock">00:00:00</span><span><i></i>ONLINE</span><button id="fullscreenToggle" class="nav-tool magnetic" type="button" aria-label="Enter fullscreen" title="Fullscreen">⛶</button></div>
 </header>
 
@@ -45,10 +45,9 @@
     <div class="avatar-wrap" id="avatarWrap"><div class="avatar-glow"></div><img src="./pfp.jpg" class="pfp" alt="NxrDonut"><span class="online-dot"></span></div>
     <h1>NxrDonut</h1>
     <p class="view-badge"><span>◉</span> <b id="viewCount">2,991</b> Views</p>
-    <div class="badges"><span>◆ DEVELOPER</span><span>✦ SSER</span><span>● STAFF</span><span>◇ RLT2</span></div>
+    <div class="badges"><span>◆ DEVELOPER</span><span>✦ SSER</span><span>● STAFF</span></div>
     <div class="socials">
       <a class="social magnetic" href="https://discord.com/users/873534867210637333" target="_blank" rel="noopener"><img src="./icons/discord.png" alt="">@nxrdonut</a>
-      <a class="social magnetic" href="https://www.youtube.com/@nxrdonut" target="_blank" rel="noopener"><img src="./icons/youtube.png" alt="">@nxrdonut</a>
       <a class="social magnetic" href="https://www.tiktok.com/@nxrdonut" target="_blank" rel="noopener"><img src="./icons/tiktok.png" alt="">@nxrdonut</a>
       <a class="social magnetic" href="https://github.com/nxrdonut" target="_blank" rel="noopener"><img src="./icons/github.png" alt="">@nxrdonut</a>
     </div>
@@ -62,12 +61,12 @@
 </section>
 
 <section class="world-section section">
-  <div class="heading reveal"><small>LIVE / WORLD CLOCK</small><h2>World Clock</h2><p>Local time, key cities and the difference at a glance.</p></div>
+  <div class="world-strip-title"><small>LIVE / TIMEZONES</small><h2>World clock</h2></div>
   <div class="world-clock reveal" id="worldClock">
-    <article class="world-card local"><small>YOUR TIMEZONE</small><strong id="worldLocalName">Detecting…</strong><b id="worldLocalTime">--:--:--</b><span>LOCAL</span></article>
-    <article class="world-card"><small>LONDON</small><strong>Europe / London</strong><b data-zone-time="Europe/London">--:--:--</b><span data-zone-diff="Europe/London">YOUR TIME</span></article>
-    <article class="world-card"><small>NEW YORK</small><strong>America / New York</strong><b data-zone-time="America/New_York">--:--:--</b><span data-zone-diff="America/New_York">YOUR TIME</span></article>
-    <article class="world-card"><small>TOKYO</small><strong>Asia / Tokyo</strong><b data-zone-time="Asia/Tokyo">--:--:--</b><span data-zone-diff="Asia/Tokyo">YOUR TIME</span></article>
+    <article class="world-card local"><small>YOUR LOCAL TIME</small><strong id="worldLocalName">Detecting…</strong><b id="worldLocalTime">--:--:--</b><span>LOCAL</span></article>
+    <article class="world-card"><small>UNITED KINGDOM</small><strong>LONDON</strong><b data-zone-time="Europe/London">--:--:--</b><span data-zone-diff="Europe/London">YOUR TIME</span></article>
+    <article class="world-card"><small>UNITED STATES</small><strong>NEW YORK</strong><b data-zone-time="America/New_York">--:--:--</b><span data-zone-diff="America/New_York">YOUR TIME</span></article>
+    <article class="world-card"><small>JAPAN</small><strong>TOKYO</strong><b data-zone-time="Asia/Tokyo">--:--:--</b><span data-zone-diff="Asia/Tokyo">YOUR TIME</span></article>
   </div>
 </section>
 
@@ -82,15 +81,11 @@
   </div>
 </section>
 
-<section id="communities" class="section">
-  <div class="heading reveal"><small>002 / COMMUNITIES</small><h2>Communities</h2><p>Communities and projects worth checking out.</p></div>
-  <div class="communities">
-    <a class="community magnetic reveal" href="https://discord.gg/lt2ln" target="_blank" rel="noopener"><span><img src="./images/communities/rstd.jpg" alt="ln"></span><div><small>COMMUNITY</small><h3>ln</h3></div><b>↗</b></a>
-</section>
+
 </main>
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
 <audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
-<script src="./script.js?v=27"></script>
+<script src="./script.js?v=28"></script>
 </body>
 </html>
