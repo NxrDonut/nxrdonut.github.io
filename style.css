@@ -644,3 +644,303 @@ body[data-cursor="classic"] .cursor-glow{opacity:.25}
   .world-card strong{font-size:9px}
   .world-card small{font-size:5.5px;letter-spacing:.13em}
 }
+
+/* Refined volume control: always visible, compact and easy to use */
+.volume{
+  top:92px;
+  left:clamp(12px,3vw,34px);
+  width:184px;
+  height:42px;
+  padding:5px 10px 5px 5px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  overflow:visible;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:13px;
+  background:rgba(8,8,8,.86);
+  backdrop-filter:blur(16px);
+  box-shadow:0 12px 36px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.045);
+  transition:border-color .2s var(--ease),background .2s var(--ease),box-shadow .2s var(--ease);
+}
+.volume:hover,.volume:focus-within{
+  border-color:rgba(255,255,255,.22);
+  background:rgba(11,11,11,.95);
+  box-shadow:0 14px 42px rgba(0,0,0,.44),inset 0 1px rgba(255,255,255,.06);
+}
+.volume-btn{
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
+  display:grid;
+  place-items:center;
+  padding:0;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:9px;
+  background:rgba(255,255,255,.045);
+  color:#eee;
+  box-shadow:none;
+  transition:background .2s,border-color .2s,color .2s;
+}
+.volume-btn:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.17);transform:none}
+.volume-btn:focus-visible,.volume-control input:focus-visible{
+  outline:2px solid rgba(255,255,255,.8);
+  outline-offset:3px;
+}
+.speaker-icon{position:relative;width:15px;height:15px;display:block}
+.speaker-icon:before{
+  content:"♪";
+  position:absolute;
+  inset:0;
+  width:auto;
+  height:auto;
+  margin:0;
+  background:none;
+  border-radius:0;
+  color:#eee;
+  font:700 17px/15px Manrope;
+  text-align:center;
+}
+.speaker-icon:after,.speaker-icon i,.speaker-icon b{display:none}
+.volume-control{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex:1;
+  width:auto;
+  min-width:0;
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+}
+.volume-control input{
+  display:block;
+  flex:1;
+  width:100%;
+  min-width:0;
+  height:20px;
+  margin:0;
+  padding:0;
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  background:transparent;
+  opacity:1;
+  cursor:pointer;
+  touch-action:pan-y;
+}
+.volume-control input::-webkit-slider-runnable-track{
+  height:4px;
+  border-radius:99px;
+  background:linear-gradient(90deg,#f3f3f3 var(--volume,42%),#303030 var(--volume,42%));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.045);
+}
+.volume-control input::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:12px;
+  height:12px;
+  margin-top:-4px;
+  border:2px solid #111;
+  border-radius:50%;
+  background:#f5f5f5;
+  box-shadow:0 0 0 1px rgba(255,255,255,.35),0 0 9px rgba(255,255,255,.18);
+}
+.volume-control input::-moz-range-track{height:4px;border:0;border-radius:99px;background:#303030}
+.volume-control input::-moz-range-progress{height:4px;border-radius:99px;background:#f3f3f3}
+.volume-control input::-moz-range-thumb{width:9px;height:9px;border:2px solid #111;border-radius:50%;background:#f5f5f5;box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.volume-control span{
+  min-width:27px;
+  color:#aaa;
+  font:700 8px/1 Manrope;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:0;
+  text-align:right;
+}
+.volume-btn[aria-pressed="true"] .speaker-icon:before{content:"×";font-size:18px}
+
+/* A calmer, single-purpose song picker */
+.setup-card{
+  width:min(760px,92vw);
+  max-height:88vh;
+  padding:clamp(18px,3vw,28px);
+  border-radius:19px;
+  background:linear-gradient(145deg,#121212,#060606);
+  border-color:rgba(255,255,255,.13);
+}
+.setup-top{
+  align-items:flex-start;
+  gap:18px;
+  padding-bottom:18px;
+}
+.setup-top small{font-size:7px;color:#777;letter-spacing:.2em}
+.setup-top h2{
+  margin:7px 0 6px;
+  font-size:clamp(27px,4vw,38px);
+  line-height:1.08;
+  letter-spacing:-.055em;
+}
+.setup-top p{
+  max-width:380px;
+  font-size:11px;
+  line-height:1.55;
+  color:#777;
+}
+.setup-close{flex:0 0 32px}
+.setup-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:0;
+  padding:17px 0 13px;
+}
+.song-section{min-width:0}
+.setup-label{
+  margin-bottom:11px;
+  font-size:7px;
+  letter-spacing:.18em;
+}
+.setup-label span{font-variant-numeric:tabular-nums;color:#777}
+.track-choices{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.track-choice{
+  position:relative;
+  min-width:0;
+  min-height:76px;
+  grid-template-columns:22px minmax(0,1fr) 12px;
+  align-items:center;
+  gap:10px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,.085);
+  border-radius:11px;
+  background:linear-gradient(145deg,#0e0e0e,#090909);
+  box-shadow:none;
+  transition:background .2s,border-color .2s,box-shadow .2s,transform .2s;
+}
+.track-choice:hover{
+  border-color:rgba(255,255,255,.2);
+  background:linear-gradient(145deg,#141414,#0a0a0a);
+  transform:translateY(-1px);
+}
+.track-choice.selected{
+  border-color:rgba(255,255,255,.44);
+  background:linear-gradient(145deg,#171717,#0b0b0b);
+  box-shadow:inset 0 1px rgba(255,255,255,.055),0 8px 20px rgba(0,0,0,.15);
+}
+.track-choice:focus-visible{
+  outline:2px solid rgba(255,255,255,.68);
+  outline-offset:2px;
+}
+.track-num{font-size:8px;color:#777;font-variant-numeric:tabular-nums}
+.track-info{display:flex;flex-direction:column;justify-content:center;gap:3px;min-width:0}
+.track-choice strong{
+  max-width:100%;
+  font:700 10px/1.35 Manrope;
+  letter-spacing:-.01em;
+}
+.track-choice small{
+  margin:0;
+  font:500 8px/1.4 "DM Sans",sans-serif;
+  color:#777;
+}
+.track-stats{
+  display:grid!important;
+  grid-template-columns:minmax(30px,1fr) auto auto;
+  align-items:center;
+  gap:7px;
+  margin-top:7px;
+  min-width:0;
+}
+.track-stats em{display:none!important}
+.track-stats .pop-bar{
+  display:block!important;
+  width:100%;
+  min-width:25px;
+  max-width:72px;
+  height:3px;
+  border-radius:99px;
+  background:#2d2d2d;
+}
+.track-stats .pop-bar i{
+  display:block;
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#777,#eee);
+}
+.track-stats .track-popularity{
+  display:block;
+  color:#aaa;
+  font:700 7px/1 Manrope;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.track-views{
+  display:block!important;
+  min-width:0;
+  color:#626262;
+  font:600 6px/1 Manrope;
+  letter-spacing:0;
+  text-transform:none;
+  white-space:nowrap;
+}
+.track-choice.most-popular .track-info{padding-right:54px}
+.most-popular-label{
+  top:8px;
+  right:8px;
+  padding:4px 5px;
+  border-color:rgba(255,255,255,.13);
+  font-size:5px;
+  letter-spacing:.11em;
+}
+.track-arrow{
+  align-self:center;
+  color:#555;
+  font:700 16px/1 Manrope;
+}
+.track-choice:hover .track-arrow,.track-choice.selected .track-arrow{color:#eee}
+.setup-track-nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:7px;
+  padding:0 2px;
+  border-top:1px solid rgba(255,255,255,.055);
+}
+.setup-track-nav button{
+  padding:10px 0 3px;
+  color:#777;
+  font:700 7px Manrope;
+  letter-spacing:.12em;
+}
+.setup-track-nav button:hover{color:#f5f5f5}
+.setup-enter{
+  height:46px;
+  border-radius:10px;
+  font-size:8px;
+  letter-spacing:.15em;
+}
+@media(max-width:640px){
+  .volume{top:88px;left:10px;width:160px;height:38px;padding:4px 8px 4px 4px;gap:6px}
+  .volume-btn{width:28px;height:28px;flex-basis:28px}
+  .volume-control{gap:6px}
+  .volume-control span{min-width:25px;font-size:7px}
+  .setup-card{width:min(520px,94vw);max-height:88vh;padding:16px;border-radius:15px}
+  .setup-grid{padding:14px 0 11px}
+  .track-choices{grid-template-columns:minmax(0,1fr);gap:6px}
+  .track-choice{min-height:64px;padding:9px 10px}
+  .track-choice.most-popular .track-info{padding-right:64px}
+  .track-choice strong{font-size:10px}
+  .track-stats{grid-template-columns:minmax(34px,1fr) auto auto;gap:8px;margin-top:6px}
+  .track-stats .pop-bar{max-width:95px}
+  .track-views{font-size:6px}
+  .setup-top{padding-bottom:14px}
+  .setup-top h2{font-size:28px}
+  .setup-enter{height:43px}
+}
+@media(max-height:720px) and (min-width:641px){
+  .setup-card{max-height:92vh}
+  .track-choice{min-height:65px;padding:9px 11px}
+  .setup-grid{padding:12px 0 10px}
+}
+
