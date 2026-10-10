@@ -38,6 +38,16 @@
   <div class="nav-meta"><span id="clock">00:00:00</span><span><i></i>ONLINE</span><button id="fullscreenToggle" class="nav-tool magnetic" type="button" aria-label="Enter fullscreen" title="Fullscreen">⛶</button></div>
 </header>
 
+<div class="volume" id="volumeControl" role="group" aria-label="Music volume">
+  <button id="volumeToggle" class="volume-btn" type="button" aria-label="Mute music" aria-pressed="false" title="Mute music">
+    <span class="speaker-icon" aria-hidden="true"><i></i><b></b></span>
+  </button>
+  <div class="volume-control">
+    <input id="volumeSlider" type="range" min="0" max="100" step="1" value="42" aria-label="Music volume level" style="--volume:42%">
+    <span id="volumeValue">42%</span>
+  </div>
+</div>
+
 <main id="home">
 <section class="hero">
   <div class="hero-grid"></div><div class="hero-glow g1"></div><div class="hero-glow g2"></div>
@@ -86,6 +96,6 @@
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
 <audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
-<script src="./script.js?v=28"></script>
+<script src="./script.js?v=29"></script>
 </body>
 </html>
