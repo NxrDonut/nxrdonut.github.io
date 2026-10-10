@@ -1055,7 +1055,7 @@ body[data-cursor="classic"] .cursor-glow{opacity:.25}
   font:800 7px/1 Manrope;
   letter-spacing:.02em;
 }
-.music-controls .volume[aria-pressed="true"] .volume-glyph{color:#666}
+.music-controls .volume-btn[aria-pressed="true"] .volume-glyph{color:#666}
 .music-controls .volume-control{
   display:flex;
   align-items:center;
