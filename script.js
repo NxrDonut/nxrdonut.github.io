@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded",function(){
 
   let entered=false;
   let index=0;
-  let theme="matte";
   let volumeLevel=0.42;
   let lastNonZeroVolume=0.42;
   let backTimer=null; const BACK_WINDOW=2000;
@@ -125,11 +124,7 @@ document.addEventListener("DOMContentLoaded",function(){
   }
 
   function apply(){
-    const body=document.body;
-    body.className=body.className.replace(/theme-[A-Za-z0-9_-]+|no-motion|no-led/g,"").replace(/\s+/g," ").trim()+" theme-"+theme;
-    qsa("[data-theme]").forEach(function(button){
-      button.classList.toggle("selected",button.dataset.theme===theme);
-    });
+    document.body.classList.remove("theme-chrome","theme-light","theme-cream","theme-dark","theme-matte");
   }
 
   function render(){
@@ -152,10 +147,10 @@ document.addEventListener("DOMContentLoaded",function(){
     const box=qs("#trackChoices");
     if(!box) return;
     box.innerHTML=tracks.map(function(track,i){
-      return '<button class="track-choice" type="button" data-i="'+i+'">'+
+      return '<button class="track-choice" type="button" data-i="'+i+'" aria-label="Select '+track.title+' by '+track.artist+'">'+
         '<span class="track-num">'+String(i+1).padStart(2,"0")+'</span>'+
-        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small><span class="track-stats"><em>POPULARITY</em><span class="pop-bar"><i style="--pop:'+track.popularity+'%"></i></span><b>'+track.popularity+'%</b><label class="track-views">'+formatCount(track.baseViews)+' VIEWS</label></span></span>'+
-        '<span class="track-arrow">›</span></button>';
+        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small><span class="track-stats"><span class="pop-bar" role="img" aria-label="Popularity '+track.popularity+' percent"><i style="--pop:'+track.popularity+'%"></i></span><b class="track-popularity">'+track.popularity+'%</b><label class="track-views">'+formatCount(track.baseViews)+' plays</label></span></span>'+
+        '<span class="track-arrow" aria-hidden="true">›</span></button>';
     }).join("");
     box.addEventListener("click",function(event){
       const button=event.target.closest(".track-choice");
@@ -347,13 +342,6 @@ document.addEventListener("DOMContentLoaded",function(){
       
     });
   }
-
-  qsa("[data-theme]").forEach(function(button){
-    button.addEventListener("click",function(){
-      theme=button.dataset.theme||"matte";
-      apply();
-    });
-  });
 
   if(audio){
     audio.addEventListener("ended",function(){
