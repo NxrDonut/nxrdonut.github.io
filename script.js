@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded",function(){
       if(!row) return;
       const view=row.querySelector(".track-views");
       const remote=totals[i]===null?0:totals[i];
-      if(view) view.textContent=formatCount(track.baseViews+remote)+" VIEWS";
+      if(view) view.textContent=formatCount(track.baseViews+remote)+" plays";
       row.classList.toggle("most-popular",i===leaderIndex);
       const oldLabel=row.querySelector(".most-popular-label");
       if(oldLabel) oldLabel.remove();
@@ -134,7 +134,9 @@ document.addEventListener("DOMContentLoaded",function(){
     if(title) title.innerHTML=track.title+" <i>· "+track.artist+"</i>";
     if(number) number.textContent=String(index+1).padStart(2,"0")+" / "+String(tracks.length).padStart(2,"0");
     qsa(".track-choice").forEach(function(button,i){
-      button.classList.toggle("selected",i===index);
+      const selected=i===index;
+      button.classList.toggle("selected",selected);
+      button.setAttribute("aria-pressed",String(selected));
     });
     if(audio){
       audio.src=track.src;
@@ -257,7 +259,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
     const row=qs('.track-choice[data-i="'+index+'"]');
     const songView=row ? row.querySelector(".track-views") : null;
-    if(songView && songRemote!==null) songView.textContent=formatCount(tracks[index].baseViews+songRemote)+" VIEWS";
+    if(songView && songRemote!==null) songView.textContent=formatCount(tracks[index].baseViews+songRemote)+" plays";
 
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
