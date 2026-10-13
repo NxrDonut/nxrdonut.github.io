@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css?v=8">
+<link rel="stylesheet" href="./style.css?v=9">
 </head>
 <body class="locked">
 <div id="intro" class="intro" role="button" tabindex="0" aria-label="Click anywhere to enter experience">
@@ -23,7 +23,13 @@
 <section class="setup-card" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
 <div class="setup-top"><div><small>PERSONALIZE EXPERIENCE</small><h2 id="setupTitle">Choose your soundtrack.</h2><p>Pick a track to set the tone. You can switch songs anytime.</p></div><button id="closeSetup" class="setup-close" type="button" aria-label="Close">×</button></div>
 <div class="setup-grid">
-<div class="setup-section song-section"><div class="setup-label">SELECT A TRACK <span id="trackNumber">01 / 06</span></div><div id="trackChoices" class="track-choices"></div><div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div></div>
+<div class="setup-section song-section">
+  <div class="setup-label"><span class="setup-label-title">SELECT A TRACK</span><span id="trackNumber">01 / 39</span></div>
+  <label class="track-search"><span aria-hidden="true">⌕</span><input id="trackSearch" type="search" placeholder="Search tracks or artists" autocomplete="off" spellcheck="false" aria-label="Search tracks or artists"></label>
+  <div id="trackSearchCount" class="track-search-count" aria-live="polite">39 TRACKS</div>
+  <div id="trackChoices" class="track-choices"></div>
+  <div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div>
+</div>
 </div><button id="enterExperience" class="setup-enter" type="button">ENTER EXPERIENCE <span>→</span></button>
 </section></div>
 
@@ -93,6 +99,6 @@
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
 <audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
-<script src="./script.js?v=34"></script>
+<script src="./script.js?v=35"></script>
 </body>
 </html>
