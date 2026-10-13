@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded",function(){
   const volumeToggle=qs("#volumeToggle");
   const volumeSlider=qs("#volumeSlider");
   const volumeValue=qs("#volumeValue");
+  const trackSearch=qs("#trackSearch");
+  const trackSearchCount=qs("#trackSearchCount");
 
   const tracks=[
     ["Hoes Come Easy","FOREVER$TRONG",72,1266],
@@ -20,7 +22,40 @@ document.addEventListener("DOMContentLoaded",function(){
     ["Low Life","FUTURE",68,1127],
     ["Love Sosa","CHIEF KEEF",56,861],
     ["Stay Schemin","RICK ROSS",49,743],
-    ["Night, Blooming Jasmine.","FAKEMINK",43,612]
+    ["Night, Blooming Jasmine.","FAKEMINK",43,612],
+    ["Vyzee (Extended Remix) (Slowed & Reverb)","SOPHIE · Moltisanti",null,0],
+    ["Queen St","twentythree",null,0],
+    ["Fall From The Sky PT.2 (Slowed)","RomancePlanet & Stakillaz",null,0],
+    ["Worry (Ultra Slowed)","LONOWN & Riserayys",null,0],
+    ["Love Me (feat. Drake & Future)","Lil Wayne",null,0],
+    ["She Will (feat. Drake)","Lil Wayne",null,0],
+    ["Sweater Weather","The Neighbourhood",null,0],
+    ["Loser","Tame Impala",null,0],
+    ["Now or Never","TKANDZ & CXSPER",null,0],
+    ["Janice STFU","Drake",null,0],
+    ["Black Beatles (feat. Gucci Mane)","Rae Sremmurd",null,0],
+    ["The Days (NOTION REMIX)","CHRYSTAL",null,0],
+    ["Made It This Far","MA Beats & BXCO",null,0],
+    ["Skin","otuka",null,0],
+    ["Track 10 (best part)","Elliot Sutton",null,0],
+    ["Legacy (Slowed Down) (feat. PIXY)","backfromparadise",null,0],
+    ["The Hills","The Weeknd",null,0],
+    ["Blue Bands","Weiland",null,0],
+    ["Cinderella (feat. Ty Dolla $ign)","Mac Miller",null,0],
+    ["Hate Bein' Sober (feat. 50 Cent & Wiz Khalifa)","Chief Keef",null,0],
+    ["I Don't Like (feat. Lil Reese)","Chief Keef",null,0],
+    ["24 songs","Playboi Carti",null,0],
+    ["Body","23mir",null,0],
+    ["Empire State of Mind (feat. Alicia Keys)","JAY-Z",null,0],
+    ["NIGHTS LIKE THIS","The Kid LAROI",null,0],
+    ["Blow My High","Dee Mula",null,0],
+    ["LVL","A$AP Rocky",null,0],
+    ["Mr. Rager","Kid Cudi",null,0],
+    ["9","Drake",null,0],
+    ["Summer Bummer (Lights On)","RhyRhy",null,0],
+    ["Meet Me in the Lobby","poferct",null,0],
+    ["Took Her to the O (Slowed)","King Von",null,0],
+    ["Reggie Pack","Cuffem",null,0]
   ].map(function(x,i){
     return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2],baseViews:x[3]};
   });
@@ -88,7 +123,8 @@ document.addEventListener("DOMContentLoaded",function(){
       if(!row) return;
       const view=row.querySelector(".track-views");
       const remote=totals[i]===null?0:totals[i];
-      if(view) view.textContent=formatCount(track.baseViews+remote)+" plays";
+      const totalViews=track.baseViews+remote;
+      if(view) view.textContent=totalViews>0?formatCount(totalViews)+" plays":"";
       row.classList.toggle("most-popular",i===leaderIndex);
       const oldLabel=row.querySelector(".most-popular-label");
       if(oldLabel) oldLabel.remove();
@@ -145,13 +181,37 @@ document.addEventListener("DOMContentLoaded",function(){
     }
   }
 
+  function filterTracks(){
+    const query=String(trackSearch ? trackSearch.value : "").trim().toLowerCase();
+    let visible=0;
+    qsa(".track-choice").forEach(function(button){
+      const track=tracks[Number(button.dataset.i)];
+      const match=!!track && (track.title+" "+track.artist).toLowerCase().includes(query);
+      button.hidden=!match;
+      if(match) visible++;
+    });
+    if(trackSearchCount){
+      trackSearchCount.textContent=query
+        ? visible+" RESULT"+(visible===1?"":"S")
+        : tracks.length+" TRACKS";
+    }
+  }
+
+  function clearTrackSearch(){
+    if(trackSearch) trackSearch.value="";
+    filterTracks();
+  }
+
   function buildTracks(){
     const box=qs("#trackChoices");
     if(!box) return;
     box.innerHTML=tracks.map(function(track,i){
-      return '<button class="track-choice" type="button" data-i="'+i+'" aria-label="Select '+track.title+' by '+track.artist+'">'+
+      const meta=track.popularity===null
+        ? '<span class="track-stats"><span class="track-new">ADDED</span><label class="track-views"></label></span>'
+        : '<span class="track-stats"><span class="pop-bar" role="img" aria-label="Popularity '+track.popularity+' percent"><i style="--pop:'+track.popularity+'%"></i></span><b class="track-popularity">'+track.popularity+'%</b><label class="track-views">'+formatCount(track.baseViews)+' plays</label></span>';
+      return '<button class="track-choice" type="button" data-i="'+i+'" aria-label="Select '+track.title+' by '+track.artist+'" aria-pressed="false">'+
         '<span class="track-num">'+String(i+1).padStart(2,"0")+'</span>'+
-        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small><span class="track-stats"><span class="pop-bar" role="img" aria-label="Popularity '+track.popularity+' percent"><i style="--pop:'+track.popularity+'%"></i></span><b class="track-popularity">'+track.popularity+'%</b><label class="track-views">'+formatCount(track.baseViews)+' plays</label></span></span>'+
+        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small>'+meta+'</span>'+
         '<span class="track-arrow" aria-hidden="true">›</span></button>';
     }).join("");
     box.addEventListener("click",function(event){
@@ -160,6 +220,8 @@ document.addEventListener("DOMContentLoaded",function(){
       index=Number(button.dataset.i)||0;
       render();
     });
+    if(trackSearch) trackSearch.addEventListener("input",filterTracks);
+    filterTracks();
   }
   function openSetup(){
     if(entered || !setup) return;
@@ -286,10 +348,12 @@ document.addEventListener("DOMContentLoaded",function(){
   const prevTrack=qs("#prevTrack");
   if(nextTrack) nextTrack.addEventListener("click",function(){
     index=(index+1)%tracks.length;
+    clearTrackSearch();
     render();
   });
   if(prevTrack) prevTrack.addEventListener("click",function(){
     index=(index+tracks.length-1)%tracks.length;
+    clearTrackSearch();
     render();
   });
 
@@ -436,5 +500,5 @@ document.addEventListener("DOMContentLoaded",function(){
   setVolume(volumeSlider ? Number(volumeSlider.value)/100 : 0.42);
   apply();
   refreshTrackViews();
-  setInterval(refreshTrackViews,15000);
+  setInterval(refreshTrackViews,60000);
 });
