@@ -1149,3 +1149,93 @@ body[data-cursor="classic"] .cursor-glow{opacity:.25}
   .music-controls .volume{margin-left:2px}
   .music-controls .volume:hover,.music-controls .volume:focus-within{flex-basis:118px;width:118px}
 }
+
+/* Search and navigate the expanded 39-track library */
+.track-search{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:42px;
+  margin:0 0 7px;
+  padding:0 12px;
+  border:1px solid rgba(255,255,255,.085);
+  border-radius:10px;
+  background:rgba(255,255,255,.025);
+  color:#888;
+  transition:border-color .2s,background .2s;
+}
+.track-search:focus-within{
+  border-color:rgba(255,255,255,.24);
+  background:rgba(255,255,255,.04);
+}
+.track-search>span{
+  flex:0 0 auto;
+  color:#777;
+  font:400 20px/1 "DM Sans",sans-serif;
+}
+.track-search input{
+  display:block;
+  width:100%;
+  min-width:0;
+  height:40px;
+  padding:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#eee;
+  font:500 11px/1.2 "DM Sans",sans-serif;
+}
+.track-search input::placeholder{color:#555}
+.track-search input::-webkit-search-cancel-button{
+  filter:grayscale(1);
+  cursor:pointer;
+}
+.track-search-count{
+  margin:0 2px 8px;
+  color:#565656;
+  font:700 6px/1.4 Manrope;
+  letter-spacing:.16em;
+}
+.track-choices{
+  max-height:min(43vh,390px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding:2px 4px 4px 2px;
+  scrollbar-width:thin;
+  scrollbar-color:#383838 transparent;
+}
+.track-choices::-webkit-scrollbar{width:5px}
+.track-choices::-webkit-scrollbar-track{background:transparent}
+.track-choices::-webkit-scrollbar-thumb{border-radius:99px;background:#333}
+.track-choices::-webkit-scrollbar-thumb:hover{background:#555}
+.track-choice[hidden]{display:none!important}
+.track-stats .track-new{
+  display:inline-flex;
+  align-items:center;
+  width:max-content;
+  padding:3px 5px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:4px;
+  color:#676767;
+  font:700 5px/1 Manrope;
+  letter-spacing:.13em;
+}
+.track-views:empty{display:none!important}
+.track-stats:has(.track-new){
+  display:flex!important;
+  align-items:center;
+  min-height:11px;
+  margin-top:6px;
+}
+.track-choice .track-info{padding-right:0}
+.track-choice.most-popular .track-info{padding-right:54px}
+@media(max-width:640px){
+  .track-choices{max-height:44vh;padding-right:3px}
+  .track-search{min-height:40px;border-radius:9px}
+  .track-search input{height:38px;font-size:12px}
+  .track-search-count{margin-bottom:7px}
+}
+@media(max-height:720px){
+  .track-choices{max-height:36vh}
+}
+
