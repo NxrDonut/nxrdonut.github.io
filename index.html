@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css?v=5">
+<link rel="stylesheet" href="./style.css?v=6">
 </head>
 <body class="locked">
 <div id="intro" class="intro" role="button" tabindex="0" aria-label="Click anywhere to enter experience">
@@ -23,9 +23,30 @@
 <section class="setup-card" role="dialog" aria-modal="true" aria-labelledby="setupTitle">
 <div class="setup-top"><div><small>PERSONALIZE EXPERIENCE</small><h2 id="setupTitle">Choose your soundtrack.</h2><p>Pick a track to set the tone. You can switch songs anytime.</p></div><button id="closeSetup" class="setup-close" type="button" aria-label="Close">×</button></div>
 <div class="setup-grid">
-<div class="setup-section song-section"><div class="setup-label">SELECT A TRACK <span id="trackNumber">01 / 06</span></div><div id="trackChoices" class="track-choices"></div><div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div></div>
+<div class="setup-section song-section"><div class="setup-label">SELECT A TRACK <span id="trackNumber">01 / 06</span></div><div id="trackChoices" class="track-choices"></div><div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div><button id="openFullPlaylistFromSetup" class="setup-full-playlist" type="button">BROWSE FULL PLAYLIST <span>↗</span></button></div>
 </div><button id="enterExperience" class="setup-enter" type="button">ENTER EXPERIENCE <span>→</span></button>
 </section></div>
+
+<div id="playlistModal" class="playlist-modal" aria-hidden="true">
+  <div class="playlist-backdrop" data-close-playlist></div>
+  <section class="playlist-panel" role="dialog" aria-modal="true" aria-labelledby="playlistTitle">
+    <div class="playlist-heading">
+      <div>
+        <small>NXRDONUT / MUSIC</small>
+        <h2 id="playlistTitle">Full playlist</h2>
+        <p>Browse and choose any track from your YouTube Music playlist.</p>
+      </div>
+      <button id="closePlaylist" class="playlist-close" type="button" aria-label="Close full playlist">×</button>
+    </div>
+    <div class="playlist-frame-wrap">
+      <iframe id="youtubePlaylistFrame" title="NxrDonut YouTube Music playlist" data-src="https://www.youtube.com/embed?listType=playlist&amp;list=PLcAU5HASFles&amp;playsinline=1&amp;rel=0" src="about:blank" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div class="playlist-footer">
+      <span>PLAYBACK PROVIDED BY YOUTUBE</span>
+      <a href="https://music.youtube.com/playlist?list=PLcAU5HASFles" target="_blank" rel="noopener noreferrer">Open in YouTube Music ↗</a>
+    </div>
+  </section>
+</div>
 
 <div class="edge edge-t"></div><div class="edge edge-r"></div><div class="edge edge-b"></div><div class="edge edge-l"></div>
 
@@ -56,6 +77,7 @@
         <button id="musicBack" class="music-skip magnetic" type="button" aria-label="Restart current song; double-click for previous" title="Restart • double-click for previous">‹</button>
         <button id="musicPause" class="music-skip music-pause magnetic" type="button" aria-label="Pause music" title="Pause / play">Ⅱ</button>
         <button id="musicSkip" class="music-skip magnetic" type="button" aria-label="Next song" title="Next song">›</button>
+        <button id="fullPlaylistToggle" class="music-skip playlist-trigger" type="button" aria-label="Open full playlist" aria-haspopup="dialog" aria-expanded="false" aria-controls="playlistModal" title="Full playlist">☷</button>
         <div class="volume" id="volumeControl">
           <button id="volumeToggle" class="volume-btn" type="button" aria-label="Mute music" aria-pressed="false" title="Mute music"><span class="volume-glyph" aria-hidden="true">VOL</span></button>
           <div class="volume-control">
@@ -93,6 +115,6 @@
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
 <audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
-<script src="./script.js?v=31"></script>
+<script src="./script.js?v=32"></script>
 </body>
 </html>
