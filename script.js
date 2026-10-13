@@ -13,11 +13,6 @@ document.addEventListener("DOMContentLoaded",function(){
   const volumeToggle=qs("#volumeToggle");
   const volumeSlider=qs("#volumeSlider");
   const volumeValue=qs("#volumeValue");
-  const playlistModal=qs("#playlistModal");
-  const playlistFrame=qs("#youtubePlaylistFrame");
-  const playlistButton=qs("#fullPlaylistToggle");
-  const playlistSetupButton=qs("#openFullPlaylistFromSetup");
-  const playlistClose=qs("#closePlaylist");
 
   const tracks=[
     ["Hoes Come Easy","FOREVER$TRONG",72,1266],
@@ -34,8 +29,6 @@ document.addEventListener("DOMContentLoaded",function(){
   let index=0;
   let volumeLevel=0.42;
   let lastNonZeroVolume=0.42;
-  let resumeLocalAfterPlaylist=false;
-  let playlistReturnFocus=null;
   let backTimer=null; const BACK_WINDOW=2000;
   const localTimezone=Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC";
   const COUNTER_API="https://abacus.jasoncameron.dev";
@@ -128,31 +121,6 @@ document.addEventListener("DOMContentLoaded",function(){
       volumeToggle.setAttribute("title",muted?"Unmute music":"Mute music");
       volumeToggle.setAttribute("aria-pressed",String(muted));
     }
-  }
-
-  function openFullPlaylist(){
-    if(!playlistModal || !playlistFrame) return;
-    playlistReturnFocus=document.activeElement;
-    resumeLocalAfterPlaylist=!!audio && !audio.paused;
-    if(resumeLocalAfterPlaylist && audio) audio.pause();
-    const embedUrl=playlistFrame.dataset.src;
-    if(embedUrl && playlistFrame.getAttribute("src")==="about:blank") playlistFrame.setAttribute("src",embedUrl);
-    playlistModal.classList.add("open");
-    playlistModal.setAttribute("aria-hidden","false");
-    if(playlistButton) playlistButton.setAttribute("aria-expanded","true");
-    if(playlistClose) playlistClose.focus();
-  }
-
-  function closeFullPlaylist(){
-    if(!playlistModal || !playlistModal.classList.contains("open")) return;
-    playlistModal.classList.remove("open");
-    playlistModal.setAttribute("aria-hidden","true");
-    if(playlistFrame) playlistFrame.setAttribute("src","about:blank");
-    if(playlistButton) playlistButton.setAttribute("aria-expanded","false");
-    if(resumeLocalAfterPlaylist && audio) audio.play().catch(function(){});
-    resumeLocalAfterPlaylist=false;
-    if(playlistReturnFocus && typeof playlistReturnFocus.focus==="function") playlistReturnFocus.focus();
-    playlistReturnFocus=null;
   }
 
   function apply(){
@@ -325,13 +293,6 @@ document.addEventListener("DOMContentLoaded",function(){
     render();
   });
 
-  if(playlistButton) playlistButton.addEventListener("click",openFullPlaylist);
-  if(playlistSetupButton) playlistSetupButton.addEventListener("click",openFullPlaylist);
-  if(playlistClose) playlistClose.addEventListener("click",closeFullPlaylist);
-  qsa("[data-close-playlist]").forEach(function(backdrop){
-    backdrop.addEventListener("click",closeFullPlaylist);
-  });
-
   if(volumeSlider){
     volumeSlider.addEventListener("input",function(){
       setVolume(Number(volumeSlider.value)/100);
@@ -457,9 +418,7 @@ document.addEventListener("DOMContentLoaded",function(){
   }
 
   document.addEventListener("keydown",function(event){
-    if(event.key!=="Escape") return;
-    if(playlistModal && playlistModal.classList.contains("open")) closeFullPlaylist();
-    else if(setup && setup.classList.contains("open")) closeSetup();
+    if(event.key==="Escape" && setup && setup.classList.contains("open")) closeSetup();
   });
 
   qsa('a[href^="#"]').forEach(function(link){
