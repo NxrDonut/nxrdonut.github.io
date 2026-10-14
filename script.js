@@ -203,6 +203,7 @@ document.addEventListener("DOMContentLoaded",function(){
   }
 
   function shufflePlaylist(){
+    if(trackSort) trackSort.value="shuffle";
     updateTrackOrder("shuffle");
     const candidate=trackOrder.find(function(trackIndex){return trackIndex!==index;});
     if(Number.isInteger(candidate)) index=candidate;
