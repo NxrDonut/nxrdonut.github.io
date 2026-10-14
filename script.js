@@ -17,47 +17,47 @@ document.addEventListener("DOMContentLoaded",function(){
   const trackSearchCount=qs("#trackSearchCount");
 
   const tracks=[
-    ["Hoes Come Easy","FOREVER$TRONG",72,1266],
-    ["National Treasures","DRAKE",61,984],
-    ["Low Life","FUTURE",68,1127],
-    ["Love Sosa","CHIEF KEEF",56,861],
-    ["Stay Schemin","RICK ROSS",49,743],
-    ["Night, Blooming Jasmine.","FAKEMINK",43,612],
-    ["Vyzee (Extended Remix) (Slowed & Reverb)","SOPHIE · Moltisanti",null,0],
-    ["Queen St","twentythree",null,0],
-    ["Fall From The Sky PT.2 (Slowed)","RomancePlanet & Stakillaz",null,0],
-    ["Worry (Ultra Slowed)","LONOWN & Riserayys",null,0],
-    ["Love Me (feat. Drake & Future)","Lil Wayne",null,0],
-    ["She Will (feat. Drake)","Lil Wayne",null,0],
-    ["Sweater Weather","The Neighbourhood",null,0],
-    ["Loser","Tame Impala",null,0],
-    ["Now or Never","TKANDZ & CXSPER",null,0],
-    ["Janice STFU","Drake",null,0],
-    ["Black Beatles (feat. Gucci Mane)","Rae Sremmurd",null,0],
-    ["The Days (NOTION REMIX)","CHRYSTAL",null,0],
-    ["Made It This Far","MA Beats & BXCO",null,0],
-    ["Skin","otuka",null,0],
-    ["Track 10 (best part)","Elliot Sutton",null,0],
-    ["Legacy (Slowed Down) (feat. PIXY)","backfromparadise",null,0],
-    ["The Hills","The Weeknd",null,0],
-    ["Blue Bands","Weiland",null,0],
-    ["Cinderella (feat. Ty Dolla $ign)","Mac Miller",null,0],
-    ["Hate Bein' Sober (feat. 50 Cent & Wiz Khalifa)","Chief Keef",null,0],
-    ["I Don't Like (feat. Lil Reese)","Chief Keef",null,0],
-    ["24 songs","Playboi Carti",null,0],
-    ["Body","23mir",null,0],
-    ["Empire State of Mind (feat. Alicia Keys)","JAY-Z",null,0],
-    ["NIGHTS LIKE THIS","The Kid LAROI",null,0],
-    ["Blow My High","Dee Mula",null,0],
-    ["LVL","A$AP Rocky",null,0],
-    ["Mr. Rager","Kid Cudi",null,0],
-    ["9","Drake",null,0],
-    ["Summer Bummer (Lights On)","RhyRhy",null,0],
-    ["Meet Me in the Lobby","poferct",null,0],
-    ["Took Her to the O (Slowed)","King Von",null,0],
-    ["I LOVE YOU SO JUMPSTYLE","HUSSVRX",null,0]
+    ["Hoes Come Easy","FOREVER$TRONG"],
+    ["National Treasures","DRAKE"],
+    ["Low Life","FUTURE"],
+    ["Love Sosa","CHIEF KEEF"],
+    ["Stay Schemin","RICK ROSS"],
+    ["Night, Blooming Jasmine.","FAKEMINK"],
+    ["Vyzee (Extended Remix) (Slowed & Reverb)","SOPHIE · Moltisanti"],
+    ["Queen St","twentythree"],
+    ["Fall From The Sky PT.2 (Slowed)","RomancePlanet & Stakillaz"],
+    ["Worry (Ultra Slowed)","LONOWN & Riserayys"],
+    ["Love Me (feat. Drake & Future)","Lil Wayne"],
+    ["She Will (feat. Drake)","Lil Wayne"],
+    ["Sweater Weather","The Neighbourhood"],
+    ["Loser","Tame Impala"],
+    ["Now or Never","TKANDZ & CXSPER"],
+    ["Janice STFU","Drake"],
+    ["Black Beatles (feat. Gucci Mane)","Rae Sremmurd"],
+    ["The Days (NOTION REMIX)","CHRYSTAL"],
+    ["Made It This Far","MA Beats & BXCO"],
+    ["Skin","otuka"],
+    ["Track 10 (best part)","Elliot Sutton"],
+    ["Legacy (Slowed Down) (feat. PIXY)","backfromparadise"],
+    ["The Hills","The Weeknd"],
+    ["Blue Bands","Weiland"],
+    ["Cinderella (feat. Ty Dolla $ign)","Mac Miller"],
+    ["Hate Bein' Sober (feat. 50 Cent & Wiz Khalifa)","Chief Keef"],
+    ["I Don't Like (feat. Lil Reese)","Chief Keef"],
+    ["24 songs","Playboi Carti"],
+    ["Body","23mir"],
+    ["Empire State of Mind (feat. Alicia Keys)","JAY-Z"],
+    ["NIGHTS LIKE THIS","The Kid LAROI"],
+    ["Blow My High","Dee Mula"],
+    ["LVL","A$AP Rocky"],
+    ["Mr. Rager","Kid Cudi"],
+    ["9","Drake"],
+    ["Summer Bummer (Lights On)","RhyRhy"],
+    ["Meet Me in the Lobby","poferct"],
+    ["Took Her to the O (Slowed)","King Von"],
+    ["I LOVE YOU SO JUMPSTYLE","HUSSVRX"]
   ].map(function(x,i){
-    return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2],baseViews:x[3]};
+    return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],youtubeVideoId:null,youtubeViews:null,spotifyTrackUrl:null,spotifyStreams:null};
   });
 
   let entered=false;
@@ -100,42 +100,6 @@ document.addEventListener("DOMContentLoaded",function(){
     const remote=await getCounter("profile-views");
     const view=qs("#viewCount");
     if(view) view.textContent=formatCount(PROFILE_BASE_VIEWS+(remote||0));
-  }
-
-  async function refreshTrackViews(){
-    const totals=await Promise.all(tracks.map(function(track,i){
-      return getCounter("song-"+i);
-    }));
-    let leaderIndex=0;
-    let leaderViews=-1;
-
-    tracks.forEach(function(track,i){
-      const remote=totals[i]===null?0:totals[i];
-      const total=track.baseViews+remote;
-      if(total>leaderViews){
-        leaderViews=total;
-        leaderIndex=i;
-      }
-    });
-
-    tracks.forEach(function(track,i){
-      const row=qs('.track-choice[data-i="'+i+'"]');
-      if(!row) return;
-      const view=row.querySelector(".track-views");
-      const remote=totals[i]===null?0:totals[i];
-      const totalViews=track.baseViews+remote;
-      if(view) view.textContent=totalViews>0?formatCount(totalViews):"";
-      row.classList.toggle("most-popular",i===leaderIndex);
-      const oldLabel=row.querySelector(".most-popular-label");
-      if(oldLabel) oldLabel.remove();
-      if(i===leaderIndex){
-        const label=document.createElement("span");
-        label.className="most-popular-label";
-        label.textContent="MOST POPULAR";
-        const titleLine=row.querySelector(".track-title-line");
-        if(titleLine) titleLine.appendChild(label);
-      }
-    });
   }
 
   function setVolume(value){
@@ -207,15 +171,13 @@ document.addEventListener("DOMContentLoaded",function(){
     const box=qs("#trackChoices");
     if(!box) return;
     box.innerHTML=tracks.map(function(track,i){
-      const popularity=track.popularity===null
-        ? '<span class="track-data-muted">—</span>'
-        : '<span class="track-pop-cell"><span class="pop-bar" role="img" aria-label="Popularity '+track.popularity+' percent"><i style="--pop:'+track.popularity+'%"></i></span><b class="track-popularity">'+track.popularity+'%</b></span>';
-      const plays=track.baseViews>0?formatCount(track.baseViews):"";
+      const youtubeViews=track.youtubeViews===null?"—":formatCount(track.youtubeViews);
+      const spotifyStreams=track.spotifyStreams===null?"—":formatCount(track.spotifyStreams);
       return '<button class="track-choice" type="button" data-i="'+i+'" aria-label="Select '+track.title+' by '+track.artist+'" aria-pressed="false">'+
         '<span class="track-num"><span class="track-index">'+String(i+1).padStart(2,"0")+'</span><span class="track-play" aria-hidden="true">▶</span></span>'+
         '<span class="track-info"><span class="track-title-line"><strong>'+track.title+'</strong></span><small>'+track.artist+'</small></span>'+
-        '<span class="track-popularity-cell">'+popularity+'</span>'+
-        '<span class="track-playcount"><span class="track-views">'+plays+'</span></span></button>';
+        '<span class="track-platform-count youtube-view-count">'+youtubeViews+'</span>'+
+        '<span class="track-platform-count spotify-stream-count">'+spotifyStreams+'</span></button>';
     }).join("");
     box.addEventListener("click",function(event){
       const button=event.target.closest(".track-choice");
@@ -311,20 +273,9 @@ document.addEventListener("DOMContentLoaded",function(){
     document.body.classList.remove("locked");
     apply();
 
-    const results=await Promise.all([
-      hitCounter("profile-views"),
-      hitCounter("song-"+index)
-    ]);
-
-    const profileRemote=results[0];
-    const songRemote=results[1];
-
+    const profileRemote=await hitCounter("profile-views");
     const profile=qs("#viewCount");
     if(profile && profileRemote!==null) profile.textContent=formatCount(PROFILE_BASE_VIEWS+profileRemote);
-
-    const row=qs('.track-choice[data-i="'+index+'"]');
-    const songView=row ? row.querySelector(".track-views") : null;
-    if(songView && songRemote!==null) songView.textContent=formatCount(tracks[index].baseViews+songRemote);
 
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
@@ -502,6 +453,4 @@ document.addEventListener("DOMContentLoaded",function(){
   render();
   setVolume(volumeSlider ? Number(volumeSlider.value)/100 : 0.42);
   apply();
-  refreshTrackViews();
-  setInterval(refreshTrackViews,60000);
 });
