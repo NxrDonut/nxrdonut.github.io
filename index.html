@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css?v=14">
+<link rel="stylesheet" href="./style.css?v=15">
 </head>
 <body class="locked">
 <div id="intro" class="intro" role="button" tabindex="0" aria-label="Click anywhere to enter experience">
@@ -25,12 +25,18 @@
 <div class="setup-grid">
 <div class="setup-section song-section">
   <div class="setup-label"><span class="setup-label-title">YOUR MUSIC</span></div>
-  <label class="track-search"><span aria-hidden="true">⌕</span><input id="trackSearch" type="search" placeholder="Search songs or artists" autocomplete="off" spellcheck="false" aria-label="Search songs or artists"></label>
-  <div class="library-filters" role="group" aria-label="Filter music library">
-    <button class="library-filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
-    <button class="library-filter" type="button" data-filter="liked" aria-pressed="false">Liked</button>
-    <button class="library-filter" type="button" data-filter="disliked" aria-pressed="false">Disliked</button>
-    <button class="library-filter" type="button" data-filter="favorites" aria-pressed="false">Favourites</button>
+  <div class="track-library-toolbar">
+    <label class="track-search"><span aria-hidden="true">⌕</span><input id="trackSearch" type="search" placeholder="Search songs or artists" autocomplete="off" spellcheck="false" aria-label="Search songs or artists"></label>
+    <div class="track-library-actions">
+      <label class="track-sort-wrap"><span class="sr-only">Sort playlist</span><select id="trackSort" aria-label="Sort playlist" title="Sort playlist">
+        <option value="playlist">Playlist order</option>
+        <option value="most">Most played here</option>
+        <option value="least">Least played here</option>
+        <option value="az">Title A–Z</option>
+        <option value="recent">Recently added</option>
+      </select></label>
+      <button id="shuffleTracks" class="track-shuffle" type="button" title="Shuffle playlist order" aria-label="Shuffle playlist order"><span aria-hidden="true">⤨</span><b>SHUFFLE</b></button>
+    </div>
   </div>
   <div id="trackSearchCount" class="track-search-count" aria-live="polite">39 TRACKS</div>
   <div id="trackChoices" class="track-choices"></div>
@@ -106,6 +112,6 @@
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
 <audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
-<script src="./script.js?v=39"></script>
+<script src="./script.js?v=40"></script>
 </body>
 </html>
