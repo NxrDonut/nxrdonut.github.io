@@ -1239,3 +1239,249 @@ body[data-cursor="classic"] .cursor-glow{opacity:.25}
   .track-choices{max-height:36vh}
 }
 
+/* Streaming-style playlist rows */
+.setup-card{
+  width:min(900px,94vw);
+  max-height:90vh;
+  padding:clamp(17px,2.6vw,27px);
+}
+.setup-top{padding-bottom:15px}
+.setup-top h2{font-size:clamp(27px,3.8vw,36px)}
+.setup-grid{padding:13px 0 10px}
+.setup-label{margin-bottom:9px}
+.track-list-head{
+  display:grid;
+  grid-template-columns:36px minmax(0,1fr) 125px 66px;
+  align-items:center;
+  gap:12px;
+  padding:0 12px 8px;
+  color:#5d5d5d;
+  font:700 6px/1.4 Manrope;
+  letter-spacing:.16em;
+}
+.track-list-head span:nth-child(3),
+.track-list-head span:nth-child(4){text-align:right}
+.track-choices{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  max-height:min(48vh,430px);
+  overflow-x:hidden;
+  overflow-y:auto;
+  padding:0 3px 4px 0;
+  border-top:1px solid rgba(255,255,255,.065);
+  scrollbar-width:thin;
+  scrollbar-color:#343434 transparent;
+}
+.track-choice{
+  display:grid;
+  grid-template-columns:36px minmax(0,1fr) 125px 66px;
+  align-items:center;
+  gap:12px;
+  min-height:55px;
+  padding:8px 12px;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.055);
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  text-align:left;
+  transform:none;
+  transition:background .16s,border-color .16s;
+}
+.track-choice:last-child{border-bottom-color:transparent}
+.track-choice:hover{
+  background:rgba(255,255,255,.045);
+  border-color:rgba(255,255,255,.055);
+  box-shadow:none;
+  transform:none;
+}
+.track-choice.selected{
+  background:rgba(255,255,255,.065);
+  border-color:rgba(255,255,255,.075);
+  box-shadow:inset 2px 0 #e8e8e8;
+}
+.track-choice:focus-visible{
+  position:relative;
+  z-index:1;
+  outline:1px solid rgba(255,255,255,.5);
+  outline-offset:-2px;
+}
+.track-num{
+  display:grid;
+  place-items:center;
+  align-self:stretch;
+  color:#686868;
+  font:500 10px/1 Manrope;
+  font-variant-numeric:tabular-nums;
+}
+.track-index{display:block}
+.track-play{
+  display:none;
+  color:#f0f0f0;
+  font:700 9px/1 Manrope;
+}
+.track-choice:hover .track-index,
+.track-choice:focus-visible .track-index,
+.track-choice.selected .track-index{display:none}
+.track-choice:hover .track-play,
+.track-choice:focus-visible .track-play,
+.track-choice.selected .track-play{display:block}
+.track-info{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  justify-content:center;
+  gap:4px;
+  padding-right:0!important;
+}
+.track-title-line{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:0;
+}
+.track-choice strong{
+  display:block;
+  min-width:0;
+  max-width:100%;
+  overflow:hidden;
+  color:#e9e9e9;
+  font:600 10px/1.35 "DM Sans",sans-serif;
+  letter-spacing:0;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.track-choice small{
+  display:block;
+  margin:0;
+  overflow:hidden;
+  color:#777;
+  font:400 8px/1.3 "DM Sans",sans-serif;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.track-popularity-cell{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  min-width:0;
+}
+.track-pop-cell{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:7px;
+  min-width:0;
+}
+.track-pop-cell .pop-bar{
+  display:block;
+  width:42px;
+  min-width:42px;
+  max-width:42px;
+  height:3px;
+  overflow:hidden;
+  border-radius:99px;
+  background:#2b2b2b;
+}
+.track-pop-cell .pop-bar i{
+  display:block;
+  height:100%;
+  border-radius:99px;
+  background:linear-gradient(90deg,#707070,#e8e8e8);
+}
+.track-popularity-cell .track-popularity{
+  display:block;
+  min-width:24px;
+  color:#999;
+  font:600 7px/1 Manrope;
+  font-variant-numeric:tabular-nums;
+  text-align:right;
+}
+.track-data-muted{
+  color:#454545;
+  font:500 9px/1 Manrope;
+}
+.track-playcount{
+  display:block;
+  min-width:0;
+  color:#777;
+  font:500 8px/1 Manrope;
+  font-variant-numeric:tabular-nums;
+  text-align:right;
+}
+.track-playcount .track-views{
+  display:block!important;
+  min-width:0;
+  overflow:hidden;
+  color:#777;
+  font:500 8px/1 Manrope;
+  letter-spacing:0;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.track-playcount .track-views:empty::before{content:"—";color:#454545}
+.track-stats{display:none!important}
+.track-choice.most-popular .track-title-line .most-popular-label{
+  position:static;
+  display:inline-flex;
+  flex:0 0 auto;
+  align-items:center;
+  max-width:100px;
+  overflow:hidden;
+  padding:3px 5px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:4px;
+  background:rgba(255,255,255,.025);
+  color:#aaa;
+  font:700 5px/1 Manrope;
+  letter-spacing:.1em;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  opacity:.8;
+}
+.setup-track-nav{
+  margin-top:5px;
+  padding:0 5px;
+  border-top:1px solid rgba(255,255,255,.055);
+}
+.setup-track-nav button{
+  padding:10px 0 5px;
+  font-size:7px;
+}
+@media(max-width:640px){
+  .setup-card{width:min(540px,94vw);max-height:91vh;padding:15px}
+  .track-list-head{
+    grid-template-columns:28px minmax(0,1fr) 68px;
+    gap:8px;
+    padding:0 9px 8px;
+  }
+  .track-list-head span:nth-child(3){text-align:right}
+  .track-list-head span:nth-child(4){display:none}
+  .track-choice{
+    grid-template-columns:28px minmax(0,1fr) 68px;
+    gap:8px;
+    min-height:53px;
+    padding:8px 9px;
+  }
+  .track-pop-cell{gap:5px}
+  .track-pop-cell .pop-bar{width:24px;min-width:24px;max-width:24px}
+  .track-popularity-cell .track-popularity{min-width:22px;font-size:7px}
+  .track-playcount{display:none}
+  .track-choice strong{font-size:10px}
+  .track-choice small{font-size:8px}
+  .track-choice.most-popular .track-title-line .most-popular-label{max-width:84px;font-size:4.5px}
+  .track-choices{max-height:45vh}
+}
+@media(max-width:390px){
+  .track-list-head{grid-template-columns:24px minmax(0,1fr) 53px;gap:7px;padding-left:6px;padding-right:6px}
+  .track-choice{grid-template-columns:24px minmax(0,1fr) 53px;gap:7px;padding-left:6px;padding-right:6px}
+  .track-pop-cell .pop-bar{display:none}
+  .track-popularity-cell .track-popularity{font-size:6px}
+  .track-choice.most-popular .track-title-line .most-popular-label{max-width:70px}
+}
+@media(max-height:720px){
+  .setup-card{max-height:94vh}
+  .track-choices{max-height:40vh}
+}
+
