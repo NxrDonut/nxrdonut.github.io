@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded",function(){
     ["Summer Bummer (Lights On)","RhyRhy",null,0],
     ["Meet Me in the Lobby","poferct",null,0],
     ["Took Her to the O (Slowed)","King Von",null,0],
-    ["Reggie Pack","Cuffem",null,0]
+    ["I LOVE YOU SO JUMPSTYLE","HUSSVRX",null,0]
   ].map(function(x,i){
     return {src:"./music/song"+(i+1)+".mp3",title:x[0],artist:x[1],popularity:x[2],baseViews:x[3]};
   });
