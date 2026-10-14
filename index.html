@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css?v=11">
+<link rel="stylesheet" href="./style.css?v=12">
 </head>
 <body class="locked">
 <div id="intro" class="intro" role="button" tabindex="0" aria-label="Click anywhere to enter experience">
@@ -27,7 +27,8 @@
   <div class="setup-label"><span class="setup-label-title">SELECT A TRACK</span><span id="trackNumber">01 / 39</span></div>
   <label class="track-search"><span aria-hidden="true">⌕</span><input id="trackSearch" type="search" placeholder="Search tracks or artists" autocomplete="off" spellcheck="false" aria-label="Search tracks or artists"></label>
   <div id="trackSearchCount" class="track-search-count" aria-live="polite">39 TRACKS</div>
-  <div class="track-list-head" aria-hidden="true"><span>#</span><span>TRACK</span><span>POPULARITY</span><span>PLAYS</span></div>
+  <div class="track-source-note">YOUTUBE VIEWS <span>·</span> SPOTIFY STREAMS <span>·</span> — MEANS SOURCE DATA ISN'T CONNECTED YET</div>
+  <div class="track-list-head" aria-hidden="true"><span>#</span><span>TRACK</span><span>YT VIEWS</span><span>SPOTIFY STREAMS</span></div>
   <div id="trackChoices" class="track-choices"></div>
   <div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div>
 </div>
@@ -100,6 +101,6 @@
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
 <audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
-<script src="./script.js?v=37"></script>
+<script src="./script.js?v=38"></script>
 </body>
 </html>
