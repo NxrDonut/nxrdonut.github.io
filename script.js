@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded",function(){
       const view=row.querySelector(".track-views");
       const remote=totals[i]===null?0:totals[i];
       const totalViews=track.baseViews+remote;
-      if(view) view.textContent=totalViews>0?formatCount(totalViews)+" plays":"";
+      if(view) view.textContent=totalViews>0?formatCount(totalViews):"";
       row.classList.toggle("most-popular",i===leaderIndex);
       const oldLabel=row.querySelector(".most-popular-label");
       if(oldLabel) oldLabel.remove();
@@ -132,7 +132,8 @@ document.addEventListener("DOMContentLoaded",function(){
         const label=document.createElement("span");
         label.className="most-popular-label";
         label.textContent="MOST POPULAR";
-        row.appendChild(label);
+        const titleLine=row.querySelector(".track-title-line");
+        if(titleLine) titleLine.appendChild(label);
       }
     });
   }
@@ -212,7 +213,7 @@ document.addEventListener("DOMContentLoaded",function(){
       const plays=track.baseViews>0?formatCount(track.baseViews):"";
       return '<button class="track-choice" type="button" data-i="'+i+'" aria-label="Select '+track.title+' by '+track.artist+'" aria-pressed="false">'+
         '<span class="track-num"><span class="track-index">'+String(i+1).padStart(2,"0")+'</span><span class="track-play" aria-hidden="true">▶</span></span>'+
-        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small></span>'+
+        '<span class="track-info"><span class="track-title-line"><strong>'+track.title+'</strong></span><small>'+track.artist+'</small></span>'+
         '<span class="track-popularity-cell">'+popularity+'</span>'+
         '<span class="track-playcount"><span class="track-views">'+plays+'</span></span></button>';
     }).join("");
@@ -323,7 +324,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
     const row=qs('.track-choice[data-i="'+index+'"]');
     const songView=row ? row.querySelector(".track-views") : null;
-    if(songView && songRemote!==null) songView.textContent=formatCount(tracks[index].baseViews+songRemote)+" plays";
+    if(songView && songRemote!==null) songView.textContent=formatCount(tracks[index].baseViews+songRemote);
 
     if(audio) audio.play().catch(function(){});
     if(wave) wave.classList.remove("paused");
