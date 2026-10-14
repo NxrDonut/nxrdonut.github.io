@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./style.css?v=13">
+<link rel="stylesheet" href="./style.css?v=14">
 </head>
 <body class="locked">
 <div id="intro" class="intro" role="button" tabindex="0" aria-label="Click anywhere to enter experience">
@@ -24,11 +24,15 @@
 <div class="setup-top"><div><small>PERSONALIZE EXPERIENCE</small><h2 id="setupTitle">Choose your soundtrack.</h2><p>Pick a track to set the tone. You can switch songs anytime.</p></div><button id="closeSetup" class="setup-close" type="button" aria-label="Close">×</button></div>
 <div class="setup-grid">
 <div class="setup-section song-section">
-  <div class="setup-label"><span class="setup-label-title">SELECT A TRACK</span><span id="trackNumber">01 / 39</span></div>
-  <label class="track-search"><span aria-hidden="true">⌕</span><input id="trackSearch" type="search" placeholder="Search tracks or artists" autocomplete="off" spellcheck="false" aria-label="Search tracks or artists"></label>
+  <div class="setup-label"><span class="setup-label-title">YOUR MUSIC</span></div>
+  <label class="track-search"><span aria-hidden="true">⌕</span><input id="trackSearch" type="search" placeholder="Search songs or artists" autocomplete="off" spellcheck="false" aria-label="Search songs or artists"></label>
+  <div class="library-filters" role="group" aria-label="Filter music library">
+    <button class="library-filter is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+    <button class="library-filter" type="button" data-filter="liked" aria-pressed="false">Liked</button>
+    <button class="library-filter" type="button" data-filter="disliked" aria-pressed="false">Disliked</button>
+    <button class="library-filter" type="button" data-filter="favorites" aria-pressed="false">Favourites</button>
+  </div>
   <div id="trackSearchCount" class="track-search-count" aria-live="polite">39 TRACKS</div>
-  <div class="track-source-note">YOUTUBE VIEWS <span>·</span> SPOTIFY STREAMS <span>·</span> — MEANS SOURCE DATA ISN'T CONNECTED YET</div>
-  <div class="track-list-head" aria-hidden="true"><span>#</span><span>TRACK</span><span>YT VIEWS</span><span>SPOTIFY STREAMS</span></div>
   <div id="trackChoices" class="track-choices"></div>
   <div class="setup-track-nav"><button id="prevTrack" type="button">‹ PREVIOUS</button><button id="nextTrack" type="button">NEXT ›</button></div>
 </div>
@@ -64,6 +68,7 @@
         <button id="musicBack" class="music-skip magnetic" type="button" aria-label="Restart current song; double-click for previous" title="Restart • double-click for previous">‹</button>
         <button id="musicPause" class="music-skip music-pause magnetic" type="button" aria-label="Pause music" title="Pause / play">Ⅱ</button>
         <button id="musicSkip" class="music-skip magnetic" type="button" aria-label="Next song" title="Next song">›</button>
+        <button id="musicLibraryToggle" class="music-skip music-library-toggle" type="button" aria-label="Open music library" title="Music library">☷</button>
         <div class="volume" id="volumeControl">
           <button id="volumeToggle" class="volume-btn" type="button" aria-label="Mute music" aria-pressed="false" title="Mute music"><span class="volume-glyph" aria-hidden="true">VOL</span></button>
           <div class="volume-control">
@@ -101,6 +106,6 @@
 
 <footer class="footer"><span>NXR / DONUT</span><small>BUILT WITH INTENT</small></footer>
 <audio id="audio" src="./music/song1.mp3" preload="auto"></audio>
-<script src="./script.js?v=38"></script>
+<script src="./script.js?v=39"></script>
 </body>
 </html>
