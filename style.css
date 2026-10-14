@@ -1485,3 +1485,71 @@ body[data-cursor="classic"] .cursor-glow{opacity:.25}
   .track-choices{max-height:40vh}
 }
 
+/* Source statistics only: never show popularity scores or synthetic play counts */
+.track-list-head{
+  grid-template-columns:32px minmax(0,1fr) 76px 112px;
+}
+.track-list-head span:nth-child(3),
+.track-list-head span:nth-child(4){text-align:right}
+.track-choice{
+  grid-template-columns:32px minmax(0,1fr) 76px 112px;
+}
+.track-popularity-cell,
+.track-stats,
+.track-pop-cell,
+.track-popularity,
+.track-data-muted,
+.track-new{display:none!important}
+.track-platform-count{
+  display:block;
+  min-width:0;
+  color:#777;
+  font:500 8px/1 Manrope;
+  font-variant-numeric:tabular-nums;
+  text-align:right;
+}
+.track-source-note{
+  margin:0 2px 8px;
+  color:#555;
+  font:600 6px/1.5 Manrope;
+  letter-spacing:.075em;
+}
+.track-source-note span{padding:0 4px;color:#353535}
+.track-title-line .most-popular-label{display:none!important}
+@media(max-width:640px){
+  .track-list-head{
+    grid-template-columns:24px minmax(0,1fr) 53px 62px;
+    gap:7px;
+    padding-left:6px;
+    padding-right:6px;
+    letter-spacing:.08em;
+    font-size:5.5px;
+  }
+  .track-choice{
+    grid-template-columns:24px minmax(0,1fr) 53px 62px;
+    gap:7px;
+    padding-left:6px;
+    padding-right:6px;
+  }
+  .track-platform-count{font-size:6px}
+  .track-source-note{font-size:5.5px;letter-spacing:.04em}
+}
+@media(max-width:380px){
+  .track-list-head{
+    grid-template-columns:20px minmax(0,1fr) 45px 50px;
+    gap:5px;
+    padding-left:4px;
+    padding-right:4px;
+    font-size:5px;
+  }
+  .track-choice{
+    grid-template-columns:20px minmax(0,1fr) 45px 50px;
+    gap:5px;
+    padding-left:4px;
+    padding-right:4px;
+  }
+  .track-platform-count{font-size:5.5px}
+  .track-choice strong{font-size:9px}
+  .track-choice small{font-size:7px}
+}
+
