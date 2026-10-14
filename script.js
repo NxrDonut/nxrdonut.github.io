@@ -206,13 +206,15 @@ document.addEventListener("DOMContentLoaded",function(){
     const box=qs("#trackChoices");
     if(!box) return;
     box.innerHTML=tracks.map(function(track,i){
-      const meta=track.popularity===null
-        ? '<span class="track-stats"><span class="track-new">ADDED</span><label class="track-views"></label></span>'
-        : '<span class="track-stats"><span class="pop-bar" role="img" aria-label="Popularity '+track.popularity+' percent"><i style="--pop:'+track.popularity+'%"></i></span><b class="track-popularity">'+track.popularity+'%</b><label class="track-views">'+formatCount(track.baseViews)+' plays</label></span>';
+      const popularity=track.popularity===null
+        ? '<span class="track-data-muted">—</span>'
+        : '<span class="track-pop-cell"><span class="pop-bar" role="img" aria-label="Popularity '+track.popularity+' percent"><i style="--pop:'+track.popularity+'%"></i></span><b class="track-popularity">'+track.popularity+'%</b></span>';
+      const plays=track.baseViews>0?formatCount(track.baseViews):"";
       return '<button class="track-choice" type="button" data-i="'+i+'" aria-label="Select '+track.title+' by '+track.artist+'" aria-pressed="false">'+
-        '<span class="track-num">'+String(i+1).padStart(2,"0")+'</span>'+
-        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small>'+meta+'</span>'+
-        '<span class="track-arrow" aria-hidden="true">›</span></button>';
+        '<span class="track-num"><span class="track-index">'+String(i+1).padStart(2,"0")+'</span><span class="track-play" aria-hidden="true">▶</span></span>'+
+        '<span class="track-info"><strong>'+track.title+'</strong><small>'+track.artist+'</small></span>'+
+        '<span class="track-popularity-cell">'+popularity+'</span>'+
+        '<span class="track-playcount"><span class="track-views">'+plays+'</span></span></button>';
     }).join("");
     box.addEventListener("click",function(event){
       const button=event.target.closest(".track-choice");
